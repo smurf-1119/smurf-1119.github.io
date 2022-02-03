@@ -83,7 +83,7 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1643902292022">
+  <link rel="stylesheet" href="/css/style.css?v=1643902565487">
   <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
@@ -713,7 +713,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;</span><br><span class="line">SELECT ?who ?g ?mbox</span><br><span class="line">FROM &lt;http://example.org/dft.ttl&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/alice&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/bob&gt;</span><br><span class="line">WHERE</span><br><span class="line">&#123;</span><br><span class="line">?g dc:publisher ?who .</span><br><span class="line">GRAPH ?g &#123; ?x foaf:mbox ?mbox &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Answer:<br>| who   | g     | mbox |<br>| ——— | ————— | ————— |<br>| “Bob Hacker” | \<a target="_blank" rel="noopener" href="http://example.org/bob">http://example.org/bob</a> | \<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#98;&#x6f;&#x62;&#x40;&#111;&#108;&#100;&#99;&#x6f;&#114;&#x70;&#46;&#x65;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#46;&#x6f;&#x72;&#x67;&#x5c;">&#98;&#x6f;&#x62;&#x40;&#111;&#108;&#100;&#99;&#x6f;&#114;&#x70;&#46;&#x65;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#46;&#x6f;&#x72;&#x67;&#x5c;</a>|<br>| “Alice Hacker” |  \<a target="_blank" rel="noopener" href="http://example.org/alice">http://example.org/alice</a> | <mailto:alice@work.example.org > |</li>
+<li>Answer:<br>| who   | g     | mbox |<br>| ——— | ————— | ————— |<br>| “Bob Hacker” | \<a target="_blank" rel="noopener" href="http://example.org/bob">http://example.org/bob</a> | \<a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#98;&#111;&#x62;&#x40;&#111;&#x6c;&#x64;&#x63;&#111;&#114;&#x70;&#46;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#46;&#x6f;&#x72;&#103;&#92;">&#98;&#111;&#x62;&#x40;&#111;&#x6c;&#x64;&#x63;&#111;&#114;&#x70;&#46;&#x65;&#x78;&#97;&#109;&#112;&#x6c;&#x65;&#46;&#x6f;&#x72;&#103;&#92;</a>|<br>| “Alice Hacker” |  \<a target="_blank" rel="noopener" href="http://example.org/alice">http://example.org/alice</a> | <mailto:alice@work.example.org > |</li>
 </ul>
 <h3 id="2-5-DESCRIBE"><a href="#2-5-DESCRIBE" class="headerlink" title="2.5 DESCRIBE"></a>2.5 DESCRIBE</h3><ul>
 <li>Result: an RDF graph (i.e., all RDF triples) that describes the resources found;</li>
@@ -1607,7 +1607,7 @@
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/app.js?v=1643902292024"></script>
+<script src="/js/app.js?v=1643902565490"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
 <script>
@@ -1642,6 +1642,10 @@
 <!-- hexo injector body_end start -->
 <script src="/js/clock.js"></script>
 
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
 
 <script src="/lib/codeBlock/codeBlockFuction.js"></script>
@@ -1653,10 +1657,6 @@
 <script src="/lib/codeBlock/codeShrink.js"></script>
 
 <link rel="stylesheet" href="/lib/codeBlock/matery.css">
-
-<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
-
-<script src="/js/search.js"></script>
 
 <script src="/js/webapp.js"></script>
 <!-- hexo injector body_end end --></body>
