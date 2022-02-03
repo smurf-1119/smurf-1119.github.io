@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Regular Expression - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="正则表达式操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Regular Expression">
+<meta property="og:url" content="http://example.com/2021/08/15/nlp%20learning/Chapter1_regularexpressions/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="正则表达式操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171654362.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171656827.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171657024.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171658850.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171659487.png">
+<meta property="og:image" content="http://example.com/2021/08/15/nlp%20learning/Chapter1_regularexpressions/img/image-20210817165955259.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171712755.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171713382.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171713722.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171714327.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171714709.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171714286.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171715101.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171715111.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171715161.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171716727.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171723575.png">
+<meta property="og:image" content="http://example.com/2021/08/15/nlp%20learning/Chapter1_regularexpressions/img/image-20210817172359823.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171724241.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171706202.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171706670.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171707074.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171708260.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171708118.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171726821.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171726166.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171726728.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171727166.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171727756.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171727026.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T16:22:33.676Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171654362.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292044">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Regular Expression" class="lazyload">
+            <h1>Regular Expression</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.3k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 14 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#re%E2%80%94-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">re—- 正则表达式操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E6%9C%89%EF%BC%9A"><span class="toc-number">1.0.1.</span> <span class="toc-text">特殊字符有：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#output-%E2%80%98foo%E2%80%99-%E2%80%98foo%E2%80%99-%E2%80%98foo%E2%80%99-%E2%80%98foo%E2%80%99"><span class="toc-number">1.0.1.0.1.</span> <span class="toc-text">output:  [‘foo’] [‘foo’] [‘foo’] [‘foo’] []</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Re-%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0"><span class="toc-number">1.1.</span> <span class="toc-text">Re.  相关函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8A%E8%AF%BE%E7%AC%94%E8%AE%B0-amp-%E9%87%8D%E7%82%B9"><span class="toc-number">2.</span> <span class="toc-text">上课笔记&amp;重点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E8%AF%BE%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.1.</span> <span class="toc-text">上课示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Finate-State-Automata"><span class="toc-number">2.2.</span> <span class="toc-text">Finate State Automata</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>正则表达式操作</p>
+<span id="more"></span>
+<h1 id="re—-正则表达式操作"><a href="#re—-正则表达式操作" class="headerlink" title="re—- 正则表达式操作"></a><code>re</code>—- 正则表达式操作</h1><ul>
+<li>正则表达式可以拼接；如果 <em>A</em> 和 <em>B</em> 都是正则表达式，则 <em>AB</em> 也是正则表达式。</li>
+<li>正则表达式可以包含普通或者特殊字符。绝大部分普通字符，比如 <code>'A'</code>, <code>'a'</code>, 或者 <code>'0'</code>，都是最简单的正则表达式。它们就匹配自身。你可以拼接普通字符，所以 <code>last</code> 匹配字符串 <code>'last'</code>. </li>
+<li>有些字符，比如 <code>'|'</code> 或者 <code>'('</code>，属于特殊字符。 特殊字符既可以表示它的普通含义， 也可以影响它旁边的正则表达式的解释。</li>
+<li>重复修饰符 (<code>*</code>, <code>+</code>, <code>?</code>, <code>{m,n}</code>, 等) 不能直接嵌套。这样避免了非贪婪后缀 <code>?</code> 修饰符，和其他实现中的修饰符产生的多义性。要应用一个内层重复嵌套，可以使用括号。 比如，表达式 <code>(?:a{6})*</code> 匹配6个 <code>'a'</code> 字符重复任意次数。</li>
+</ul>
+<h3 id="特殊字符有："><a href="#特殊字符有：" class="headerlink" title="特殊字符有："></a>特殊字符有：</h3><ul>
+<li><p><code>.</code></p>
+<p>(点) 在默认模式，匹配除了换行的任意字符。如果指定了标签 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/re.html#re.DOTALL"><code>DOTALL</code></a> ，它将匹配包括换行符的任意字符。</p>
+</li>
+<li><p><code>^</code></p>
+<p>(插入符号) 匹配字符串的开头， 并且在 [<code>MULTILINE</code>] 模式也匹配换行后的首个符号。</p>
+</li>
+<li><p><code>$</code></p>
+<p>匹配字符串尾或者在字符串尾的换行符的前一个字符，在 <code>MULTILINE</code>模式下也会匹配换行符之前的文本。 <code>foo</code> 匹配 ‘foo’ 和 ‘foobar’，但正则表达式 <code>foo$</code> 只匹配 ‘foo’。 更有趣的是，在 <code>'foo1\nfoo2\n'</code> 中搜索 <code>foo.$</code>，通常匹配 ‘foo2’，但在 [<code>MULTILINE</code>]模式下可以匹配到 ‘foo1’；在 <code>'foo\n'</code> 中搜索 <code>$</code> 会找到两个（空的）匹配：一个在换行符之前，一个在字符串的末尾。</p>
+</li>
+<li><p><code>*</code></p>
+<p>对它前面的正则式匹配0到任意次重复， 尽量多的匹配字符串。 <code>ab*</code> 会匹配 <code>'a'</code>，<code>'ab'</code>，或者 <code>'a'</code> 后面跟随任意个 <code>'b'</code>。</p>
+</li>
+<li><p><code>+</code></p>
+<p>对它前面的正则式匹配1到任意次重复。 <code>ab+</code> 会匹配 <code>'a'</code> 后面跟随1个以上到任意个 <code>'b'</code>，它不会匹配 <code>'a'</code>。</p>
+</li>
+<li><p><code>?</code></p>
+<p>对它前面的正则式匹配0到1次重复。 <code>ab?</code> 会匹配 <code>'a'</code> 或者 <code>'ab'</code></p>
+</li>
+<li><p><code>*?</code>, <code>+?</code>, <code>??</code></p>
+<p><code>'*'</code>, <code>'+'</code>，和 <code>'?'</code> 修饰符都是 <em>贪婪的</em>；它们在字符串进行尽可能多的匹配。有时候并不需要这种行为。如果正则式 <code>&lt;.*&gt;</code> 希望找到 <code>'&lt;a&gt; b &lt;c&gt;'</code>，它将会匹配整个字符串，而不仅是 <code>'&lt;a&gt;'</code>。在修饰符之后添加 <code>?</code> 将使样式以 <em>非贪婪<code>方式或者 :dfn:</code>最小</em> 方式进行匹配； 尽量 <em>少</em> 的字符将会被匹配。 使用正则式 <code>&lt;.*?&gt;</code> 将会仅仅匹配 <code>'&lt;a&gt;'</code>。</p>
+</li>
+<li><p><code>{m}</code></p>
+<p>对其之前的正则式指定匹配 <em>m</em> 个重复；少于 <em>m</em> 的话就会导致匹配失败。比如， <code>a{6}</code> 将匹配6个 <code>'a'</code> , 但是不能是5个。</p>
+</li>
+<li><p><code>{m,n}</code></p>
+<p>对正则式进行 <em>m</em> 到 <em>n</em> 次匹配，在 <em>m</em> 和 <em>n</em> 之间取尽量多。 比如，<code>a{3,5}</code> 将匹配 3 到 5个 <code>'a'</code>。忽略 <em>m</em> 意为指定下界为0，忽略 <em>n</em> 指定上界为无限次。 比如 <code>a{4,}b</code> 将匹配 <code>'aaaab'</code> 或者1000个 <code>'a'</code> 尾随一个 <code>'b'</code>，但不能匹配 <code>'aaab'</code>。逗号不能省略，否则无法辨别修饰符应该忽略哪个边界。</p>
+</li>
+<li><p><code>{m,n}?</code></p>
+<p>前一个修饰符的非贪婪模式，只匹配尽量少的字符次数。比如，对于 <code>'aaaaaa'</code>， <code>a{3,5}</code> 匹配 5个 <code>'a'</code> ，而 <code>a{3,5}?</code> 只匹配3个 <code>'a'</code>。</p>
+</li>
+</ul>
+<ul>
+<li><p><code>\</code></p>
+<p>转义特殊字符（允许你匹配 <code>'*'</code>, <code>'?'</code>, 或者此类其他），或者表示一个特殊序列；特殊序列之后进行讨论。<br>如果你没有使用原始字符串（ <code>r'raw'</code> ）来表达样式，要牢记Python也使用反斜杠作为转义序列；如果转义序列不被Python的分析器识别，反斜杠和字符才能出现在字符串中。如果Python可以识别这个序列，那么反斜杠就应该重复两次。这将导致理解障碍，所以高度推荐，就算是最简单的表达式，也要使用原始字符串。</p>
+</li>
+<li><p><code>[]</code></p>
+<p>用于表示一个字符集合。在一个集合中：</p>
+<ul>
+<li><p>字符可以单独列出，比如 <code>[amk]</code> 匹配 <code>'a'</code>， <code>'m'</code>， 或者 <code>'k'</code>。</p>
+</li>
+<li><p>可以表示字符范围，通过用 <code>'-'</code> 将两个字符连起来。比如 <code>[a-z]</code> 将匹配任何小写ASCII字符， <code>[0-5][0-9]</code> 将匹配从 <code>00</code> 到 <code>59</code> 的两位数字， <code>[0-9A-Fa-f]</code> 将匹配任何十六进制数位。 如果 <code>-</code> 进行了转义 （比如 <code>[a\-z]</code>）或者它的位置在首位或者末尾（如 <code>[-a]</code> 或 <code>[a-]</code>），它就只表示普通字符 <code>'-'</code>。</p>
+</li>
+<li><p>特殊字符在集合中，失去它的特殊含义。比如 <code>[(+*)]</code> 只会匹配这几个文法字符 <code>'('</code>, <code>'+'</code>, <code>'*'</code>, or <code>')'</code>。</p>
+</li>
+<li><p>字符类如 <code>\w</code> 或者 <code>\S</code> (如下定义) 在集合内可以接受，它们可以匹配的字符由 [<code>ASCII</code>]模式决定。</p>
+</li>
+<li><p>不在集合范围内的字符可以通过 <em>取反</em> 来进行匹配。如果集合首字符是 <code>'^'</code> ，所有 <em>不</em> 在集合内的字符将会被匹配，比如 <code>[^5]</code> 将匹配所有字符，除了 <code>'5'</code>， <code>[^^]</code> 将匹配所有字符，除了 <code>'^'</code>. <code>^</code> 如果不在集合首位，就没有特殊含义。</p>
+</li>
+<li>在集合内要匹配一个字符 <code>']'</code>，有两种方法，要么就在它之前加上反斜杠，要么就把它放到集合首位。比如， <code>[()[\]{}]</code> 和 <code>[]()[{}]</code> 都可以匹配括号</li>
+</ul>
+</li>
+<li><p><code>|</code></p>
+<p><code>`A|B</code>， <em>A</em> 和 <em>B</em> 可以是任意正则表达式，创建一个正则表达式，匹配 <em>A</em> 或者 <em>B</em>. 任意个正则表达式可以用 <code>'|'</code> 连接。它也可以在组合（见下列）内使用。扫描目标字符串时， <code>'|'</code> 分隔开的正则样式从左到右进行匹配。当一个样式完全匹配时，这个分支就被接受。意思就是，一旦 <em>A</em> 匹配成功， <em>B</em> 就不再进行匹配，即便它能产生一个更好的匹配。或者说，<code>'|'</code> 操作符绝不贪婪。 如果要匹配 <code>'|'</code> 字符，使用 <code>\|</code>， 或者把它包含在字符集里，比如 <code>[|]</code>.</p>
+</li>
+<li><p><code>(...)</code><br>（组合），匹配括号内的任意正则表达式，并标识出组合的开始和结尾。匹配完成后，组合的内容可以被获取，并可以在之后用 <code>\number</code> 转义序列进行再次匹配，之后进行详细说明。要匹配字符 <code>'('</code> 或者 <code>')'</code>, 用 <code>\(</code> 或 <code>\)</code>, 或者把它们包含在字符集合里: <code>[(]</code>, `[)]``</p>
+</li>
+<li><p><code>(?…)</code></p>
+<p>这是个扩展标记法 （一个 <code>'?'</code> 跟随 <code>'('</code> 并无含义）。 <code>'?'</code> 后面的第一个字符决定了这个构建采用什么样的语法。</p>
+</li>
+<li><p><code>`(?aiLmsux)</code></p>
+<p>( <code>'a'</code>, <code>'i'</code>, <code>'L'</code>, <code>'m'</code>, <code>'s'</code>, <code>'u'</code>, <code>'x'</code> 中的一个或多个) 这个组合匹配一个空字符串；</p>
+</li>
+<li><p><code>(?:…)</code></p>
+<p>正则括号的非捕获版本。 匹配在括号内的任何正则表达式，但该分组所匹配的子字符串 <em>不能</em> 在执行匹配后被获取或是之后在模式中被引用。</p>
+</li>
+<li><p><code>(?aiLmsux-imsx:…)</code></p>
+<p>(<code>'a'</code>, <code>'i'</code>, <code>'L'</code>, <code>'m'</code>, <code>'s'</code>, <code>'u'</code>, <code>'x'</code> 中的0或者多个， 之后可选跟随 <code>'-'</code> 在后面跟随 <code>'i'</code> , <code>'m'</code> , <code>'s'</code> , <code>'x'</code> 中的一到多个 .) </p>
+</li>
+<li><p><code>(?#…)</code></p>
+<p>注释；里面的内容会被忽略。</p>
+</li>
+<li><p><code>\number</code>:<code>\1</code></p>
+<p>匹配数字代表的组合。每个括号是一个组合，组合从1开始编号。比如 <code>(.+) \1</code> 匹配 <code>'the the'</code> 或者 <code>'55 55'</code>, 但不会匹配 <code>'thethe'</code> (注意组合后面的空格)。这个特殊序列只能用于匹配前面99个组合。如果 <em>number</em> 的第一个数位是0， 或者 <em>number</em> 是三个八进制数，它将不会被看作是一个组合，而是八进制的数字值。在 <code>'['</code> 和 <code>']'</code> 字符集合内，任何数字转义都被看作是字符。</p>
+</li>
+<li><p><code>\b</code></p>
+<p>匹配空字符串，但只在单词开始或结尾的位置。一个单词被定义为一个单词字符的序列。注意，通常 <code>\b</code> 定义为 <code>\w</code> 和 <code>\W</code> 字符之间，或者 <code>\w</code> 和字符串开始/结尾的边界， 意思就是 <code>r'\bfoo\b'</code> 匹配 <code>'foo'</code>, <code>'foo.'</code>, <code>'(foo)'</code>, <code>'bar foo baz'</code> 但不匹配 <code>'foobar'</code> 或者 <code>'foo3'</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">k = re.findall(<span class="string">r'\bfoo\b'</span>, <span class="string">'foo'</span>)</span><br><span class="line"><span class="built_in">print</span>(k)</span><br><span class="line"></span><br><span class="line">k = re.findall(<span class="string">r'\bfoo\b'</span>, <span class="string">'(foo)'</span>)</span><br><span class="line"><span class="built_in">print</span>(k)</span><br><span class="line"></span><br><span class="line">k = re.findall(<span class="string">r'\bfoo\b'</span>, <span class="string">'foo.'</span>)</span><br><span class="line"><span class="built_in">print</span>(k)</span><br><span class="line"></span><br><span class="line">k = re.findall(<span class="string">r'\bfoo\b'</span>, <span class="string">'bar foo bar'</span>)</span><br><span class="line"><span class="built_in">print</span>(k)</span><br><span class="line"></span><br><span class="line">k = re.findall(<span class="string">r'\bfoo\b'</span>, <span class="string">'foo3'</span>)</span><br><span class="line"><span class="built_in">print</span>(k)</span><br></pre></td></tr></table></figure>
+<h5 id="output-‘foo’-‘foo’-‘foo’-‘foo’"><a href="#output-‘foo’-‘foo’-‘foo’-‘foo’" class="headerlink" title="output:  [‘foo’] [‘foo’] [‘foo’] [‘foo’] []"></a><em>output:  [‘foo’] [‘foo’] [‘foo’] [‘foo’] []</em></h5></li>
+<li><p><code>\s</code></p>
+<ul>
+<li><p>对于 Unicode (str) 样式：</p>
+<p>匹配任何Unicode空白字符（包括 <code>[ \t\n\r\f\v]</code> ，还有很多其他字符，比如不同语言排版规则约定的不换行空格）。如果 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/re.html#re.ASCII"><code>ASCII</code></a> 被设置，就只匹配 <code>[ \t\n\r\f\v]</code> 。</p>
+</li>
+<li><p>对于8位(bytes)样式：</p>
+<p>匹配ASCII中的空白字符，就是 <code>[ \t\n\r\f\v]</code> 。</p>
+</li>
+</ul>
+</li>
+<li><p><code>\w</code></p>
+<ul>
+<li><p>对于 Unicode (str) 样式：</p>
+<p>匹配Unicode词语的字符，包含了可以构成词语的绝大部分字符，也包括数字和下划线。如果设置了 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/re.html#re.ASCII"><code>ASCII</code></a> 标志，就只匹配 <code>[a-zA-Z0-9_]</code> 。</p>
+</li>
+<li><p>对于8位(bytes)样式：</p>
+<p>匹配ASCII字符中的数字和字母和下划线，就是 <code>[a-zA-Z0-9_]</code> 。如果设置了 [<code>LOCALE</code>] 标记，就匹配当前语言区域的数字和字母和下划线。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Re-相关函数"><a href="#Re-相关函数" class="headerlink" title="Re.  相关函数"></a>Re.  相关函数</h2><ul>
+<li><p><code>re.``compile</code>(<em>pattern</em>, <em>flags=0</em>)</p>
+<p>将正则表达式的样式编译为一个 <a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/3/library/re.html#re-objects">正则表达式对象</a> （正则对象），可以用于匹配，通过这个对象的方法 [<code>match()</code>], [<code>search()</code>]以及其他如下描述。</p>
+<p>这个表达式的行为可以通过指定 <em>标记</em> 的值来改变。值可以是以下任意变量，可以通过位的OR操作来结合（ <code>|</code> 操作符）。</p>
+<p>序列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">prog = re.<span class="built_in">compile</span>(pattern)</span><br><span class="line">result = prog.match(string)</span><br></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = re.match(pattern, string)</span><br></pre></td></tr></table></figure>
+<p>如果需要多次使用这个正则表达式的话，使用 [<code>re.compile()</code>] 和保存这个正则对象以便复用，可以让程序更加高效。</p>
+<p><strong>注解:通过 [<code>re.compile()</code>]编译后的样式，和模块级的函数会被缓存， 所以少数的正则表达式使用无需考虑编译的问题。</strong></p>
+</li>
+<li><p><code>re.search</code>(<em>pattern</em>, <em>string</em>, <em>flags=0</em>)</p>
+<p>扫描整个 <em>字符串</em> 找到匹配样式的第一个位置，并返回一个相应的 [匹配对象]。如果没有匹配，就返回一个 <code>None</code> ； 注意这和找到一个零长度匹配是不同的。</p>
+</li>
+<li><p><code>re.match</code>(<em>pattern</em>, <em>string</em>, <em>flags=0</em>)</p>
+<p>如果 <em>string</em> 开始的0或者多个字符匹配到了正则表达式样式，就返回一个相应的 [匹配对象]。 如果没有匹配，就返回 <code>None</code> ；注意它跟零长度匹配是不同的</p>
+</li>
+<li><p><code>fullmatch</code>(<em>pattern</em>, <em>string</em>, <em>flags=0</em>)</p>
+<p>如果整个 <em>string</em> 匹配到正则表达式样式，就返回一个相应的 [匹配对象] 。 否则就返回一个 <code>None</code> ；注意这跟零长度匹配是不同的。</p>
+</li>
+<li><p><code>split</code>(<em>pattern</em>, <em>string</em>, <em>maxsplit=0</em>, <em>flags=0</em>)</p>
+<p>用 <em>pattern</em> 分开 <em>string</em> 。 如果在 <em>pattern</em> 中捕获到括号，那么所有的组里的文字也会包含在列表里。如果 <em>maxsplit</em> 非零， 最多进行 <em>maxsplit</em> 次分隔， 剩下的字符全部返回到列表的最后一个元素。</p>
+<ul>
+<li>re.split()切割功能非常强大<br><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171654362.png" style="zoom:80%;"></li>
+<li>单字符切割<br><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171656827.png" style="zoom:80%;"></li>
+<li>两个字符以上切割需要放在 [ ] 中<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171657024.png" alt="" class="lazyload"></li>
+<li>所有空白字符切割<br><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171658850.png" style="zoom:80%;"></li>
+<li>使用括号捕获分组，默认保留分割符<br><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171659487.png" style="zoom:80%;"></li>
+<li>不想保留分隔符，以（?:…）的形式指定<br><img data-fancybox="gallery" data-sizes="auto" data-src="img/image-20210817165955259.png" alt="image-20210817165955259" class="lazyload"></li>
+</ul>
+</li>
+<li><p><code>re.findall</code>(<em>pattern</em>, <em>string</em>, <em>flags=0</em>)</p>
+<p>对 <em>string</em> 返回一个不重复的 <em>pattern</em> 的匹配列表， <em>string</em> 从左到右进行扫描，匹配按找到的顺序返回。如果样式里存在一到多个组，就返回一个组合列表；就是一个元组的列表（如果样式里有超过一个组合的话）。空匹配也会包含在结果里。</p>
+</li>
+<li><p><code>re.sub</code>(<em>pattern</em>, <em>repl</em>, <em>string</em>, <em>count=0</em>, <em>flags=0</em>)</p>
+<p>返回通过使用 <em>repl</em> 替换在 <em>string</em> 最左边非重叠出现的 <em>pattern</em> 而获得的字符串。 如果样式没有找到，则不加改变地返回 <em>string</em>。 <em>repl</em> 可以是字符串或函数；如为字符串，则其中任何反斜杠转义序列都会被处理。 也就是说，<code>\n</code> 会被转换为一个换行符，<code>\r</code> 会被转换为一个回车附，依此类推。 未知的 ASCII 字符转义序列保留在未来使用，会被当作错误来处理。 其他未知转义序列例如 <code>\&amp;</code> 会保持原样。 向后引用像是 <code>\6</code> 会用样式中第 6 组所匹配到的子字符串来替换。 例如</p>
+</li>
+</ul>
+<h1 id="上课笔记-amp-重点"><a href="#上课笔记-amp-重点" class="headerlink" title="上课笔记&重点"></a>上课笔记&amp;重点</h1><p><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171712755.png" style="zoom:80%;"></p>
+<p><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171713382.png" style="zoom:80%;"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171713722.png" alt="" class="lazyload"></p>
+<p><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171714327.png" style="zoom:80%;"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171714709.png" alt="" class="lazyload"></p>
+<p><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171714286.png" style="zoom:80%;"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171715101.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171715111.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171715161.png" alt="" class="lazyload"></p>
+<p><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171716727.png" style="zoom:80%;"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">txt = <span class="string">'Column 1 Column 2 Column 3 Column 3546   Column 3s   '</span></span><br><span class="line">re.findall(<span class="string">'Column [0-9]+ *'</span>, txt)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171723575.png" alt="" class="lazyload"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.search(<span class="string">'(Column [0-9]+ *)*'</span>, txt)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="img/image-20210817172359823.png" alt="image-20210817172359823" class="lazyload"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">re.findall(<span class="string">'(Column [0-9]+ *)+'</span>, txt)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171724241.png" alt="" class="lazyload"></p>
+<h2 id="上课示例"><a href="#上课示例" class="headerlink" title="上课示例"></a>上课示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">txt = <span class="string">"Tie best singer ever is Jay Chou，The ticket price for his concert is $100"</span></span><br><span class="line"></span><br><span class="line">x = re.findall(<span class="string">'[A-Z]'</span>, txt)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(x):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">'find success'</span>, x)</span><br><span class="line"></span><br><span class="line">x = re.search(<span class="string">'a\^b'</span>, <span class="string">'sdasd a^b sab'</span>)</span><br><span class="line"><span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171706202.png" alt="" class="lazyload"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">txt2 = <span class="string">'The best thing is  love, the other is hate'</span></span><br><span class="line"></span><br><span class="line">m = re.findall(<span class="string">'the'</span>, txt2)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line"></span><br><span class="line">m = re.findall(<span class="string">'[tT]he'</span>, txt2)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line"></span><br><span class="line">m = re.findall(<span class="string">'\\b[tT]he\\b'</span>, txt2)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line"></span><br><span class="line">m = re.findall(<span class="string">r'\b[tT]he\b'</span>, txt2)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line"></span><br><span class="line">m = re.findall(<span class="string">'[^a-zA-Z][tT]he[^a-zA-Z]'</span>, txt2)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br><span class="line"></span><br><span class="line">m = re.findall(<span class="string">r'[^a-zA-Z][tT]he[^a-zA-Z]'</span>, txt2)</span><br><span class="line"><span class="built_in">print</span>(m)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171706670.png" alt="" class="lazyload"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">txt3 = <span class="string">'025-12345678 #这是一个南京电话号码'</span></span><br><span class="line">n = re.sub(<span class="string">'#.*$'</span>,<span class="string">''</span>, txt3)</span><br><span class="line"><span class="built_in">print</span>(n)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171707074.png" alt="" class="lazyload"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">txt4 = <span class="string">'guppy guppies'</span></span><br><span class="line">d = re.findall(<span class="string">'guppy|ies'</span>, txt4)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line"></span><br><span class="line">d = re.findall(<span class="string">'gupp(y|ies)'</span>, txt4)</span><br><span class="line"><span class="built_in">print</span>(d) <span class="comment">#显示最优先匹配</span></span><br><span class="line"></span><br><span class="line">d = re.match(<span class="string">'gupp(y|ies)'</span>, txt4)</span><br><span class="line"><span class="built_in">print</span>(d)</span><br><span class="line"></span><br><span class="line">d = re.findall(<span class="string">'guppy|guppies'</span>, txt4)</span><br><span class="line"><span class="built_in">print</span>(d) <span class="comment">#显示最优先匹配</span></span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171708260.png" alt="" class="lazyload"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">txt4 = <span class="string">'once upon a time'</span></span><br><span class="line">l = re.match(<span class="string">'[a-z]*'</span>, txt4)</span><br><span class="line"><span class="built_in">print</span>(l)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171708118.png" alt="" class="lazyload"></p>
+<h2 id="Finate-State-Automata"><a href="#Finate-State-Automata" class="headerlink" title="Finate State Automata"></a>Finate State Automata</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171726821.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171726166.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171726728.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171727166.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171727756.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108171727026.png" alt="" class="lazyload"></p>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/nlp%20learning/Chapter1_regularexpressions/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;nlp%20learning&#x2F;Chapter1_regularexpressions&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;nlp%20learning&#x2F;Chapter1_regularexpressions&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/nlp/">nlp</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292047"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Graph Database - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Graph Database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Graph Database">
+<meta property="og:url" content="http://example.com/2021/08/15/knowledge%20engineering/14.%20Graph%20Database/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Graph Database">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013008.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013318.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013775.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013447.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013815.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013465.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013160.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013538.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013416.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013448.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013047.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013631.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013200.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013134.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013960.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013927.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014160.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014438.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014455.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014375.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014496.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014222.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014911.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014710.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014663.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014823.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014264.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014654.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014413.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014839.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014776.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014687.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020015344.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020015166.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020015183.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T16:15:06.943Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013008.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902291929">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Graph Database" class="lazyload">
+            <h1>Graph Database</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 6 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Definition"><span class="toc-number">1.</span> <span class="toc-text">1.  Definition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Neo4j"><span class="toc-number">2.</span> <span class="toc-text">2. Neo4j</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Introduction"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Neo4j-Important-element"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Neo4j-Important element</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-Structural-Node"><span class="toc-number">2.3.</span> <span class="toc-text">2.2.1 Structural Node</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-Properties"><span class="toc-number">2.4.</span> <span class="toc-text">2.2.2  Properties</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Value-Type"><span class="toc-number">2.4.1.</span> <span class="toc-text">Value Type</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-Structural-Relation"><span class="toc-number">2.5.</span> <span class="toc-text">2.2.3 Structural Relation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-4-Path"><span class="toc-number">2.6.</span> <span class="toc-text">2.2.4 Path</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Cypher"><span class="toc-number">3.</span> <span class="toc-text">3. Cypher</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Introduction"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Cypher-Create"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Cypher-Create</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-Create-a-node"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 Create a node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-Create-relationships"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2 Create relationships</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise"><span class="toc-number">3.2.3.</span> <span class="toc-text">Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Cypher-MATCH"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 Cypher-MATCH</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-Match-node"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1 Match node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Match-related-nodes"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2 Match related nodes</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-Match-on-multiple-relationship-types"><span class="toc-number">3.3.3.</span> <span class="toc-text">3.3.4 Match on multiple relationship types</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-5-Match-on-relationship-type-and-use-a-variable"><span class="toc-number">3.3.4.</span> <span class="toc-text">3.3.5 Match on relationship type and use a variable</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Match-and-Create"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 Match and Create</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exercise-1"><span class="toc-number">3.5.</span> <span class="toc-text">Exercise</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Cypher-DELETE"><span class="toc-number">3.6.</span> <span class="toc-text">3.5 Cypher-DELETE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-Delete-single-node"><span class="toc-number">3.6.1.</span> <span class="toc-text">3.5.1 Delete single node</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2-Delete-all-nodes-and-relationships"><span class="toc-number">3.6.2.</span> <span class="toc-text">3.5.2 Delete all nodes and relationships</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-3-Delete-a-node-with-all-its-relationships"><span class="toc-number">3.6.3.</span> <span class="toc-text">3.5.3 Delete a node with all its relationships</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-4-Delete-relationships-only"><span class="toc-number">3.6.4.</span> <span class="toc-text">3.5.4 Delete relationships only</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise-2"><span class="toc-number">3.6.5.</span> <span class="toc-text">Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Cypher-UPDATE"><span class="toc-number">3.7.</span> <span class="toc-text">3.6 Cypher-UPDATE :</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1-SET"><span class="toc-number">3.7.1.</span> <span class="toc-text">3.6.1 SET</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-2-multiple-properties-using-one-SET-clause"><span class="toc-number">3.7.2.</span> <span class="toc-text">3.6.2 multiple properties using one SET clause</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-3-Replace-all-properties-using-a-map"><span class="toc-number">3.7.3.</span> <span class="toc-text">3.6.3 Replace all properties using a map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise-3"><span class="toc-number">3.7.4.</span> <span class="toc-text">Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Exercise-4"><span class="toc-number">3.8.</span> <span class="toc-text">Exercise</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Graph Database<br><span id="more"></span></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013008.png" alt="image-20211215112032232" class="lazyload"></p>
+<h2 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1.  Definition"></a>1.  Definition</h2><ul>
+<li><p>A database for storing and querying data in a data structure like graphs Composition</p>
+</li>
+<li><p>Node </p>
+<ul>
+<li>Specific entities, such as the movie “Harry Potter 2“,</li>
+</ul>
+</li>
+<li>Relation <ul>
+<li>The connection between entities.</li>
+</ul>
+</li>
+<li>Label <ul>
+<li>Abstract concepts that group similar nodes together, such as movie characters.</li>
+</ul>
+</li>
+<li>Property <ul>
+<li>Specific information about the node or relationship, such as name, age, etc.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Neo4j"><a href="#2-Neo4j" class="headerlink" title="2. Neo4j"></a>2. Neo4j</h2><h3 id="2-1-Introduction"><a href="#2-1-Introduction" class="headerlink" title="2.1 Introduction"></a>2.1 Introduction</h3><ul>
+<li><p>知识图谱存储工具：RDF4J、Jena、Neo4j</p>
+</li>
+<li><p>Neo4j is a robust, scalable, high-performance open source graph database</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013318.png" alt="image-20211215112335838" class="lazyload"></p>
+<h3 id="2-2-Neo4j-Important-element"><a href="#2-2-Neo4j-Important-element" class="headerlink" title="2.2 Neo4j-Important element"></a>2.2 Neo4j-Important element</h3><h3 id="2-2-1-Structural-Node"><a href="#2-2-1-Structural-Node" class="headerlink" title="2.2.1 Structural Node"></a>2.2.1 Structural Node</h3><ul>
+<li>ID: unique identifier</li>
+<li>Label: a form of pattern syntax to group nodes together</li>
+<li>Map(properties): <ul>
+<li>key: property name </li>
+<li>value: property value</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013775.png" alt="image-20211215113332298" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013447.png" alt="image-20211215113339365" class="lazyload"></p>
+<h3 id="2-2-2-Properties"><a href="#2-2-2-Properties" class="headerlink" title="2.2.2  Properties"></a>2.2.2  Properties</h3><ul>
+<li>Key: property name</li>
+<li>Value: property value</li>
+</ul>
+<h4 id="Value-Type"><a href="#Value-Type" class="headerlink" title="Value Type"></a>Value Type</h4><ul>
+<li>Boolean</li>
+<li>Byte</li>
+<li>Short</li>
+<li>Int</li>
+<li>Long</li>
+<li>Float</li>
+<li>Double</li>
+<li>Char</li>
+<li>String</li>
+<li>Array</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013815.png" alt="image-20211215221640627" class="lazyload"></p>
+<h3 id="2-2-3-Structural-Relation"><a href="#2-2-3-Structural-Relation" class="headerlink" title="2.2.3 Structural Relation"></a>2.2.3 Structural Relation</h3><ul>
+<li>ID</li>
+<li>Type</li>
+<li>Map(properties)</li>
+<li>ID of the start node</li>
+<li>ID of the end node</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013465.png" alt="image-20211215221750855" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013160.png" alt="image-20211215221802938" class="lazyload"></p>
+<h3 id="2-2-4-Path"><a href="#2-2-4-Path" class="headerlink" title="2.2.4 Path"></a>2.2.4 Path</h3><ul>
+<li>An sequence of nodes and relationships</li>
+<li>Composition <ul>
+<li>at least one node </li>
+<li>connected relationships</li>
+</ul>
+</li>
+<li>Often as a result of a query or traversal</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013538.png" alt="image-20211215221843268" class="lazyload"></p>
+<ul>
+<li>A path from nodeA to nodeB</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013416.png" alt="image-20211215221900810" class="lazyload"></p>
+<h2 id="3-Cypher"><a href="#3-Cypher" class="headerlink" title="3. Cypher"></a>3. Cypher</h2><h3 id="3-1-Introduction"><a href="#3-1-Introduction" class="headerlink" title="3.1 Introduction"></a>3.1 Introduction</h3><ul>
+<li>Cypher is a declarative graph <strong>query language</strong> that allows for expressive and efficient querying, updating and administering of the graph.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013448.png" alt="image-20211215114141617" class="lazyload"></p>
+<ul>
+<li>Note： Keywords are not case sensitive</li>
+</ul>
+<h3 id="3-2-Cypher-Create"><a href="#3-2-Cypher-Create" class="headerlink" title="3.2 Cypher-Create"></a>3.2 Cypher-Create</h3><h4 id="3-2-1-Create-a-node"><a href="#3-2-1-Create-a-node" class="headerlink" title="3.2.1 Create a node"></a>3.2.1 Create a node</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013047.png" alt="image-20211215114117836" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013631.png" alt="image-20211215114209481" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013200.png" alt="image-20211215222102518" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013134.png" alt="image-20211215222113317" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE(</span><br><span class="line">	node:Movie</span><br><span class="line">	&#123;</span><br><span class="line">		title:&quot;The American President&quot;</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="3-2-2-Create-relationships"><a href="#3-2-2-Create-relationships" class="headerlink" title="3.2.2 Create relationships"></a>3.2.2 Create relationships</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE</span><br><span class="line">(&lt;node1-name&gt;:&lt;node1-label-name&gt;&#123;&lt;define-properties-list&gt;&#125;)</span><br><span class="line">-[&lt;relationship-name&gt;:&lt;relationship-label-name&gt;&#123;&lt;define-properties-list&gt;&#125;]</span><br><span class="line">-&gt;(&lt;node2-name&gt;:&lt;node2-label-name&gt;&#123;&lt;define-properties-list&gt;&#125;)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013960.png" alt="image-20211215222303879" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020013927.png" alt="image-20211215222313633" class="lazyload"></p>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Create the relationship using cypher.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014160.png" alt="image-20211215222334213" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE</span><br><span class="line">	(n1:Person &#123;name:&#x27;Oliver Stone&#x27;&#125;)</span><br><span class="line">	-[r:DIRECTED]</span><br><span class="line">	-&gt;(N2:Movie&#123;title:&quot;Wall Street&quot;&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-Cypher-MATCH"><a href="#3-3-Cypher-MATCH" class="headerlink" title="3.3 Cypher-MATCH"></a>3.3 Cypher-MATCH</h3><ul>
+<li>Match</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">MATCH</span><br><span class="line">    (&lt;node-name&gt;:&lt;label-name&gt;</span><br><span class="line">    &#123;</span><br><span class="line">    &lt;Property1-name&gt;:&lt;Property1-Value&gt;</span><br><span class="line">    ........</span><br><span class="line">    &lt;Propertyn-name&gt;:&lt;Propertyn-Value&gt;</span><br><span class="line">    &#125;)</span><br><span class="line">    -[&lt;relationship-name&gt;:&lt;relationship-label-name&gt;&#123;&lt;define-properties-list&gt;&#125;]</span><br><span class="line">    -&gt;(&lt;node-name&gt;:&lt;label-name&gt;</span><br><span class="line">    &#123;</span><br><span class="line">    &lt;Property1-name&gt;:&lt;Property1-Value&gt;</span><br><span class="line">    ........</span><br><span class="line">    &lt;Propertyn-name&gt;:&lt;Propertyn-Value&gt;</span><br><span class="line">    &#125;)</span><br><span class="line">RETURN ........</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Return<ul>
+<li>Variable, like node-name: node</li>
+<li>Specific value, like node-name.property: node.name</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-1-Match-node"><a href="#3-3-1-Match-node" class="headerlink" title="3.3.1 Match node"></a>3.3.1 Match node</h4><ul>
+<li>查询所有节点</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n) </span><br><span class="line">RETURN n</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014438.png" alt="image-20211215222822126" class="lazyload"></p>
+<ul>
+<li>查询所有电影title</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (movie:Movie)</span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014455.png" alt="image-20211215222827727" class="lazyload"></p>
+<h4 id="3-3-2-Match-related-nodes"><a href="#3-3-2-Match-related-nodes" class="headerlink" title="3.3.2 Match related nodes"></a>3.3.2 Match related nodes</h4><ul>
+<li>名叫Oliver Stone相关联的事物标题</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (director &#123;name: &#x27;Oliver Stone&#x27;&#125;)--(movie) </span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014375.png" alt="image-20211215223003469" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014496.png" alt="image-20211215223020275" class="lazyload"></p>
+<ul>
+<li><p><strong>— : connected relationship of unknown relationship type and direction</strong></p>
+</li>
+<li><p>与人物Oliver Stone相关联的电影标题</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (:Person &#123;name: &#x27;Oliver Stone&#x27;&#125;)--(movie:Movie) </span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014222.png" alt="image-20211215223434705" class="lazyload"></p>
+<ul>
+<li>与人物Oliver Stone相关联的关系类型</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (:Person &#123;name: &#x27;Oliver Stone&#x27;&#125;)-[r]-&gt;(movie) </span><br><span class="line">RETURN type(r)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014911.png" alt="image-20211215223412345" class="lazyload"></p>
+<ul>
+<li><p>-&gt; / &lt;- : directed relation, &gt; towards the tail entity</p>
+</li>
+<li><p>出演名为‘Wall Street’电影的演员姓名</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (wallstreet:Movie &#123;title: &#x27;Wall Street&#x27;&#125;)&lt;-[:ACTED_IN]-(actor) </span><br><span class="line">RETURN actor.name</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014710.png" alt="image-20211215223524497" class="lazyload"></p>
+<h4 id="3-3-4-Match-on-multiple-relationship-types"><a href="#3-3-4-Match-on-multiple-relationship-types" class="headerlink" title="3.3.4 Match on multiple relationship types"></a>3.3.4 Match on multiple relationship types</h4><ul>
+<li>参演或导演名为Wall Street的电影的所有人物</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (wallstreet:Movie &#123;title: &#x27;Wall Street&#x27;&#125;)&lt;-[:ACTED_IN|:DIRECTED]-(person:Person) </span><br><span class="line">RETURN person.name</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014663.png" alt="image-20211215223626746" class="lazyload"></p>
+<h4 id="3-3-5-Match-on-relationship-type-and-use-a-variable"><a href="#3-3-5-Match-on-relationship-type-and-use-a-variable" class="headerlink" title="3.3.5 Match on relationship type and use a variable"></a>3.3.5 Match on relationship type and use a variable</h4><ul>
+<li>名为Wall Street的电影的中所有的角色</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH (wallstreet:Movie &#123;title: &#x27;Wall Street&#x27;&#125;)&lt;-</span><br><span class="line">[r:ACTED_IN]-(actor) </span><br><span class="line">RETURN r.role</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-Match-and-Create"><a href="#3-4-Match-and-Create" class="headerlink" title="3.4 Match and Create"></a>3.4 Match and Create</h3><ul>
+<li>when nodes already exist, we can use MATCH first, then CREATE</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014823.png" alt="image-20211215223827870" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MATCH </span><br><span class="line">	(charlie:Person &#123;name: &#x27;Charlie Sheen&#x27;&#125;), </span><br><span class="line">    (rob:Person &#123;name: &#x27;Rob Reiner&#x27;&#125;) </span><br><span class="line">CREATE </span><br><span class="line">    (rob)-[:TYPE INCLUDING A SPACE]-&gt;(charlie)</span><br></pre></td></tr></table></figure>
+<h3 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h3><ul>
+<li>查询参演名为‘The American President’的所有演员姓名</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014264.png" alt="image-20211215224022480" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MATCH</span><br><span class="line">	(person:Person)-[:ACTED_IN]</span><br><span class="line">	-&gt;(movie:Movie&#123;title:&quot;The American President&quot;&#125;)</span><br><span class="line">RETURN person.name</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询包含角色’Card Fox’的电影名</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014654.png" alt="image-20211215224512063" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MATCH</span><br><span class="line">	(actor)-[:ACTED&#123;role:&quot;Card Fox&quot;&#125;]</span><br><span class="line">	-&gt;(movie:Movie)</span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-Cypher-DELETE"><a href="#3-5-Cypher-DELETE" class="headerlink" title="3.5 Cypher-DELETE"></a>3.5 Cypher-DELETE</h3><ul>
+<li>Delete single node</li>
+<li>Delete all nodes and relationships</li>
+<li>Delete a node with all its relationships</li>
+<li>Delete relationships only</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014413.png" alt="image-20211215224917378" class="lazyload"></p>
+<h4 id="3-5-1-Delete-single-node"><a href="#3-5-1-Delete-single-node" class="headerlink" title="3.5.1 Delete single node"></a>3.5.1 Delete single node</h4><ul>
+<li>删除名为UNKNOWN的节点</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n:Person &#123;name: &#x27;UNKNOWN’&#125;) DELETE n</span><br></pre></td></tr></table></figure>
+<h4 id="3-5-2-Delete-all-nodes-and-relationships"><a href="#3-5-2-Delete-all-nodes-and-relationships" class="headerlink" title="3.5.2 Delete all nodes and relationships"></a>3.5.2 Delete all nodes and relationships</h4><ul>
+<li>删除数据库中所有节点及与其相连的关系</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n) DETACH DELETE n</span><br></pre></td></tr></table></figure>
+<h4 id="3-5-3-Delete-a-node-with-all-its-relationships"><a href="#3-5-3-Delete-a-node-with-all-its-relationships" class="headerlink" title="3.5.3 Delete a node with all its relationships"></a>3.5.3 Delete a node with all its relationships</h4><ul>
+<li>删除名为Andy的节点和与其相连的所有关系</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy’&#125;) DETACH DELETE n</span><br></pre></td></tr></table></figure>
+<h4 id="3-5-4-Delete-relationships-only"><a href="#3-5-4-Delete-relationships-only" class="headerlink" title="3.5.4 Delete relationships only"></a>3.5.4 Delete relationships only</h4><ul>
+<li>删除Andy的所有KNOWS关系</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy&#x27;&#125;)-[r:KNOWS]-&gt;() DELETE r</span><br></pre></td></tr></table></figure>
+<h4 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>删除人物年龄为34岁的所有关系</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014839.png" alt="image-20211215225242665" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (person:Person &#123;age:34&#125;)-[r]-&gt;()</span><br><span class="line">DELETE r</span><br></pre></td></tr></table></figure>
+<h3 id="3-6-Cypher-UPDATE"><a href="#3-6-Cypher-UPDATE" class="headerlink" title="3.6 Cypher-UPDATE :"></a>3.6 Cypher-UPDATE :</h3><h4 id="3-6-1-SET"><a href="#3-6-1-SET" class="headerlink" title="3.6.1 SET"></a>3.6.1 SET</h4><ul>
+<li><p>SET can be used with a map — provided as a literal, a parameter, or a node or relationship — to set properties.</p>
+</li>
+<li><p>Update a property</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy&#x27;&#125;) </span><br><span class="line">SET n.age = toString(n.age) </span><br><span class="line">RETURN n.name, n.age</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014776.png" alt="image-20211215225919668" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020014687.png" alt="image-20211215225927663" class="lazyload"></p>
+<h4 id="3-6-2-multiple-properties-using-one-SET-clause"><a href="#3-6-2-multiple-properties-using-one-SET-clause" class="headerlink" title="3.6.2 multiple properties using one SET clause"></a>3.6.2 multiple properties using one SET clause</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy&#x27;&#125;) </span><br><span class="line">SET n.position = &#x27;Developer&#x27;, n.surname = &#x27;Taylor&#x27;</span><br></pre></td></tr></table></figure>
+<h4 id="3-6-3-Replace-all-properties-using-a-map"><a href="#3-6-3-Replace-all-properties-using-a-map" class="headerlink" title="3.6.3 Replace all properties using a map"></a>3.6.3 Replace all properties using a map</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MATCH (p &#123;name: &#x27;Peter&#x27;&#125;) </span><br><span class="line">SET p = &#123;name: &#x27;Peter Smith’, </span><br><span class="line">	position: &#x27;Entrepreneur&#x27;&#125; </span><br><span class="line">RETURN p.name, p.age, p.position</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020015344.png" alt="image-20211215230129964" class="lazyload"></p>
+<h4 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>更新George的年龄为28</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020015166.png" alt="image-20211215230148658" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH (p &#123;name:&#x27;George&#x27;&#125;)</span><br><span class="line">SET p = &#123;name: &#x27;George&#x27;</span><br><span class="line">	age: 28&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Exercise-4"><a href="#Exercise-4" class="headerlink" title="Exercise"></a>Exercise</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020015183.png" alt="image-20211215230420391" class="lazyload"></p>
+<ul>
+<li>Write cypher to get the second graph</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MATCH </span><br><span class="line">	(actor1:Actor &#123;name: &#x27;Anthony Hopkins&#x27;&#125;),</span><br><span class="line">	(actor2:Actor &#123;name: &#x27;Hitchcock&#x27;&#125;),</span><br><span class="line">	(movie:Movie &#123;title: &#x27;Hitechcock&#x27;&#125;)</span><br><span class="line">CREATE</span><br><span class="line">	(actor1)-[r:ACTS_IN]</span><br><span class="line">	-&gt;(movie)</span><br><span class="line">DELETE actor2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Query all relationship types connected by actor Anthony Hopkins</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH</span><br><span class="line">	(actor:Actor &#123;name: &#x27;Anthony Hopkins&#x27;&#125;)-[r]-()</span><br><span class="line">RETURN type(r)</span><br></pre></td></tr></table></figure>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/knowledge%20engineering/14.%20Graph%20Database/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;14.%20Graph%20Database&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;14.%20Graph%20Database&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902291932"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

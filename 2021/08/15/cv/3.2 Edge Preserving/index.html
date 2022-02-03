@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Edge Preserving - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="这是显示在首页的概述，正文内容均会被隐藏">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Edge Preserving">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/3.2%20Edge%20Preserving/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="这是显示在首页的概述，正文内容均会被隐藏">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211359542.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210619201545685.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210619210651130.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210619210651164.png#pic_center">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211602256.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20161017155926484?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211613591.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211618431.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211622445.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212131693.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212045209.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212059662.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212158824.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212202187.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:19:33.004Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211359542.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902291910">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Edge Preserving" class="lazyload">
+            <h1>Edge Preserving</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 15 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Bilateral-filter"><span class="toc-number">1.</span> <span class="toc-text">1. Bilateral filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 算法解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E7%AE%97%E6%B3%95%E6%A1%88%E4%BE%8B"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 算法案例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-opencv-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 opencv 代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Joint-Bilateral-filter"><span class="toc-number">1.4.</span> <span class="toc-text">2. Joint Bilateral filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%AE%80%E4%BB%8B"><span class="toc-number">1.5.</span> <span class="toc-text">2.1 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="toc-number">1.6.</span> <span class="toc-text">2.2 代码实现：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-%E6%95%88%E6%9E%9C"><span class="toc-number">1.7.</span> <span class="toc-text">2.3 效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E8%AF%84%E4%BB%B7"><span class="toc-number">1.8.</span> <span class="toc-text">2.4 评价</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Advantages%EF%BC%9A"><span class="toc-number">1.8.1.</span> <span class="toc-text">Advantages：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Problems%EF%BC%9A"><span class="toc-number">1.8.2.</span> <span class="toc-text">Problems：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-Guided-filter"><span class="toc-number"></span> <span class="toc-text">3. Guided filter</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E7%AE%97%E6%B3%95%E8%A7%A3%E6%9E%90"><span class="toc-number">0.1.</span> <span class="toc-text">3.1 算法解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%80%BB%E7%BB%93"><span class="toc-number">0.2.</span> <span class="toc-text">3.2 总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%B8%BA%E4%BD%95%E5%8F%AF%E8%A1%8C"><span class="toc-number">0.3.</span> <span class="toc-text">3.3 为何可行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-Def"><span class="toc-number">0.3.1.</span> <span class="toc-text">3.3.1 Def</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Smoothing"><span class="toc-number">0.3.2.</span> <span class="toc-text">3.3.2 Smoothing</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-3-edge-preserving"><span class="toc-number">0.4.</span> <span class="toc-text">3.3.3 edge-preserving</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E4%B8%8EBF%E5%AF%B9%E6%AF%94"><span class="toc-number">0.5.</span> <span class="toc-text">3.4 与BF对比</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Edge Preserving<br><span id="more"></span></p>
+<h2 id="1-Bilateral-filter"><a href="#1-Bilateral-filter" class="headerlink" title="1. Bilateral filter"></a>1. Bilateral filter</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/leonardohaig/article/details/118058527">双边滤波算法原理及代码介绍_leonardohaig的博客-CSDN博客_联合双边滤波上采样算法原理</a></p>
+<h3 id="1-1-算法解析"><a href="#1-1-算法解析" class="headerlink" title="1.1 算法解析"></a>1.1 算法解析</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211359542.png" alt="" class="lazyload"></p>
+<ul>
+<li>值域核<code>r</code>,表示邻域内某点<code>(k,l)</code>的灰度值<code>f(k,l)</code>与中心点<code>(i,j)</code>灰度值<code>f(i,j)</code>的差的绝对值:<ul>
+<li>可以看到值域核用来表征邻域内像素的相似程度(接近程度)</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+G_r(P_i-P_j)=r(i, j, k, l)=\exp \left(-\frac{\|f(i, j)-f(k, l)\|^{2}}{2 \sigma_{r}^{2}}\right)</script><ul>
+<li>空间域核<code>d</code>,表示邻域内某点<code>(k,l)</code>与中心点<code>(i,j)</code>的欧式距离: 这就是高斯滤波核</li>
+</ul>
+<script type="math/tex; mode=display">
+G_s(x_i-x_j)=d(i, j, k, l)=\exp \left(-\frac{(i-k)^{2}+(j-l)^{2}}{2 \sigma_{d}^{2}}\right)</script><ul>
+<li>权重系数为空间域核和值域核的乘积:</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gathered}
+w(i, j, k, l)=d(i, j, k, l) * r(i, j, k, l)= \\
+\exp \left(-\frac{(i-k)^{2}+(j-l)^{2}}{2 \sigma_{d}^{2}}-\frac{\|f(i, j)-f(k, l)\|^{2}}{2 \sigma_{r}^{2}}\right)
+\end{gathered}</script><ul>
+<li>双边滤波中<code>(i,j)</code>位置的像素值<code>g(i,j)</code>依赖于邻域内像素值<code>f</code>与其权重<code>w</code>的加权组合(<code>k,l</code>表示邻域像素位置)：</li>
+</ul>
+<script type="math/tex; mode=display">
+g(i, j)=\frac{\sum_{k, l} f(k, l) w(i, j, k, l)}{\sum_{k, l} w(i, j, k, l)}</script><ul>
+<li>对于高斯滤波，离中心像素距离越近，权重越大（物理距离）</li>
+<li>对于值域滤波，灰度值相差大的点权重越小，所以最终边缘交界处的权重接近于零，而非边缘处，由于灰度值相差小，所以权重较大，不可能为边缘。</li>
+<li>当两者相乘，最终可以做到既消除噪音，又巧妙保留了边缘。</li>
+</ul>
+<h3 id="1-2-算法案例"><a href="#1-2-算法案例" class="headerlink" title="1.2 算法案例"></a>1.2 算法案例</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/20210619201545685.png#pic_center" alt="图像,滑动窗口,核" class="lazyload"></p>
+<ul>
+<li><p>其可以看作是<code>10×10</code>的一张图像，图中的数字表示每个点的像素值。在图中存在一个<code>5×5</code>大小的滑动窗口，我们需要求出中心点灰度值146的新像素值。</p>
+<ol>
+<li>边缘复制/边界填充(不多说)</li>
+<li>首先遍历整个窗口，第一个遍历到的点是165，那么中心点与该点的空间域计算结果为：</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/20210619210651130.png#pic_center" alt="在这里插入图片描述" class="lazyload"></p>
+<ol>
+<li>再计算中心点与该点的像素域结果：</li>
+</ol>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdnimg.cn/20210619210651164.png#pic_center" alt="在这里插入图片描述" class="lazyload"></p>
+<p>​            当<code>σs=5</code>与<code>σr=20</code>时，<code>Gσs = 0.8521，Gσr = 0.6368</code>。</p>
+<p>​          3. 接着遍历整个窗口，将窗口内每个像素点都与中心点建立联系，求出它们的Gσs与Gσr的值，将Gσs与Gσr             相乘即得到每个点对应的权重Wp，即Wp = Gσs × Gσr。</p>
+<p>​            在遍历结束后，用每个点的Wp乘上该点的像素值I(i,j)，并求和，这是作为分子。将每个点的Wp相加，作为            分母，两者相除，即得到需要的新输出图像的中心点（i，j）的像素值。</p>
+<h3 id="1-3-opencv-代码实现"><a href="#1-3-opencv-代码实现" class="headerlink" title="1.3 opencv 代码实现"></a>1.3 opencv 代码实现</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">CV_EXPORTS_W <span class="keyword">void</span> <span class="title">bilateralFilter</span><span class="params">( InputArray src, OutputArray dst, <span class="keyword">int</span> d,</span></span></span><br><span class="line"><span class="params"><span class="function">                                   <span class="keyword">double</span> sigmaColor, <span class="keyword">double</span> sigmaSpace,</span></span></span><br><span class="line"><span class="params"><span class="function">                                   <span class="keyword">int</span> borderType = BORDER_DEFAULT )</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//第一个参数，InputArray类型的src，输入图像，即源图像，需要为8位或者浮点型单通道、三通道的图像。</span></span><br><span class="line"><span class="comment">//第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。</span></span><br><span class="line"><span class="comment">//第三个参数，int类型的d，表示在过滤过程中每个像素邻域的直径。如果这个值我们设其为非正数，那么OpenCV会从第五个参数sigmaSpace来计算出它来。</span></span><br><span class="line"><span class="comment">//第四个参数，double类型的sigmaColor，颜色空间滤波器的sigma值。这个参数的值越大，就表明该像素邻域内有更宽广的颜色会被混合到一起，产生较大的半相等颜色区域。</span></span><br><span class="line"><span class="comment">//第五个参数，double类型的sigmaSpace坐标空间中滤波器的sigma值，坐标空间的标注方差。他的数值越大，意味着越远的像素会相互影响，从而使更大的区域足够相似的颜色获取相同的颜色。当d&gt;0，d指定了邻域大小且与sigmaSpace无关。否则，d正比于sigmaSpace。</span></span><br><span class="line"><span class="comment">//第六个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。注意它有默认值BORDER_DEFAULT。</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-Joint-Bilateral-filter"><a href="#2-Joint-Bilateral-filter" class="headerlink" title="2. Joint Bilateral filter"></a>2. Joint Bilateral filter</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/panda1234lee/article/details/52839205">联合双边滤波器（joint bilateral filter)【OpenCV】_ShaderJoy 的兴趣技术杂货铺-CSDN博客</a></p>
+<h3 id="2-1-简介"><a href="#2-1-简介" class="headerlink" title="2.1 简介"></a>2.1 简介</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211602256.png" alt="" class="lazyload"></p>
+<ul>
+<li><p>前面介绍了双边滤波器（bilateral filter,LBF），然而BF的权值是不稳定的，因此在边缘附近会出现一些翻转。此外BF计算复杂度是O(r^2)；为了改善BF权值的稳定性，引入了联合双边滤波器（joint bilateral filter ,LBF)。两者之间的差别就是JBF用了一个导向图作为值域权重的计算依据。下面我们通过数学公式展示二者的不同：</p>
+</li>
+<li><p>先看BF的，如（1）所示，</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+J_{p}=\frac{1}{k_{p}} \sum_{g \in \Omega} I_{q} f(\|p-q\|) g\left(\left\|I_{p}-I_{q}\right\|\right),</script><ul>
+<li><p>再次解释一下公式中的符号意义，其中I表示输入图像，p、q表示像素在图像中的坐标，Ip表示对应位置的像素值，J表示输出， f、g是权重分布函数，一般为高斯函数。这种滤波的结果就是周边像素的权值不仅和距离有关还和那个位置的像素值有关。</p>
+<p>再看JBF，如（2）所示，</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+J_{p}=\frac{1}{k_{p}} \sum_{a \in 0} I_{q} f(\|p-q\|) g\left(\left\|\tilde{I}_{p}-\tilde{I}_{q}\right\|\right)</script><ul>
+<li>如果在值域的权重计算过程引入另外一幅图像，如下式，则称之为联合双边滤波。 $\tilde{I}$​​ <code>就是引入的另外一幅图像。</code>该图像 <strong>必须</strong>与待处理的图像相似。</li>
+<li>联合双边滤波上采样技术也很简单，一种便于理解的也便于写代码的方式就是把下采样并进行处理过后的小图按照最近邻插值的方式放大到原图大小，然后再用原图的数据和这个放大的结果进行联合双边滤波处理 。</li>
+</ul>
+<h3 id="2-2-代码实现："><a href="#2-2-代码实现：" class="headerlink" title="2.2 代码实现："></a>2.2 代码实现：</h3><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">B</span> = <span class="title">jbfltGray</span><span class="params">(D,C,w,sigma_d,sigma_r)</span></span></span><br><span class="line"><span class="comment">%    D should be a double precision matrix of size NxMx1 (i.e., grayscale)  with normalized values in the </span></span><br><span class="line"><span class="comment">%    closed interval [0,1]. </span></span><br><span class="line"><span class="comment">%    C should be similar to D, from which the weights are calculated, with normalized values in the</span></span><br><span class="line"><span class="comment">%   closed interval [0,1]. </span></span><br><span class="line"><span class="comment">% Pre-compute Gaussian distance weights.</span></span><br><span class="line">[X,Y] = <span class="built_in">meshgrid</span>(-w:w,-w:w);</span><br><span class="line">G = <span class="built_in">exp</span>(-(X.^<span class="number">2</span>+Y.^<span class="number">2</span>)/(<span class="number">2</span>*sigma_d^<span class="number">2</span>));</span><br><span class="line"><span class="comment">% Apply bilateral filter.</span></span><br><span class="line">dim = <span class="built_in">size</span>(D);</span><br><span class="line">B = <span class="built_in">zeros</span>(dim);</span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:dim(<span class="number">1</span>)</span><br><span class="line">   <span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span>:dim(<span class="number">2</span>)      </span><br><span class="line">         <span class="comment">% Extract local region.</span></span><br><span class="line">         iMin = <span class="built_in">max</span>(<span class="built_in">i</span>-w,<span class="number">1</span>);</span><br><span class="line">         iMax = <span class="built_in">min</span>(<span class="built_in">i</span>+w,dim(<span class="number">1</span>));</span><br><span class="line">         jMin = <span class="built_in">max</span>(<span class="built_in">j</span>-w,<span class="number">1</span>);</span><br><span class="line">         jMax = <span class="built_in">min</span>(<span class="built_in">j</span>+w,dim(<span class="number">2</span>));</span><br><span class="line">         I = D(iMin:iMax,jMin:jMax); </span><br><span class="line">         <span class="comment">% To compute weights from the color image</span></span><br><span class="line">         J = C(iMin:iMax,jMin:jMax);</span><br><span class="line">         <span class="comment">% Compute Gaussian intensity weights according to the color image</span></span><br><span class="line">         H = <span class="built_in">exp</span>(-(J-C(<span class="built_in">i</span>,<span class="built_in">j</span>)).^<span class="number">2</span>/(<span class="number">2</span>*sigma_r^<span class="number">2</span>));</span><br><span class="line">         <span class="comment">% Calculate bilateral filter response.</span></span><br><span class="line">         F = H.*G((iMin:iMax)-<span class="built_in">i</span>+w+<span class="number">1</span>,(jMin:jMax)-<span class="built_in">j</span>+w+<span class="number">1</span>);</span><br><span class="line">         B(<span class="built_in">i</span>,<span class="built_in">j</span>) = sum(F(:).*I(:))/sum(F(:));   </span><br><span class="line">   <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>OpenCV 3.x.x的扩展模块（ximgproc. Extended Image Processing） 也添加了JBF的 API ：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdn.net/20161017155926484?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include &quot;stdafx.h&quot;</span><br><span class="line">#include &lt;opencv2/opencv.hpp&gt;</span><br><span class="line">#include &lt;ximgproc.hpp&gt;</span><br><span class="line"> </span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	cv::Mat src = cv::imread(&quot;data/dp.png&quot;, 1); // 原始带噪声的深度图</span><br><span class="line">	cv::Mat joint = cv::imread(&quot;data/teddy.png&quot;, 0);</span><br><span class="line"> </span><br><span class="line">	cv::Mat dst;</span><br><span class="line">	int64 begin = cvGetTickCount();</span><br><span class="line">	cv::ximgproc::jointBilateralFilter(joint, src, dst, -1, 3, 9);</span><br><span class="line">	int64 end = cvGetTickCount();</span><br><span class="line"> </span><br><span class="line">	float time = (end - begin) / (cvGetTickFrequency() * 1000.);</span><br><span class="line">	printf(&quot;time = %fms\n&quot;, time);</span><br><span class="line"> </span><br><span class="line">	imshow(&quot;src&quot;, src);</span><br><span class="line">	imshow(&quot;joint&quot;, joint);</span><br><span class="line">	imshow(&quot;jointBilateralFilter&quot;, dst);</span><br><span class="line">	cv::waitKey(0);</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-效果"><a href="#2-3-效果" class="headerlink" title="2.3 效果"></a>2.3 效果</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211613591.png" alt="" class="lazyload"></p>
+<h3 id="2-4-评价"><a href="#2-4-评价" class="headerlink" title="2.4 评价"></a>2.4 评价</h3><h4 id="Advantages："><a href="#Advantages：" class="headerlink" title="Advantages："></a>Advantages：</h4><ul>
+<li>Preserve edges in the smoothing process 可以在平滑处理后仍保留边缘</li>
+<li>Simple and intuitive 简单直观</li>
+</ul>
+<h4 id="Problems："><a href="#Problems：" class="headerlink" title="Problems："></a>Problems：</h4><ul>
+<li><p>Complexity</p>
+<ul>
+<li>Brute force: $O(r^2)$</li>
+<li>Distributive histogram: $O(log r)$</li>
+<li>Integral histogram: $O(1)$</li>
+</ul>
+</li>
+<li><p>Gradient distortion: 梯度翻转</p>
+<ul>
+<li>Preserves edges, but not gradients</li>
+<li>由于高斯滤波对边缘敏感，容易对边缘部分的像素值造成很大的变化，这就导致边缘部分可能有梯度翻转的现象</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211618431.png" alt="" class="lazyload"></p>
+<h1 id="3-Guided-filter"><a href="#3-Guided-filter" class="headerlink" title="3. Guided filter"></a>3. Guided filter</h1><h3 id="3-1-算法解析"><a href="#3-1-算法解析" class="headerlink" title="3.1 算法解析"></a>3.1 算法解析</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108211622445.png" alt="" class="lazyload"></p>
+<ul>
+<li>这里要说的引导滤波，某像素点的输出结果为：</li>
+</ul>
+<script type="math/tex; mode=display">
+q_{i}=a_{k} I_{i}+b_{k}, \forall i \in \omega_{k}</script><ul>
+<li>其中，<code>q</code> 为输出图像，<code>I</code> 为引导图像，a 和 b 是当窗口中心位于 k 时该线性函数的不变系数。对于给定k个窗口，我们可以假设对于k个窗口覆盖到引导图像的每个像素都和输出图像对应的像素点有一个线性映射的关系，其中对于每一个窗口，其线性的参数是是一样的。</li>
+<li>$n_i$为噪声，p是q受到噪声n污染的退化图像</li>
+</ul>
+<script type="math/tex; mode=display">
+n_i = p_i-q_i</script><ul>
+<li>价值函数如下：</li>
+</ul>
+<script type="math/tex; mode=display">
+E\left(a_{k}, b_{k}\right)=\sum_{i \in \omega_{k}}\left(\left(a_{k} I_{i}+b_{k}-p_{i}\right)^{2}+\varepsilon a_{k}^{2}\right)</script><ul>
+<li>即：</li>
+</ul>
+<script type="math/tex; mode=display">
+\min _{(a, b)} \sum_{i}\left(a I_{i}+b-p_{i}\right)^{2}+\varepsilon a^{2}</script><ul>
+<li>第二项为正则项，用于限制<code>a</code>的大小，$\epsilon$为超参。类似于最下二乘法求解，式（9）的解为：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+a_{k} &=\frac{\frac{1}{|\omega|} \sum_{i \in \omega_{k}} I_{i} p_{i}-\mu_{k} \bar{p}_{k}}{\sigma_{k}^{2}+\varepsilon } 
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+b_{k} &=\bar{p}_{k}-a_{k} \mu_{k}
+\end{aligned}</script><ul>
+<li>这里的$p_i$指的是对于原图像对应的第$i$个像素，$\mu_k$表示对应第k个窗口引导图像的所有像素值的均值，$\bar{p_k}$指的是对于该窗口覆盖原图像所有像素的均值，$\sigma^2_k$指的是对于第k个窗口引导图像上像素值的方差，$\varepsilon$​是超参。</li>
+<li>最后取均值可以得到式（7）的结果为：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+q_{i} &=\frac{1}{|\omega|} \sum_{k: i \in \omega_{k} \ldots t_{p i a 0 x u e}}\left(a_{k} I_{i}+b_{k}\right) \\
+&=\bar{a}_{i} I_{i}+\bar{b}_{i}
+\end{aligned}</script><ul>
+<li>其中，$\bar{a}_{i}=\frac{1}{|\omega|} \sum_{k \in \omega_{i} } a_{k},  \bar{b}_{i}=\frac{1}{|\omega|} \sum_{k \in \omega_{i}} b_{k}$​​​，其物理含义是对于经过第$i$个像素的所有窗口对$a_k, b_k$​​​进行平均。</li>
+<li>即：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+a_{k} &=\frac{\operatorname{cov}_{k}(I, p)}{\operatorname{var}_{k}(I)+\varepsilon} \\
+b_{k} &=\bar{p}_{k}-a \bar{I}_{k} \\
+q_{i} &=\frac{1}{|\omega|} \sum_{k \mid \in \omega_{k}}\left(a_{k} I_{i}+b_{k}\right) \\
+&=\bar{a}_{i} I_{i}+\bar{b}_{i}
+\end{aligned}</script><h3 id="3-2-总结"><a href="#3-2-总结" class="headerlink" title="3.2 总结"></a>3.2 总结</h3><ul>
+<li>总结：导引图像<code>I</code>与 <code>q</code> 之间存在线性关系，这样设定可以使导引图像提供的信息主要用于指示哪些是边缘。如果导引图告诉我们这里是边缘，最终的结果就设法保留这些边缘信息。所以，引导滤波的前提条件是：当<code>I</code>和<code>q</code>满足线性关系才有意义。</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212131693.png" alt="" class="lazyload"></p>
+<ul>
+<li>其最终结果可以理解为，对于每个输出的像素为：对引导图像对应的像素的一个变换的均值。</li>
+<li>对于第k个经过该像素的窗口，我们可以得到对应的一个线性变换，从而得到对应的输出像素值；</li>
+<li>遍历这么多个窗口的变换后，我们在求一个均值，最终就会得到我们想要的答案</li>
+<li>这里的$\bar{a_i}$和$\bar{b_i}$可以理解为经过第$i$个像素窗口的系数的均值</li>
+</ul>
+<h3 id="3-3-为何可行"><a href="#3-3-为何可行" class="headerlink" title="3.3 为何可行"></a>3.3 为何可行</h3><h4 id="3-3-1-Def"><a href="#3-3-1-Def" class="headerlink" title="3.3.1 Def"></a>3.3.1 Def</h4><script type="math/tex; mode=display">
+\begin{aligned}
+a_{k} &=\frac{\operatorname{cov}_{k}(I, p)}{\operatorname{var}_{k}(I)+\varepsilon} \\
+b_{k} &=\bar{p}_{k}-a \bar{I}_{k} \\
+q_{i} &=\frac{1}{|\omega|} \sum_{k \mid \in \omega_{k}}\left(a_{k} I_{i}+b_{k}\right) \\
+&=\bar{a}_{i} I_{i}+\bar{b}_{i}
+\end{aligned}</script><p>即：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+a &=\frac{\operatorname{cov}(I, p)}{\operatorname{var}(I)+\varepsilon} \\
+b &=\bar{p}-a \bar{I}
+\end{aligned}</script><ul>
+<li>$\varepsilon$可以视为边缘保留程度的评判​</li>
+</ul>
+<h4 id="3-3-2-Smoothing"><a href="#3-3-2-Smoothing" class="headerlink" title="3.3.2 Smoothing"></a>3.3.2 Smoothing</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212045209.png" alt="" class="lazyload"></p>
+<ul>
+<li>其意义是，如果要对图像进行平滑处理，只需增大$\varepsilon$，这样就会使得都$\begin{gathered}<br>a \approx 0 , b \approx \bar{p} \end{gathered}$ 则输出图像的像素近似为高斯过滤后的输出图像，或者说此时由于是非边缘处，所以变化很小，方差和卷积自然很小，会远小于一个阈值，这个阈值就是$\varepsilon$​。</li>
+<li>对于$\bar{p}_k$指的是对于第k个窗口在原图像覆盖的所有像素值的均值，$\overline{\bar{p}}$则为对于这样k个窗口得出的$\bar{p}_k$的均值化，其实结果就相当于做了滤波。​</li>
+</ul>
+<h3 id="3-3-3-edge-preserving"><a href="#3-3-3-edge-preserving" class="headerlink" title="3.3.3 edge-preserving"></a>3.3.3 edge-preserving</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212059662.png" alt="" class="lazyload"></p>
+<ul>
+<li>由于$\bar{a}$和$\bar{b}$是常数，所以求梯度是零，这里表示了对于输出图像每一个像素的梯度值可以理解为引导图像梯度值的增益或者衰落。</li>
+<li>在这里，也说明了超参$\varepsilon$​可以控制a的大小，从而控制输出图像的像素值梯度，我们知道边缘处的像素值梯度会明显大于周围，这就意味着超参实质是在增强输出图像的边缘</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212158824.png" alt="" class="lazyload"></p>
+<ul>
+<li>我们可以发现，$\varepsilon$​越小，边缘越明显，当然越大，则越模糊。​</li>
+</ul>
+<h3 id="3-4-与BF对比"><a href="#3-4-与BF对比" class="headerlink" title="3.4 与BF对比"></a>3.4 与BF对比</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108212202187.png" alt="" class="lazyload"></p>
+<ul>
+<li>由于引导图像和输出图像的梯度值具有线性关系，所以不会在边缘处出现梯度翻转的现象，相反，其会对边缘处进行增益。</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/3.2%20Edge%20Preserving/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;3.2%20Edge%20Preserving&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;3.2%20Edge%20Preserving&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902291912"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

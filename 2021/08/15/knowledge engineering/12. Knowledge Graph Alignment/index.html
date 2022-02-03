@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Knowledge Graph Alignment - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Knowledge Graph Alignment">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Knowledge Graph Alignment">
+<meta property="og:url" content="http://example.com/2021/08/15/knowledge%20engineering/12.%20Knowledge%20Graph%20Alignment/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Knowledge Graph Alignment">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020005452.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006868.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006863.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006882.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006881.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006571.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006864.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006368.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006536.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006664.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007720.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007135.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007092.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007192.png">
+<meta property="og:image" content="e:/third_year_in_University/knowledge%20engineering/note/img/image-20211201120124352.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007864.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007161.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007745.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007843.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007784.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007896.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007383.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008140.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008456.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008000.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008920.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008024.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008144.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008975.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008192.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008344.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008056.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008576.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T16:08:44.549Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020005452.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292018">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Knowledge Graph Alignment" class="lazyload">
+            <h1>Knowledge Graph Alignment</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 18 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Why-do-we-need-Knowledge-Graph-Alignment"><span class="toc-number">1.</span> <span class="toc-text">1. Why do we need Knowledge Graph Alignment?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Ontology-Matching-%E6%9C%AC%E4%BD%93%E5%8C%B9%E9%85%8D-%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">2. Ontology Matching (本体匹配)：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Benefits-of-Ontology-Matching"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Benefits of Ontology Matching</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Ontology-Matching-Process"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Ontology Matching Process</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Ontology-Matching-Techniques"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Ontology Matching Techniques</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Element-level-Matching-Techniques-String-based"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 Element-level Matching Techniques: String-based</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-Prefix"><span class="toc-number">2.4.1.</span> <span class="toc-text">2.4.1 Prefix</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-Suffix"><span class="toc-number">2.4.2.</span> <span class="toc-text">2.4.2 Suffix</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-3-Edit-distance-Levenshtein-distance-is-used-here"><span class="toc-number">2.4.3.</span> <span class="toc-text">2.4.3 Edit distance - Levenshtein distance is used here</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-4-N-gram"><span class="toc-number">2.4.4.</span> <span class="toc-text">2.4.4 N-gram</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-5-Exercise"><span class="toc-number">2.4.5.</span> <span class="toc-text">2.4.5 Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Element-level-Matching-Techniques"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 Element-level Matching Techniques</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1-Language-based"><span class="toc-number">2.5.1.</span> <span class="toc-text">2.5.1 Language-based</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2-Resource-based"><span class="toc-number">2.5.2.</span> <span class="toc-text">2.5.2 Resource-based</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-3-Constraint-based"><span class="toc-number">2.5.3.</span> <span class="toc-text">2.5.3 Constraint-based</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-Structure-level-Matching-Techniques"><span class="toc-number">2.6.</span> <span class="toc-text">2.6 Structure-level Matching Techniques</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6-1-Exercise"><span class="toc-number">2.6.1.</span> <span class="toc-text">2.6.1 Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-Matcher-Composition"><span class="toc-number">2.7.</span> <span class="toc-text">2.7 Matcher Composition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-Parallel-composition-of-matchers"><span class="toc-number">2.8.</span> <span class="toc-text">2.8 Parallel composition of matchers</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-A-Real-World-Case-Book-Ontology-Matching"><span class="toc-number">3.</span> <span class="toc-text">3. A Real-World Case: Book Ontology Matching</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-String-Similarity"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 String Similarity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Neighbor-Class-Set-Similarity"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Neighbor Class Set Similarity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Neighbor-Class-Set-Similarity"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 Neighbor Class Set Similarity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Instance-Set-Similarity"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 Instance Set Similarity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Exercise"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 Exercise</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1"><span class="toc-number">3.5.1.</span> <span class="toc-text">3.5.1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-2"><span class="toc-number">3.5.2.</span> <span class="toc-text">3.5.2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Aggregate-these-similarities-self-training"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 Aggregate these similarities:self-training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-OAEI"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 OAEI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Instance-Matching-with-Knowledge-Graph-Embedding"><span class="toc-number">4.</span> <span class="toc-text">4. Instance Matching with Knowledge Graph Embedding</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-MTransE"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 MTransE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Different-alignment-techniques"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 Different alignment techniques</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Instance-Matching-with-Rules"><span class="toc-number">5.</span> <span class="toc-text">5. Instance Matching with Rules</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Seeds-Lightweight-Entity-Matching"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 Seeds - Lightweight Entity Matching</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Knowledge Graph Alignment<br><span id="more"></span></p>
+<h2 id="1-Why-do-we-need-Knowledge-Graph-Alignment"><a href="#1-Why-do-we-need-Knowledge-Graph-Alignment" class="headerlink" title="1. Why do we need Knowledge Graph Alignment?"></a>1. Why do we need Knowledge Graph Alignment?</h2><ul>
+<li>Knowledge graph construction needs to fuse the data from multiple sources!</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020005452.png" alt="image-20211201102106740" class="lazyload"></p>
+<ul>
+<li>Identifying the same entity with different descriptions from multiple sources is the key of knowledge graph alignment!</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006868.png" alt="image-20220202000614244" class="lazyload"></p>
+<ul>
+<li><p>我们希望把不同源的同一信息进行融合</p>
+</li>
+<li><p>The Same Entity in Multiple Sources</p>
+</li>
+<li>Knowledge graph alignment identifies relationships between classes <strong>(equivalence, subClassOf, and etc.),</strong> properties <strong>(equivalence, subPropertyOf, and etc.)</strong>, and instances <strong>(sameAs)</strong>.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006863.png" alt="image-20211201102533869" class="lazyload"></p>
+<ul>
+<li>Knowledge Graph Alignment consists of: <ul>
+<li><strong>ontology matching (i.e., schema matching),</strong> </li>
+<li>instance matching.</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-Ontology-Matching-本体匹配-："><a href="#2-Ontology-Matching-本体匹配-：" class="headerlink" title="2. Ontology Matching (本体匹配)："></a>2. Ontology Matching (本体匹配)：</h2><ul>
+<li>It is the process of <strong>finding correspondences</strong> (i.e., relationships) between <strong>classes (or properties) of different ontologies.</strong><ul>
+<li>在不同的本体寻找匹配的类别和属性</li>
+<li>作用在class和property上</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006882.png" alt="image-20211201103035976" class="lazyload"></p>
+<h3 id="2-1-Benefits-of-Ontology-Matching"><a href="#2-1-Benefits-of-Ontology-Matching" class="headerlink" title="2.1 Benefits of Ontology Matching"></a>2.1 Benefits of Ontology Matching</h3><ul>
+<li>Creating <strong>global ontologies</strong> from <strong>local ontologies</strong><ul>
+<li>整合全局本体</li>
+</ul>
+</li>
+<li><strong>Reuse information</strong> between ontologies<ul>
+<li>全局本体是公认的知识，则不用再重新建</li>
+</ul>
+</li>
+<li>Dealing with heterogeneity<ul>
+<li>处理异构性</li>
+</ul>
+</li>
+<li>Queries across <strong>multiple distributed resources</strong><ul>
+<li>利于在多个分布式条件下做查询</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-Ontology-Matching-Process"><a href="#2-2-Ontology-Matching-Process" class="headerlink" title="2.2 Ontology Matching Process"></a>2.2 Ontology Matching Process</h3><ul>
+<li><strong>Definition (Matching process)</strong> The matching process can be seen as a function $f$​​​ which, <strong>from a pair of ontologies to match</strong> $o$​​​ and $o’$​​​, <strong>an input alignment</strong> $A$​​​, <strong>a set of parameters</strong> $p$​​​ and <strong>a set of resources</strong> $r$​​​, <strong>returns an alignment</strong> $A$​​​ ‘ between these ontologies:</li>
+</ul>
+<script type="math/tex; mode=display">
+A^{\prime}=f\left(o, o^{\prime}, A, p, r\right)</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006881.png" alt="image-20211201103518903" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006571.png" alt="image-20211201103529183" class="lazyload"></p>
+<ul>
+<li><strong>parameters:</strong> weight, threshold… resources: common </li>
+<li>sense knowledge, domain-specific thesauri…</li>
+</ul>
+<h3 id="2-3-Ontology-Matching-Techniques"><a href="#2-3-Ontology-Matching-Techniques" class="headerlink" title="2.3 Ontology Matching Techniques"></a>2.3 Ontology Matching Techniques</h3><ul>
+<li><strong>Element-level matching techniques</strong><ul>
+<li>Analysing <strong>entities or instances</strong> in <strong>isolation</strong> </li>
+<li>Ignoring their relations with other entities or their instances</li>
+<li>不会考虑实体外部的关系，只考虑词之间的内部关系</li>
+</ul>
+</li>
+<li><strong>Structure-level techniques</strong><ul>
+<li>Analysing how <strong>entities</strong> or <strong>their instances appear together</strong> in a structure (e.g. by representing ontologies as a graph)</li>
+<li>会考虑实体周围的关系，例如$IsA$</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-Element-level-Matching-Techniques-String-based"><a href="#2-4-Element-level-Matching-Techniques-String-based" class="headerlink" title="2.4 Element-level Matching Techniques: String-based"></a>2.4 Element-level Matching Techniques: String-based</h3><h4 id="2-4-1-Prefix"><a href="#2-4-1-Prefix" class="headerlink" title="2.4.1 Prefix"></a>2.4.1 Prefix</h4><ul>
+<li>takes as input two strings and checks whether the first string starts with the second one<br>net $=$ network; but also hot $=$​ hotel </li>
+<li>利用前缀进行匹配，如果出现前缀完全等于另一个词，则形成匹配</li>
+</ul>
+<h4 id="2-4-2-Suffix"><a href="#2-4-2-Suffix" class="headerlink" title="2.4.2 Suffix"></a>2.4.2 Suffix</h4><ul>
+<li>takes as input two strings and checks whether the first string ends with the second one</li>
+<li>ID = PID; but also word $=$​ sword</li>
+<li>后缀匹配</li>
+</ul>
+<h4 id="2-4-3-Edit-distance-Levenshtein-distance-is-used-here"><a href="#2-4-3-Edit-distance-Levenshtein-distance-is-used-here" class="headerlink" title="2.4.3 Edit distance - Levenshtein distance is used here"></a>2.4.3 Edit distance - <strong>Levenshtein distance is used here</strong></h4><ul>
+<li>takes as input two strings and <strong>calculates the number of edition operations</strong>, (e.g., insertions, deletions, substitutions) of characters required to transform one string into another</li>
+<li>normalized by length of the maximum string</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006864.png" alt="image-20211202161306966" class="lazyload"></p>
+<ul>
+<li>这里editor修正为$2/7$</li>
+</ul>
+<h4 id="2-4-4-N-gram"><a href="#2-4-4-N-gram" class="headerlink" title="2.4.4 N-gram"></a>2.4.4 N-gram</h4><ul>
+<li>takes as input two strings and calculates the number of common n-grams (i.e., sequences of $n$ characters) between them, normalized by $\max ($ length $($ string 1$)$, length $($ string 2$))$</li>
+<li>Example:<ul>
+<li>trigrams(nikon) $=\{$ nik, iko, kon $\}$</li>
+<li>trigrams(nike) $=\{$ nik, ike $\}$</li>
+<li>$\operatorname{sim}($ nikon, nike $)=1 / 3$​​</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-5-Exercise"><a href="#2-4-5-Exercise" class="headerlink" title="2.4.5 Exercise"></a>2.4.5 Exercise</h4><ul>
+<li><p>Compute the <strong>trigram based similarity</strong> between two strings <strong>University</strong> and <strong>Universe</strong></p>
+</li>
+<li><p>trigrams(University)={Uni,niv,ive,ver,ers,rsi,sit,ity}</p>
+</li>
+<li><p>trigrams(Universe)={Uni,niv,ive,ver,ers,rse}</p>
+</li>
+<li><p>$\text{sim(University,Universe)}=5/8$</p>
+</li>
+</ul>
+<h3 id="2-5-Element-level-Matching-Techniques"><a href="#2-5-Element-level-Matching-Techniques" class="headerlink" title="2.5 Element-level Matching Techniques"></a>2.5 Element-level Matching Techniques</h3><h4 id="2-5-1-Language-based"><a href="#2-5-1-Language-based" class="headerlink" title="2.5.1 Language-based"></a>2.5.1 Language-based</h4><p><strong>Tokenization</strong></p>
+<ul>
+<li>parses names into tokens by recognizing punctuation, cases</li>
+<li>Hands-Free_Kits $\rightarrow\langle$ hands, free, kits $\rangle$<br>Lemmatization</li>
+<li>analyses morphologically tokens in order to find all their possible basic forms<br>Kits $\rightarrow$ Kit</li>
+</ul>
+<p><strong>Elimination</strong></p>
+<ul>
+<li>discards “empty” tokens that are articles, prepositions, conjunctions, etc.</li>
+<li>a, the, by, type of, their, from</li>
+</ul>
+<h4 id="2-5-2-Resource-based"><a href="#2-5-2-Resource-based" class="headerlink" title="2.5.2 Resource-based"></a>2.5.2 Resource-based</h4><p><strong>WordNet</strong></p>
+<ul>
+<li>A $\sqsubseteq B$ if $A$ is a <strong>hyponym</strong> of $B$​<ul>
+<li>Brand $\sqsubseteq$ Name<br>$A=B$​ if they are <strong>synonyms</strong></li>
+</ul>
+</li>
+<li>Quantity $=$​ Amount</li>
+<li>$A \perp B$ if they are <strong>antonyms反义词</strong> or the <strong>siblings</strong> in the part of hierarchy<ul>
+<li>Microprocessors $\perp \mathrm{PC}$​ Board</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-5-3-Constraint-based"><a href="#2-5-3-Constraint-based" class="headerlink" title="2.5.3 Constraint-based"></a>2.5.3 Constraint-based</h4><ul>
+<li><p>Datatype comparison</p>
+<ul>
+<li><p>integer &lt; real</p>
+<ul>
+<li>可能是sub的关系</li>
+</ul>
+</li>
+<li><p>date $\in[1 / 4 / 200530 / 6 / 2005]&lt;$ date $[$ year $=2005]$<br>$\{a, c, g, t\}[1-10]&lt;\{a, c, g, u, t\}+$</p>
+</li>
+</ul>
+</li>
+<li>Multiplicity comparison<br>$\left[\begin{array}{ll}1 &amp; 1\end{array}\right]&lt;\left[\begin{array}{ll}0 &amp; 10\end{array}\right]$​ <ul>
+<li><strong>Multiplicity:[minCardinality maxCardinality] of a property</strong></li>
+<li>完全不相交，可能就是不想关</li>
+</ul>
+</li>
+<li><p>Can be turned into a distance by estimating the ratio of domain coverage of each datatype.</p>
+</li>
+<li><p>如果整数</p>
+</li>
+</ul>
+<h3 id="2-6-Structure-level-Matching-Techniques"><a href="#2-6-Structure-level-Matching-Techniques" class="headerlink" title="2.6 Structure-level Matching Techniques"></a>2.6 Structure-level Matching Techniques</h3><ul>
+<li><strong>Graph-based Techniques:</strong> <ul>
+<li>consider the input ontologies as labeled graphs; </li>
+<li>if <strong>two nodes</strong> from two ontologies are <strong>similar,</strong> <strong>their neighbors</strong> may also be somehow <strong>similar</strong> <strong>(similar subclasses, superclasses, and properties).</strong></li>
+</ul>
+</li>
+<li><strong>Taxonomy-based Techniques:</strong> <ul>
+<li>are also graph algorithms which <strong>consider only is-a relations</strong> between classes; </li>
+<li>is-a links connect terms that are already similar, therefore their <strong>neighbors</strong> may be somehow similar.</li>
+</ul>
+</li>
+<li><strong>Model-based Techniques</strong> <ul>
+<li>handle the input ontologies <strong>based on its semantic interpretation</strong> (e.g, model-theoretic semantics); </li>
+<li>if two classes (or properties) are the <strong>same</strong>, then they share the <strong>same interpretation.</strong></li>
+</ul>
+</li>
+<li><strong>Instance-based Techniques:</strong> <ul>
+<li>compare <strong>sets of instances</strong> of classes to decide if these classes match or not (i.e., exist equivalence or subClassOf relations).</li>
+<li>用实例集合去比较，如果完全相同则就是equivalence</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-6-1-Exercise"><a href="#2-6-1-Exercise" class="headerlink" title="2.6.1 Exercise"></a>2.6.1 Exercise</h4><ul>
+<li>Compute the Jaccard similarity between the <strong>first-order neighbor classes of the classes</strong> Car and Automobile from different ontologies.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006368.png" alt="image-20211201110313663" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+A\cup B=\{\text{Vehicle},\text{Jeep},\text{Truck},\text{Van}\}\\
+A\cap B=\{\text{Vehicle},\text{Truck}\}\\
+\text{Jaccard}(\text{Car},\text{Automobile})=\frac{|A\cap B|}{|A\cup B|}=\frac{1}{2}
+\end{array}</script><h3 id="2-7-Matcher-Composition"><a href="#2-7-Matcher-Composition" class="headerlink" title="2.7 Matcher Composition"></a>2.7 Matcher Composition</h3><ul>
+<li><strong>Sequential composition of matchers</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006536.png" alt="image-20211201111030594" class="lazyload"></p>
+<ul>
+<li>Problem: <strong>error accumulation</strong> and <strong>low coverage</strong><ul>
+<li>第一个正确率0.95，那么一直乘会越来越小1</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-8-Parallel-composition-of-matchers"><a href="#2-8-Parallel-composition-of-matchers" class="headerlink" title="2.8 Parallel composition of matchers"></a>2.8 Parallel composition of matchers</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020006664.png" alt="image-20211201111318050" class="lazyload"></p>
+<ul>
+<li>可以得到结果后进行投票或者只是得到特征再送进机器学习模型<ul>
+<li>e.g.A single similarity measure composed by the similarity obtained from their names, the similarity of their superclasses, the similarity of their instances and that of their properties</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-A-Real-World-Case-Book-Ontology-Matching"><a href="#3-A-Real-World-Case-Book-Ontology-Matching" class="headerlink" title="3. A Real-World Case: Book Ontology Matching"></a>3. A Real-World Case: Book Ontology Matching</h2><ul>
+<li>Given two ontologies $O_{1}$​ and $O_{2}$​, generate candidate matched classes by pairing any two classes from the two ontologies. <strong>A pair of candidate matched classes</strong> is denoted as $\left(C_{1 \mathrm{k}}, C_{2 \mathrm{P}}\right)$​, and note that $\left(C_{2 \mathrm{p}}, C_{1 \mathrm{k}}\right)$​​​​ <strong>is a different pair</strong> since we need to measure the <strong>asymmetric similarities</strong> between classes.<ul>
+<li>寻找非对称相似度</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-1-String-Similarity"><a href="#3-1-String-Similarity" class="headerlink" title="3.1 String Similarity"></a>3.1 String Similarity</h3><script type="math/tex; mode=display">
+C L \operatorname{sim}\left(C_{1 k}, C_{2 p}\right)=\frac{\operatorname{LCS}\left(I\left(C_{1 k}\right), I\left(C_{2 p}\right)\right)}{\left|I\left(C_{1 k}\right)\right|}</script><ul>
+<li>where LCS means the length of <strong>the longest common substring</strong>, $l(\cdot)$​ returns the label of the class, and $|\cdot|$​ returns the length of the input label.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007720.png" alt="image-20211201111818791" class="lazyload"></p>
+<h3 id="3-2-Neighbor-Class-Set-Similarity"><a href="#3-2-Neighbor-Class-Set-Similarity" class="headerlink" title="3.2 Neighbor Class Set Similarity"></a>3.2 Neighbor Class Set Similarity</h3><script type="math/tex; mode=display">
+\operatorname{NCSsim}\left(C_{1 k}, C_{2 p}\right)=\frac{\left|N C S\left(C_{1 k}\right) \cap N C S\left(C_{2 p}\right)\right|}{\left|N C S\left(C_{1 k}\right)\right|}</script><ul>
+<li>where $\left|\mathrm{NCS}\left(C_{1 \mathrm{k}}\right) \cap \mathrm{NCS}\left(C_{2 \mathrm{p}}\right)\right|$ is the size of the intersection of $\mathrm{NCS}\left(C_{1 \mathrm{k}}\right)$ and $\operatorname{NCS}\left(C_{2 \mathrm{p}}\right), N C S(\cdot)$ returns the set of first-order neighbor classes in the given ontology.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007135.png" alt="image-20211201112013462" class="lazyload"></p>
+<h3 id="3-3-Neighbor-Class-Set-Similarity"><a href="#3-3-Neighbor-Class-Set-Similarity" class="headerlink" title="3.3 Neighbor Class Set Similarity"></a>3.3 Neighbor Class Set Similarity</h3><ul>
+<li>We submit the label l(C) of a snippets as the textual context;<ul>
+<li>先把本体扔到搜索引擎得到他的长文本</li>
+</ul>
+</li>
+<li>In the top-k returned snippets of Web pages, the words co-occurred with l(C) in the same sentence are extracted;<ul>
+<li>把搜索中的topk个abstract搜集，然后抽取共现词</li>
+</ul>
+</li>
+<li>After removing the stopwords and the words with low frequency (e.g., less than 3), TF-IDF is adopted for weighting each word $u$​ :</li>
+<li>对于所有共现词可以计算tf-idf<ul>
+<li>即合并所有的abstract可以计算tf，以及计算document的freq</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+w_{u}=t f_{u} \cdot i d f_{u}</script><ul>
+<li>Textual Context Similarity.<ul>
+<li>The textual context vector representation of a class $C$ is denoted as: $\mathrm{TC}(\mathrm{C})=&lt;\mathrm{w}_{1}(\mathrm{C}), \mathrm{w}_{2}(\mathrm{C}), \ldots, \mathrm{w}_{\mathrm{n}}(\mathrm{C})&gt;$, and $n$ is the number of all words.</li>
+<li>The textual context similarity between classes $C_{1 \mathrm{k}}$ and $C_{2 \mathrm{p}}$​ is computed as:<ul>
+<li>内积除以模</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+T C \operatorname{sim}\left(C_{1 k}, C_{2 p}\right)=\frac{\sum_{v=1}^{n} T C\left(C_{1 k}\right)_{v} \cdot T C\left(C_{2 p}\right)_{v}}{\sum_{v=1}^{n} T C\left(C_{1 k}\right)_{v}{ }^{2}}</script><h3 id="3-4-Instance-Set-Similarity"><a href="#3-4-Instance-Set-Similarity" class="headerlink" title="3.4 Instance Set Similarity"></a>3.4 Instance Set Similarity</h3><script type="math/tex; mode=display">
+\operatorname{ISSim}\left(C_{1 k}, C_{2 p}\right)=\frac{\left.\mid \operatorname{IS(C}_{1 k}\right) \cap \operatorname{IS}\left(C_{2 p}\right) \mid}{\left.\mid \operatorname{IS(C}_{1 k}\right) \mid}</script><ul>
+<li>where $I S(\cdot)$​ returns the instance set of the class, and we can identify the same book instances using the ISBN number in the book domain.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007092.png" alt="image-20211201113406869" class="lazyload"></p>
+<h3 id="3-5-Exercise"><a href="#3-5-Exercise" class="headerlink" title="3.5 Exercise"></a>3.5 Exercise</h3><h4 id="3-5-1"><a href="#3-5-1" class="headerlink" title="3.5.1"></a>3.5.1</h4><ul>
+<li>Given two ontologies as follows, compute the String Similarity, Neighbor Class Set Similarity, Instance Set Similarity (introduced in the real-world case: book ontology matching) on the class pairs (book, Textbook) and (Textbook, book), respectively.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007192.png" alt="image-20211201114529125" class="lazyload"></p>
+<ul>
+<li><strong>StringSimilarity</strong><ul>
+<li>len(book)=4,len(Textbook)=8</li>
+<li>substring(book, Textbook)=book</li>
+<li>len(substring)=4</li>
+<li><strong>strIngSimilarity(book, Textbook)=4/4=1</strong></li>
+<li><strong>strIngSimilarity(Textbook, book)=4/8=1/2</strong></li>
+</ul>
+</li>
+<li><strong>Neighbor Class Set Similarity</strong><ul>
+<li>Neighbor(book)={literature,volume}</li>
+<li>Neighbor(Textbook)={volume,Engineering,Science}</li>
+<li><strong>Neighbor Class Set Similarity(book, Textbook)=1/2</strong></li>
+<li><strong>Neighbor Class Set Similarity(Textbook, book)=1/3</strong></li>
+</ul>
+</li>
+<li><strong>Instance Set Similarity</strong><ul>
+<li>Instance(book)={Red Sorghum,Introduction to Algorithm}</li>
+<li>Instance(Textbook)={Red Sorghum}</li>
+<li><strong>Instance Set Similarity(book, Textbook)=1/2</strong></li>
+<li><strong>Instance Set Similarity(Textbook, book)=1</strong></li>
+<li>Given two ontologies $O_{1}$​ and $O_{2}$​, generate candidate matched classes by pairing any two classes from the two ontologies. A pair of candidate matched classes is denoted as $\left(C_{1 \mathrm{k}}, C_{2 \mathrm{P}}\right)$​, and note that $\left(C_{2 \mathrm{p}}, C_{1 \mathrm{k}}\right)$​ is a different pair since we need to measure the asymmetric similarities between classes.</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-5-2"><a href="#3-5-2" class="headerlink" title="3.5.2"></a>3.5.2</h4><ul>
+<li>Question: now we have <strong>String Similarity, Neighbor Class Set Similarity, Textual Context Similarity, and Instance Set Similarity,</strong> please tell which one belongs to the element-level matching techniques? Which one is a structure-level matching technique?<ul>
+<li><strong>String Similarity,Textual Context Similarity element-level matching techniques</strong></li>
+<li><strong>Neighbor Class Set Similarity, Instance Set Similarity structure-level matching technique</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="3-6-Aggregate-these-similarities-self-training"><a href="#3-6-Aggregate-these-similarities-self-training" class="headerlink" title="3.6 Aggregate these similarities:self-training"></a>3.6 Aggregate these similarities:self-training</h3><ul>
+<li><p><strong>Aggregate these similarities</strong> by a semi-supervised learning strategy: <strong>self-training</strong>, for <strong>binary classification</strong> on subClassOf relations: </p>
+<ul>
+<li>In each iteration, self-training accepts the labeled data as training data and learns a classifier. </li>
+<li>Then the classifier is applied to the unlabeled data and <strong>adds class pairs of high confidence to the labeled data</strong> to <strong>train a new classifier</strong> for the next iteration. </li>
+<li>The whole process will terminate if the difference between the predicted labels of the class pairs given by classifiers in the two consecutive iterations is smaller than a threshold or the maximal number of iterations is achieved.</li>
+<li>用少量数据训练得弱分类器，从而预测无标签数据，得到高置信度得数据之后再继续训练，终止条件：到达指定epoch或者标签数据不再改变</li>
+</ul>
+</li>
+<li><p>The binary classifier can use <strong>SVM, Random Forest,</strong> Neural Networks, and etc.</p>
+<ul>
+<li>传统方法SVM，Random Forest的效果最好</li>
+</ul>
+</li>
+<li><p><strong>In each iteration, rules are applied to filter out misclassified relations.</strong></p>
+<ul>
+<li>每次迭代过程用设定的规则过滤掉错误分类</li>
+</ul>
+</li>
+<li><p><strong>RULE 1:</strong></p>
+<ul>
+<li>Given two book classes $C_{1 \mathrm{k}}$​ and $C_{2 \mathrm{p}}$​, if the label string $l\left(C_{1 \mathrm{k}}\right)$​ is the suffix of the label string $l\left(C_{2 \mathrm{p}}\right)$​, and $l\left(C_{2 \mathrm{p}}\right)$​ does not contain “与”, “和”, and “\&amp;”, then $C_{2 \mathrm{p}}$​ is the subclass of $C_{1 \mathrm{k}}$​​​.</li>
+<li>Example: 企业管理 subClassOf 管理</li>
+<li>如果机器学习误分类了即给了很低的置信度，那么我们可以使用这条规则进行修正</li>
+</ul>
+</li>
+<li><p><strong>RULE 2;</strong></p>
+<ul>
+<li>Given two book classes $C_{1 \mathrm{k}}$ and $C_{2 \mathrm{p}}$, if the label string $l\left(C_{2 \mathrm{p}}\right)$ contains “与” or “和” or “\&amp;”, then using these symbols as separators to segment the label string $l\left(C_{2 \mathrm{p}}\right)$. If one of the segmented strings and $l\left(C_{1 \mathrm{k}}\right)$ are the same, then $C_{1 \mathrm{k}}$ is the subclass of $C_{2 \mathrm{p}}$​​​.</li>
+<li>先分割再看包含关系</li>
+<li>Example: 计算机 subClassOf 计算机与互联网</li>
+</ul>
+</li>
+</ul>
+<p><strong>With generated subClassOf relations, how to get equivalent classes?</strong></p>
+<ul>
+<li>A=B -: A subclassOf B and B subclassOf A</li>
+</ul>
+<h3 id="3-7-OAEI"><a href="#3-7-OAEI" class="headerlink" title="3.7 OAEI"></a>3.7 OAEI</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/knowledge%20engineering/note/img/image-20211201120124352.png" alt="image-20211201120124352" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007864.png" alt="image-20211201120236875" class="lazyload"></p>
+<ul>
+<li><p>Knowledge Graph Alignment consists of: </p>
+<ul>
+<li>ontology matching (i.e., schema matching), </li>
+<li>instance matching.</li>
+</ul>
+</li>
+<li><p>Instance Matching (实例匹配)：It is the process of finding different instances of the same real-world objects.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007161.png" alt="image-20211201120349850" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007745.png" alt="image-20211201120412598" class="lazyload"></p>
+<ul>
+<li>平均四个实体有4个url</li>
+</ul>
+<h2 id="4-Instance-Matching-with-Knowledge-Graph-Embedding"><a href="#4-Instance-Matching-with-Knowledge-Graph-Embedding" class="headerlink" title="4. Instance Matching with Knowledge Graph Embedding"></a>4. Instance Matching with Knowledge Graph Embedding</h2><ul>
+<li>Embedding maps discrete variables to continuous vector representations;</li>
+<li>Embedding learning techniques has achieved great progress in CV, NLP, Speech Recognition, and etc.;</li>
+<li>Knowledge Graph Embedding aims to <strong>map entities and relations to continuous vector representations.</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007843.png" alt="image-20211201120632324" class="lazyload"></p>
+<ul>
+<li>Conventional approaches are challenged by the <strong>symbolic, linguistic and schematic heterogeneity of independently-created KGs</strong></li>
+<li>Embedding-based approaches <strong>measure entity similarities</strong> based on <strong>entity embeddings</strong><ul>
+<li>Three key modules<ul>
+<li>KG embedding</li>
+<li>Alignment inference</li>
+<li>How they interact</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007784.png" alt="image-20211201120650279" class="lazyload"></p>
+<ul>
+<li>Knowledge graph embedding: <strong>TransE</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007896.png" alt="image-20211201120736488" class="lazyload"></p>
+<ul>
+<li><p>训练多个Transe，来做三元组对齐</p>
+</li>
+<li><p>Corpora: <strong>(partially-aligned)</strong> multilingual KGs</p>
+</li>
+<li><p>Enabling: <strong>inferable embeddings of multilingual semantics</strong></p>
+</li>
+<li><p>Can be applied to:</p>
+<ul>
+<li>Knowledge alignment</li>
+<li>Cross-lingual Q&amp;A</li>
+<li>Multilingual chat-bots</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020007383.png" alt="image-20211202164729754" class="lazyload"></p>
+<h3 id="4-1-MTransE"><a href="#4-1-MTransE" class="headerlink" title="4.1 MTransE"></a>4.1 MTransE</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008140.png" alt="image-20211202164928765" class="lazyload"></p>
+<ul>
+<li>Knowledge model和Transe一样</li>
+<li>Alignment model为了缩小需要匹配的不同语言的三元组</li>
+</ul>
+<h3 id="4-2-Different-alignment-techniques"><a href="#4-2-Different-alignment-techniques" class="headerlink" title="4.2 Different alignment techniques"></a>4.2 Different alignment techniques</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008456.png" alt="image-20211202165249949" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008000.png" alt="image-20211202165305293" class="lazyload"></p>
+<h2 id="5-Instance-Matching-with-Rules"><a href="#5-Instance-Matching-with-Rules" class="headerlink" title="5. Instance Matching with Rules"></a>5. Instance Matching with Rules</h2><ul>
+<li>The Same Entity in Multiple Sources</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008920.png" alt="image-20211208095620225" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008024.png" alt="image-20211208095728113" class="lazyload"></p>
+<ul>
+<li><p>seeds是预先得到的一些标签数据</p>
+</li>
+<li><p>Automatically discovering and refining dataset-specific matching rules in iterations</p>
+<ul>
+<li>Deriving these rules by finding the most discriminative data<br>characteristics for a given data source pair.</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-1-Seeds-Lightweight-Entity-Matching"><a href="#5-1-Seeds-Lightweight-Entity-Matching" class="headerlink" title="5.1 Seeds - Lightweight Entity Matching"></a>5.1 Seeds - Lightweight Entity Matching</h3><ul>
+<li><strong>Punctuation Cleaning:</strong><ul>
+<li>Space Shuttle Endeavour $\approx$​ Space Shuttle “Endeavour”</li>
+<li>去掉标点后，如果字符串完全相同，则可以认为这两个实体是完全匹配的</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008144.png" alt="image-20211208100015522" class="lazyload"></p>
+<ul>
+<li><p><strong>Redirects</strong> Information:</p>
+<ul>
+<li>重定向：百度百科会自动将网页重定向到另一个页面，该页面的标题是重定向信息</li>
+<li>A redirects to B means A and B are synonyms</li>
+</ul>
+</li>
+<li><p>Mining Properties Equivalences</p>
+<ul>
+<li>当我们已知两个实体等价，而这两个实体都有多个属性值对，这样我们就可以做属性匹配</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008975.png" alt="image-20211208100233557" class="lazyload"></p>
+<ul>
+<li>For each pair of existing matched instances, their property-value pairs are merged.<ul>
+<li>在一对实例可以找到很多这样的属性对</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008192.png" alt="image-20211208100353730" class="lazyload"></p>
+<ul>
+<li><p>Matching rule (frequent set mining):</p>
+<ul>
+<li>算法：Association Rule Mining 把频繁出现的属性值对放在一起，作为实例等价规则，如以下的例子</li>
+<li><strong>baidu:x and hudong:x are matched, iff.</strong></li>
+<li>valueOf(baidu:标签) = valueOf(hudong:中文学名)</li>
+<li>and</li>
+<li>valueOf(baidu:拉丁学名) = valueOf(hudong:二名法)</li>
+<li>and</li>
+<li>valueOf(baidu:纲) = valueOf(hudong:纲)</li>
+</ul>
+</li>
+<li><p>The Wrapper Algorithm</p>
+<ul>
+<li>一开始用轻量级算法，从而挖掘出规则</li>
+<li>然后再通过规则进行实例匹配，不断迭代</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008344.png" alt="image-20211208100845737" class="lazyload"></p>
+<ul>
+<li>The wrapper is an implementation of Expectation-Maximization iterations.</li>
+<li>这里使用EM算法，可以这么理解，这里的匹配就是我们要的参数（未知），而规则就是我们要预测的分布</li>
+<li>The E-step<ul>
+<li>估计missing data</li>
+<li>The E-step estimates the <strong>missing data (matches)</strong> using the observed data and the current estimate for the <strong>parameters (matching rules).</strong></li>
+</ul>
+</li>
+<li>The M-step</li>
+<li>The M-step <strong>computes parameters</strong> maximizing the <strong>likelihood function</strong> as the data estimated in E-step are used in lieu of the actual missing data.</li>
+<li>M: matches</li>
+<li>$\Theta$: parameters</li>
+</ul>
+<script type="math/tex; mode=display">
+L(\theta ; M)=\operatorname{Pr}(M \mid \theta)</script><ul>
+<li><p>给定当前规则的情况下，实例匹配出现的概率</p>
+</li>
+<li><p>The Likelihood Function</p>
+<script type="math/tex; mode=display">
+L(\theta ; M) \approx \frac{\mid \text { ConnectedComponent }(M) \mid}{|\operatorname{Edge}(M)|}</script></li>
+<li>Assuming that no equivalent instances exist in a single data source, we can infer that an instance is equivalent to at most one another from the other data source.</li>
+<li>Incorrect matches in $M$ may result in a node connecting to more than one other node, which is contrary to the assumption.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008056.png" alt="image-20211208101602385" class="lazyload"></p>
+<ul>
+<li><p>如果L高，那么规则的置信度就高，那么我们就可以把这个规则加入到规则集</p>
+</li>
+<li><p>Precisions</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020008576.png" alt="image-20211208101745264" class="lazyload"></p>
+<ul>
+<li><p>Sampling a certain number of output matches.</p>
+</li>
+<li><p>The X-axis indicates the proportions of selected seeds in complete reference matches.</p>
+</li>
+</ul>
+<p>Question<br>What are the advantages and disadvantages of the embedding-based method and rule-based method for instance matching?</p>
+<ul>
+<li>如果数据质量不高，embedding对噪声的容忍性高</li>
+<li>如果数据质量高，那么用规则的方法就会带来更高的准确率</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/knowledge%20engineering/12.%20Knowledge%20Graph%20Alignment/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;12.%20Knowledge%20Graph%20Alignment&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;12.%20Knowledge%20Graph%20Alignment&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292021"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

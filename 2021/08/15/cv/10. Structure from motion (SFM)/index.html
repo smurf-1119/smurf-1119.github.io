@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Structure from motion (SFM) - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Structure from motion (SFM)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Structure from motion (SFM)">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/10.%20Structure%20from%20motion%20(SFM)/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Structure from motion (SFM)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137881.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137790.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137075.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137047.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137296.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011138998.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211126102049395.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139095.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139117.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139672.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139128.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139729.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139122.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139548.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139048.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139894.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139156.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139144.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139862.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139918.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140894.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140975.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140511.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140302.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140278.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140034.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140342.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140510.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140699.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140858.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140695.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140679.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140575.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140080.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140262.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140600.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140274.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141415.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141022.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141222.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141606.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141614.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141559.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141823.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141987.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141063.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141574.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141911.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141342.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141382.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141262.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141158.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142959.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142735.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142287.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142906.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142821.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142758.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142786.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142566.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142869.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142294.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142030.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142262.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142271.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142103.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142214.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142437.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011143422.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011143325.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011143846.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:17:35.393Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137881.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902291977">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Structure from motion (SFM)" class="lazyload">
+            <h1>Structure from motion (SFM)</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.6k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 14 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Structure-from-motion-SFM"><span class="toc-number">1.</span> <span class="toc-text">Structure from motion (SFM)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Affine-structure-from-motion"><span class="toc-number">1.1.</span> <span class="toc-text">1. Affine structure from motion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Recall-Corresponding-point-detection"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 Recall: Corresponding point detection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Structure-from-motion"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 Structure from motion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Orthographic-Projection"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 Orthographic Projection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Affine-cameras"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4 Affine cameras</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-Factorizing-the-measurement-matrix"><span class="toc-number">1.1.5.</span> <span class="toc-text">1.5 Factorizing the measurement matrix</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Projective-structure-from-motion"><span class="toc-number">1.2.</span> <span class="toc-text">2. Projective structure from motion</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Problem"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 Problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Algebraic-approach-Two-camera-case"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 Algebraic approach : Two-camera case</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bundle-adjustment"><span class="toc-number">1.3.</span> <span class="toc-text">3. Bundle adjustment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-What-is-deep-learning-How-does-it-work"><span class="toc-number">1.4.</span> <span class="toc-text">4. What is deep learning? How does it work?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Perceptron"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 Perceptron</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Question"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">Question</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Idea-the-Two-Layer-Perceptron"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 Idea: the Two-Layer Perceptron</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#L4-3-et%E2%80%99s-consider-more-general-cases"><span class="toc-number">1.4.3.</span> <span class="toc-text">L4.3 et’s consider more general cases</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Framework"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.4 Framework</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-Neuron"><span class="toc-number">1.4.5.</span> <span class="toc-text">4.5 Neuron</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-Other-activation-functions"><span class="toc-number">1.4.6.</span> <span class="toc-text">4.6 Other activation functions</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-Neural-Network"><span class="toc-number">1.4.7.</span> <span class="toc-text">4.7 Neural Network</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8-Fully-Connect-Feedforward-Network"><span class="toc-number">1.4.8.</span> <span class="toc-text">4.8 Fully Connect Feedforward Network</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9-Matrix-Operation"><span class="toc-number">1.4.9.</span> <span class="toc-text">4.9 Matrix Operation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-10-Output-Layer-as-Multi-Class-Classifier"><span class="toc-number">1.4.10.</span> <span class="toc-text">4.10 Output Layer as Multi-Class Classifier</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-11-Example-Application"><span class="toc-number">1.4.11.</span> <span class="toc-text">4.11 Example Application</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-12-Loss-for-an-Example"><span class="toc-number">1.4.12.</span> <span class="toc-text">4.12 Loss for an Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-13-Total-Loss"><span class="toc-number">1.4.13.</span> <span class="toc-text">4.13 Total Loss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-14-Gradient-Descent"><span class="toc-number">1.4.14.</span> <span class="toc-text">4.14 Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-15-Local-Minima"><span class="toc-number">1.4.15.</span> <span class="toc-text">4.15 Local Minima</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-16-Shuffle-the-samples-for-each-epoch"><span class="toc-number">1.4.16.</span> <span class="toc-text">4.16 Shuffle the samples for each epoch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-17-Mini-batch-Epoch"><span class="toc-number">1.4.17.</span> <span class="toc-text">4.17 Mini-batch Epoch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-18-Vanishing-gradient-and-ReLU"><span class="toc-number">1.4.18.</span> <span class="toc-text">4.18 Vanishing gradient and ReLU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-19-Rectified-Linear-Unit-ReLU"><span class="toc-number">1.4.19.</span> <span class="toc-text">4.19 Rectified Linear Unit (ReLU)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-20-ReLU-variant"><span class="toc-number">1.4.20.</span> <span class="toc-text">4.20 ReLU -variant</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-21-Learnable-activation-function-Maxout"><span class="toc-number">1.4.21.</span> <span class="toc-text">4.21 Learnable activation function -Maxout</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-22-Hard-to-find-optimal-parameters"><span class="toc-number">1.4.22.</span> <span class="toc-text">4.22 Hard to find optimal parameters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-23-In-physical-world%E2%80%A6%E2%80%A6"><span class="toc-number">1.4.23.</span> <span class="toc-text">4.23 In physical world……</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-24-Review-Vanilla-Gradient-Descent"><span class="toc-number">1.4.24.</span> <span class="toc-text">4.24 Review: Vanilla Gradient Descent</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-25-Momentum"><span class="toc-number">1.4.25.</span> <span class="toc-text">4.25 Momentum</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-26-Dropout"><span class="toc-number">1.4.26.</span> <span class="toc-text">4.26 Dropout</span></a></li></ol></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Structure from motion (SFM)</p>
+<span id="more"></span>
+<h1 id="Structure-from-motion-SFM"><a href="#Structure-from-motion-SFM" class="headerlink" title="Structure from motion (SFM)"></a>Structure from motion (SFM)</h1><h2 id="1-Affine-structure-from-motion"><a href="#1-Affine-structure-from-motion" class="headerlink" title="1. Affine structure from motion"></a>1. Affine structure from motion</h2><ul>
+<li><p>Given a set of corresponding points in two or more images, compute the <strong>camera parameters</strong> and <strong>the 3D point coordinates</strong></p>
+</li>
+<li><p>从图像中找一些点，再恢复到3D空间</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137881.png" alt="image-20211126101000205" class="lazyload"></p>
+<h3 id="1-1-Recall-Corresponding-point-detection"><a href="#1-1-Recall-Corresponding-point-detection" class="headerlink" title="1.1 Recall: Corresponding point detection"></a>1.1 Recall: Corresponding point detection</h3><ul>
+<li>Detect SIFT features</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137790.png" alt="image-20211126101044938" class="lazyload"></p>
+<ul>
+<li>Match features between each pair of images</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137075.png" alt="image-20220201113742762" class="lazyload"></p>
+<ul>
+<li>何种方法可能会出现错误</li>
+<li>Use RANSAC to estimate <strong>fundamental matrix</strong> between each pair<ul>
+<li>不断找8个点去估计F矩阵，对于正确的F，一定可以使得这些点满足矩阵变换关系，那么当F保留内点最多时，则F正确</li>
+<li>这样估计出来的F可以用于去除一些错误的匹配</li>
+</ul>
+</li>
+<li>Keep only the matches at are “inliers” with respect to the best fundamental matrix<ul>
+<li>只保留与最佳基本矩阵相关的“内联”匹配</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-2-Structure-from-motion"><a href="#1-2-Structure-from-motion" class="headerlink" title="1.2 Structure from motion"></a>1.2 Structure from motion</h3><ul>
+<li><p>Given: $m$ images of $n$ fixed 3D points</p>
+<script type="math/tex; mode=display">
+\mathbf{x}_{i j}=\mathbf{P}_{i} \mathbf{X}_{j}, i=1, \ldots, m, \quad j=1, \ldots, n</script></li>
+<li><p>estimate $m$ projection matrices $\mathbf{P}_{i}$ motion</p>
+</li>
+<li><p>estimate $n$​ 3D points $\mathbf{X}_{j}$​ from the $m n$​ correspondences $\mathbf{x}_{i j}$​ structure</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137047.png" alt="image-20211126101549814" class="lazyload"></p>
+<h3 id="1-3-Orthographic-Projection"><a href="#1-3-Orthographic-Projection" class="headerlink" title="1.3 Orthographic Projection"></a>1.3 Orthographic Projection</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011137296.png" alt="image-20211126101720125" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{llll}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+z \\
+1
+\end{array}\right]=\left[\begin{array}{l}
+x \\
+y \\
+1
+\end{array}\right] \Rightarrow(x, y)</script><h3 id="1-4-Affine-cameras"><a href="#1-4-Affine-cameras" class="headerlink" title="1.4 Affine cameras"></a>1.4 Affine cameras</h3><ul>
+<li>A general affine camera combines the effects of an affine transformation of the $3 D$ space, <strong>orthographic projection</strong>, and an affine transformation of the image:</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\mathbf{P}=[3 \times 3 \text { affine }]\left[\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right][4 \times 4 \text { affine }]\\
+=\left[\begin{array}{cccc}
+a_{11} & a_{12} & a_{13} & b_{1} \\
+a_{21} & a_{22} & a_{23} & b_{2} \\
+0 & 0 & 0 & 1
+\end{array}\right]=\left[\begin{array}{cc}
+\mathbf{A} & \mathbf{b} \\
+\mathbf{0} & 1
+\end{array}\right]
+\end{array}</script><ul>
+<li><strong>Affine projection</strong> is a linear mapping + translation in non-homogeneous coordinates (in Euclidean space))<ul>
+<li>转换为非齐次坐标系</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011138998.png" alt="image-20211126102039611" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211126102049395.png" alt="image-20211126102049395" class="lazyload"></p>
+<ul>
+<li>Given: $m$ images of $n$ fixed 3D points:<script type="math/tex; mode=display">
+\mathbf{x}_{i j}=\mathbf{A}_{i} \mathbf{X}_{j}+\mathbf{b}_{i}, \quad i=1, \ldots, m, j=1, \ldots, n</script></li>
+<li><p>Problem: use the $m n$ correspondences $x_{i j}$ to estimate $m$ projection matrices $A_{i}$ and translation vectors $b_{i}$, and $n$ points $X_{j}$</p>
+</li>
+<li><p><strong>Centering: subtract the centroid of the image points in each view</strong></p>
+<ul>
+<li>对于每张图片做一个中心化处理</li>
+<li>这种变换等价于在空间上先做中心化，在进行投影</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\hat{\mathbf{x}}_{i j} &=\mathbf{x}_{i j}-\frac{1}{n} \sum_{k=1}^{n} \mathbf{x}_{i k}=\mathbf{A}_{i} \mathbf{X}_{j}+\mathbf{b}_{i}-\frac{1}{n} \sum_{k=1}^{n}\left(\mathbf{A}_{i} \mathbf{X}_{k}+\mathbf{b}_{i}\right) \\
+&=\mathbf{A}_{i}\left(\mathbf{X}_{j}-\frac{1}{n} \sum_{k=1}^{n} \mathbf{X}_{k}\right)=\mathbf{A}_{i} \hat{\mathbf{X}}_{j}
+\end{aligned}</script><script type="math/tex; mode=display">
+\hat{\mathbf{x}}_{i j}=\mathbf{A}_{i}\left(\mathbf{X}_{j}-\frac{1}{n} \sum_{k=1}^{n} \mathbf{X}_{k}\right)=\mathbf{A}_{i} \hat{\mathbf{X}}_{j}</script><ul>
+<li>For simplicity, set the <strong>origin of the world coordinate system</strong> to <strong>the centroid of the 3D points</strong><ul>
+<li>以世界坐标系的原点为中心点，这样我们就可以简化表达式</li>
+</ul>
+</li>
+<li>After centering, each normalized $2 D$ point is related to the $3 D$ point $X_{j}$​ by</li>
+</ul>
+<script type="math/tex; mode=display">
+\hat{\mathbf{x}}_{i j}=\mathbf{A}_{i} \mathbf{X}_{j}</script><ul>
+<li>Let’s create a $2 m \times n$ data (measurement) matrix:</li>
+</ul>
+<script type="math/tex; mode=display">
+\mathbf{D}=\left[\begin{array}{cccc}
+\hat{\mathbf{x}}_{11} & \hat{\mathbf{x}}_{12} & \cdots & \hat{\mathbf{x}}_{1 n} \\
+\hat{\mathbf{x}}_{21} & \hat{\mathbf{x}}_{22} & \cdots & \hat{\mathbf{x}}_{2 n} \\
+& & \ddots & \\
+\hat{\mathbf{x}}_{m 1} & \hat{\mathbf{x}}_{m 2} & \cdots & \hat{\mathbf{x}}_{m n}
+\end{array}\right]=\underset{cameras(2m ×3)}{\left[\begin{array}{c}
+\mathbf{A}_{1} \\
+\mathbf{A}_{2} \\
+\vdots \\
+\mathbf{A}_{m}
+\end{array}\right]}\underset{points (3×n)}{\left[\begin{array}{cccc}
+\mathbf{X}_{1} & \mathbf{X}_{2} & \cdots & \mathbf{X}_{n}
+\end{array}\right]}</script><ul>
+<li><p>$x_{ij}$​是2<em>1，$A_i$​是2\</em>3,$X_i$​是3*1</p>
+</li>
+<li><p>The measurement matrix $\mathbf{D}=\mathbf{M S} $​ must have rank 3 !</p>
+</li>
+</ul>
+<h3 id="1-5-Factorizing-the-measurement-matrix"><a href="#1-5-Factorizing-the-measurement-matrix" class="headerlink" title="1.5 Factorizing the measurement matrix"></a>1.5 Factorizing the measurement matrix</h3><ul>
+<li>Singular value decomposition of D:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139095.png" alt="image-20211126103159399" class="lazyload"></p>
+<ul>
+<li>Obtaining a factorization from SVD:<ul>
+<li>奇异值分解后，我们选取特征值最大的三个值所对应的$U$和$V$</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139117.png" alt="image-20211126103423408" class="lazyload"></p>
+<ul>
+<li>因为恢复存在歧义性所以恢复出来的三维结构可能会失去深度信息，即会发生变形<ul>
+<li>$HS$为仿射变换，所以会发生变形</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+D=MS=MH^{-1}HS</script><ul>
+<li><strong>The decomposition is not unique.</strong> We get the same D by using any $3 \times 3$​ matrix $\mathrm{C}$​ and applying the transformations $\mathrm{M} \rightarrow \mathrm{MC}, \mathrm{S} \rightarrow \mathrm{C}^{-1} \mathrm{~S}$​</li>
+<li>That is because <strong>we have only an affine transformation</strong> and <strong>we have not enforced any Euclidean constraints</strong> (like forcing the image axes to be perpendicular, for example)</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139672.png" alt="image-20211126104218988" class="lazyload"></p>
+<ul>
+<li>一种解决方法：加入先验</li>
+<li>第二种通过灯箱实验，加入适当约束</li>
+</ul>
+<h2 id="2-Projective-structure-from-motion"><a href="#2-Projective-structure-from-motion" class="headerlink" title="2. Projective structure from motion"></a>2. Projective structure from motion</h2><ul>
+<li>Given: $m$ images of $n$ fixed 3 D points</li>
+</ul>
+<script type="math/tex; mode=display">
+x_{i j}=P_{i} X_{j}, i=1, \ldots, m, \quad j=1, \ldots, n</script><ul>
+<li>Problem: estimate $m$​ projection matrices $\boldsymbol{P}_{i}$​ and $n$​ 3D points $\boldsymbol{X}_{j}$​ from the $m n$​ correspondences $x_{i j} $​</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139128.png" alt="image-20211126104451271" class="lazyload"></p>
+<ul>
+<li><strong>With no calibration info,</strong> cameras and points can only be recovered up to a $4 \times 4$​ projective transformation $\boldsymbol{H}$​​ :<ul>
+<li>加入标定信息的变换</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{cc}
+x=P X & P=K[R T] \\
+\downarrow & \downarrow \\
+H X & P H^{-1} \\
+x=P X=P H^{-1} H X &
+\end{array}</script><h3 id="2-1-Problem"><a href="#2-1-Problem" class="headerlink" title="2.1 Problem"></a>2.1 Problem</h3><ul>
+<li>Factorization method (by SVD) Assume all points are visible. <ul>
+<li><strong>This not true if: occlusions occur</strong> <ul>
+<li>如果出现遮挡，会出现缺失点，导致一些点用不了</li>
+</ul>
+</li>
+<li><strong>failure in establishing correspondences</strong><ul>
+<li>其次如果点的对应关系无法找到也用不了</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-Algebraic-approach-Two-camera-case"><a href="#2-2-Algebraic-approach-Two-camera-case" class="headerlink" title="2.2 Algebraic approach : Two-camera case"></a>2.2 Algebraic approach : Two-camera case</h3><ul>
+<li>Compute fundamental matrix $\mathbf{F}$ <strong>between the two views</strong> From at least 8 point correspondences, compute $F$ associated to camera 1 and 2</li>
+<li>Use $\mathrm{F}$​ to <strong>estimate projective cameras</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\mathrm{F}->P_{1}, P_{2}</script><ul>
+<li><strong>Use these cameras to triangulate</strong> and <strong>estimate points in 3D</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+X_{j}^{*}=\arg \min \left(d^{2}\left(\mathbf{x}_{1 j}, \mathbf{P}_{1} \mathbf{X}_{j}\right)+d^{2}\left(\mathbf{x}_{2 j}, \mathbf{P}_{2} \mathbf{X}_{j}\right)\right)</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139729.png" alt="image-20211126105147946" class="lazyload"></p>
+<h2 id="3-Bundle-adjustment"><a href="#3-Bundle-adjustment" class="headerlink" title="3. Bundle adjustment"></a>3. Bundle adjustment</h2><ul>
+<li>Non-linear method for <strong>refining structure and motion</strong> </li>
+<li><strong>Minimize reprojection error</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{m} \sum_{j=1}^{n} D\left(\mathbf{x}_{i j}-\mathbf{P}_{i} \mathbf{X}_{j}\right)^{2}</script><ul>
+<li>D is the <strong>nonlinear mapping</strong></li>
+<li>Nonlinear minimization: <strong>Newton Method</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139122.png" alt="image-20211126105311467" class="lazyload"></p>
+<h2 id="4-What-is-deep-learning-How-does-it-work"><a href="#4-What-is-deep-learning-How-does-it-work" class="headerlink" title="4. What is deep learning? How does it work?"></a>4. What is deep learning? How does it work?</h2><ul>
+<li>Fully connect feedforward neural network</li>
+<li>Loss function</li>
+<li>Optimization of deep neural network</li>
+</ul>
+<h3 id="4-1-Perceptron"><a href="#4-1-Perceptron" class="headerlink" title="4.1 Perceptron"></a>4.1 Perceptron</h3><ul>
+<li>Mathematical model</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139548.png" alt="image-20211126105835357" class="lazyload"></p>
+<ul>
+<li>Distance from a incorrect classified point to the line</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139048.png" alt="image-20211126110029692" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139894.png" alt="image-20211126110044982" class="lazyload"></p>
+<ul>
+<li>Goal: make L(w, b) as small as possible<script type="math/tex; mode=display">
+L(w, b)=-\sum_{x \in M} y_{i}\left(w \cdot x_{i}+b\right)</script></li>
+<li>Method: optimize $w$ and $b$ through gradıent descent</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139156.png" alt="image-20211126110116316" class="lazyload"></p>
+<ul>
+<li>Let’s optimize w as an example</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139144.png" alt="image-20211126110205932" class="lazyload"></p>
+<h4 id="Question"><a href="#Question" class="headerlink" title="Question"></a>Question</h4><ul>
+<li>Can we solve the problem below with perceptron?</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139862.png" alt="image-20211126110351578" class="lazyload"></p>
+<ul>
+<li>Goal: classifying samples to class A and class B</li>
+</ul>
+<h3 id="4-2-Idea-the-Two-Layer-Perceptron"><a href="#4-2-Idea-the-Two-Layer-Perceptron" class="headerlink" title="4.2 Idea: the Two-Layer Perceptron"></a>4.2 Idea: the Two-Layer Perceptron</h3><ul>
+<li><p>Two-Layer Perceptron</p>
+<ul>
+<li>For the XOR problem, draw two, instead, of one lines</li>
+</ul>
+</li>
+<li><p>What did it do?</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011139918.png" alt="image-20211126110551934" class="lazyload"></p>
+<h3 id="L4-3-et’s-consider-more-general-cases"><a href="#L4-3-et’s-consider-more-general-cases" class="headerlink" title="L4.3 et’s consider more general cases"></a>L4.3 et’s consider more general cases</h3><ul>
+<li><p>Recall: Machine Learning ≈ Looking for a function f</p>
+</li>
+<li><p>Speech Recognition</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140894.png" alt="image-20211126110802082" class="lazyload"></p>
+<ul>
+<li>Image Recognition</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140975.png" alt="image-20211126110815562" class="lazyload"></p>
+<ul>
+<li>Playing Go</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140511.png" alt="image-20211126110827467" class="lazyload"></p>
+<ul>
+<li>Dialogue System</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140302.png" alt="image-20211126110847856" class="lazyload"></p>
+<h3 id="4-4-Framework"><a href="#4-4-Framework" class="headerlink" title="4.4 Framework"></a>4.4 Framework</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140278.png" alt="image-20211126110940617" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140034.png" alt="image-20211126111008090" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140342.png" alt="image-20211126111047392" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140510.png" alt="image-20211126111200415" class="lazyload"></p>
+<h3 id="4-5-Neuron"><a href="#4-5-Neuron" class="headerlink" title="4.5 Neuron"></a>4.5 Neuron</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140699.png" alt="image-20211126111333640" class="lazyload"></p>
+<script type="math/tex; mode=display">
+z=a_{1} w_{1}+\cdots+a_{k} w_{k}+\cdots+a_{K} w_{K}+b</script><h3 id="4-6-Other-activation-functions"><a href="#4-6-Other-activation-functions" class="headerlink" title="4.6 Other activation functions"></a>4.6 Other activation functions</h3><ul>
+<li>Rectified Linear Unit (ReLU)<script type="math/tex; mode=display">
+y=\max (\mathbf{0}, z)</script></li>
+<li>Leaky ReLU</li>
+</ul>
+<script type="math/tex; mode=display">
+y= \begin{cases}z & z>0 \\ \alpha z & \text { otherwise }\end{cases}</script><ul>
+<li>Softplus</li>
+</ul>
+<script type="math/tex; mode=display">
+y=\ln \left(1+e^{z}\right)</script><h3 id="4-7-Neural-Network"><a href="#4-7-Neural-Network" class="headerlink" title="4.7 Neural Network"></a>4.7 Neural Network</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140858.png" alt="image-20211126111633796" class="lazyload"></p>
+<ul>
+<li>Network parameter 𝜃𝜃:all the weights and biases in the “neurons”</li>
+</ul>
+<h3 id="4-8-Fully-Connect-Feedforward-Network"><a href="#4-8-Fully-Connect-Feedforward-Network" class="headerlink" title="4.8 Fully Connect Feedforward Network"></a>4.8 Fully Connect Feedforward Network</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140695.png" alt="image-20211126111738784" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140679.png" alt="image-20211126111820072" class="lazyload"></p>
+<h3 id="4-9-Matrix-Operation"><a href="#4-9-Matrix-Operation" class="headerlink" title="4.9 Matrix Operation"></a>4.9 Matrix Operation</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140575.png" alt="image-20211126111918831" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140080.png" alt="image-20211126111954703" class="lazyload"></p>
+<h3 id="4-10-Output-Layer-as-Multi-Class-Classifier"><a href="#4-10-Output-Layer-as-Multi-Class-Classifier" class="headerlink" title="4.10 Output Layer as Multi-Class Classifier"></a>4.10 Output Layer as Multi-Class Classifier</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140262.png" alt="image-20211126112101546" class="lazyload"></p>
+<ul>
+<li>Softmaxlayer as the output layer<ul>
+<li>为了更好的可解释性</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140600.png" alt="image-20211126112236370" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011140274.png" alt="image-20211126112345078" class="lazyload"></p>
+<h3 id="4-11-Example-Application"><a href="#4-11-Example-Application" class="headerlink" title="4.11 Example Application"></a>4.11 Example Application</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141415.png" alt="image-20211126113129050" class="lazyload"></p>
+<h3 id="4-12-Loss-for-an-Example"><a href="#4-12-Loss-for-an-Example" class="headerlink" title="4.12 Loss for an Example"></a>4.12 Loss for an Example</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141022.png" alt="image-20211126113240123" class="lazyload"></p>
+<h3 id="4-13-Total-Loss"><a href="#4-13-Total-Loss" class="headerlink" title="4.13 Total Loss"></a>4.13 Total Loss</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141222.png" alt="image-20211126113256440" class="lazyload"></p>
+<h3 id="4-14-Gradient-Descent"><a href="#4-14-Gradient-Descent" class="headerlink" title="4.14 Gradient Descent"></a>4.14 Gradient Descent</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141606.png" alt="image-20211126113342471" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141614.png" alt="image-20211126113351919" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141559.png" alt="image-20211126113408873" class="lazyload"></p>
+<h3 id="4-15-Local-Minima"><a href="#4-15-Local-Minima" class="headerlink" title="4.15 Local Minima"></a>4.15 Local Minima</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141823.png" alt="image-20211126113520205" class="lazyload"></p>
+<ul>
+<li>Do we really minimize the total loss in engineering?</li>
+</ul>
+<h3 id="4-16-Shuffle-the-samples-for-each-epoch"><a href="#4-16-Shuffle-the-samples-for-each-epoch" class="headerlink" title="4.16 Shuffle the samples for each epoch"></a>4.16 Shuffle the samples for each epoch</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141987.png" alt="image-20211126113716067" class="lazyload"></p>
+<h3 id="4-17-Mini-batch-Epoch"><a href="#4-17-Mini-batch-Epoch" class="headerlink" title="4.17 Mini-batch Epoch"></a>4.17 Mini-batch Epoch</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141063.png" alt="image-20211126113819013" class="lazyload"></p>
+<ul>
+<li>Step #1: Randomly initialize network parameters</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141574.png" alt="image-20211126113851854" class="lazyload"></p>
+<ul>
+<li>Mini-batch is Faster</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141911.png" alt="image-20211126114036946" class="lazyload"></p>
+<h3 id="4-18-Vanishing-gradient-and-ReLU"><a href="#4-18-Vanishing-gradient-and-ReLU" class="headerlink" title="4.18 Vanishing gradient and ReLU"></a>4.18 Vanishing gradient and ReLU</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141342.png" alt="image-20211126114221334" class="lazyload"></p>
+<ul>
+<li>梯度压缩，导致梯度反向传播时只能影响靠近输出的layer的参数</li>
+</ul>
+<h3 id="4-19-Rectified-Linear-Unit-ReLU"><a href="#4-19-Rectified-Linear-Unit-ReLU" class="headerlink" title="4.19 Rectified Linear Unit (ReLU)"></a>4.19 Rectified Linear Unit (ReLU)</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141382.png" alt="image-20211126114636038" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141262.png" alt="image-20211126114705978" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011141158.png" alt="image-20211126114720514" class="lazyload"></p>
+<h3 id="4-20-ReLU-variant"><a href="#4-20-ReLU-variant" class="headerlink" title="4.20 ReLU -variant"></a>4.20 ReLU -variant</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142959.png" alt="image-20211126114743861" class="lazyload"></p>
+<h3 id="4-21-Learnable-activation-function-Maxout"><a href="#4-21-Learnable-activation-function-Maxout" class="headerlink" title="4.21 Learnable activation function -Maxout"></a>4.21 Learnable activation function -Maxout</h3><ul>
+<li>Learnable activation function [Ian J. Goodfellow, ICML’13]</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142735.png" alt="image-20211126114855754" class="lazyload"></p>
+<ul>
+<li><p>You can have more than 2 elements in a group</p>
+</li>
+<li><p>ReLu是Maxout的特俗情况</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142287.png" alt="image-20211126115038207" class="lazyload"></p>
+<ul>
+<li><p>因为maxout会随着w变化，所以是可学习的激活函数</p>
+</li>
+<li><p>How many pieces depending on how many elements in a group</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142906.png" alt="image-20211126115151293" class="lazyload"></p>
+<ul>
+<li><p>不同的样本会产生不同的网络架构，从而改变模式和参数都达到调整</p>
+</li>
+<li><p>Given a training data x, we know which z would be the max</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142821.png" alt="image-20211126115354399" class="lazyload"></p>
+<ul>
+<li>Given a training data x, we know which z would be the max</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142758.png" alt="image-20211126115416252" class="lazyload"></p>
+<ul>
+<li><p>Train this thin and linear network1x2x</p>
+</li>
+<li><p>Different thin and linear network for different examples</p>
+</li>
+</ul>
+<h3 id="4-22-Hard-to-find-optimal-parameters"><a href="#4-22-Hard-to-find-optimal-parameters" class="headerlink" title="4.22 Hard to find optimal parameters"></a>4.22 Hard to find optimal parameters</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142786.png" alt="image-20211126115500790" class="lazyload"></p>
+<h3 id="4-23-In-physical-world……"><a href="#4-23-In-physical-world……" class="headerlink" title="4.23 In physical world……"></a>4.23 In physical world……</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142566.png" alt="image-20211126115521247" class="lazyload"></p>
+<h3 id="4-24-Review-Vanilla-Gradient-Descent"><a href="#4-24-Review-Vanilla-Gradient-Descent" class="headerlink" title="4.24 Review: Vanilla Gradient Descent"></a>4.24 Review: Vanilla Gradient Descent</h3><ul>
+<li>Start at position $\theta^{0}$</li>
+<li>Compute gradient at $\theta^{0}$</li>
+<li>Move to $\theta^{1}=\theta^{0}-\eta \nabla L\left(\theta^{0}\right)$</li>
+<li>Compute gradient at $\theta^{1}$</li>
+<li>Move to $\theta^{2}=\theta^{1}-\eta \nabla L\left(\theta^{1}\right)$</li>
+<li>Stop until $\nabla L\left(\theta^{t}\right) \approx 0$</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142869.png" alt="image-20211126115657540" class="lazyload"></p>
+<h3 id="4-25-Momentum"><a href="#4-25-Momentum" class="headerlink" title="4.25 Momentum"></a>4.25 Momentum</h3><ul>
+<li>Start at point $\theta^{0}$​</li>
+<li>Movement $\mathrm{v}^{0}=0$​</li>
+<li>Compute gradient at $\theta^{0}$​</li>
+<li>Movement $\mathrm{v}^{1}=\lambda \mathrm{v}^{0}-\eta \nabla L\left(\theta^{0}\right)$​</li>
+<li>Move to $\theta^{1}=\theta^{0}+\mathrm{v}^{1}$​</li>
+<li>Compute gradient at $\theta^{1}$​</li>
+<li>Movement $\mathrm{v}^{2}=\lambda \mathrm{v}^{1}-\eta \nabla L\left(\theta^{1}\right)$​</li>
+<li><p>Move to $\theta^{2}=\theta^{1}+\mathrm{v}^{2}$​</p>
+</li>
+<li><p>Movement not just based on gradient, but previous movement</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142294.png" alt="image-20211126115820067" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142030.png" alt="image-20211126115845906" class="lazyload"></p>
+<h3 id="4-26-Dropout"><a href="#4-26-Dropout" class="headerlink" title="4.26 Dropout"></a>4.26 Dropout</h3><ul>
+<li>回忆一下，3.8节 (多层感知机) 的图3.3描述了一个单隐藏层的多层感知机。其中输入个数为 4 ，隐藏单元个数为 5 ，且隐藏单元 $h_{i}(i=1, \ldots, 5)$ 的计算表达式为</li>
+</ul>
+<script type="math/tex; mode=display">
+h_{i}=\phi\left(x_{1} w_{1 i}+x_{2} w_{2 i}+x_{3} w_{3 i}+x_{4} w_{4 i}+b_{i}\right)</script><ul>
+<li>这里 $\phi$ 是激活函数， $x_{1}, \ldots, x_{4}$ 是输入，隐藏单元 $i$ 的权重参数为 $w_{1 i}, \ldots, w_{4 i}$ ，偏差参数为 $b_{i}$ 。当对该隐藏层使用丟弃法时，该层的隐藏单元将有一定概率被至弃掉。设丟弃概率为 $p$ ，那么有 $p$ 的概率 $h_{i}$ 会被 清零，有 $1-p$ 的概率 $h_{i}$ 会除以 $1-p$ 做拉伸。丟弃概率是丟弃法的超参数。具体来说，设随机变量 $\xi_{i}$ 为 0 和 1 的概率分别为 $p$ 和 $1-p_{\text {。 }}$ 使用丟弃法时我们计算新的隐藏单元 $h_{i}^{\prime}$</li>
+</ul>
+<script type="math/tex; mode=display">
+h_{i}^{\prime}=\frac{\xi_{i}}{1-p} h_{i}</script><ul>
+<li>由于 $E\left(\xi_{i}\right)=1-p$ ，因此</li>
+</ul>
+<script type="math/tex; mode=display">
+E\left(h_{i}^{\prime}\right)=\frac{E\left(\xi_{i}\right)}{1-p} h_{i}=h_{i}</script><ul>
+<li>即丟弃法不改变其输入的期望值。让我们对图3.3中的隐藏层使用丟弃法，一种可能的结果如图3.5所示，其中 $h_{2}$ 和 $h_{5}$ 被清零。这时输出值的计算不再依赖 $h_{2}$ 和 $h_{5}$ ，在反向传播时，与这两个隐藏单元相关的权重 的梯度均为 0 。由于在训练中隐藏层神经元的丢弃是随机的，即 $h_{1}, \ldots, h_{5}$ 都有可能被清零，输出层的计算无法过度依赖 $h_{1}, \ldots, h_{5}$ 中的任一个，从而在训练模型时起到正则化的作用，并可以用来应对过拟 合。在测试模型时，我们为了拿到更加确定性的结果，一般不使用丟弃法。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dropout</span>(<span class="params">X, drop_prob</span>):</span></span><br><span class="line">    X = X.<span class="built_in">float</span>()</span><br><span class="line">    <span class="keyword">assert</span> <span class="number">0</span> &lt;= drop_prob &lt;= <span class="number">1</span></span><br><span class="line">    keep_prob = <span class="number">1</span> - drop_prob</span><br><span class="line">    <span class="comment"># 这种情况下把全部元素都丢弃</span></span><br><span class="line">    <span class="keyword">if</span> keep_prob == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> torch.zeros_like(X)</span><br><span class="line">    mask = (torch.rand(X.shape) &lt; keep_prob).<span class="built_in">float</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mask * X / keep_prob</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142262.png" alt="image-20211126120000491" class="lazyload"></p>
+<ul>
+<li>Each time before updating the parameters</li>
+<li>Each neuron has p% to dropout<ul>
+<li>The structure of the network is changed.<br>Thinner!</li>
+</ul>
+</li>
+<li>Using the new network for training</li>
+<li>For each mini-batch, we resample the dropout neurons</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142271.png" alt="image-20211126120100649" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142103.png" alt="image-20211126120202155" class="lazyload"></p>
+<ul>
+<li>Why the weights should multiply (1-p)% (dropout rate) when testing?</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142214.png" alt="image-20211126160805493" class="lazyload"></p>
+<ul>
+<li>Dropout is a kind of ensemble</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011142437.png" alt="image-20211126160829113" class="lazyload"></p>
+<ul>
+<li>Train a bunch of networks with different structures</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011143422.png" alt="image-20211126160844987" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011143325.png" alt="image-20211126160914766" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011143846.png" alt="image-20211126160922403" class="lazyload"></p>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/10.%20Structure%20from%20motion%20(SFM)/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;10.%20Structure%20from%20motion%20(SFM)&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;10.%20Structure%20from%20motion%20(SFM)&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902291979"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

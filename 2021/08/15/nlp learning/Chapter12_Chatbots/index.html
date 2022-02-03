@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Chatbots - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Chatbots">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chatbots">
+<meta property="og:url" content="http://example.com/2021/08/15/nlp%20learning/Chapter12_Chatbots/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Chatbots">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044156.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044535.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044184.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044664.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045746.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045255.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045503.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045954.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045519.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045354.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045513.png">
+<meta property="og:image" content="http://example.com/2021/08/15/nlp%20learning/Chapter12_Chatbots/img/image-20211228214325196.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045786.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045800.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046328.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046986.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046069.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046742.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046369.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046611.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046449.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046285.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046938.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046721.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046624.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046224.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046361.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046856.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047880.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047960.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047329.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047547.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047224.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047962.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047074.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047805.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047306.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047863.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047770.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047457.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047767.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048568.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048328.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048657.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048536.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048009.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048945.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048440.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048426.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048297.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048944.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048521.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-02T02:48:56.290Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044156.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292073">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Chatbots" class="lazyload">
+            <h1>Chatbots</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 22 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-is-Chatbots-Dialogue"><span class="toc-number">1.</span> <span class="toc-text">1. What is Chatbots &#x2F;Dialogue</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Two-kind-of-conversational-agents"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Two kind of conversational agents</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Properties-of-Human-Conversation"><span class="toc-number">2.</span> <span class="toc-text">2. Properties of Human Conversation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-propertites"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 propertites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Grounding"><span class="toc-number">2.2.</span> <span class="toc-text">2.1 Grounding</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-1-Grounding-Establishing-Common-Ground"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1.1 Grounding: Establishing Common Ground</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Conversations-have-structure"><span class="toc-number">2.3.</span> <span class="toc-text">2.2 Conversations have structure</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Another-kind-of-structure-Subdialogues"><span class="toc-number">2.4.</span> <span class="toc-text">2.3 Another kind of structure: Subdialogues</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Conversational-Initiative"><span class="toc-number">2.5.</span> <span class="toc-text">2.4 Conversational Initiative</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Even-harder-problems-Inference"><span class="toc-number">2.6.</span> <span class="toc-text">2.5 Even harder problems: Inference</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Rule-based-Chatbots"><span class="toc-number">3.</span> <span class="toc-text">3. Rule based Chatbots</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Eliza-pattern-transform-rules"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Eliza pattern&#x2F;transform rules</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Memory"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 Memory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-Ethical-implications-Anthropomorphism-and-Privacy"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 Ethical implications: Anthropomorphism and Privacy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-PARRY-A-computational-model-of-schizophrenia"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 PARRY: A computational model of schizophrenia</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-model-of-mental-state-%E5%BF%83%E7%90%86%E7%8A%B6%E6%80%81%E6%A8%A1%E5%9E%8B"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 model of mental state 心理状态模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-Parry%E2%80%99s-responses-depend-on-mental-state"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2 Parry’s responses depend on mental state</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Corpus-based-Chatbots"><span class="toc-number">4.</span> <span class="toc-text">4. Corpus based Chatbots</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Two-architectures-for-corpus-based-chabots"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 Two architectures for corpus based chabots</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Response-by-retrieval-classic-IR-method"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 Response by retrieval: classic IR method</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-Response-by-retrieving-and-refining-knowledge"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1 Response by retrieving and refining knowledge</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Response-by-generation"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 Response by generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Challenge-The-blandness-problem"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 Challenge: The blandness problem</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Mutual-Information-for-Neural-Network-Generation"><span class="toc-number">4.4.0.1.</span> <span class="toc-text">Mutual Information for Neural Network Generation</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-Challenge-The-consistency-problem"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 Challenge: The consistency problem</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-5-1-Personal-modeling-as-multi-task-learning"><span class="toc-number">4.5.1.</span> <span class="toc-text">4.5.1 Personal modeling as multi-task learning</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-Challenge-Long-conversational-context"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 Challenge: Long conversational context</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Hybrid-Architectures"><span class="toc-number">5.</span> <span class="toc-text">5. Hybrid Architectures</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-The-Frame-based-%E2%80%9CGUS%E2%80%9D-Dialogue-Architecture-%E5%9F%BA%E4%BA%8E%E6%A1%86%E6%9E%B6%E7%9A%84%EF%BC%88%E2%80%9CGUS%E2%80%9D%EF%BC%89%E5%AF%B9%E8%AF%9D%E6%9E%B6%E6%9E%84"><span class="toc-number">6.</span> <span class="toc-text">6. The Frame based (“GUS”) Dialogue Architecture 基于框架的（“GUS”）对话架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-The-Frame"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 The Frame</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Control-structure-for-GUS-frame-architecture"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 Control structure for GUS frame architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-GUS-slots-have-condition-action-rules-attached"><span class="toc-number">6.3.</span> <span class="toc-text">6.3 GUS slots have condition action rules attached</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-GUS-Natural-Language-Understanding-for-filling-dialog-slots"><span class="toc-number">6.3.1.</span> <span class="toc-text">6.3.1 GUS: Natural Language Understanding for filling dialog slots</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-4-2-How-to-fill-slots-gt-Rule-based-Slot-filling"><span class="toc-number">6.3.2.</span> <span class="toc-text">6.4.2 How to fill slots-&gt;Rule based Slot filling</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-A-more-sophisticated-%E5%A4%8D%E6%9D%82%E7%9A%84-version-of-the-frame-based-architecture"><span class="toc-number">6.4.</span> <span class="toc-text">6.5 A more sophisticated 复杂的 version of the frame based architecture</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-1-A-Multi-turn-Task-oriented-Dialogue-state-Architecture"><span class="toc-number">6.4.1.</span> <span class="toc-text">6.5.1 A Multi-turn Task oriented Dialogue state Architecture</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-2-Components-in-a-dialogue-state-architecture"><span class="toc-number">6.4.2.</span> <span class="toc-text">6.5.2 Components in a dialogue state architecture</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-6-Dialogue-Acts"><span class="toc-number">6.5.</span> <span class="toc-text">6.6 Dialogue Acts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-7-How-to-fill-slots-Machine-learning-Slot-filling"><span class="toc-number">6.6.</span> <span class="toc-text">6.7 How to fill slots - Machine learning Slot filling</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-7-1-Slot-filling-as-sequence-labeling-BIO-tagging"><span class="toc-number">6.6.1.</span> <span class="toc-text">6.7.1 Slot filling as sequence labeling: BIO tagging</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-8-The-task-of-dialogue-state-tracking"><span class="toc-number">6.7.</span> <span class="toc-text">6.8 The task of dialogue state tracking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-9-Dialogue-Policy"><span class="toc-number">6.8.</span> <span class="toc-text">6.9 Dialogue Policy</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-9-1-Policy-example-Confirmation-and-Rejection"><span class="toc-number">6.8.1.</span> <span class="toc-text">6.9.1 Policy example: Confirmation and Rejection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-9-2-Confirmation"><span class="toc-number">6.8.2.</span> <span class="toc-text">6.9.2 Confirmation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-9-3-Rejection"><span class="toc-number">6.8.3.</span> <span class="toc-text">6.9.3 Rejection</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Progressive-prompting-for-rejection"><span class="toc-number">6.8.3.1.</span> <span class="toc-text">Progressive prompting for rejection</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Using-confidence-to-decide-whether-to-confirm"><span class="toc-number">6.8.3.2.</span> <span class="toc-text">Using confidence to decide whether to confirm:</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-10-Natural-Language-Generation-NLG"><span class="toc-number">6.9.</span> <span class="toc-text">6.10 Natural Language Generation NLG</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-12-1-Sentence-Realization"><span class="toc-number">6.9.1.</span> <span class="toc-text">6.12.1 Sentence Realization</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-samples-of-Input-and-Output-for-Sentence-Realizer"><span class="toc-number">6.9.1.1.</span> <span class="toc-text">2 samples of Input and Output for Sentence Realizer</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-12-2-Generating-clarification-questions"><span class="toc-number">6.9.2.</span> <span class="toc-text">6.12.2 Generating clarification questions</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Reinforcement-Learning-RL"><span class="toc-number">7.</span> <span class="toc-text">7. Reinforcement Learning (RL)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-RL-vs-SL-supervised-learning"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 RL vs. SL (supervised learning)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-Conversation-as-RL"><span class="toc-number">7.2.</span> <span class="toc-text">7.2 Conversation as RL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Evaluating-Dialogue-Systems"><span class="toc-number">8.</span> <span class="toc-text">8. Evaluating Dialogue Systems</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-Evaluating-chatbots-and-task-based-dialogue"><span class="toc-number">8.1.</span> <span class="toc-text">8.1 Evaluating chatbots and task based dialogue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-Chatbots-are-evaluated-by-humans-Participant"><span class="toc-number">8.2.</span> <span class="toc-text">8.2 Chatbots are evaluated by humans Participant</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-1-Participant-evaluation"><span class="toc-number">8.2.1.</span> <span class="toc-text">8.2.1 Participant evaluation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-2-2-Observer-evaluation-acute-eval"><span class="toc-number">8.2.2.</span> <span class="toc-text">8.2.2 Observer evaluation: acute eval</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-Automatic-evaluation-is-an-open-problem"><span class="toc-number">8.3.</span> <span class="toc-text">8.3 Automatic evaluation is an open problem</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-3-1-Task-based-systems-are-evaluated-by-task-success"><span class="toc-number">8.3.1.</span> <span class="toc-text">8.3.1 Task based systems are evaluated by task success!</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-Evaluation-Metrics-Slot-error-rate"><span class="toc-number">8.4.</span> <span class="toc-text">8.4 Evaluation Metrics: Slot error rate</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Chatbots</p>
+<span id="more"></span>
+<h2 id="1-What-is-Chatbots-Dialogue"><a href="#1-What-is-Chatbots-Dialogue" class="headerlink" title="1. What is Chatbots /Dialogue"></a>1. What is Chatbots /Dialogue</h2><h3 id="1-1-Two-kind-of-conversational-agents"><a href="#1-1-Two-kind-of-conversational-agents" class="headerlink" title="1.1 Two kind of conversational agents"></a>1.1 Two kind of conversational agents</h3><p><strong>(Task-based) Dialogue Agents(Close domain)</strong></p>
+<ul>
+<li><p>Personal assistant, help users achieve a certain task in vertical domains, e.g., education and medical</p>
+</li>
+<li><p><strong>Combination of rules and statistical components</strong></p>
+</li>
+<li><p><strong>Frames with slots and values:</strong> a set of <strong>slots</strong>, to be <strong>filled with information</strong> of a given type. Each associated with a question to the user.</p>
+</li>
+</ul>
+<p><strong>Chatbots (Open domain)</strong></p>
+<ul>
+<li><p><strong>No specific goal,</strong> focus on humanlike conversations</p>
+</li>
+<li><p>For fun, or even for therapy</p>
+</li>
+<li><p><strong>Rule-based:</strong> Pattern-action rules (ELIZA) + A mental model (PARRY): The first system to pass the Turing Test!</p>
+</li>
+<li><p><strong>Corpus-based:</strong> Information Retrieval (XiaoIce) or Neural encoder-decoder (variants of E2E seq2seq model) (BlenderBot)</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044156.png" alt="image-20211228194720625" class="lazyload"></p>
+<h2 id="2-Properties-of-Human-Conversation"><a href="#2-Properties-of-Human-Conversation" class="headerlink" title="2. Properties of Human Conversation"></a>2. Properties of Human Conversation</h2><h3 id="2-1-propertites"><a href="#2-1-propertites" class="headerlink" title="2.1 propertites"></a>2.1 propertites</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044535.png" alt="image-20211228195046773" class="lazyload"></p>
+<ul>
+<li><p>Turns</p>
+<ul>
+<li>We call each contribution a “turn”</li>
+</ul>
+</li>
+<li><p><strong>Interruptions</strong> and Barge-in:Allowing the user to interrupt</p>
+</li>
+<li><p>End-pointing</p>
+<ul>
+<li>The task for a speech system of <strong>deciding whether the user has</strong><br><strong>stopped talking.</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Each turn (utterance in a dialogue is a kind of action</p>
+</li>
+<li><p>Constatives: committing the speaker to something’s being the case</p>
+<ul>
+<li>使说话者确信某事是真实的</li>
+<li>answering , claiming , confirming , denying , disagreeing , stating </li>
+</ul>
+</li>
+<li>Directives: attempts by the speaker to get the addressee to do<ul>
+<li>演讲者试图让收件人这样做</li>
+<li>advising , asking , forbidding , inviting , ordering , requesting</li>
+</ul>
+</li>
+<li>Commissives: committing the speaker to some future course of action<ul>
+<li>让演讲者对未来的行动做出承诺</li>
+<li>promising, planning, vowing, betting, opposing</li>
+</ul>
+</li>
+<li>Acknowledgments: express the speaker’s attitude regarding the hearer<br>with respect to some social action <ul>
+<li>表达说话人对听话人关于某些社会行为的态度</li>
+<li>apologizing , greeting , thanking , accepting an acknowledgment </li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-Grounding"><a href="#2-1-Grounding" class="headerlink" title="2.1 Grounding"></a>2.1 Grounding</h3><ul>
+<li>Participants in conversation or any joint activity need to <strong>establish common ground.</strong><ul>
+<li>对话应该建立于对事实的一致理解上</li>
+</ul>
+</li>
+<li><p>Principle of closure . Agents performing an action require evidence, sufficient for<br>current purposes, that they have succeeded in performing it </p>
+<ul>
+<li>封闭原则。执行某项操作的代理需要足够的证据，证明他们已成功执行该操作</li>
+</ul>
+</li>
+<li><p>Speech is an action too! So speakers need to ground each other’s utterances.</p>
+<ul>
+<li>语言也是行动！因此，演讲者需要让对方的话语有根据。</li>
+<li>Grounding : acknowledging that the hearer has understood 承认听者已经理解</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-1-1-Grounding-Establishing-Common-Ground"><a href="#2-1-1-Grounding-Establishing-Common-Ground" class="headerlink" title="2.1.1 Grounding: Establishing Common Ground"></a>2.1.1 Grounding: Establishing Common Ground</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044184.png" alt="image-20211228200259088" class="lazyload"></p>
+<ul>
+<li>通过一些特殊的连贯词可以缓解尴尬。</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021044664.png" alt="image-20211228200725314" class="lazyload"></p>
+<h3 id="2-2-Conversations-have-structure"><a href="#2-2-Conversations-have-structure" class="headerlink" title="2.2 Conversations have structure"></a>2.2 Conversations have structure</h3><ul>
+<li><p>Local structure between adjacent speech acts, from the field of conversational analysis 从会话分析的角度看相邻言语行为之间的局部结构</p>
+</li>
+<li><p>Called adjacency pairs: </p>
+<ul>
+<li>QUESTION … A NSWER</li>
+<li>PROPOSAL … A CCEPTANCE /R EJECTION</li>
+<li>COMPLIMENTS (“Nice jacket!”)… DOWNPLAYER (“Oh, this old thIng?”)</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-Another-kind-of-structure-Subdialogues"><a href="#2-3-Another-kind-of-structure-Subdialogues" class="headerlink" title="2.3 Another kind of structure: Subdialogues"></a>2.3 Another kind of structure: Subdialogues</h3><ul>
+<li><p>Correction subdialogue 子对话的正确性</p>
+<ul>
+<li>要保证可以任意插入子对话，且子对话的结果是对的，并且可能影响到原来的对话</li>
+<li>Agent : OK. There’s #two non stops# 直达站</li>
+<li>Client: #Act actually#, what day of the week is the 15th?</li>
+<li>Agent : It’s a Friday</li>
+<li>Client: Uh hmm. I would consider staying there an extra day til Sunday. </li>
+<li>Agent : OK…OK. On Sunday I have …</li>
+</ul>
+</li>
+<li><p>Clarification Subdialogues</p>
+<ul>
+<li>User : What do you have going to UNKNOWN WORD on the 5th?</li>
+<li>System: Let’s see, going where on the 5th</li>
+<li>User: Going to Hong Kong. 澄清去哪里</li>
+<li>System : OK, here are some flights…</li>
+</ul>
+</li>
+<li><p>Presequences 可能在正式开始对话有个开场</p>
+<ul>
+<li>User : Can you make train</li>
+<li>System : Yes I can</li>
+<li>User : Great, I’d like to reserve a seat on the 4pm train to New York.</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-Conversational-Initiative"><a href="#2-4-Conversational-Initiative" class="headerlink" title="2.4 Conversational Initiative"></a>2.4 Conversational Initiative</h3><ul>
+<li><p>对话的主动权</p>
+</li>
+<li><p>Some conversations are controlled by one person 有些对话由一个人控制</p>
+<ul>
+<li>A reporter interviewing a chef asks questions, and the chef responds.一位采访厨师的记者问了一些问题，厨师回答。</li>
+<li>This reporter has the conversational initiative This reporter has the conversational initiative</li>
+</ul>
+</li>
+<li>Most human conversations have mixed initiative : 大多数人际对话都有混合的主动性：<ul>
+<li>I lead, then you lead, then I lead.</li>
+</ul>
+</li>
+<li>Mixed initiative is very hard for NLP systems, which often default to simpler styles that can be frustrating for humans: 混合主动对NLP非常困难，因为NLP经常默认采用更简单的模式<ul>
+<li>User initiative (user asks or commands, system</li>
+<li>System initiative (system asks user questions to fill out a form, user can’t change the direction)</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-5-Even-harder-problems-Inference"><a href="#2-5-Even-harder-problems-Inference" class="headerlink" title="2.5 Even harder problems: Inference"></a>2.5 Even harder problems: Inference</h3><ul>
+<li>推理</li>
+<li><p>Agent: And, what day in May did you want to travel?</p>
+</li>
+<li><p>Client : OK, uh, I need to be there for a meeting that’s from the 12th to the 15th.</p>
+</li>
+</ul>
+<h2 id="3-Rule-based-Chatbots"><a href="#3-Rule-based-Chatbots" class="headerlink" title="3. Rule based Chatbots"></a>3. Rule based Chatbots</h2><h3 id="3-1-Eliza-pattern-transform-rules"><a href="#3-1-Eliza-pattern-transform-rules" class="headerlink" title="3.1 Eliza pattern/transform rules"></a>3.1 Eliza pattern/transform rules</h3><ul>
+<li><p>大概思想就是提取关键词，然后根据库里关键词对应的答案进行排序</p>
+</li>
+<li><p>s/.<em> I’M <strong>( depressed|sad )</strong> .</em>/<strong>I AM SORRY TO HEAR YOU ARE 1</strong>/</p>
+</li>
+<li><p>s/.<em> I AM ( depressed|sad ) .</em>/WHY DO YOU THINK YOU ARE 1/</p>
+</li>
+<li><p>s/.<em> all .</em>/IN WHAT WAY?/</p>
+</li>
+<li>s/.<em> always .</em>/CAN YOU THINK OF A SPECIFIC EXAMPLE?/</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045746.png" alt="image-20211228203316601" class="lazyload"></p>
+<ul>
+<li>0 means *</li>
+<li><p>The 3 is the constituent # in pattern</p>
+</li>
+<li><p>example</p>
+<ul>
+<li>You hate me</li>
+<li>WHAT MAKES YOU THINK I HATE YOU</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>User: I know everybody laughed at me</li>
+<li><p>“I” is very general:</p>
+<ul>
+<li>I: (I *)—&gt; (YOU SAY YOU)</li>
+<li>ELIZA: YOU SAY YOU KNOW EVERYBODY LAUGHED AT YOU</li>
+</ul>
+</li>
+<li><p>“Everybody” is more specific and interesting</p>
+<ul>
+<li>Everybody: (Everybody *)—&gt; (WHO IN PARTICULAR ARE YOU THINKING</li>
+<li>ELIZA: WHO IN PARTICULAR ARE YOU THINKING OF?</li>
+</ul>
+</li>
+<li>Implementation: keywords stored with their rank<ul>
+<li>Everybody 5 (list of transformation rules</li>
+<li>I                   0 (list of transformation rules</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045255.png" alt="image-20211228203858920" class="lazyload"></p>
+<h4 id="3-1-1-Memory"><a href="#3-1-1-Memory" class="headerlink" title="3.1.1 Memory"></a>3.1.1 Memory</h4><ul>
+<li>如何对对话进行存储-&gt;用于进行后续答案提取，下面举的是提取MY关键词，随机选择一种变换进行存储。</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045503.png" alt="image-20211228204042864" class="lazyload"></p>
+<ul>
+<li>Whenever “MY” is highest keyword 对一些语句进行存储<ul>
+<li><strong>Randomly</strong> select a transform on the MEMORY list</li>
+<li>Apply to sentence </li>
+<li>Store on a <strong>(first in first out) queue</strong></li>
+</ul>
+</li>
+<li>Later, if <strong>no keyword matches a sentence</strong> 如果没有关键词匹配，就返回队首<ul>
+<li>Return the top of the MEMORY queue instead</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-2-Ethical-implications-Anthropomorphism-and-Privacy"><a href="#3-1-2-Ethical-implications-Anthropomorphism-and-Privacy" class="headerlink" title="3.1.2 Ethical implications: Anthropomorphism and Privacy"></a>3.1.2 Ethical implications: Anthropomorphism and Privacy</h4><ul>
+<li>大致是一些人沉迷于和聊天机器人谈话，还要求他们的对话具有隐私性</li>
+</ul>
+<h3 id="3-2-PARRY-A-computational-model-of-schizophrenia"><a href="#3-2-PARRY-A-computational-model-of-schizophrenia" class="headerlink" title="3.2 PARRY: A computational model of schizophrenia"></a>3.2 PARRY: A computational model of schizophrenia</h3><ul>
+<li>Another chatbot with a clinical psychology focus</li>
+<li><p>Used to study schizophrenia 精神分裂症</p>
+</li>
+<li><p>Same pattern response structure as Eliza</p>
+</li>
+<li>But a much richer:<ul>
+<li>control structure 控制结构</li>
+<li>language understanding capabilities 语言理解能力</li>
+<li>model of mental state. 心理状态模型。<ul>
+<li>variables modeling levels of Anger, Fear, Mistrust</li>
+<li>模拟愤怒、恐惧、不信任程度的变量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-1-model-of-mental-state-心理状态模型"><a href="#3-2-1-model-of-mental-state-心理状态模型" class="headerlink" title="3.2.1 model of mental state 心理状态模型"></a>3.2.1 model of mental state 心理状态模型</h4><ul>
+<li>Affect variables</li>
+<li><p>Fear (0 20)           Anger (0 20)         Mistrust (0 15)</p>
+</li>
+<li><p><strong>Start with all variables low</strong></p>
+</li>
+<li>After each user turn<ul>
+<li>Each user statement can change Fear and Anger<ul>
+<li>E.g., Insults increases Anger, Flattery decreases Anger</li>
+<li>Mentions of his delusions <strong>increase Fear</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-2-Parry’s-responses-depend-on-mental-state"><a href="#3-2-2-Parry’s-responses-depend-on-mental-state" class="headerlink" title="3.2.2 Parry’s responses depend on mental state"></a>3.2.2 Parry’s responses depend on mental state</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045954.png" alt="image-20211228211636793" class="lazyload"></p>
+<h2 id="4-Corpus-based-Chatbots"><a href="#4-Corpus-based-Chatbots" class="headerlink" title="4. Corpus based Chatbots"></a>4. Corpus based Chatbots</h2><ul>
+<li>Dialogue as a <strong>Markov Decision Process (MDP)</strong><ul>
+<li>Given state 𝒔, select action 𝒂 according to (hierarchical) policy 𝝅 <ul>
+<li>给定状态𝒔, 选择动作𝒂 根据（分级）政策𝝅</li>
+</ul>
+</li>
+<li>Receive reward 𝒓, observe new state s s′<ul>
+<li>观察新的状态，收到响应奖励r</li>
+</ul>
+</li>
+<li>Continue the cycle until the episode terminates.<ul>
+<li>继续循环直到对话情节结束</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Goal of dialogue learning: find optimal 𝝅 to maximize expected rewards</p>
+<ul>
+<li>对话学习的目标：找到最佳𝝅 最大化预期回报</li>
+</ul>
+</li>
+<li><p>A unified view: dialogue as <strong>optimal decision making Dialogue</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045519.png" alt="image-20211228212436449" class="lazyload"></p>
+<h3 id="4-1-Two-architectures-for-corpus-based-chabots"><a href="#4-1-Two-architectures-for-corpus-based-chabots" class="headerlink" title="4.1 Two architectures for corpus based chabots"></a>4.1 Two architectures for corpus based chabots</h3><ul>
+<li>Response by retrieval  检索响应<ul>
+<li>Use information retrieval to grab a response (that is appropriate to the context) from some corpus 使用信息检索从一些语料库中获取响应（适合上下文）</li>
+</ul>
+</li>
+<li><p>Response by generation 生成响应</p>
+<ul>
+<li>Use a language model or encoder decoder to generate the response given the dialogue context  在给定对话上下文的情况下，使用语言模型或编码器-解码器生成响应</li>
+</ul>
+</li>
+<li><p>Modern corpus based chatbots are very data-intensive </p>
+<ul>
+<li>现代基于语料库的聊天机器人非常数据密集</li>
+</ul>
+</li>
+<li><p>They commonly require hundreds of millions or billions of words</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045354.png" alt="image-20211228213015790" class="lazyload"></p>
+<h3 id="4-2-Response-by-retrieval-classic-IR-method"><a href="#4-2-Response-by-retrieval-classic-IR-method" class="headerlink" title="4.2 Response by retrieval: classic IR method"></a>4.2 Response by retrieval: classic IR method</h3><ul>
+<li>Given a user turn <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="1.041ex" height="1.439ex" role="img" focusable="false" viewBox="0 -442 460 636"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container> , and a training corpus <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex" xmlns="http://www.w3.org/2000/svg" width="1.719ex" height="1.645ex" role="img" focusable="false" viewBox="0 -705 760 727"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g></g></g></svg></mjx-container> of conversation</li>
+<li>Find in <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.05ex" xmlns="http://www.w3.org/2000/svg" width="1.719ex" height="1.645ex" role="img" focusable="false" viewBox="0 -705 760 727"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path></g></g></g></svg></mjx-container> the turn <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex" xmlns="http://www.w3.org/2000/svg" width="1.02ex" height="1.025ex" role="img" focusable="false" viewBox="0 -442 451 453"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> that is <strong>most similar</strong> ( tf idf cosine) to q</li>
+<li>Say r</li>
+</ul>
+<script type="math/tex; mode=display">
+\operatorname{response}(q, C)=\underset{r \in C}{\operatorname{argmax}} \frac{q \cdot r}{|q||r|}</script><ul>
+<li>深度学习方法，只是换了计算相似度的方法：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+h_{q} &=\operatorname{BERT}_{Q}(\mathrm{q})[\mathrm{CLS}] \\
+h_{r} &=\operatorname{BERT}_{R}(\mathrm{r})[\mathrm{CLS}] \\
+\operatorname{response}(q, C) &=\underset{r \in C}{\operatorname{argmax}} h_{q} \cdot h_{r}
+\end{aligned}</script><h4 id="4-2-1-Response-by-retrieving-and-refining-knowledge"><a href="#4-2-1-Response-by-retrieving-and-refining-knowledge" class="headerlink" title="4.2.1 Response by retrieving and refining knowledge"></a>4.2.1 Response by retrieving and refining knowledge</h4><ul>
+<li>Can generate responses from informative text rather than dialogue?<ul>
+<li>利用IR进行信息检索得到答案</li>
+<li>To respond to turns like “Tell me something about Beijing”<ul>
+<li>XiaoIce collects sentences from public lectures and news articles.</li>
+<li>And searches them using IR based on query expansion from user’s turn</li>
+</ul>
+</li>
+<li>Augment encoder decoder model<ul>
+<li>增强编码解码模型</li>
+<li>use IR to retrieve passages from Wikipedia</li>
+<li>concatenate each Wikipedia sentence to the dialogue context with a separator token. 使用分隔符标记将每个Wikipedia句子连接到对话上下文。</li>
+<li>Give as encoder context to the encoder decoder model, which learns to incorporate text into its response 为编码器-解码器模型提供编码器上下文，该模型学习将文本合并到其响应中</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-Response-by-generation"><a href="#4-3-Response-by-generation" class="headerlink" title="4.3 Response by generation"></a>4.3 Response by generation</h3><ul>
+<li>Think of response production as an encoder-decoder task</li>
+<li>Generate each token <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex" xmlns="http://www.w3.org/2000/svg" width="1.786ex" height="1.357ex" role="img" focusable="false" viewBox="0 -442 789.3 599.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(484,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g></g></g></g></g></svg></mjx-container> of the response by conditioning on the encoding of the entire query <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.439ex" xmlns="http://www.w3.org/2000/svg" width="1.041ex" height="1.439ex" role="img" focusable="false" viewBox="0 -442 460 636"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D45E" d="M33 157Q33 258 109 349T280 441Q340 441 372 389Q373 390 377 395T388 406T404 418Q438 442 450 442Q454 442 457 439T460 434Q460 425 391 149Q320 -135 320 -139Q320 -147 365 -148H390Q396 -156 396 -157T393 -175Q389 -188 383 -194H370Q339 -192 262 -192Q234 -192 211 -192T174 -192T157 -193Q143 -193 143 -185Q143 -182 145 -170Q149 -154 152 -151T172 -148Q220 -148 230 -141Q238 -136 258 -53T279 32Q279 33 272 29Q224 -10 172 -10Q117 -10 75 30T33 157ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path></g></g></g></svg></mjx-container> and the response so far <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.471ex" xmlns="http://www.w3.org/2000/svg" width="9.244ex" height="1.471ex" role="img" focusable="false" viewBox="0 -442 4085.8 650"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(484,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="mo" transform="translate(1054.2,0)"><path data-c="2026" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60ZM525 60Q525 84 542 102T585 120Q609 120 627 104T646 61Q646 36 629 18T586 0T543 17T525 60ZM972 60Q972 84 989 102T1032 120Q1056 120 1074 104T1093 61Q1093 36 1076 18T1033 0T990 17T972 60Z"></path></g><g data-mml-node="msub" transform="translate(2392.9,0)"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(484,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path></g><g data-mml-node="mo" transform="translate(361,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1139,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></g></g></svg></mjx-container>​<ul>
+<li>生成每个token是基于整个查询的编码q，以及过去的的token</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\hat{r}_{t}=\operatorname{argmax}_{\mathrm{w} \in \mathrm{V}} P\left(w \mid q, r_{1} \ldots r_{t-1}\right)</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045513.png" alt="image-20211228214314489" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="img/image-20211228214325196.png" alt="image-20211228214325196" class="lazyload"></p>
+<ul>
+<li><p>Alternative approach: fine tune a large language model on conversational data</p>
+</li>
+<li><p>The Chirpy Cardinal system (Paranjape et al., 2020):</p>
+<ul>
+<li>fine tunes GPT 2</li>
+<li>on the E MPATHETIC D IALOGUES dataset ( Rashkin et al., 2019)</li>
+</ul>
+</li>
+<li><p>Ongoin research problems: Neural chatbots can get repetitive, bland, and inconsistent 神经聊天机器人会变得重复、乏味和不一致</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045786.png" alt="image-20211228214453111" class="lazyload"></p>
+<h3 id="4-4-Challenge-The-blandness-problem"><a href="#4-4-Challenge-The-blandness-problem" class="headerlink" title="4.4 Challenge: The blandness problem"></a>4.4 Challenge: The blandness problem</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021045800.png" alt="image-20211228214522318" class="lazyload"></p>
+<ul>
+<li><p>回答过于无趣</p>
+</li>
+<li><p>Blandness problem: cause and remedies 原因和改善</p>
+</li>
+<li>Common MLE objective (maximum likelihood) 都使用最大似然函数进行优化</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046328.png" alt="image-20211228214647488" class="lazyload"></p>
+<ul>
+<li>利用互信息改善 Mutual information objective:<ul>
+<li>同时优化双方的条件概率，使得答案和问题更相关</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046986.png" alt="image-20211228214725463" class="lazyload"></p>
+<h5 id="Mutual-Information-for-Neural-Network-Generation"><a href="#Mutual-Information-for-Neural-Network-Generation" class="headerlink" title="Mutual Information for Neural Network Generation"></a>Mutual Information for Neural Network Generation</h5><ul>
+<li>Mutual information objective:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046069.png" alt="image-20211228214926703" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046742.png" alt="image-20211228215055039" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046369.png" alt="image-20211228215037410" class="lazyload"></p>
+<ul>
+<li><p>希望Targe能生成Source的概率应该最小，从而增加约束</p>
+</li>
+<li><p>Sample outputs</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046611.png" alt="image-20211228215305020" class="lazyload"></p>
+<h3 id="4-5-Challenge-The-consistency-problem"><a href="#4-5-Challenge-The-consistency-problem" class="headerlink" title="4.5 Challenge: The consistency problem"></a>4.5 Challenge: The consistency problem</h3><ul>
+<li><p>即前后不一致问题</p>
+</li>
+<li><p>E2E systems often exhibit poor response consistency :</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046449.png" alt="image-20211228215357025" class="lazyload"></p>
+<ul>
+<li>Conversational data:<ul>
+<li>原因出在数据集本身就不是1对1关系</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046285.png" alt="image-20211228215424130" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046938.png" alt="image-20211228221500540" class="lazyload"></p>
+<ul>
+<li>解决方法，将每个问答编码加入个人化信息，使得答案唯一，减少歧义性。</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046721.png" alt="image-20211228221634627" class="lazyload"></p>
+<h4 id="4-5-1-Personal-modeling-as-multi-task-learning"><a href="#4-5-1-Personal-modeling-as-multi-task-learning" class="headerlink" title="4.5.1 Personal modeling as multi-task learning"></a>4.5.1 Personal modeling as multi-task learning</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046624.png" alt="image-20211228221720482" class="lazyload"></p>
+<ul>
+<li>Improving personalization with multiple losses</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046224.png" alt="image-20211228221951855" class="lazyload"></p>
+<ul>
+<li>优化，使人物角色可以“预测”自己的反应</li>
+<li>做法如图各自经过一个隐藏层，然后最后cat后再经过一个隐藏层作为最后输出，优化四部分的损失，增加对身份的约束</li>
+</ul>
+<h3 id="4-6-Challenge-Long-conversational-context"><a href="#4-6-Challenge-Long-conversational-context" class="headerlink" title="4.6 Challenge: Long conversational context"></a>4.6 Challenge: Long conversational context</h3><ul>
+<li><p>对长对话无记忆性</p>
+</li>
+<li><p>It can be challenging for LSTM/GRU to encode very long context (i.e. more than 200 words: Khandelwal + 18</p>
+</li>
+<li><p>Hierarchical Encoder Decoder (HRED) Serban + 16</p>
+<ul>
+<li>Encodes: utterance (word by word) + conversation (turn by turn) 编码：话语（逐字）+对话（逐句）就是既要把当前的话语编码，也要把历史所有语料进行编码</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046361.png" alt="image-20211228222531235" class="lazyload"></p>
+<ul>
+<li>Hierarchical Latent Variable Encoder Decoder (VHRED) Serban+ 17<ul>
+<li>Adds a latent variable to the decoder 向解码器添加一个潜在变量</li>
+<li>Trained by maximizing variational lower bound on the log likelihood Related<ul>
+<li>通过最大化对数似然相关函数的变分下界进行训练</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021046856.png" alt="image-20211228223305186" class="lazyload"></p>
+<h2 id="5-Hybrid-Architectures"><a href="#5-Hybrid-Architectures" class="headerlink" title="5. Hybrid Architectures"></a>5. Hybrid Architectures</h2><ul>
+<li>Chirpy Cardinal (Paranjape et al., 2020) <strong>response generation</strong> from a series of different generators</li>
+<li>GPT 2 finetuned on EmpatheticDialogues</li>
+<li>GPT 2 finetuned to <strong>paraphrase content 解析内容</strong> from Wikipedia  </li>
+<li>Rule based movie or music generators that produce scripted conversation about a movie or a musician 基于规则的电影或音乐生成器，用于生成有关电影或音乐家的脚本式对话<ul>
+<li>asking the user’s opinion about a movie,</li>
+<li>giving a fun fact,</li>
+<li>asking the user their opinion on an actor in the movie.</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-The-Frame-based-“GUS”-Dialogue-Architecture-基于框架的（“GUS”）对话架构"><a href="#6-The-Frame-based-“GUS”-Dialogue-Architecture-基于框架的（“GUS”）对话架构" class="headerlink" title="6. The Frame based (“GUS”) Dialogue Architecture 基于框架的（“GUS”）对话架构"></a>6. The Frame based (“GUS”) Dialogue Architecture 基于框架的（“GUS”）对话架构</h2><ul>
+<li><p>Sometimes called <strong>“ task based dialogue agents”</strong></p>
+<ul>
+<li>Systems that have the goal of helping a user solve a task like making a travel reservation or buying a product 旨在帮助用户解决旅行预订或购买产品等任务的系统</li>
+</ul>
+</li>
+<li><p>Architecture:</p>
+<ul>
+<li>First proposed in the GUS system of 1977</li>
+<li>A knowledge structure representing user intentions 表示用户意图的知识结构</li>
+<li>One or more frames (each consisting of slots with values 一个或多个帧（每个帧由带值的插槽组成）</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-1-The-Frame"><a href="#6-1-The-Frame" class="headerlink" title="6.1 The Frame"></a>6.1 The Frame</h3><ul>
+<li>A set of slots , to be filled with information of a given type<ul>
+<li>一组插槽，用于填充给定类型的信息</li>
+</ul>
+</li>
+<li>Each associated with a question to the user<ul>
+<li>每个都与用户的一个问题相关联</li>
+</ul>
+</li>
+<li>Sometimes called a domain ontology<ul>
+<li>有时称为领域本体</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047880.png" alt="image-20211228224211103" class="lazyload"></p>
+<h3 id="6-2-Control-structure-for-GUS-frame-architecture"><a href="#6-2-Control-structure-for-GUS-frame-architecture" class="headerlink" title="6.2 Control structure for GUS frame architecture"></a>6.2 Control structure for GUS frame architecture</h3><ul>
+<li><p>System asks questions of user, filling any slots that user specifies</p>
+</li>
+<li><p>User might fill many slots at a time:</p>
+<ul>
+<li>I want a flight from San Francisco to Denver one way leaving after five p.m . on Tuesday</li>
+</ul>
+</li>
+<li><p><strong>When frame is filled, do database query</strong></p>
+</li>
+</ul>
+<h3 id="6-3-GUS-slots-have-condition-action-rules-attached"><a href="#6-3-GUS-slots-have-condition-action-rules-attached" class="headerlink" title="6.3 GUS slots have condition action rules attached"></a>6.3 GUS slots have condition action rules attached</h3><ul>
+<li><p>GUS插槽附带了条件操作规则</p>
+</li>
+<li><p>Some rules attached to the DESTINATION slot for the plane booking frame</p>
+<ul>
+<li>飞机预订框架中的目的地时段附加的一些规则</li>
+</ul>
+</li>
+<li>Once the user has specified the destination<ul>
+<li>一旦用户指定了目的地</li>
+<li>Enter that city as the default StayLocation for the hotel booking frame.</li>
+<li>输入该城市作为酒店预订框架的默认位置。</li>
+</ul>
+</li>
+<li><p>Once the user has specified DESTINATION DAY for a short trip</p>
+<ul>
+<li>一旦用户指定了短途旅行的目的地日期</li>
+<li>Automatically copy as ARRIVAL DAY. 自动复制为到达日期</li>
+</ul>
+</li>
+<li><p>Frames like:</p>
+</li>
+<li>Car or hotel reservations</li>
+<li>General route information<ul>
+<li>Which airlines fly from Boston to San Francisco? ,</li>
+</ul>
+</li>
+<li>Information about airfare practices<ul>
+<li>Do I have to stay a specific number of days to get a decent airfare?.</li>
+</ul>
+</li>
+<li><strong>Frame detection:</strong><ul>
+<li>System must detect which slot of which frame user is filling</li>
+<li>系统必须检测用户正在填充哪个帧的哪个插槽</li>
+<li>And switch dialogue control to that frame.</li>
+<li>并将对话控制切换到该帧。</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-3-1-GUS-Natural-Language-Understanding-for-filling-dialog-slots"><a href="#6-3-1-GUS-Natural-Language-Understanding-for-filling-dialog-slots" class="headerlink" title="6.3.1 GUS: Natural Language Understanding for filling dialog slots"></a>6.3.1 GUS: Natural Language Understanding for filling dialog slots</h4><ul>
+<li><p>Domain classification  领域分类</p>
+<ul>
+<li>Asking weather? Booking a flight? Programming alarm clock?</li>
+</ul>
+</li>
+<li><p>Intent Determination  意图确定</p>
+<ul>
+<li>Find a Movie, Show Flight, Remove Calendar Appt</li>
+</ul>
+</li>
+<li><p>Slot Filling  插槽填充</p>
+<ul>
+<li>Extract the actual slots and fillers 提取实际插槽和填充器</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047960.png" alt="image-20211228230022041" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047329.png" alt="image-20211228230027655" class="lazyload"></p>
+<h4 id="6-4-2-How-to-fill-slots-gt-Rule-based-Slot-filling"><a href="#6-4-2-How-to-fill-slots-gt-Rule-based-Slot-filling" class="headerlink" title="6.4.2 How to fill slots->Rule based Slot filling"></a>6.4.2 How to fill slots-&gt;Rule based Slot filling</h4><ul>
+<li>Write regular expressions or grammar rules</li>
+<li><p>Wake me (up) | set (the|an ) alarm | get me up</p>
+</li>
+<li><p>Do text normalization</p>
+</li>
+<li><p>A template is a pre-built response string 模板是预构建的响应字符串</p>
+</li>
+<li><p>Templates can be fixed </p>
+<ul>
+<li>“Hello, how can I help you?”</li>
+</ul>
+</li>
+<li>Or have variables<ul>
+<li>“What time do you want to leave CITY ORIG?”</li>
+<li>“Will you return to CITY ORIG from CITY DEST?”</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-5-A-more-sophisticated-复杂的-version-of-the-frame-based-architecture"><a href="#6-5-A-more-sophisticated-复杂的-version-of-the-frame-based-architecture" class="headerlink" title="6.5 A more sophisticated 复杂的 version of the frame based architecture"></a>6.5 A more sophisticated 复杂的 version of the frame based architecture</h3><h4 id="6-5-1-A-Multi-turn-Task-oriented-Dialogue-state-Architecture"><a href="#6-5-1-A-Multi-turn-Task-oriented-Dialogue-state-Architecture" class="headerlink" title="6.5.1 A Multi-turn Task oriented Dialogue state Architecture"></a>6.5.1 A Multi-turn Task oriented Dialogue state Architecture</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047547.png" alt="image-20211228230516701" class="lazyload"></p>
+<h4 id="6-5-2-Components-in-a-dialogue-state-architecture"><a href="#6-5-2-Components-in-a-dialogue-state-architecture" class="headerlink" title="6.5.2 Components in a dialogue state architecture"></a>6.5.2 Components in a dialogue state architecture</h4><ul>
+<li>对话状态体系结构中的组件</li>
+<li>LU:extracts slot fillers from the user’s utterance using machine learning<ul>
+<li>LU：使用机器学习从用户的话语中提取槽填充</li>
+</ul>
+</li>
+<li>Dialogue state tracker:maintains the current state of the dialogue (user’s most recent dialogue act, set of slot filler constraints from user has expressed so far).<ul>
+<li>对话状态跟踪器：维护对话的当前状态（用户最近的对话行为，用户迄今为止表达的一组插槽填充约束）。</li>
+</ul>
+</li>
+<li>Dialogue policy: decides what the system should do or say next<ul>
+<li>对话政策：决定系统下一步应该做什么或说什么</li>
+<li>GUS policy: ask questions until the frame was full then report back the results of some database query<ul>
+<li>GUS策略：询问问题，直到框架已满，然后报告一些数据库查询的结果</li>
+</ul>
+</li>
+<li>More sophisticated: know when to answer questions, when to ask a clarification question, when to make a suggestion,etc<ul>
+<li>更复杂：知道何时回答问题、何时提出澄清问题、何时提出建议等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>NLG: produce more natural, less templated utterances</li>
+</ul>
+<h3 id="6-6-Dialogue-Acts"><a href="#6-6-Dialogue-Acts" class="headerlink" title="6.6 Dialogue Acts"></a>6.6 Dialogue Acts</h3><ul>
+<li>Combine the ideas of speech acts and grounding into a single representation<ul>
+<li>将言语行为和基础的思想结合成一个单一的表达</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047224.png" alt="image-20211228231605094" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047962.png" alt="image-20211228231618938" class="lazyload"></p>
+<h3 id="6-7-How-to-fill-slots-Machine-learning-Slot-filling"><a href="#6-7-How-to-fill-slots-Machine-learning-Slot-filling" class="headerlink" title="6.7 How to fill slots - Machine learning Slot filling"></a>6.7 How to fill slots - Machine learning Slot filling</h3><ul>
+<li><strong>Machine learning classifiers</strong> to map words to semantic frame fillers<ul>
+<li><strong>机器学习分类器</strong>将单词映射到语义框架填充词</li>
+</ul>
+</li>
+<li>Given a set of labeled sentences<ul>
+<li>Input:<ul>
+<li>I want to fly to San Francisco on Monday please”</li>
+</ul>
+</li>
+<li>Output: <ul>
+<li>Destination: SF</li>
+<li>Depart-time: Monday</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Build a classifier to map from one to the other Requirements: Lots of labeled data<ul>
+<li>构建一个分类器，将一个需求映射到另一个需求：大量标记数据</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-7-1-Slot-filling-as-sequence-labeling-BIO-tagging"><a href="#6-7-1-Slot-filling-as-sequence-labeling-BIO-tagging" class="headerlink" title="6.7.1 Slot filling as sequence labeling: BIO tagging"></a>6.7.1 Slot filling as sequence labeling: BIO tagging</h4><ul>
+<li><p>The BIO tagging paradigm</p>
+</li>
+<li><p>Idea: Train a classifier to label each input word with a tag that tells us what slot (if any) it fills</p>
+<ul>
+<li>想法：训练一个分类器，用一个标签标记每个输入单词，告诉我们它填充了什么槽（如果有的话）</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047074.png" alt="image-20211228231942539" class="lazyload"></p>
+<ul>
+<li>We create a B and I tag for each slot type </li>
+<li>And convert the training data to this format</li>
+</ul>
+<p><strong>Slot filling using contextual embeddings</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047805.png" alt="image-20211228232102065" class="lazyload"></p>
+<p><strong>Once we have the BIO tag of the sentence</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047306.png" alt="image-20211228232233477" class="lazyload"></p>
+<ul>
+<li>We can extract the filler string for each slot<ul>
+<li>我们可以提取每个插槽的填充字符串</li>
+</ul>
+</li>
+<li>And then normalize it to the correct form in the ontology<ul>
+<li>然后将其规范化为本体中的正确形式</li>
+</ul>
+</li>
+<li>Like “SFO” for San Francisco</li>
+<li>Using homonym dictionaries (SF=SFO=San Francisco)<ul>
+<li>使用同名词典（SF=SFO=San Francisco</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-8-The-task-of-dialogue-state-tracking"><a href="#6-8-The-task-of-dialogue-state-tracking" class="headerlink" title="6.8 The task of dialogue state tracking"></a>6.8 The task of dialogue state tracking</h3><ul>
+<li>可以简单理解为一直保留原来的slot直到满</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047863.png" alt="image-20211228232416605" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047770.png" alt="image-20211228232443956" class="lazyload"></p>
+<ul>
+<li>Dialogue act interpretation algorithm: 对话行为解释算法：<ul>
+<li>1 of N supervised classification to choose inform N个监督分类中的1个选择信息</li>
+<li>Based on encodings of current sentence + prior dialogue acts 基于当前句子的编码+先前的对话行为</li>
+</ul>
+</li>
+<li>Simple dialogue state tracker: 简单对话状态跟踪器：<ul>
+<li>Run a slot filler after each sentence 在每个句子后运行插槽填充程序</li>
+</ul>
+</li>
+</ul>
+<p><strong>An special case of dialogue act detection:Detecting Correction Acts</strong></p>
+<ul>
+<li>If system misrecognizes an utterance</li>
+<li>User might make a correction<ul>
+<li>Repeat themselves</li>
+<li>Rephrasing 重新措辞</li>
+<li>Saying “no” to a confirmation question</li>
+</ul>
+</li>
+</ul>
+<p><strong>Features for detecting corrections in spoken dialogue</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047457.png" alt="image-20211228233218953" class="lazyload"></p>
+<h3 id="6-9-Dialogue-Policy"><a href="#6-9-Dialogue-Policy" class="headerlink" title="6.9 Dialogue Policy"></a>6.9 Dialogue Policy</h3><ul>
+<li>At turn <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex" xmlns="http://www.w3.org/2000/svg" width="0.781ex" height="1.52ex" role="img" focusable="false" viewBox="0 -661 345 672"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></svg></mjx-container> predict action <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.357ex" xmlns="http://www.w3.org/2000/svg" width="2.437ex" height="1.977ex" role="img" focusable="false" viewBox="0 -716 1077 873.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><path data-c="1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path></g><g data-mml-node="TeXAtom" transform="translate(783,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g></g></g></g></svg></mjx-container> to take, given entire history:</li>
+</ul>
+<script type="math/tex; mode=display">
+\hat{A}_{i}=\underset{A_{i} \in A}{\operatorname{argmax}} P\left(A_{i} \mid\left(A_{1}, U_{1}, \ldots, A_{i-1}, U_{i-1}\right)\right.</script><ul>
+<li>Simplify by just conditioning on the current dialogue state (filled frame slots) and the last turn by system and user: 只需调节当前对话状态（填充的帧槽）和最后一圈以及系统和用户的圈数即可简化</li>
+</ul>
+<script type="math/tex; mode=display">
+\hat{A}_{i}=\underset{A_{i} \in A}{\operatorname{argmax}} P\left(A_{i} \mid \text { Frame }_{i-1}, A_{i-1}, U_{i-1}\right)</script><h4 id="6-9-1-Policy-example-Confirmation-and-Rejection"><a href="#6-9-1-Policy-example-Confirmation-and-Rejection" class="headerlink" title="6.9.1 Policy example: Confirmation and Rejection"></a>6.9.1 Policy example: Confirmation and Rejection</h4><ul>
+<li>Dialogue systems make errors</li>
+<li>So they to make sure they have understood user</li>
+<li>Two important mechanisms:<ul>
+<li><strong>confirming understandings with the user</strong></li>
+<li>rejecting utterances 话语 that the system is likely to <strong>have misunderstood.</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="6-9-2-Confirmation"><a href="#6-9-2-Confirmation" class="headerlink" title="6.9.2 Confirmation"></a>6.9.2 Confirmation</h4><p><strong>Explicit confirmation strategy</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021047767.png" alt="image-20211228233717922" class="lazyload"></p>
+<p><strong>Implicit confirmation strategy</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048568.png" alt="image-20211228233753222" class="lazyload"></p>
+<p><strong>Confirmation strategy tradeoffs</strong></p>
+<ul>
+<li>Explicit confirmation makes it easier for users to correct the system’s misrecognitions since a user can just answer “no” to the confirmation question.</li>
+<li>But explicit confirmation is also awkward and increases the length of the conversation ( Danieli and Gerbino 1995, Walker et al. 1998).</li>
+</ul>
+<h4 id="6-9-3-Rejection"><a href="#6-9-3-Rejection" class="headerlink" title="6.9.3 Rejection"></a>6.9.3 Rejection</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048328.png" alt="image-20211228233917422" class="lazyload"></p>
+<h5 id="Progressive-prompting-for-rejection"><a href="#Progressive-prompting-for-rejection" class="headerlink" title="Progressive prompting for rejection"></a>Progressive prompting for rejection</h5><ul>
+<li>Don’t just repeat the question “When would you like to leave?” Give user guidance about what they can say:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048657.png" alt="image-20211228233957485" class="lazyload"></p>
+<h5 id="Using-confidence-to-decide-whether-to-confirm"><a href="#Using-confidence-to-decide-whether-to-confirm" class="headerlink" title="Using confidence to decide whether to confirm:"></a>Using confidence to decide whether to confirm:</h5><ul>
+<li>ASR or NLU systems can assign a <strong>confidence value indicating how likely they are that they understood the user.</strong><ul>
+<li>Acoustic log-likelihood of the utterance 声音的对数似然性</li>
+<li>Prosodic features 韵律特征</li>
+<li>Ratio of score of best to second-best interpretation 最佳口译得分与次优口译得分之比</li>
+</ul>
+</li>
+<li>Systems could use set confidence thresholds:</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{lll}
+<\alpha & \text { low confidence } & \text { reject } \\
+\geq \alpha & \text { above the threshold } & \text { confirm explicitly } \\
+\geq \beta & \text { high confidence } & \text { confirm implictly } \\
+\geq \gamma & \text { very high confidence } & \text { don't confirm at all }
+\end{array}</script><h3 id="6-10-Natural-Language-Generation-NLG"><a href="#6-10-Natural-Language-Generation-NLG" class="headerlink" title="6.10 Natural Language Generation NLG"></a>6.10 Natural Language Generation NLG</h3><ul>
+<li>NLG in information state architecture <strong>modeled in two stages:</strong><ul>
+<li>content planning (what to say) </li>
+<li>sentence realization (how to say it). </li>
+</ul>
+</li>
+<li><strong>We’ll focus on sentence realization here.</strong></li>
+</ul>
+<h4 id="6-12-1-Sentence-Realization"><a href="#6-12-1-Sentence-Realization" class="headerlink" title="6.12.1 Sentence Realization"></a>6.12.1 Sentence Realization</h4><ul>
+<li><p>可以理解为已经找到answer了，怎么生成完整的句子，即输入是包括answer的slots、value，输出是句子</p>
+</li>
+<li><p>Assume content planning has been done by the dialogue policy</p>
+<ul>
+<li>Chosen the dialogue act to generate</li>
+<li>Chosen some attributes (slots and values) that the planner wants to say to the user 选择计划员想对用户说的一些属性（槽和值）<ul>
+<li>Either to give the user the answer, or as part of a confirmation strategy)为用户提供答案，或作为确认策略的一部分）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-samples-of-Input-and-Output-for-Sentence-Realizer"><a href="#2-samples-of-Input-and-Output-for-Sentence-Realizer" class="headerlink" title="2 samples of Input and Output for Sentence Realizer"></a>2 samples of Input and Output for Sentence Realizer</h5><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048536.png" alt="image-20211229103542942" class="lazyload"></p>
+<ul>
+<li><p>Training data is hard to come by 训练数据很难获得</p>
+<ul>
+<li>Don’t see each restaurant in each situation 不可能遍历每种情况的每个餐厅</li>
+</ul>
+</li>
+<li><p>Common way to improve generalization:</p>
+<ul>
+<li>Delexicalization: replacing words in the training set that represent slot values with a generic placeholder token: 去符号化：用通用占位符标记替换训练集中表示插槽值的单词：</li>
+<li>大致意思是训练时把slot的词全都mask，训练时不对其进行训练，直到生成后，将mask掉的词再换回来，从而达到只训练句子整体生成的部分。</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048009.png" alt="image-20211229104043750" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048945.png" alt="image-20211229104053174" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048440.png" alt="image-20211229104517457" class="lazyload"></p>
+<ul>
+<li>Output:<ul>
+<li>restaurant_name has decent service</li>
+</ul>
+</li>
+<li>Relexicalize to: 符号化<ul>
+<li>Au Midi has decent service</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-12-2-Generating-clarification-questions"><a href="#6-12-2-Generating-clarification-questions" class="headerlink" title="6.12.2 Generating clarification questions"></a>6.12.2 Generating clarification questions</h4><ul>
+<li><p>这里主要讲如何生成确认性的问题，即使用规则。</p>
+</li>
+<li><p>User: What do you have <strong>going to UNKNOWN WORD</strong> on the 5th?</p>
+</li>
+<li><p>System: <strong>Going where</strong> on the 5th?</p>
+</li>
+<li><p>The system <strong>repeats “going”</strong> and <strong>“on the 5th”</strong> to make it clear which aspect of the user’s turn the system needs to be <strong>clarified Methods for generating clarification questions:</strong></p>
+<ul>
+<li>Rules like ‘replace <strong>“going to UNKNOWN WORD”</strong> with <strong>“going where” ‘</strong></li>
+<li>Classifiers that <strong>guess which slots were misrecognized</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="7-Reinforcement-Learning-RL"><a href="#7-Reinforcement-Learning-RL" class="headerlink" title="7. Reinforcement Learning (RL)"></a>7. Reinforcement Learning (RL)</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048426.png" alt="image-20211229105431652" class="lazyload"></p>
+<h3 id="7-1-RL-vs-SL-supervised-learning"><a href="#7-1-RL-vs-SL-supervised-learning" class="headerlink" title="7.1 RL vs. SL (supervised learning)"></a>7.1 RL vs. SL (supervised learning)</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048297.png" alt="image-20211229105642640" class="lazyload"></p>
+<ul>
+<li><p>Differences from supervised learning</p>
+<ul>
+<li><strong>Learn by trial-and-error</strong> (“experimenting”)<ul>
+<li>Need <strong>efficient exploration</strong></li>
+</ul>
+</li>
+<li>Optimize <strong>long-term reward</strong> <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.566ex" xmlns="http://www.w3.org/2000/svg" width="15.188ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 6713 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mrow"><g data-mml-node="mo"><path data-c="28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path></g><g data-mml-node="msub" transform="translate(389,0)"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(484,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="mo" transform="translate(1498.8,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mi" transform="translate(2499,0)"><path data-c="1D6FE" d="M31 249Q11 249 11 258Q11 275 26 304T66 365T129 418T206 441Q233 441 239 440Q287 429 318 386T371 255Q385 195 385 170Q385 166 386 166L398 193Q418 244 443 300T486 391T508 430Q510 431 524 431H537Q543 425 543 422Q543 418 522 378T463 251T391 71Q385 55 378 6T357 -100Q341 -165 330 -190T303 -216Q286 -216 286 -188Q286 -138 340 32L346 51L347 69Q348 79 348 100Q348 257 291 317Q251 355 196 355Q148 355 108 329T51 260Q49 251 47 251Q45 249 31 249Z"></path></g><g data-mml-node="msub" transform="translate(3042,0)"><g data-mml-node="mi"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="TeXAtom" transform="translate(484,-150) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g></g></g><g data-mml-node="mo" transform="translate(4151.8,0)"><path data-c="2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path></g><g data-mml-node="mo" transform="translate(5152,0)"><path data-c="22EF" d="M78 250Q78 274 95 292T138 310Q162 310 180 294T199 251Q199 226 182 208T139 190T96 207T78 250ZM525 250Q525 274 542 292T585 310Q609 310 627 294T646 251Q646 226 629 208T586 190T543 207T525 250ZM972 250Q972 274 989 292T1032 310Q1056 310 1074 294T1093 251Q1093 226 1076 208T1033 190T990 207T972 250Z"></path></g><g data-mml-node="mo" transform="translate(6324,0)"><path data-c="29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path></g></g></g></g></svg></mjx-container>​<ul>
+<li>Need temporal credit assignment</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Similarities to supervised learning</p>
+<ul>
+<li>Generalization and representation</li>
+<li>Hierarchical problem solving</li>
+<li><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0.43ex" xmlns="http://www.w3.org/2000/svg" width="2.652ex" height="0.271ex" role="img" focusable="false" viewBox="0 -310 1172 120"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="22EF" d="M78 250Q78 274 95 292T138 310Q162 310 180 294T199 251Q199 226 182 208T139 190T96 207T78 250ZM525 250Q525 274 542 292T585 310Q609 310 627 294T646 251Q646 226 629 208T586 190T543 207T525 250ZM972 250Q972 274 989 292T1032 310Q1056 310 1074 294T1093 251Q1093 226 1076 208T1033 190T990 207T972 250Z"></path></g></g></g></svg></mjx-container>​</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-2-Conversation-as-RL"><a href="#7-2-Conversation-as-RL" class="headerlink" title="7.2 Conversation as RL"></a>7.2 Conversation as RL</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048944.png" alt="image-20211229110004560" class="lazyload"></p>
+<ul>
+<li>Observation and action 观察和行动<ul>
+<li>Raw representation (utterances in natural language form) 原始表示（自然语言形式的话语）</li>
+<li>Semantic representation (intent slot value form) 语义表示（意向槽值形式）</li>
+</ul>
+</li>
+<li>Reward<ul>
+<li>+10 upon successful termination 成功终止后+10</li>
+<li>10 upon unsuccessful termination 终止不成功时</li>
+<li>1 per turn</li>
+<li><mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: 0.43ex" xmlns="http://www.w3.org/2000/svg" width="2.652ex" height="0.271ex" role="img" focusable="false" viewBox="0 -310 1172 120"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mo"><path data-c="22EF" d="M78 250Q78 274 95 292T138 310Q162 310 180 294T199 251Q199 226 182 208T139 190T96 207T78 250ZM525 250Q525 274 542 292T585 310Q609 310 627 294T646 251Q646 226 629 208T586 190T543 207T525 250ZM972 250Q972 274 989 292T1032 310Q1056 310 1074 294T1093 251Q1093 226 1076 208T1033 190T990 207T972 250Z"></path></g></g></g></svg></mjx-container></li>
+</ul>
+</li>
+</ul>
+<h2 id="8-Evaluating-Dialogue-Systems"><a href="#8-Evaluating-Dialogue-Systems" class="headerlink" title="8. Evaluating Dialogue Systems"></a>8. Evaluating Dialogue Systems</h2><h3 id="8-1-Evaluating-chatbots-and-task-based-dialogue"><a href="#8-1-Evaluating-chatbots-and-task-based-dialogue" class="headerlink" title="8.1 Evaluating chatbots and task based dialogue"></a>8.1 Evaluating chatbots and task based dialogue</h3><ul>
+<li><p>Task-based dialogue:</p>
+<ul>
+<li>mainly by measuring <strong>task performance</strong> </li>
+</ul>
+</li>
+<li><p>Chatbots</p>
+<ul>
+<li>mainly by <strong>human evaluation</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="8-2-Chatbots-are-evaluated-by-humans-Participant"><a href="#8-2-Chatbots-are-evaluated-by-humans-Participant" class="headerlink" title="8.2 Chatbots are evaluated by humans Participant"></a>8.2 Chatbots are evaluated by humans Participant</h3><ul>
+<li><strong>Participant evaluation:</strong> The <strong>human</strong> who talked to the chatbot assigns a score</li>
+<li><strong>Observer evaluation :</strong> third party who <strong>reads a transcript of a human/chatbot conversation</strong> assigns a score.</li>
+</ul>
+<h4 id="8-2-1-Participant-evaluation"><a href="#8-2-1-Participant-evaluation" class="headerlink" title="8.2.1 Participant evaluation"></a>8.2.1 Participant evaluation</h4><ul>
+<li><p>Human chats with model for 6 turns and rates 8 dimensions of quality:</p>
+<ul>
+<li>avoiding repetition, interestingness, making sense, fluency, listening, inquisitiveness, humanness, engagingness,</li>
+</ul>
+</li>
+<li><p>Avoiding Repetition: How repetitive was this user?</p>
+<ul>
+<li>Repeated themselves over and over •Sometimes said the same thing twice • Always said something new</li>
+</ul>
+</li>
+<li><p>Making sense: How often did this user say something which didn’t make sense?</p>
+<ul>
+<li>Never made any sense •Most responses didn’t make sense •Some responses didn’t make sense •Everything made perfect sense</li>
+</ul>
+</li>
+<li><p>Engagingness: How much did you enjoy talking to this user?<br>Not at all •A little •Somewhat •A lot</p>
+</li>
+</ul>
+<h4 id="8-2-2-Observer-evaluation-acute-eval"><a href="#8-2-2-Observer-evaluation-acute-eval" class="headerlink" title="8.2.2 Observer evaluation: acute eval"></a>8.2.2 Observer evaluation: acute eval</h4><ul>
+<li>Annotators look at two conversations (A + B) and decide which is better:</li>
+<li>Engagingness: Who would you prefer to talk to for a long conversation?</li>
+<li>Interestingness: If you had to say one of these speakers is interesting and one is boring, who would you say is more interesting?</li>
+<li>Humanness: Which speaker sounds more human?</li>
+<li>Knowledgeable: If you had to say that one speaker is more knowledgeable and one is more ignorant, who is more knowledgeable?</li>
+</ul>
+<h3 id="8-3-Automatic-evaluation-is-an-open-problem"><a href="#8-3-Automatic-evaluation-is-an-open-problem" class="headerlink" title="8.3 Automatic evaluation is an open problem"></a>8.3 Automatic evaluation is an open problem</h3><ul>
+<li>Automatic evaluation methods <strong>(like the BLEU scores used for Machine Translation)</strong> are generally <strong>not used for chatbots.</strong><ul>
+<li>They <strong>correlate poorly with human judgements.</strong></li>
+</ul>
+</li>
+<li>One current research direction: <strong>Adversarial Evaluation</strong><ul>
+<li>Inspired by the Turing Test</li>
+<li>train a <strong>“Turing like”</strong> classifier to <strong>distinguish between human responses and machine responses.</strong></li>
+<li>The more successful a dialogue system is at fooling the evaluator, the better the system.</li>
+</ul>
+</li>
+</ul>
+<h4 id="8-3-1-Task-based-systems-are-evaluated-by-task-success"><a href="#8-3-1-Task-based-systems-are-evaluated-by-task-success" class="headerlink" title="8.3.1 Task based systems are evaluated by task success!"></a>8.3.1 Task based systems are evaluated by task success!</h4><ol>
+<li>End-to-end evaluation (Task Success)</li>
+<li>Slot Error Rate for a Sentence</li>
+</ol>
+<script type="math/tex; mode=display">
+\frac{\text{of inserted/deleted/subsituted slots}}{\text{of total reference slots for sentence}}</script><h3 id="8-4-Evaluation-Metrics-Slot-error-rate"><a href="#8-4-Evaluation-Metrics-Slot-error-rate" class="headerlink" title="8.4 Evaluation Metrics: Slot error rate"></a>8.4 Evaluation Metrics: Slot error rate</h3><ul>
+<li>“Make an appointment with Chris at 10:30 in Gates 104”</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021048521.png" alt="image-20211229111605860" class="lazyload"></p>
+<ul>
+<li>Slot error rate: 1/3</li>
+<li>Task success : At end, was the correct meeting added to the calendar?</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/nlp%20learning/Chapter12_Chatbots/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;nlp%20learning&#x2F;Chapter12_Chatbots&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;nlp%20learning&#x2F;Chapter12_Chatbots&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/nlp/">nlp</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292075"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

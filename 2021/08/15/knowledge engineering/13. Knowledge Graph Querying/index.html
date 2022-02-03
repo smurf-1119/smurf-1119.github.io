@@ -1,0 +1,1672 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Knowledge Graph Querying - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Knowledge Graph Querying">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Knowledge Graph Querying">
+<meta property="og:url" content="http://example.com/2021/08/15/knowledge%20engineering/13.%20Knowledge%20Graph%20Querying/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Knowledge Graph Querying">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009810.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009166.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009679.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009744.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009992.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009698.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009724.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009711.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009960.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009135.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009128.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010367.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010024.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010928.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010647.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010497.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010249.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010783.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010575.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010524.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010279.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010076.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010855.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011072.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011990.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011951.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011024.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011291.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011246.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011879.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011778.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011807.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011939.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011519.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011288.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011381.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011039.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011355.png">
+<meta property="og:image" content="e:/third_year_in_University/knowledge%20engineering/note/img/image-20211215110739530.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012271.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012999.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012615.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012003.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012199.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012543.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012235.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012072.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012019.png">
+<meta property="og:image" content="e:/third_year_in_University/knowledge%20engineering/note/img/image-20211215111838420.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012247.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T16:12:33.045Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009810.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292022">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Knowledge Graph Querying" class="lazyload">
+            <h1>Knowledge Graph Querying</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.5k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 14 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-RDF-Query-Language-SPARQL"><span class="toc-number">1.</span> <span class="toc-text">1. RDF Query Language: SPARQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-SPARQL-Example"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 SPARQL Example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Components-of-SPARQL-Queries"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Components of SPARQL Queries</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-SPARQL"><span class="toc-number">2.</span> <span class="toc-text">2. SPARQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-SPARQL-Syntax-RDF-Term-Syntax"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 SPARQL Syntax: RDF Term Syntax</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise"><span class="toc-number">2.1.1.</span> <span class="toc-text">Exercise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise-1"><span class="toc-number">2.1.2.</span> <span class="toc-text">Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Graph-Patterns"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Graph Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-Basic-graph-patterns"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 Basic graph patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Exercise-2"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">Exercise</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-Group-Graph-Patterns"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 Group Graph Patterns</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-Optional-Graph-Patterns"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 Optional Graph Patterns</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-Alternative-Union-Graph-Patterns"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.2.4 Alternative(Union) Graph Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Exercise-3"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">Exercise</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Dataset-specification"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Dataset specification</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Query-Forms"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 Query Forms</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise-4"><span class="toc-number">2.4.1.</span> <span class="toc-text">Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-DESCRIBE"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 DESCRIBE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-CONSTRUCT"><span class="toc-number">2.6.</span> <span class="toc-text">2.6 CONSTRUCT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-ASK"><span class="toc-number">2.7.</span> <span class="toc-text">2.7 ASK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-DELETE-INSERT"><span class="toc-number">2.8.</span> <span class="toc-text">2.8 DELETE&#x2F;INSERT</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise-5"><span class="toc-number">2.8.1.</span> <span class="toc-text">Exercise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Q1"><span class="toc-number">2.8.2.</span> <span class="toc-text">Q1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Q2"><span class="toc-number">2.8.3.</span> <span class="toc-text">2. Q2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-CLEAR"><span class="toc-number">2.9.</span> <span class="toc-text">2.9 CLEAR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-MOVE"><span class="toc-number">2.10.</span> <span class="toc-text">2.10 MOVE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-11-Solution-Modifiers"><span class="toc-number">2.11.</span> <span class="toc-text">2.11 Solution Modifiers</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DISTINCT"><span class="toc-number">2.11.1.</span> <span class="toc-text">DISTINCT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ORDER-BY"><span class="toc-number">2.11.2.</span> <span class="toc-text">ORDER BY</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LIMIT"><span class="toc-number">2.11.3.</span> <span class="toc-text">LIMIT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OFFSET"><span class="toc-number">2.11.4.</span> <span class="toc-text">OFFSET</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BINDINGS"><span class="toc-number">2.11.5.</span> <span class="toc-text">BINDINGS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VALUE"><span class="toc-number">2.11.6.</span> <span class="toc-text">VALUE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGGREGATES"><span class="toc-number">2.11.7.</span> <span class="toc-text">AGGREGATES</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NEGATION"><span class="toc-number">2.11.8.</span> <span class="toc-text">NEGATION:</span></a></li></ol></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Knowledge Graph Querying<br><span id="more"></span></p>
+<h2 id="1-RDF-Query-Language-SPARQL"><a href="#1-RDF-Query-Language-SPARQL" class="headerlink" title="1. RDF Query Language: SPARQL"></a>1. RDF Query Language: SPARQL</h2><ul>
+<li>W3C Stack</li>
+<li>SPARQL is an <strong>RDF query language</strong>, that is, a semantic query language for databases, able to retrieve and manipulate data stored in RDF format.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009810.png" alt="image-20211208102903230" class="lazyload"></p>
+<ul>
+<li><p>SPARQL stands for</p>
+<ul>
+<li>(originally) Simple Protocol and RDF Query Language.</li>
+<li>(now) SPARQL Protocol and RDF Query Language.</li>
+</ul>
+</li>
+<li><p>How to get information from RDF graphs by SPARQL?</p>
+<ul>
+<li>Pattern matching<ul>
+<li>Pattern: describe <strong>subgraphs</strong> of the queried RDF graph</li>
+<li>Matching: <strong>match the pattern to the subgraphs</strong> to contribute an answer</li>
+<li>Building blocks: <strong>graph patterns</strong> (i.e. RDF graphs with variables)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009166.png" alt="image-20211208103325844" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009679.png" alt="image-20211208103415086" class="lazyload"></p>
+<ul>
+<li>子图与知识图谱做匹配，把知识图谱中所有位于中心的词拿过来</li>
+</ul>
+<h3 id="1-1-SPARQL-Example"><a href="#1-1-SPARQL-Example" class="headerlink" title="1.1 SPARQL Example"></a>1.1 SPARQL Example</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009744.png" alt="image-20211208104153837" class="lazyload"></p>
+<h3 id="1-2-Components-of-SPARQL-Queries"><a href="#1-2-Components-of-SPARQL-Queries" class="headerlink" title="1.2 Components of SPARQL Queries"></a>1.2 Components of SPARQL Queries</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009992.png" alt="image-20211208104425927" class="lazyload"></p>
+<ul>
+<li><p>Prologue</p>
+<ul>
+<li>Prefix definitions for compact URIs;</li>
+<li>Attention (difference w.r.t. Turtle): No period (“.”) character as separator.</li>
+</ul>
+</li>
+<li><p>Query Form</p>
+<ul>
+<li>SELECT, DESCRIBE, CONSTRUCT or ASK</li>
+</ul>
+</li>
+<li><p>Dataset specification</p>
+<ul>
+<li><strong>From</strong></li>
+<li>Specify the RDF dataset to be querying</li>
+</ul>
+</li>
+<li><p>Query pattern</p>
+<ul>
+<li><strong>WHERE clause</strong> specifies the graph pattern to be matched</li>
+<li>指明什么样的语句需要被匹配</li>
+</ul>
+</li>
+<li><p>Solution modifiers</p>
+<ul>
+<li>Order: put the solutions in order; </li>
+<li>Projection: choose certain variables; <ul>
+<li>指定返回特定变脸结果</li>
+</ul>
+</li>
+<li>Distinct: ensure solutions in the sequence are unique; <ul>
+<li>确保返回结果是唯一</li>
+</ul>
+</li>
+<li>Reduced: permit elimination of some non-unique solutions; <ul>
+<li>防止删除重复</li>
+</ul>
+</li>
+<li>Offset: control where the solutions start from in the overall sequence of solutions; <ul>
+<li>从第n个返回</li>
+</ul>
+</li>
+<li>Limit: restrict the number of solutions.<ul>
+<li>限制返回数量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-SPARQL"><a href="#2-SPARQL" class="headerlink" title="2. SPARQL"></a>2. SPARQL</h2><ul>
+<li>SPARQL Syntax (RDF term syntax)<ul>
+<li>Syntax for IRI</li>
+<li>Syntax for literals</li>
+<li>Syntax for variables</li>
+<li>Syntax for blank nodes</li>
+<li>Graph Patterns for Query Pattern</li>
+<li>Triple Pattern</li>
+<li>Different Graph Patterns</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-SPARQL-Syntax-RDF-Term-Syntax"><a href="#2-1-SPARQL-Syntax-RDF-Term-Syntax" class="headerlink" title="2.1 SPARQL Syntax: RDF Term Syntax"></a>2.1 SPARQL Syntax: RDF Term Syntax</h3><ul>
+<li>Syntax for IRI<ul>
+<li>IRIs are a generalization of URIs and are fully compatible with URIs and URLs.</li>
+<li>The following fragments are some of the different ways to write the same IRI:</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009698.png" alt="image-20211208105032370" class="lazyload"></p>
+<ul>
+<li><p>一旦定义BASE，那么所有的都是这一个；PREFIX则不同</p>
+</li>
+<li><p><strong>The general syntax for literals</strong></p>
+<ul>
+<li>A string (enclosed in either double quotes, “…”, or single quotes, ‘…’);</li>
+<li>With either an optional language tag (introduced by @) or an optional datatype IRI or prefixed name (introduced by ^^).</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009724.png" alt="image-20211208105224660" class="lazyload"></p>
+<ul>
+<li><p>字符串用单引号或双引号皆可</p>
+</li>
+<li><p>Syntax for query variables</p>
+<ul>
+<li>Query variables in SPARQL queries have the global scope<ul>
+<li>Use of a given variable name anywhere in a query identifies the same variable.</li>
+</ul>
+</li>
+<li>Variables are prefixed by either “?” or “\$”;<ul>
+<li>The “?” or “\$​” is not part of the variable name.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009711.png" alt="image-20211208105526982" class="lazyload"></p>
+<ul>
+<li><p>查找所有谓语是name的三元组，返回其并于</p>
+</li>
+<li><p>Syntax for blank nodes</p>
+<ul>
+<li>空节点就是表示变量</li>
+<li>Blank nodes in graph patterns act as non-distinguished variables, not as references to specific blank nodes in the data being queried.</li>
+<li>Blank nodes are indicated by either the label form, such as “_:abc”, or the abbreviated form “[]”.<ul>
+<li>A blank node that is used in only one place in the query syntax can be indicated with [].</li>
+</ul>
+</li>
+<li>The same blank node label cannot be used in two different basic graph patterns in the same query.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009960.png" alt="image-20211208105746800" class="lazyload"></p>
+<ul>
+<li>Triple Patterns<ul>
+<li>are <strong>basic units of graph patterns</strong>;</li>
+<li>are written as a whitespace-separated list of a subject, predicate and object;</li>
+<li>There are abbreviated ways of writing some common triple patterns;</li>
+<li>The following examples express the same query:</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009135.png" alt="image-20211208110026967" class="lazyload"></p>
+<p>Triple Patterns: Predicate-Object Lists</p>
+<ul>
+<li>Triple patterns with a common subject can be written so that the subject is only written once and is used for more than one triple pattern by employing the “;” notation.</li>
+<li>共用主语</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020009128.png" alt="image-20211208110053408" class="lazyload"></p>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Please rewrite the following triple pattern by using the same subject only once.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?a int:number 123789 .</span><br><span class="line">?a int:pair 34567.</span><br><span class="line">?a int:id 666777 .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?a int:number 123789；</span><br><span class="line">   int:pair 34567；</span><br><span class="line">   int:id 666777 .</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Triple Patterns: Object Lists</strong><ul>
+<li>If triple patterns <strong>share both subject and predicate</strong>, the objects may be separated by “,”.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010367.png" alt="image-20211208110551322" class="lazyload"></p>
+<h4 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Please rewrite the following triple pattern by using the same subject and predicate only once.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?a string:name ‘Bob’.</span><br><span class="line">?a string:name ’Bobby’.</span><br><span class="line">?a string:name ‘Boob’.</span><br><span class="line">?a string:name ‘Bob_’.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a string:name ‘Bob’,’Bobby’,‘Boob’,‘Bob_’.</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-Graph-Patterns"><a href="#2-2-Graph-Patterns" class="headerlink" title="2.2 Graph Patterns"></a>2.2 Graph Patterns</h3><ul>
+<li>SPARQL is based around graph pattern matching.</li>
+<li>Different types of graph patterns for the query pattern (WHERE clause):<ul>
+<li><strong>Basic Graph Patterns</strong>, where a set of triple patterns must match;</li>
+<li><strong>Group Graph Pattern</strong>, where a set of graph patterns must all match;</li>
+<li><strong>Optional Graph patterns</strong>, where additional patterns may extend the solution;</li>
+<li><strong>Alternative (Union) Graph Pattern</strong>, where two or more possible patterns are tried;</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-2-1-Basic-graph-patterns"><a href="#2-2-1-Basic-graph-patterns" class="headerlink" title="2.2.1 Basic graph patterns"></a>2.2.1 Basic graph patterns</h4><p>Triple patterns are similar to RDF triples, but any component can be a<br>query variable.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?x foaf:name ?name .</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Matching a triple pattern to a graph: bindings between variables and<br>RDF terms.</p>
+</li>
+<li><p>Matching of basic graph patterns:</p>
+<ul>
+<li>A Pattern Solution of Graph Pattern GP on graph G is any substitution S such that S(GP) is a subgraph of G. <ul>
+<li>Simple queries </li>
+<li>Multiple matches </li>
+<li>Matching RDF literals </li>
+<li>Blank node labels in query results</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Simple queries</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010024.png" alt="image-20211208111145159" class="lazyload"></p>
+<ul>
+<li>注意返回要有列名</li>
+</ul>
+<p>Exercise<br>Given the dataset and the SPARQL query as follows, please write the query results.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Graph: http://example/addresses</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:familyName &quot;McKinley&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:familyName &quot;Taft&quot; .</span><br><span class="line">&lt;http://example/president42&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president42&gt; foaf:familyName &quot;Clinton&quot; .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">SELECT ?name ?family</span><br><span class="line">WHERE &#123; ?x foaf:givenName ?name .</span><br><span class="line">?x foaf:familyName ?family .&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Bill”</td>
+<td>“McKinley”</td>
+</tr>
+<tr>
+<td>“Bill”</td>
+<td>“Taft”</td>
+</tr>
+<tr>
+<td>“Bill”</td>
+<td>“Clinton”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Multiple Matches</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010928.png" alt="image-20211208112118772" class="lazyload"></p>
+<h5 id="Exercise-2"><a href="#Exercise-2" class="headerlink" title="Exercise"></a>Exercise</h5><ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Graph: http://example/addresses</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:familyName &quot;McKinley&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:givenName “Bob&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:id 159486.</span><br><span class="line">&lt;http://example/president42&gt; foaf:givenName “Marry&quot; .</span><br><span class="line">&lt;http://example/president42&gt; foaf:familyName &quot;Clinton&quot; .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">SELECT ?name ?family</span><br><span class="line">WHERE &#123; ?x foaf:givenName ?name .</span><br><span class="line">?x foaf:familyName ?family .&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Bill”</td>
+<td>“McKinley”</td>
+</tr>
+<tr>
+<td>“Marry”</td>
+<td>“Clinton”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Matching RDF literals</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@prefix dt: &lt;http://example.org/datatype#&gt; .</span><br><span class="line">@prefix ns: &lt;http://example.org/ns#&gt; .</span><br><span class="line">@prefix : &lt;http://example.org/ns#&gt; .</span><br><span class="line">@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</span><br><span class="line">:x ns:p &quot;cat&quot;@en .</span><br><span class="line">:y ns:p &quot;42&quot;^^xsd:integer .</span><br><span class="line">:z ns:p &quot;abc&quot;^^dt:specialDatatype .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一种是找不到结果的，因为不加@是不一样的意义</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010647.png" alt="image-20211208112234236" class="lazyload"></p>
+<ul>
+<li><p>Blank node labels in query results</p>
+<ul>
+<li>There need not be any relation between a label in the form of a blank node in the result set and a blank node in the data graph with the same label.</li>
+</ul>
+</li>
+<li><p>Blank node labels in query results</p>
+<ul>
+<li>There need not be any relation between a label in the form of a blank node in the result set and a blank node in the data graph with the same label.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010497.png" alt="image-20211208113210921" class="lazyload"></p>
+<h4 id="2-2-2-Group-Graph-Patterns"><a href="#2-2-2-Group-Graph-Patterns" class="headerlink" title="2.2.2 Group Graph Patterns"></a>2.2.2 Group Graph Patterns</h4><ul>
+<li>In a SPARQL query string, a group graph pattern is <strong>delimited with braces: {}.</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010249.png" alt="image-20211208113243218" class="lazyload"></p>
+<ul>
+<li>Besides triple patterns, group graph pattern <strong>can contain constraints</strong><ul>
+<li>Syntax: Keyword FILTER followed by a filter expression</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010783.png" alt="image-20211208113552720" class="lazyload"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Bill”</td>
+<td>“McKinley”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="2-2-3-Optional-Graph-Patterns"><a href="#2-2-3-Optional-Graph-Patterns" class="headerlink" title="2.2.3 Optional Graph Patterns"></a>2.2.3 Optional Graph Patterns</h4><ul>
+<li>If the optional part does not match, it creates no bindings but does not eliminate the solution.</li>
+<li>Optional patterns may result in unbound variables</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010575.png" alt="image-20211208163455567" class="lazyload"></p>
+<ul>
+<li>Exercise<ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010524.png" alt="image-20211208163522593" class="lazyload"></p>
+<ul>
+<li>Answer</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">name</th>
+<th style="text-align:center">family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">“Bill”</td>
+<td style="text-align:center">“McKinley”</td>
+</tr>
+<tr>
+<td style="text-align:center">“Bob”</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">“Marry”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Constraints in Optional Pattern Matching</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010279.png" alt="image-20211208163647154" class="lazyload"></p>
+<ul>
+<li>Multiple Optional Graph Patterns</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010076.png" alt="image-20211208163807370" class="lazyload"></p>
+<h4 id="2-2-4-Alternative-Union-Graph-Patterns"><a href="#2-2-4-Alternative-Union-Graph-Patterns" class="headerlink" title="2.2.4 Alternative(Union) Graph Patterns"></a>2.2.4 Alternative(Union) Graph Patterns</h4><ul>
+<li><strong>Combine graph patterns</strong> so that one of several alternative graph patterns may match.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020010855.png" alt="image-20211208163833063" class="lazyload"></p>
+<h5 id="Exercise-3"><a href="#Exercise-3" class="headerlink" title="Exercise"></a>Exercise</h5><ul>
+<li>Please write the SPARQL query on “list all volcanos located in Italy or Norway” given the following data.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">depedia:Mount_Etna	rdf:type	umbel-sc:Volcano;</span><br><span class="line">					rdfs:label 	&quot;Etna&quot;;</span><br><span class="line">					p:location	dbpedia:Italy.</span><br><span class="line">depedia:Mount_Baker	rdf:type	umbel-sc:Volcano;</span><br><span class="line">					p:location	dbpedia:United_States.</span><br><span class="line">depedia:Beerenberg	rdf:type	umbel-sc:Volcano;</span><br><span class="line">					rdfs:label	&quot;Beerenberg&quot;@en;</span><br><span class="line">					p:location	dbpedia:Norway.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Answer</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT ?volcano rdf:type umbel-sc:Volcano.</span><br><span class="line">WHERE &#123;</span><br><span class="line">    &#123;?Mount p:location dbpedia:Italy.&#125;</span><br><span class="line">    UNION &#123;?Mount p:location dbpedia:Norway.&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-Dataset-specification"><a href="#2-3-Dataset-specification" class="headerlink" title="2.3 Dataset specification"></a>2.3 Dataset specification</h3><ul>
+<li><p>SPARQL queries are executed over an RDF dataset:</p>
+<ul>
+<li>One default graph and</li>
+<li>Zero or more named graphs (identified by an IRI).</li>
+</ul>
+</li>
+<li><p>Evaluation of patterns w.r.t. the active graph (initially the default graph),<br>i.e., the graph used for matching graph patterns;</p>
+</li>
+<li><p><strong>GRAPH clause is used for making a named graph the active graph.</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011072.png" alt="image-20211215095900388" class="lazyload"></p>
+<ul>
+<li>加了Graph 子句就会在那么graph查询，否则就会在defalt查询</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011990.png" alt="image-20211215095921101" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011951.png" alt="image-20211215100228264" class="lazyload"></p>
+<h3 id="2-4-Query-Forms"><a href="#2-4-Query-Forms" class="headerlink" title="2.4 Query Forms"></a>2.4 Query Forms</h3><ul>
+<li>SELECT <ul>
+<li>Result: sequence of solutions (i.e., sets of variable bindings); </li>
+<li>Selected variables separated by space (not by comma!);</li>
+<li><strong>Asterisk character (“*”) selects all variables in the pattern.</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011024.png" alt="image-20211215100406729" class="lazyload"></p>
+<h4 id="Exercise-4"><a href="#Exercise-4" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+<li>Dataset</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># Default graph (stored at http://example.org/dft.ttl)</span><br><span class="line">@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .</span><br><span class="line">&lt;http://example.org/bob&gt; dc:publisher &quot;Bob Hacker&quot; .</span><br><span class="line">&lt;http://example.org/alice&gt; dc:publisher &quot;Alice Hacker&quot; .</span><br><span class="line"></span><br><span class="line"># Named graph: http://example.org/bob</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">_:a foaf:name &quot;Bob&quot; .</span><br><span class="line">_:a foaf:mbox &lt;mailto:bob@oldcorp.example.org&gt; .</span><br><span class="line"></span><br><span class="line"># Named graph: http://example.org/alice</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">_:a foaf:name &quot;Alice&quot; .</span><br><span class="line">_:a foaf:mbox &lt;mailto:alice@work.example.org&gt; .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SPARQL query<ul>
+<li>FROMNAMD可以省略，因为标明了GRAPH ?g</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;</span><br><span class="line">SELECT ?who ?g ?mbox</span><br><span class="line">FROM &lt;http://example.org/dft.ttl&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/alice&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/bob&gt;</span><br><span class="line">WHERE</span><br><span class="line">&#123;</span><br><span class="line">?g dc:publisher ?who .</span><br><span class="line">GRAPH ?g &#123; ?x foaf:mbox ?mbox &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Answer:<br>| who   | g     | mbox |<br>| ——— | ————— | ————— |<br>| “Bob Hacker” | \<a target="_blank" rel="noopener" href="http://example.org/bob">http://example.org/bob</a> | \<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#98;&#x6f;&#x62;&#x40;&#111;&#108;&#100;&#99;&#x6f;&#114;&#x70;&#46;&#x65;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#46;&#x6f;&#x72;&#x67;&#x5c;">&#98;&#x6f;&#x62;&#x40;&#111;&#108;&#100;&#99;&#x6f;&#114;&#x70;&#46;&#x65;&#x78;&#x61;&#x6d;&#112;&#x6c;&#101;&#46;&#x6f;&#x72;&#x67;&#x5c;</a>|<br>| “Alice Hacker” |  \<a target="_blank" rel="noopener" href="http://example.org/alice">http://example.org/alice</a> | <mailto:alice@work.example.org > |</li>
+</ul>
+<h3 id="2-5-DESCRIBE"><a href="#2-5-DESCRIBE" class="headerlink" title="2.5 DESCRIBE"></a>2.5 DESCRIBE</h3><ul>
+<li>Result: an RDF graph (i.e., all RDF triples) that describes the resources found;</li>
+<li>The DESCRIBE clause can take IRIs to identify the resources.</li>
+<li>The resources to be described can also be taken from the bindings to a query variable in a result set.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011291.png" alt="image-20211215101912520" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011246.png" alt="image-20211215102306783" class="lazyload"></p>
+<h3 id="2-6-CONSTRUCT"><a href="#2-6-CONSTRUCT" class="headerlink" title="2.6 CONSTRUCT"></a>2.6 CONSTRUCT</h3><ul>
+<li><p>Result: an RDF graph constructed from a template;</p>
+</li>
+<li><p>Template: a graph pattern with the variables from the query pattern.</p>
+</li>
+<li>将模板的变量换掉，其余不变</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011879.png" alt="image-20211215102537976" class="lazyload"></p>
+<ul>
+<li><p>dbpedia:Mount_Etna rdfs:label “Etna”;</p>
+<p>​                                       rdf:type myTypes:VolcanosOutsideTheUS.</p>
+</li>
+<li><p>dbpedia:Beerenberg rdfs:label “Beerenberg”@en;</p>
+<p>​                                       rdf:type myTypes:VolcanosOutsideTheUS.</p>
+</li>
+</ul>
+<h3 id="2-7-ASK"><a href="#2-7-ASK" class="headerlink" title="2.7 ASK"></a>2.7 ASK</h3><ul>
+<li>Check whether there is at least one result;</li>
+<li>Result: true or false.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011778.png" alt="image-20211215104717764" class="lazyload"></p>
+<h3 id="2-8-DELETE-INSERT"><a href="#2-8-DELETE-INSERT" class="headerlink" title="2.8 DELETE/INSERT"></a>2.8 DELETE/INSERT</h3><ul>
+<li>INSERT<ul>
+<li>Insert the new RDF triples into the existing RDF graph.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011807.png" alt="image-20211215104928526" class="lazyload"></p>
+<ul>
+<li>DELETE<ul>
+<li>Delete some triples in the RDF graph.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011939.png" alt="image-20211215104955005" class="lazyload"></p>
+<ul>
+<li>DELETE/INSERT<ul>
+<li>Remove or add triples from/to the Graph Store based on bindings for a query pattern specified in a where clause.</li>
+</ul>
+</li>
+<li><p>WITH 表示数据集</p>
+</li>
+<li><p>先做查询，在再查询里做插入删除</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011519.png" alt="image-20211215105255654" class="lazyload"></p>
+<h4 id="Exercise-5"><a href="#Exercise-5" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+</ul>
+<h4 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@prefix org: &lt;http://example.com/ns#&gt; .</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br><span class="line">_:b org:employeeName &quot;Bob&quot; .</span><br><span class="line">_:b org:employeeId 67890 .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX org: &lt;http://example.com/ns#&gt;</span><br><span class="line">DELETE &#123;?person ?p ?o .&#125;</span><br><span class="line">where &#123;?person org:employeeId ?id .</span><br><span class="line">FILTER (?id &gt; 50000)</span><br><span class="line">?person ?p ?o .&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除后：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br></pre></td></tr></table></figure>
+<h4 id="2-Q2"><a href="#2-Q2" class="headerlink" title="2. Q2"></a>2. Q2</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@prefix org: &lt;http://example.com/ns#&gt; .</span><br><span class="line"># Graph: http://person</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br><span class="line">_:b org:employeeName &quot;Bob&quot; .</span><br><span class="line">_:b org:employeeId 67890 .</span><br><span class="line"># Graph: http://person2</span><br><span class="line">_:c org:employeeId 13579</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX org: &lt;http://example.com/ns#&gt;</span><br><span class="line">INSERT &#123;GRAPH &lt;http://person2&gt; &#123;?person ?p ?o .&#125;&#125;</span><br><span class="line">where &#123;Graph: &lt;http://person&gt;</span><br><span class="line">&#123;?person org:employeeId ?id .</span><br><span class="line">FILTER (?id &lt; 50000)</span><br><span class="line">?person ?p ?o .&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@prefix org: &lt;http://example.com/ns#&gt; .</span><br><span class="line"># Graph: http://person</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br><span class="line">_:b org:employeeName &quot;Bob&quot; .</span><br><span class="line">_:b org:employeeId 67890 .</span><br><span class="line"># Graph: http://person2</span><br><span class="line">_:c org:employeeId 13579 .</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br></pre></td></tr></table></figure>
+<h3 id="2-9-CLEAR"><a href="#2-9-CLEAR" class="headerlink" title="2.9 CLEAR"></a>2.9 CLEAR</h3><ul>
+<li>Remove all the triples in the specified graph(s) in the Graph Store.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011288.png" alt="image-20211215110528044" class="lazyload"></p>
+<h3 id="2-10-MOVE"><a href="#2-10-MOVE" class="headerlink" title="2.10 MOVE"></a>2.10 MOVE</h3><ul>
+<li>Move all data from an input graph into a destination graph.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011381.png" alt="image-20211215110550501" class="lazyload"></p>
+<h3 id="2-11-Solution-Modifiers"><a href="#2-11-Solution-Modifiers" class="headerlink" title="2.11 Solution Modifiers"></a>2.11 Solution Modifiers</h3><ul>
+<li><p>Only for SELECT queries;</p>
+</li>
+<li><p>Modify the result set as a whole (not single solutions);</p>
+</li>
+<li>Keywords: DISTINCT, ORDER BY, LIMIT, OFFSET.</li>
+</ul>
+<h4 id="DISTINCT"><a href="#DISTINCT" class="headerlink" title="DISTINCT"></a>DISTINCT</h4><ul>
+<li><strong>Remove duplicates</strong> from the result set.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011039.png" alt="image-20211215110728620" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020011355.png" alt="image-20211215110734271" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/knowledge%20engineering/note/img/image-20211215110739530.png" alt="image-20211215110739530" class="lazyload"></p>
+<h4 id="ORDER-BY"><a href="#ORDER-BY" class="headerlink" title="ORDER BY"></a>ORDER BY</h4><ul>
+<li>Order the results.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012271.png" alt="image-20211215110814813" class="lazyload"></p>
+<ul>
+<li>ASC for ascending (default) and DESC (e.g., DESC(?name)) for descending.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012999.png" alt="image-20211215110909379" class="lazyload"></p>
+<h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4><ul>
+<li>limits the number of result:<ul>
+<li>只返回5个</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012615.png" alt="image-20211215111028802" class="lazyload"></p>
+<h4 id="OFFSET"><a href="#OFFSET" class="headerlink" title="OFFSET"></a>OFFSET</h4><ul>
+<li>position/index of the first reported results:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012003.png" alt="image-20211215111113085" class="lazyload"></p>
+<ul>
+<li>Order of the result should be predictable (combine with ORDER BY)</li>
+</ul>
+<h4 id="BINDINGS"><a href="#BINDINGS" class="headerlink" title="BINDINGS"></a>BINDINGS</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012199.png" alt="image-20211215111325636" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012543.png" alt="image-20211215111347379" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012235.png" alt="image-20211215111357307" class="lazyload"></p>
+<h4 id="VALUE"><a href="#VALUE" class="headerlink" title="VALUE"></a>VALUE</h4><ul>
+<li>add data to the query directly.<ul>
+<li>增加限制</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012072.png" alt="image-20211215111516484" class="lazyload"></p>
+<h4 id="AGGREGATES"><a href="#AGGREGATES" class="headerlink" title="AGGREGATES"></a>AGGREGATES</h4><ul>
+<li><p>allows for the grouping of solutions and</p>
+</li>
+<li><p>the computation of values over the groups.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012019.png" alt="image-20211215111700791" class="lazyload"></p>
+<ul>
+<li><p>GROUP BY groups the solutions; (i.e., students who attend the same lecture)</p>
+</li>
+<li><p>COUNT is an aggregate function that counts the solutions within a group; (i.e., number of students in the lecture) </p>
+</li>
+<li>HAVING filters aggregated values</li>
+<li>Question: Please use natural language to explain this SPARQL query!<ul>
+<li>查选课人数超过5人的课</li>
+</ul>
+</li>
+</ul>
+<h4 id="NEGATION"><a href="#NEGATION" class="headerlink" title="NEGATION:"></a>NEGATION:</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/knowledge%20engineering/note/img/image-20211215111838420.png" alt="image-20211215111838420" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020012247.png" alt="image-20211215111848348" class="lazyload"></p>
+<ul>
+<li>Question: Please use natural language to explain the above SPARQL queries!</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/knowledge%20engineering/13.%20Knowledge%20Graph%20Querying/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;13.%20Knowledge%20Graph%20Querying&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;13.%20Knowledge%20Graph%20Querying&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292024"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

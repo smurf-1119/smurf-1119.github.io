@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Image Segmentation - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Image Segmentation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Image Segmentation">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/7.%20Recognition%20&%20Detection/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Image Segmentation">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124416.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124960.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125671.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125578.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125287.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125535.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125831.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125353.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125439.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125384.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125440.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125775.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125102.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125344.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126919.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126846.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126030.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126654.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126202.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126007.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126479.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126747.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126071.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126600.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126755.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126663.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211105105709167.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126799.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127934.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127303.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127784.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127359.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127095.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127406.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127374.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211105111943682.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127872.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127627.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127379.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127048.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128193.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128751.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128047.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128494.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128648.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128119.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128321.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128967.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128998.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128944.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128919.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129534.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129222.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129383.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129776.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129263.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129433.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:18:17.614Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124416.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292004">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Image Segmentation" class="lazyload">
+            <h1>Image Segmentation</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.8k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 14 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Recognition-amp-Detection"><span class="toc-number">1.</span> <span class="toc-text">Recognition &amp; Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Introduction-to-recognition"><span class="toc-number">1.1.</span> <span class="toc-text">1.  Introduction to recognition</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Activity-recognition"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.1 Activity recognition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Categorization-vs-Single-instance-recognition"><span class="toc-number">1.1.2.</span> <span class="toc-text">1.2 Categorization vs Single instance recognition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Visual-Recognition"><span class="toc-number">1.1.3.</span> <span class="toc-text">1.3 Visual Recognition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Why-is-it-difficult"><span class="toc-number">1.1.4.</span> <span class="toc-text">1.4 Why is it difficult?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-The-machine-learning-framework"><span class="toc-number">1.2.</span> <span class="toc-text">2. The machine learning framework</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-A-simple-pipeline-Training"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 A simple pipeline - Training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E2%80%9CClassic%E2%80%9Drecognition-pipeline"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 “Classic”recognition pipeline</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Bag-of-words"><span class="toc-number">1.3.</span> <span class="toc-text">3. Bag of words</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Origin"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 Origin</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Origin-1-Texture-Recognition"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">3.1.1 Origin 1: Texture Recognition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-Origin-2-Bag-of-words-models"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">3.1.2 Origin 2: Bag-of-words models</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-Bags-of-features-for-object-recognition"><span class="toc-number">1.3.1.3.</span> <span class="toc-text">3.1.3 Bags of features for object recognition</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Bag-of-features"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 Bag of features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-Bag-of-features-outline"><span class="toc-number">1.3.2.1.</span> <span class="toc-text">3.2.1 Bag of features: outline</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-Feature-extraction"><span class="toc-number">1.3.2.2.</span> <span class="toc-text">3.2.2 Feature extraction</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Learning-the-visual-vocabulary"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 Learning the visual vocabulary</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-From-clustering-to-vector-quantization"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">3.3.1 From clustering to vector quantization</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Visual-vocabularies"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">3.3.2 Visual vocabularies</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-Visual-vocabularies-lssues"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">3.3.3 Visual vocabularies: lssues</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-Large-scale-image-matching"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">3.3.4 Large-scale image matching</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-5-Bags-of-features-for-object-recognition"><span class="toc-number">1.3.3.5.</span> <span class="toc-text">3.3.5 Bags of features for object recognition</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-What-about-spatial-information"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 What about spatial information?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-1-Spatial-pyramids-%EF%BC%88Spatial-Pyramid-Matching%EF%BC%89"><span class="toc-number">1.3.5.</span> <span class="toc-text">3.4.1 Spatial pyramids （Spatial Pyramid Matching）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B%EF%BC%9A"><span class="toc-number">1.3.5.0.1.</span> <span class="toc-text">简介：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E2%80%9CClassic%E2%80%9D-recognition-pipeline"><span class="toc-number">1.4.</span> <span class="toc-text">4. “Classic” recognition pipeline</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Recall-Many-classifiers-to-choose-from"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 Recall: Many classifiers to choose from</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Generalization"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 Generalization</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1-Bias-Variance-Trade-off"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">4.2.1 Bias-Variance Trade-off</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-2-Bias-versus-variance"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">4.2.2 Bias versus variance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-3-How-to-reduce-variance"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">4.2.3 How to reduce variance?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Remarks"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 Remarks</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Object-detection"><span class="toc-number">1.5.</span> <span class="toc-text">5. Object detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-From-image-classification-to-object-detection"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 From image classification to object detection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Window-based-detection-models"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 Window-based detection models</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Window-based-object-detection-recap"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 Window-based object detection: recap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Challenges"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 Challenges</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-Object-detection-evaluation"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 Object detection evaluation</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Face-detection"><span class="toc-number">1.6.</span> <span class="toc-text">6. Face detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Viola-Jones-face-detector"><span class="toc-number">1.6.1.</span> <span class="toc-text">6.1 Viola-Jones face detector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Boosting-intuition"><span class="toc-number">1.6.2.</span> <span class="toc-text">6.2 Boosting intuition</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-Boosting-training"><span class="toc-number">1.6.3.</span> <span class="toc-text">6.3 Boosting: training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-Viola-Jones-face-detector"><span class="toc-number">1.6.4.</span> <span class="toc-text">6.4 Viola-Jones face detector</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-Viola-Jones-detector-features"><span class="toc-number">1.6.5.</span> <span class="toc-text">6.5 Viola-Jones detector: features</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-1-%E2%80%9CRectangular%E2%80%9D-filters"><span class="toc-number">1.6.5.1.</span> <span class="toc-text">6.5.1 “Rectangular” filters</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-2-Computing-the-integral-image"><span class="toc-number">1.6.5.2.</span> <span class="toc-text">6.5.2 Computing the integral image</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-3-Computing-sum-within-a-rectangle"><span class="toc-number">1.6.5.3.</span> <span class="toc-text">6.5.3 Computing sum within a rectangle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-4-features"><span class="toc-number">1.6.5.4.</span> <span class="toc-text">6.5.4 features</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-5-Viola-Jones-detector-AdaBoost"><span class="toc-number">1.6.5.5.</span> <span class="toc-text">6.5.5 Viola-Jones detector: AdaBoost</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%AA%E4%BB%A3%E7%A0%81%EF%BC%9A"><span class="toc-number">1.6.5.5.1.</span> <span class="toc-text">伪代码：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-6-Cascading-classifiers-for-detection"><span class="toc-number">1.6.5.6.</span> <span class="toc-text">6.5.6 Cascading classifiers for detection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-5-7-%E5%A6%82%E4%BD%95%E8%AE%AD%E7%BB%83cascade-of-classifiers"><span class="toc-number">1.6.5.7.</span> <span class="toc-text">6.5.7 如何训练cascade of classifiers</span></a></li></ol></li></ol></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Image Segmentation</p>
+<span id="more"></span>
+<h1 id="Recognition-amp-Detection"><a href="#Recognition-amp-Detection" class="headerlink" title="Recognition &amp; Detection"></a>Recognition &amp; Detection</h1><h2 id="1-Introduction-to-recognition"><a href="#1-Introduction-to-recognition" class="headerlink" title="1.  Introduction to recognition"></a>1.  Introduction to recognition</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124416.png" alt="image-20211105101148578" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124960.png" alt="image-20211105101253009" class="lazyload"></p>
+<h3 id="1-1-Activity-recognition"><a href="#1-1-Activity-recognition" class="headerlink" title="1.1 Activity recognition"></a>1.1 Activity recognition</h3><ul>
+<li>What are these people doing?</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125671.png" alt="image-20211105101518738" class="lazyload"></p>
+<ul>
+<li>walking </li>
+<li>shopping</li>
+<li>rolling a cartsitting</li>
+<li>talking</li>
+<li>…</li>
+</ul>
+<h3 id="1-2-Categorization-vs-Single-instance-recognition"><a href="#1-2-Categorization-vs-Single-instance-recognition" class="headerlink" title="1.2 Categorization vs Single instance recognition"></a>1.2 Categorization vs Single instance recognition</h3><p>Where is the crunchy（松脆的） nut?</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125578.png" alt="image-20211105150003502" class="lazyload"></p>
+<h3 id="1-3-Visual-Recognition"><a href="#1-3-Visual-Recognition" class="headerlink" title="1.3 Visual Recognition"></a>1.3 Visual Recognition</h3><ul>
+<li>Design algorithms that have the capability to:<ul>
+<li>Classify images or videos</li>
+<li>Detect and localize objects</li>
+<li>Estimate semantic and geometrical attributes. </li>
+<li>Classify human activities and events</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-4-Why-is-it-difficult"><a href="#1-4-Why-is-it-difficult" class="headerlink" title="1.4 Why is it difficult?"></a>1.4 Why is it difficult?</h3><ul>
+<li>Want to find the object despite possibly <strong>large changes inscale, viewpoint, lighting and partial occlusion</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125287.png" alt="image-20211105101915061" class="lazyload"></p>
+<h2 id="2-The-machine-learning-framework"><a href="#2-The-machine-learning-framework" class="headerlink" title="2. The machine learning framework"></a>2. The machine learning framework</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125535.png" alt="image-20211105102119085" class="lazyload"></p>
+<ul>
+<li>Training: given a training set of labeled examples<br>${(x_1,y_1),…. , (x_N,y_N)}, $​estimate the prediction function $f$ by minimizing the prediction error on the training set</li>
+<li><p>Testing: apply $f$ to a never before seen test example $x$ and output the predicted value $y = f(x)$​</p>
+</li>
+<li><p>Apply a prediction function to a feature representation of the image to get the desired output:</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125831.png" alt="image-20211105102242755" class="lazyload"></p>
+<h3 id="2-1-A-simple-pipeline-Training"><a href="#2-1-A-simple-pipeline-Training" class="headerlink" title="2.1 A simple pipeline - Training"></a>2.1 A simple pipeline - Training</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125353.png" alt="image-20211105102322754" class="lazyload"></p>
+<h3 id="2-2-“Classic”recognition-pipeline"><a href="#2-2-“Classic”recognition-pipeline" class="headerlink" title="2.2 “Classic”recognition pipeline"></a>2.2 “Classic”recognition pipeline</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125439.png" alt="image-20211105102418818" class="lazyload"></p>
+<ul>
+<li><p><strong>Hand-crafted feature representation</strong></p>
+<ul>
+<li>纹理</li>
+<li>边缘</li>
+<li>角点</li>
+</ul>
+</li>
+<li><p>Off-the-shelf trainable classifier</p>
+</li>
+</ul>
+<h2 id="3-Bag-of-words"><a href="#3-Bag-of-words" class="headerlink" title="3. Bag of words"></a>3. Bag of words</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125384.png" alt="image-20211105150338919" class="lazyload"></p>
+<h3 id="3-1-Origin"><a href="#3-1-Origin" class="headerlink" title="3.1 Origin"></a>3.1 Origin</h3><h4 id="3-1-1-Origin-1-Texture-Recognition"><a href="#3-1-1-Origin-1-Texture-Recognition" class="headerlink" title="3.1.1 Origin 1: Texture Recognition"></a>3.1.1 Origin 1: Texture Recognition</h4><ul>
+<li>Texture is <strong>characterized by the repetition</strong> of <strong>basic elements or textons</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125440.png" alt="image-20211105103104767" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125775.png" alt="image-20211105103254659" class="lazyload"></p>
+<ul>
+<li>统计图像中包含纹理基元的频率，从而作为特征向量</li>
+</ul>
+<h4 id="3-1-2-Origin-2-Bag-of-words-models"><a href="#3-1-2-Origin-2-Bag-of-words-models" class="headerlink" title="3.1.2 Origin 2: Bag-of-words models"></a>3.1.2 Origin 2: Bag-of-words models</h4><ul>
+<li>Orderless document representation: <strong>frequencies of words from a dictionary</strong> salton &amp; McGill (1983)</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125102.png" alt="image-20211105103400415" class="lazyload"></p>
+<h4 id="3-1-3-Bags-of-features-for-object-recognition"><a href="#3-1-3-Bags-of-features-for-object-recognition" class="headerlink" title="3.1.3 Bags of features for object recognition"></a>3.1.3 Bags of features for object recognition</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011125344.png" alt="image-20211105103506456" class="lazyload"></p>
+<ul>
+<li>Works pretty well for <strong>image-level classification</strong> and for <strong>recognizing object instances</strong></li>
+</ul>
+<h3 id="3-2-Bag-of-features"><a href="#3-2-Bag-of-features" class="headerlink" title="3.2 Bag of features"></a>3.2 Bag of features</h3><ul>
+<li>First, take a bunch of images, <strong>extract features</strong>, and <strong>build up a”dictionary”</strong> or <strong>“visual vocabulary”</strong>——a list of common features</li>
+<li>Given a new image, <strong>extract features and build a histogram</strong> - for each feature, <strong>find the closest visual word in the dictionary</strong></li>
+</ul>
+<h4 id="3-2-1-Bag-of-features-outline"><a href="#3-2-1-Bag-of-features-outline" class="headerlink" title="3.2.1 Bag of features: outline"></a>3.2.1 Bag of features: outline</h4><ul>
+<li>Extract features</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126919.png" alt="image-20211105151320633" class="lazyload"></p>
+<ul>
+<li>Learn “visual vocabulary”<ul>
+<li>只选取有代表性的特征基元</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126846.png" alt="image-20211105151348124" class="lazyload"></p>
+<ul>
+<li><p><strong>Quantize features using visual vocabulary</strong></p>
+<ul>
+<li>算相似度，投影bins</li>
+</ul>
+</li>
+<li><p>Represent images by <strong>frequencies</strong> of “visual words”</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126030.png" alt="image-20211105104358597" class="lazyload"></p>
+<h4 id="3-2-2-Feature-extraction"><a href="#3-2-2-Feature-extraction" class="headerlink" title="3.2.2 Feature extraction"></a>3.2.2 Feature extraction</h4><ul>
+<li>Regular grid<ul>
+<li>Vogel &amp; Schiele, 2003</li>
+<li>Fei-Fei &amp;Perona,2005</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126654.png" alt="image-20211105151431370" class="lazyload"></p>
+<ul>
+<li>lnterest <strong>point detector</strong><ul>
+<li>Csurka et al. 2004</li>
+<li>Fei-Fei&amp; Perona,2005Sivic et al. 2005</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126202.png" alt="image-20211105151445838" class="lazyload"></p>
+<ul>
+<li>Other methods<ul>
+<li>Random sampling (Vidal-Naquet &amp; Ullman, 2002). </li>
+<li>Segmentation-based patches (Barnard et al.2003)</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-Learning-the-visual-vocabulary"><a href="#3-3-Learning-the-visual-vocabulary" class="headerlink" title="3.3 Learning the visual vocabulary"></a>3.3 Learning the visual vocabulary</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126007.png" alt="image-20211105104849851" class="lazyload"></p>
+<ul>
+<li>把特征点进行聚类，得到聚类中心，从而得到视觉词汇<ul>
+<li>对于SIFT，则将10000个128维向量缩小为3个128维，进而通过直方图，最后变成一个三维向量</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-1-From-clustering-to-vector-quantization"><a href="#3-3-1-From-clustering-to-vector-quantization" class="headerlink" title="3.3.1 From clustering to vector quantization"></a>3.3.1 From clustering to vector quantization</h4><ul>
+<li><p><strong>Clustering</strong> is a common method for <strong>learning a visual vocabulary or codebook</strong></p>
+<ul>
+<li><strong>Unsupervised</strong> learning process</li>
+<li>Each <strong>cluster center</strong> produced by k-means becomes a <strong>codevector</strong> </li>
+<li>Provided the training set is <strong>representative</strong>, the <strong>codebook will be “universal”</strong></li>
+</ul>
+</li>
+<li><p>The <strong>codebook</strong> is used for <strong>quantizing features</strong></p>
+<ul>
+<li><strong>A vector quantizer</strong> takes a feature vector and <strong>maps it to the index of the nearest codevector in a codebook</strong></li>
+<li><strong>Codebook</strong> = <strong>visual vocabulary</strong></li>
+<li><strong>Codevector</strong>= <strong>visual word</strong><ul>
+<li>简言之，就是通过聚类得到的聚类中心就是我们需要的code vector，然后code vector 组成codebook，对于后续图片的表达，只要借助于量化，即可</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-2-Visual-vocabularies"><a href="#3-3-2-Visual-vocabularies" class="headerlink" title="3.3.2 Visual vocabularies"></a>3.3.2 Visual vocabularies</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126479.png" alt="image-20211105105225635" class="lazyload"></p>
+<h4 id="3-3-3-Visual-vocabularies-lssues"><a href="#3-3-3-Visual-vocabularies-lssues" class="headerlink" title="3.3.3 Visual vocabularies: lssues"></a>3.3.3 Visual vocabularies: lssues</h4><ul>
+<li><p>How to choose <strong>vocabulary size</strong>?</p>
+<ul>
+<li>Too small: visual words <strong>not representative</strong> of all patches</li>
+<li>Too large: quantization artifacts, <strong>overfitting</strong></li>
+</ul>
+</li>
+<li><p>Computational efficiency</p>
+<ul>
+<li>Vocabulary trees<br>(Nister &amp; Steweniu:s, 2006)</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126747.png" alt="image-20211105105420870" class="lazyload"></p>
+<ul>
+<li>训练阶段，进行树状分类，即递归调用k-means；测试阶段先进行粗分类</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126071.png" alt="image-20211105105347294" class="lazyload"></p>
+<h4 id="3-3-4-Large-scale-image-matching"><a href="#3-3-4-Large-scale-image-matching" class="headerlink" title="3.3.4 Large-scale image matching"></a>3.3.4 Large-scale image matching</h4><ul>
+<li>Bag-of-words models have been useful in matching an image to a large database of object instances</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126600.png" alt="image-20211105152412288" class="lazyload"></p>
+<h4 id="3-3-5-Bags-of-features-for-object-recognition"><a href="#3-3-5-Bags-of-features-for-object-recognition" class="headerlink" title="3.3.5 Bags of features for object recognition"></a>3.3.5 Bags of features for object recognition</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126755.png" alt="image-20211105105542212" class="lazyload"></p>
+<h3 id="3-4-What-about-spatial-information"><a href="#3-4-What-about-spatial-information" class="headerlink" title="3.4 What about spatial information?"></a>3.4 What about spatial information?</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126663.png" alt="image-20211105105606059" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211105105709167.png" alt="image-20211105105709167" class="lazyload"></p>
+<ul>
+<li>单纯使用上诉表示方法，会失去空间信息的特征</li>
+</ul>
+<h3 id="3-4-1-Spatial-pyramids-（Spatial-Pyramid-Matching）"><a href="#3-4-1-Spatial-pyramids-（Spatial-Pyramid-Matching）" class="headerlink" title="3.4.1 Spatial pyramids （Spatial Pyramid Matching）"></a>3.4.1 Spatial pyramids （Spatial Pyramid Matching）</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011126799.png" alt="image-20211105105935237" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127934.png" alt="image-20211105110059564" class="lazyload"></p>
+<ul>
+<li>将图像分成若干块(sub-regions)，分别统计每一子块的特征，最后将所有块的特征拼接起来，形成完整的特征。</li>
+</ul>
+<h5 id="简介："><a href="#简介：" class="headerlink" title="简介："></a>简介：</h5><ul>
+<li>假设存在两个点集$X$和$Y$（ 每个点都是$D$维的，以下将它们所在的空间称作特征空间）。将<strong>特征空间</strong>划分为不同的尺度$0,…,L$，在尺度$l$下特征空间的每一维划出$2^l$个cells，那么d维的特征空间就能划出$D=2^{dl}$​个bins；</li>
+<li>两个点集中的点落入同一个bin就称这两个点Match。在一个bin中match的总数定义为 $min(X_i, Y_i)$​​，其中$X_i$​​和$Y_i$​​分别是两个点集中落入第$i$​个bin的点的数目；</li>
+<li>统计各个尺度下match的总数$\mathcal{I}^l$​（就等于直方图相交)。<strong>由于细粒度的bin被大粒度的bin所包含</strong>，为了不重复计算，每个尺度的<strong>有效Match定义为match的增量</strong>$\mathcal{I}^l-\mathcal{I}^{l+1}$</li>
+<li>不同的尺度下的match应赋予不同权重，<strong>显然大尺度的权重小，而小尺度的权重大，因此定义权重为</strong>$\frac{1}{2^{L-l}}$​</li>
+<li>最终，两点集匹配的程度定义为：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\kappa^{L}(X, Y) &=\mathcal{I}^{L}+\sum_{\ell=0}^{L-1} \frac{1}{2^{L-\ell}}\left(\mathcal{I}^{\ell}-\mathcal{I}^{\ell+1}\right) \\
+&=\frac{1}{2^{L}} \mathcal{I}^{0}+\sum_{\ell=1}^{L} \frac{1}{2^{L-\ell+1}} \mathcal{I}^{\ell} 
+\end{aligned}</script><ul>
+<li>我觉得要特别说明一下的就是这里的特征空间与前面两个点集的点所被描述的空间之间的关系——-没有关系，对，我觉得是没有关系，因此就有作者的SPM：<ul>
+<li>将<strong>图像空间</strong>用构造金字塔的方法分解为多个scale的bins（通俗地说就是切分成不同尺度的方形）</li>
+<li>像BOW一样构造一本大小为M的dictionary，这样每个特征都能投影到dictionary中的一个word上。其中字典的训练过程是在<strong>特征空间</strong>中完成。论文中的特征利用的dense SIFT。</li>
+<li>统计每个bin中各个words的数目，最终两幅图像的匹配程度定义为：</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+K^{L}(X, Y)=\sum_{m=1}^{M} \kappa^{L}\left(X_{m}, Y_{m}\right)</script><ul>
+<li><p>注意，当L=0时，模型就退化成为BOW了。</p>
+</li>
+<li><p>SPM介绍了两幅图像匹配的方法。如要用于场景分类，注意(2)式就等于$M(L+1)$​个直方图<strong>相交运算的和</strong>，<strong>其实也就等于一个更大的向量直接进行直方图相交运算而已。</strong>而这个向量，就等于<strong>每个被划分的图像子区域上的visual words直方图连在一起</strong>。这个特征，就是用来分类的特征。</p>
+</li>
+<li><p>作者在实验中表明，不同L下，M从200取到400对分类性能影响不大，也就是降低了码书的大小对分类效果的影响。</p>
+</li>
+<li><p>在本文最开始也提到了，<strong>这个方法可以作为一个模板</strong>，每个sub-region中统计的直方图可以多种多样，简单的如颜色直方图，也可以用HOG，这就形成了<a target="_blank" rel="noopener" href="http://www.robots.ox.ac.uk/~vgg/research/caltech/phog.html">PHOG</a>。SPM的matlab代码也可以从作者的主页上下载到(<a target="_blank" rel="noopener" href="http://www.cs.illinois.edu/homes/slazebni/">here</a>)。只不过这种空间分类信息仍然有局限性——-一幅相同的图像旋转90度，匹配的结果就不会太高了。所以模型隐含的假设就是图像都是正着存储的（人都是站立的，树都是站立的…….）。另外空间Pyramid的分块方法也没有考虑图像中object的信息（仅仅是利用SIFT特征来描述了Object），这也是作者在文中承认的缺点。DPM，应该是考虑了这个问题的吧。</p>
+</li>
+</ul>
+<h2 id="4-“Classic”-recognition-pipeline"><a href="#4-“Classic”-recognition-pipeline" class="headerlink" title="4. “Classic” recognition pipeline"></a>4. “Classic” recognition pipeline</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127303.png" alt="image-20211105154623514" class="lazyload"></p>
+<h3 id="4-1-Recall-Many-classifiers-to-choose-from"><a href="#4-1-Recall-Many-classifiers-to-choose-from" class="headerlink" title="4.1 Recall: Many classifiers to choose from"></a>4.1 Recall: Many classifiers to choose from</h3><ul>
+<li>K-nearest neighbor</li>
+<li>SVM</li>
+<li>Neural networks</li>
+<li>Naive Bayes</li>
+<li>Logistic regression</li>
+<li>Randomized Forests</li>
+<li>Etc.</li>
+</ul>
+<h3 id="4-2-Generalization"><a href="#4-2-Generalization" class="headerlink" title="4.2 Generalization"></a>4.2 Generalization</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127784.png" alt="image-20211105110241986" class="lazyload"></p>
+<ul>
+<li>How well does a learned model <strong>generalize</strong> from <strong>the data it was trained</strong> on <strong>to a new test set</strong>?</li>
+</ul>
+<h4 id="4-2-1-Bias-Variance-Trade-off"><a href="#4-2-1-Bias-Variance-Trade-off" class="headerlink" title="4.2.1 Bias-Variance Trade-off"></a>4.2.1 Bias-Variance Trade-off</h4><ul>
+<li>Models with too few parameters are inaccurate because of <strong>a large bias (not enough flexibility).</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127359.png" alt="image-20211105110404125" class="lazyload"></p>
+<ul>
+<li>Models with <strong>too many parameters</strong> are inaccurate because of a large variance(<strong>too much sensitivity to the sample</strong>).</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127095.png" alt="image-20211105110434897" class="lazyload"></p>
+<h4 id="4-2-2-Bias-versus-variance"><a href="#4-2-2-Bias-versus-variance" class="headerlink" title="4.2.2 Bias versus variance"></a>4.2.2 Bias versus variance</h4><ul>
+<li>Components of <strong>generalization error</strong></li>
+<li>Bias: how much <strong>the average model</strong> over all training sets <strong>differ from the true model</strong>?<ul>
+<li>Error due to inaccurate <strong>assumptions/simplifications made by the model</strong> </li>
+</ul>
+</li>
+<li>Variance: how much models <strong>estimated from different training sets</strong> differ fron <strong>each other</strong></li>
+</ul>
+<p><strong>Underfitting</strong>: </p>
+<ul>
+<li>model is <strong>too “simple”to represent</strong> all the relevant classcharacteristics<ul>
+<li>High bias and low variance</li>
+<li>High training error and high test error</li>
+</ul>
+</li>
+</ul>
+<p><strong>Overfitting:</strong> </p>
+<ul>
+<li><p>model is <strong>too “complex” and fits irrelevant characteristics</strong>(noise) in the data</p>
+</li>
+<li><p>Low bias and high variance</p>
+</li>
+<li>Low training error and high test error</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127406.png" alt="image-20211105110910978" class="lazyload"></p>
+<ul>
+<li>No classifier is inherently(天生的) better than any other: <strong>you need to make assumptions to generalize</strong></li>
+<li>Errors<ul>
+<li>Bias: due to over-simplifications</li>
+<li>Variance: due to inability to perfectlyestimate parameters from limited data</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-2-3-How-to-reduce-variance"><a href="#4-2-3-How-to-reduce-variance" class="headerlink" title="4.2.3 How to reduce variance?"></a>4.2.3 How to reduce variance?</h4><ul>
+<li>Choose a simpler classifier</li>
+<li><strong>Regularize</strong> the parameters</li>
+<li>Get more <strong>training data</strong></li>
+</ul>
+<h3 id="4-3-Remarks"><a href="#4-3-Remarks" class="headerlink" title="4.3 Remarks"></a>4.3 Remarks</h3><ul>
+<li><p><strong>Know your data:</strong></p>
+<ul>
+<li>How much supervision do you have?</li>
+<li>How many training examples can you afford?</li>
+<li>How noisy?</li>
+</ul>
+</li>
+<li><p><strong>Know your goal (i.e. task):</strong></p>
+<ul>
+<li>Affects your choices of representation</li>
+<li>Affects your choices of learning algorithms</li>
+<li>Affects your choices of evaluation metricss</li>
+</ul>
+</li>
+<li><p><strong>Understand the math behind each machine learning algorithm under consideration!</strong></p>
+</li>
+</ul>
+<h2 id="5-Object-detection"><a href="#5-Object-detection" class="headerlink" title="5. Object detection"></a>5. Object detection</h2><h3 id="5-1-From-image-classification-to-object-detection"><a href="#5-1-From-image-classification-to-object-detection" class="headerlink" title="5.1 From image classification to object detection"></a>5.1 From image classification to object detection</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127374.png" alt="image-20211105111918995" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211105111943682.png" alt="image-20211105111943682" class="lazyload"></p>
+<h3 id="5-2-Window-based-detection-models"><a href="#5-2-Window-based-detection-models" class="headerlink" title="5.2 Window-based detection models"></a>5.2 Window-based detection models</h3><ul>
+<li>Building an object model</li>
+<li>Given the representation, <strong>train a binary classifier</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127872.png" alt="image-20211105112120619" class="lazyload"></p>
+<ul>
+<li>使用不同窗口进行遍历整个图像</li>
+</ul>
+<h3 id="5-3-Window-based-object-detection-recap"><a href="#5-3-Window-based-object-detection-recap" class="headerlink" title="5.3 Window-based object detection: recap"></a>5.3 Window-based object detection: recap</h3><ul>
+<li>大致思想是生成很多window，然后用学习到的分类器遍历每个window的图像，看分类正确得分</li>
+</ul>
+<p><strong>Training:</strong></p>
+<ol>
+<li><p>Obtain training data</p>
+</li>
+<li><p>Define features</p>
+</li>
+<li>Define classifier</li>
+</ol>
+<p><strong>Given new image:</strong></p>
+<ol>
+<li><p>Slide window</p>
+</li>
+<li><p>Score by classifier</p>
+</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127627.png" alt="image-20211105112227997" class="lazyload"></p>
+<h3 id="5-4-Challenges"><a href="#5-4-Challenges" class="headerlink" title="5.4 Challenges"></a>5.4 Challenges</h3><ul>
+<li>lmages may <strong>contain more than one class</strong>, multiple instances from the same class</li>
+<li><strong>Bounding box localization</strong><ul>
+<li>位置精度影响分类</li>
+</ul>
+</li>
+<li><strong>Evaluation</strong><ul>
+<li>评价标准不一样</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127379.png" alt="image-20211105112458709" class="lazyload"></p>
+<h3 id="5-5-Object-detection-evaluation"><a href="#5-5-Object-detection-evaluation" class="headerlink" title="5.5 Object detection evaluation"></a>5.5 Object detection evaluation</h3><ul>
+<li><p><strong>At test time, predict bounding boxes, class labels, and confidence scores</strong></p>
+</li>
+<li><p>For each detection, determine whether it is a <strong>true</strong> or <strong>false positive</strong></p>
+<ul>
+<li><strong>PASCAL criterion:</strong> Area(GT ∩ Det)/ Area(GT U Det)&gt;0.5<ul>
+<li>就是交并比$IoU$</li>
+</ul>
+</li>
+<li><strong>For multiple detections</strong> of the same ground truth box, <strong>only one considered a true positive</strong></li>
+</ul>
+</li>
+<li><p>For each class, <strong>plot Recall-Precision curve</strong> and <strong>compute Average Precision (area under the curve)</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011127048.png" alt="image-20211105113457492" class="lazyload"></p>
+<ul>
+<li>Precision:指的是无误检<ul>
+<li>保证检测出来的是正确的</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\text { Precision }=\frac{T P}{T P+F P}=\frac{1}{1+\frac{FP}{TP}}</script><ul>
+<li><p>Recall:表示无漏检</p>
+<ul>
+<li><p>保证不漏检测正确的，例如不希望任何有缺陷的样品漏掉</p>
+</li>
+<li><p>下式可以理解为在所有正确的样本中，你预测为正确的样本占的比重，<strong>所以最大化召回率会使得你尽可能预测到所有的正例样本</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\text { Recall }=\frac{T P}{T P+F N}</script><ul>
+<li>两者需要trade-off</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128193.png" alt="image-20211105113613995" class="lazyload"></p>
+<ul>
+<li>AUC的物理意义就是权衡这两者的度量</li>
+</ul>
+<h2 id="6-Face-detection"><a href="#6-Face-detection" class="headerlink" title="6. Face detection"></a>6. Face detection</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128751.png" alt="image-20211105114146975" class="lazyload"></p>
+<ul>
+<li><strong>Slide a window</strong> across the image and <strong>evaluate a detection model at each location</strong><ul>
+<li><strong>Thousands of windows to evaluate</strong>: efficiency and <strong>low false positive rates</strong> are essential</li>
+<li>Faces are rare: 0-10 per image</li>
+<li>一张图像不可能出现很多张人脸</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-1-Viola-Jones-face-detector"><a href="#6-1-Viola-Jones-face-detector" class="headerlink" title="6.1 Viola-Jones face detector"></a>6.1 Viola-Jones face detector</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128047.png" alt="image-20211105161931363" class="lazyload"></p>
+<h3 id="6-2-Boosting-intuition"><a href="#6-2-Boosting-intuition" class="headerlink" title="6.2 Boosting intuition"></a>6.2 Boosting intuition</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128494.png" alt="image-20211105114511809" class="lazyload"></p>
+<ul>
+<li>对于复杂的特征，可能需要复杂的曲线去分类</li>
+<li>有没有什么办法，简化模型复杂度<ul>
+<li>用多条直线拟合曲线</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128648.png" alt="image-20211105114551285" class="lazyload"></p>
+<ul>
+<li>给分错的点，给一个较大的权重<ul>
+<li>就能在下一次分类分对</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128119.png" alt="image-20211105114613570" class="lazyload"></p>
+<ul>
+<li>经过数次分类<ul>
+<li>就可以得到多个弱分类器</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128321.png" alt="image-20211105114713799" class="lazyload"></p>
+<h3 id="6-3-Boosting-training"><a href="#6-3-Boosting-training" class="headerlink" title="6.3 Boosting: training"></a>6.3 Boosting: training</h3><ul>
+<li>lnitially, <strong>weight each training example equally</strong></li>
+<li>ln each boosting round:<ul>
+<li>Find the weak learner that <strong>achieves the lowest weighted training error</strong></li>
+<li><strong>Raise weights</strong> of training examples <strong>misclassified by current weak learner</strong></li>
+</ul>
+</li>
+<li><p>Compute <strong>final classifier</strong> <strong>as linear combination of all weaklearners</strong> (<strong>weight of each learner is directly proportional toits accuracy</strong>)</p>
+</li>
+<li><p>Exact formulas for re-weighting and <strong>combining weak learners</strong> depend on the particular boosting scheme.</p>
+</li>
+</ul>
+<h3 id="6-4-Viola-Jones-face-detector"><a href="#6-4-Viola-Jones-face-detector" class="headerlink" title="6.4 Viola-Jones face detector"></a>6.4 Viola-Jones face detector</h3><p><strong>Main idea:</strong></p>
+<ul>
+<li>Represent local texture with( efficienily computable <strong>“rectangular” features</strong> within window of interest. </li>
+<li><p>Select <strong>discriminative features to be weak classifiers</strong></p>
+</li>
+<li><p>Use <strong>boosted combination of them</strong> as final classifier</p>
+</li>
+<li>Form <strong>a cascade（串联） of such classifiers</strong>, rejecting clear negatives quickly</li>
+</ul>
+<h3 id="6-5-Viola-Jones-detector-features"><a href="#6-5-Viola-Jones-detector-features" class="headerlink" title="6.5 Viola-Jones detector: features"></a>6.5 Viola-Jones detector: features</h3><h4 id="6-5-1-“Rectangular”-filters"><a href="#6-5-1-“Rectangular”-filters" class="headerlink" title="6.5.1 “Rectangular” filters"></a>6.5.1 “Rectangular” filters</h4><ul>
+<li>Feature output is <strong>difference</strong> between <strong>adjacent regions</strong><ul>
+<li>左边所有像素点的值减去右边所有像素点的值</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128967.png" alt="image-20211105115205664" class="lazyload"></p>
+<ul>
+<li>计算量很大，因为既要考虑框的尺度以及位置(遍历所有像素点)</li>
+<li><p>这些特征都很简单，就是分别将白色和黑色区域中的所有像素相加，然后做差。例如图1中的A特征，首先计算两个区域像素和$Sum(white),Sum(black).$</p>
+</li>
+<li><p>然后计算:</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+feature=Sum(white)-Sum(black)</script><ul>
+<li>但是考虑到多尺度问题，即利用不同大小的扫描窗口去检测不同大小的人脸，这个特征feature应该需要归一化。即最终特征：</li>
+</ul>
+<script type="math/tex; mode=display">
+feature'=\frac{\text{feature}}{\text{pixel\_num}}</script><ul>
+<li>$pixel_num$​是黑色/白色区域的像素点个数。这样一来，即使扫描窗口的大小不一样，得到的人脸对应位置的特征值也能基本一致。另外，说一下为啥这个叫haar-like。因为在haar-wavelet中，haar基函数是下面这样一个东西。</li>
+</ul>
+<script type="math/tex; mode=display">
+\psi(x) \equiv \begin{cases}1 & 0 \leq x<\frac{1}{2} \\ -1 & \frac{1}{2}<x \leq 1 \\ 0 & \text { otherwise }\end{cases}</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128998.png" alt="image-20211105164354569" class="lazyload"></p>
+<ul>
+<li>想象一下，如果把这个一维函数，扩展成二维的，那上面的A特征不就是用一个二维的haar基函数与图像每个像素点相乘得到的吗？其他的特征，也可是看做haar基函数不同尺度的二维扩展。</li>
+</ul>
+<h4 id="6-5-2-Computing-the-integral-image"><a href="#6-5-2-Computing-the-integral-image" class="headerlink" title="6.5.2 Computing the integral image"></a>6.5.2 Computing the integral image</h4><ul>
+<li>积分图像<ul>
+<li>像素左上角所有的值之和</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128944.png" alt="image-20211105162442911" class="lazyload"></p>
+<ul>
+<li><strong>Cumulative row sum:</strong> $s(x, y)= s(x-1, y)+ i(x, y)$​<ul>
+<li>每次遍历会把行和算出来，$s(x,y)$是$(x,y)$像素左边的像素和，$i(x,y)$是当前位置像素值</li>
+</ul>
+</li>
+<li><strong>Integral image:</strong> $ii(x, y)= ii(x, y-1)+ s(x, y)$<ul>
+<li>$ii(x,y-1)$为上一行的像素的图像积分值，$s(x,y)$是$(x,y)$像素左边的像素和</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011128919.png" alt="image-20211105115452062" class="lazyload"></p>
+<ul>
+<li>这样子只要扫描一遍图像就可以算出所有点的积分图象值，$O(w\times l)$</li>
+</ul>
+<h4 id="6-5-3-Computing-sum-within-a-rectangle"><a href="#6-5-3-Computing-sum-within-a-rectangle" class="headerlink" title="6.5.3 Computing sum within a rectangle"></a>6.5.3 Computing sum within a rectangle</h4><ul>
+<li><p>Let $A,B,C,D$ be the values of <strong>the integral image</strong> at the corners of a rectangle</p>
+</li>
+<li><p>Then <strong>the sum of original image values</strong> within the rectangle can be computed as:</p>
+<script type="math/tex; mode=display">
+sum = A-B-C+D</script></li>
+<li><p>Only <strong>3 additions</strong> are required <strong>for any size of rectangle!</strong></p>
+<ul>
+<li>每个长方形只要算三次加法，大大降低了计算量</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129534.png" alt="image-20211105162911103" class="lazyload"></p>
+<h4 id="6-5-4-features"><a href="#6-5-4-features" class="headerlink" title="6.5.4 features"></a>6.5.4 features</h4><ul>
+<li>太多特征了</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129222.png" alt="image-20211105115826110" class="lazyload"></p>
+<ul>
+<li>Considering <strong>all possible filter</strong></li>
+<li>parameters: <strong>position, scale, and type:</strong></li>
+<li><p><strong>180,000+ possible features</strong> associated with <strong>each 24 x 24 window</strong></p>
+</li>
+<li><p><strong>Which subset of these features</strong> should we use to <strong>determine if a window has a face?</strong></p>
+</li>
+<li><p><strong>Use AdaBoost both to select the informative features and to form the classifie</strong>r</p>
+</li>
+<li><p><strong>最后，说说如何在一帧图像中提取这种特征。</strong>首先选定检测窗口的大小（这个可以是多尺度的，比如$24<em>24,36</em>36$​等等），就拿$24<em>24$​来说，利用这个窗口对整个图像进行滑动，每滑动到一个位置，就在窗口中提取一堆haar-like特征，至于在哪个位置提取什么尺寸的特征，论文中没有说明，这个挺符合微软研究院的风格的，他们很少给出完整的framework，不过后来也有很多学者对于这个问题进行了研究，所以这点不太重要。总而言之，按照论文里面说的，一个$24</em>24$​​的窗口，大概可以提取160000维特征</p>
+</li>
+<li><strong>同时，论文中也说了</strong>，上述的haar-like特征，虽然在表达能力上很弱，但是由于维数比较大，是<strong>overcomplete</strong>的，这也算是对其表达能力进行了补充。另外，为了检测不同尺寸的人脸，<strong>之前的检测系统通常是把输入图像做成图像金字塔（图像按照尺寸从大到小的一组），然后检测窗口大小不变。</strong>Viola-jones则相反，<strong>他们保持输入图像尺寸不变，让检测窗口的尺寸不断调整。</strong>因为窗口的调整比起图像的调整要方便的多，这也<strong>节省了大量的时间。</strong></li>
+</ul>
+<h4 id="6-5-5-Viola-Jones-detector-AdaBoost"><a href="#6-5-5-Viola-Jones-detector-AdaBoost" class="headerlink" title="6.5.5 Viola-Jones detector: AdaBoost"></a>6.5.5 Viola-Jones detector: AdaBoost</h4><ul>
+<li>Want to select <strong>the single rectangle feature</strong> and threshold that best separates <strong>positive</strong> (faces) and negative (non-faces) training examples, in terms of <strong>weighted error.</strong><ul>
+<li>直观理解就是，每一个窗口可以得到一个特征，用此来训练相应的classifier</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129383.png" alt="image-20211105120252204" class="lazyload"></p>
+<ul>
+<li>下一次训练，用别的filter</li>
+</ul>
+<h5 id="伪代码："><a href="#伪代码：" class="headerlink" title="伪代码："></a>伪代码：</h5><ul>
+<li><p>Given example images $\left(x_{1}, y_{1}\right), \ldots,\left(x_{n}, y_{n}\right)$ where $y_{i}=0,1$ for negative and positive examples respectively.</p>
+</li>
+<li><p>Initialize weights $w_{1, i}=\frac{1}{2 m}, \frac{1}{2 l}$ for $y_{i}=0,1$ respectively, where $m$ and $l$​ are the number of negatives and positives respectively.</p>
+<ul>
+<li><strong>Start with uniform weights on training examples</strong></li>
+</ul>
+</li>
+<li><p>For $t=1, \ldots, T$​​ :</p>
+<ul>
+<li><strong>Evaluate weighted error for each feature, pick best.</strong></li>
+</ul>
+<ol>
+<li><strong>Normalize the weights,</strong></li>
+</ol>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+w_{t, i} \leftarrow \frac{w_{t, i}}{\sum_{j=1}^{n} w_{t, j}}</script><p>​            so that $w_{t}$ is a probability distribution.</p>
+<p>​        2. <strong>For each feature</strong> $j$, <strong>train a classifier</strong> $h_{j}$ which is restricted to using a single feature. <strong>The error is evaluated with respect to</strong> $w_{t}$,  </p>
+<script type="math/tex; mode=display">
+\epsilon_{j}=\sum_{i} w_{i}\left|h_{j}\left(x_{i}\right)-y_{i}\right|</script><script type="math/tex; mode=display">
+h_{j}\left(x_{i}\right)=\left\{\begin{array}{l}
+1 &\text{正类} \\
+0 &\text{父类}
+\end{array}\right.</script><p>​            <strong>$\epsilon_{j}$​是错误率</strong></p>
+<p>​      3.Choose the classifier $h_{t}$, <strong>with the lowest error</strong> $\epsilon_{t}$.</p>
+<p>​        <strong>选择错误率最小的分类器，作为第一个分类器</strong></p>
+<p>​      4.Update the weights:</p>
+<p>​        <strong>Re-weight the examples:</strong></p>
+<p>​        <strong>Incorrectly classified -&gt; more weight</strong><br>​        <strong>Correctly classified -&gt; less weight</strong></p>
+<script type="math/tex; mode=display">
+w_{t+1, i}=w_{t, i} \beta_{t}^{1-e_{i}}</script><p>​        $t$​是迭代次数，$i$​是对应第$i$​个特征</p>
+<script type="math/tex; mode=display">
+e_{i}=\left\{\begin{array}{l}
+1 &\text{ if example $x\_{i}$ is classified correctly} \\
+0 &\text{otherwise}
+\end{array}\right.</script><script type="math/tex; mode=display">
+\beta_{t}=\frac{\epsilon_{t}}{1-\epsilon_{t}}</script><ul>
+<li>正确分类的样本给小权重，错误分类的给大权重<ul>
+<li>这样就可以专注于下次更新</li>
+</ul>
+</li>
+<li>The final strong classifier is:</li>
+</ul>
+<script type="math/tex; mode=display">
+h(x)= \begin{cases}1 & \sum_{t=1}^{T} \alpha_{t} h_{t}(x) \geq \frac{1}{2} \sum_{t=1}^{T} \alpha_{t} \\ 0 & \text { otherwise }\end{cases}</script><script type="math/tex; mode=display">
+\alpha_{t} =\log \frac{1}{\beta_{t}}=-\log\epsilon-1</script><script type="math/tex; mode=display">
+\beta_{t}=\frac{\epsilon_{t}}{1-\epsilon_{t}}</script><ul>
+<li><p>Final classifier is <strong>combination of the weak ones</strong>, weighted according to error they had.</p>
+<ul>
+<li>将弱分类器结合成强分类器</li>
+<li>错误率越低，权重越高</li>
+</ul>
+</li>
+<li><p>eplision是错误率</p>
+</li>
+<li><p>The <strong>final strong classifier</strong> is:</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+C(x)= \begin{cases}1 & \sum_{t=1}^{T} \alpha_{t} h_{t}(x) \geq \frac{1}{2} \sum_{t=1}^{T} \alpha_{t} \\ 0 & \text { otherwise }\end{cases}</script><ul>
+<li><p>where $\alpha_{t}=\log \frac{1}{\beta_{t}}$</p>
+</li>
+<li><p>Even if the filters are <strong>fast to compute</strong>, each new image has <strong>a lot of possible windows to search</strong>.</p>
+</li>
+<li>How to <strong>make the detection more efficient</strong>?</li>
+</ul>
+<h4 id="6-5-6-Cascading-classifiers-for-detection"><a href="#6-5-6-Cascading-classifiers-for-detection" class="headerlink" title="6.5.6 Cascading classifiers for detection"></a>6.5.6 Cascading classifiers for detection</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129776.png" alt="image-20211105121616926" class="lazyload"></p>
+<ul>
+<li><p>先尽可能不要漏检，即一开始用较小的precision，再进行第二阶段检查，逐步提高precision</p>
+<ul>
+<li>直到下采样到很小的区域，用一个比较多的特征，即使用较多分类器进行分类</li>
+</ul>
+</li>
+<li><p><strong>Form a cascade</strong> with <strong>low false negative rates</strong> early on</p>
+</li>
+<li><strong>Apply less accurate but faster classifiers first</strong> to immediately <strong>discard windows that clearly appear to be negative</strong><ul>
+<li>第一个模型选用一个特征去构造，然后设置较小的正确率，尽量保证不漏检；再用剩余没检测的继续训练，进一步提高特征数于准确率</li>
+</ul>
+</li>
+</ul>
+<h4 id="6-5-7-如何训练cascade-of-classifiers"><a href="#6-5-7-如何训练cascade-of-classifiers" class="headerlink" title="6.5.7 如何训练cascade of classifiers"></a>6.5.7 如何训练cascade of classifiers</h4><p>论文中给出了一种很简单但是很有效的方法。</p>
+<p>1.用户选定每一层的最大可接受误检率f（maximum acceptable rate of fpr）和每一层的最小可接受的检测率d（minimum accpetable detection rate）</p>
+<p>2.用户选择整体的$FPR_{target}$</p>
+<p>3.初始化：总体$FPR,D=1$，D指的是检测率，循环计数器i=0</p>
+<p>4.循环：如果当前$FPR$大于，$FPR_{target}$继续添加一层adaboost分类器。</p>
+<p>5.在训练当前层分类器时，如果目前该层的特征性能没有达到该层的$f_i$标准，则继续添加新的特征。添加新特征时，持续降低该特征的检测率阈值，直到该层分类器的检测率$d_i&gt;d$，然后更新$D_i=d_i\times D_{i-1}$</p>
+<p>6.需要注意的是，每一级分类器使用的训练集中的负样本，都是上一级被错分的，即false positive，假阳性。这使得下一级分类器更加关注那些更难的（容易被错分的）样本。最后，如果检测到多个重叠的人脸位置，则将检测矩形框合并。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129263.png" alt="image-20211105194836154" class="lazyload"></p>
+<ul>
+<li>The key insight is that smaller, and therefore more efficient, boosted classifiers can be constructed whichreject many of the negative sub-windows while detect-ing almost all positive instances. <strong>Simpler classifiers</strong> are used to <strong>reject the majority of sub-windows</strong> before <strong>more complex classifiers</strong> are called upon to achieve <strong>low false positive rates.</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011129433.png" alt="image-20211113211539122" class="lazyload"></p>
+<ul>
+<li>每个stage都是adaboosting，第一个stage只有一个weak classifier,第二个stage有两个weak classifier,…每个weak classifier只有一个特征</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/7.%20Recognition%20&%20Detection/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;7.%20Recognition%20&amp;%20Detection&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;7.%20Recognition%20&amp;%20Detection&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292007"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

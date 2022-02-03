@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Image Feature Extraction - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Image Feature Extraction">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Image Feature Extraction">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/4.1%20Image%20Feature%20Extraction/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Image Feature Extraction">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042028486.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042028305.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042048431.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042049116.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042122164.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042122972.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042124226.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042139948.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042143157.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042159171.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051513860.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051518262.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051520755.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051538458.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051603983.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051606479.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051607364.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051611658.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051706036.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051714602.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051716542.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051721545.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051723744.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051725743.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051744411.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051747120.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051753610.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051758369.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051807881.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061022729.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061022450.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061022310.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061031066.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:19:17.120Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042028486.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902291986">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Image Feature Extraction" class="lazyload">
+            <h1>Image Feature Extraction</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 6 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Why-computer-vision-is-challenging"><span class="toc-number">1.</span> <span class="toc-text">1. Why computer vision is challenging?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Motivation-for-using-local-features"><span class="toc-number">2.</span> <span class="toc-text">2. Motivation for using local features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-General-Approach"><span class="toc-number">3.</span> <span class="toc-text">3. General Approach</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Characteristics-of-good-features"><span class="toc-number">4.</span> <span class="toc-text">4. Characteristics of good features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Keypoint-extraction-Corners"><span class="toc-number">5.</span> <span class="toc-text">5. Keypoint extraction: Corners</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Corner-Detection"><span class="toc-number">6.</span> <span class="toc-text">6. Corner Detection</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Derivation"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 Derivation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-%E7%A0%94%E7%A9%B6-M-%E2%80%8B%E7%9F%A9%E9%98%B5"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 研究$M$​矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-1-%E5%81%87%E8%AE%BE%E7%AA%97%E5%8F%A3%E5%8F%AA%E6%9C%9Dx%EF%BC%8Cy%E6%96%B9%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="toc-number">6.2.1.</span> <span class="toc-text">6.2.1 假设窗口只朝x，y方向移动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-2-2-%E5%81%87%E8%AE%BE%E7%AA%97%E5%8F%A3%E5%8F%AA%E6%9C%9D%E6%9C%89%E4%B8%80%E5%AE%9A%E8%BD%AC%E8%A7%92"><span class="toc-number">6.2.2.</span> <span class="toc-text">6.2.2 假设窗口只朝有一定转角</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-%E6%94%B9%E8%BF%9B"><span class="toc-number">6.2.3.</span> <span class="toc-text">6.3 改进</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-The-Harris-corner-detector"><span class="toc-number">7.</span> <span class="toc-text">7. The Harris corner detector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Harris-Detector%EF%BC%9ARobustness-of-corner-features"><span class="toc-number">8.</span> <span class="toc-text">8. Harris Detector：Robustness of corner features</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-Affine-intensity-change-%E5%83%8F%E7%B4%A0%E5%80%BC%E5%BC%BA%E5%BA%A6%E5%8F%91%E7%94%9F%E4%BB%BF%E5%B0%84%E5%8F%98%E5%8C%96%EF%BC%8C%E4%BE%8B%E5%A6%82%E5%85%89%E7%85%A7"><span class="toc-number">8.1.</span> <span class="toc-text">8.1 Affine intensity change 像素值强度发生仿射变化，例如光照</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-Image-translation-%E5%9B%BE%E5%83%8F%E5%B9%B3%E7%A7%BB"><span class="toc-number">8.2.</span> <span class="toc-text">8.2 Image translation 图像平移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-Image-rotation"><span class="toc-number">8.3.</span> <span class="toc-text">8.3 Image rotation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-Scaling"><span class="toc-number">8.4.</span> <span class="toc-text">8.4 Scaling</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Blob-detection-%E4%B8%BA%E4%BA%86%E8%A7%A3%E5%86%B3%E5%B0%BA%E5%BA%A6%E9%97%AE%E9%A2%98"><span class="toc-number">9.</span> <span class="toc-text">9. Blob detection 为了解决尺度问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-Laplacian-of-Gaussian"><span class="toc-number">9.1.</span> <span class="toc-text">9.1 Laplacian of Gaussian</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-Laplacian-of-Gaussian%E2%80%99s-scale-normalization"><span class="toc-number">9.2.</span> <span class="toc-text">9.2 Laplacian of Gaussian’s scale normalization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-Laplacian-of-Gaussian%E2%80%99s-scale"><span class="toc-number">9.3.</span> <span class="toc-text">9.3 Laplacian of Gaussian’s scale</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Scale-space-blob-detector"><span class="toc-number">10.</span> <span class="toc-text">10. Scale space blob detector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-Scale-invariant-feature-transform-SIFT"><span class="toc-number">11.</span> <span class="toc-text">11. Scale-invariant feature transform (SIFT)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Representing-keypoints-with-descriptors"><span class="toc-number">12.</span> <span class="toc-text">12. Representing keypoints with descriptors</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-Numeric-Example"><span class="toc-number">13.</span> <span class="toc-text">13. Numeric Example</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-How-to-achieve-the-matching-result"><span class="toc-number">14.</span> <span class="toc-text">13. How to achieve the matching result?</span></a></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Image Feature Extraction </p>
+<span id="more"></span>
+<h2 id="1-Why-computer-vision-is-challenging"><a href="#1-Why-computer-vision-is-challenging" class="headerlink" title="1. Why computer vision is challenging?"></a>1. Why computer vision is challenging?</h2><ul>
+<li>Viewpoint variation 视觉角度</li>
+<li>Illumination 光照</li>
+<li>Occlusion 遮挡</li>
+<li>Scale 尺度</li>
+<li>Deformation 姿态变形</li>
+<li>Background clutter 背景杂乱</li>
+<li>Local ambiguity 局部迷惑</li>
+<li>Object intra class variation 目标内部变换</li>
+</ul>
+<h2 id="2-Motivation-for-using-local-features"><a href="#2-Motivation-for-using-local-features" class="headerlink" title="2. Motivation for using local features"></a>2. Motivation for using local features</h2><ul>
+<li>Occlusions</li>
+<li>Articulation 关节</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042028486.png" alt="image-20210904202810079" class="lazyload"></p>
+<ul>
+<li>Intra category variations 局部不变</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042028305.png" alt="image-20210904202838940" class="lazyload"></p>
+<h2 id="3-General-Approach"><a href="#3-General-Approach" class="headerlink" title="3. General Approach"></a>3. General Approach</h2><ol>
+<li>Find a set of distinctive keypoints 找到一系列关键点</li>
+<li>Define a region around each keypoint 在关键点周围定义对应的区域</li>
+<li>Extract and normalize the region content 从区域中提取内容并归一化</li>
+<li>Compute a local descriptor from the normalized region 用特征算子提取特征</li>
+<li>Match local descriptors 匹配局部描述信息</li>
+</ol>
+<h2 id="4-Characteristics-of-good-features"><a href="#4-Characteristics-of-good-features" class="headerlink" title="4. Characteristics of good features"></a>4. Characteristics of good features</h2><ul>
+<li>Compactness and efficiency 紧凑且高效，要求关键点远少于图片pixel，且提取得算法是高效的，存储量小的</li>
+<li>Saliency 具有判别力<ul>
+<li>Each feature is distinctive</li>
+</ul>
+</li>
+<li>Locality 局部特征不会变</li>
+<li>Repeatability 可重复性</li>
+</ul>
+<h2 id="5-Keypoint-extraction-Corners"><a href="#5-Keypoint-extraction-Corners" class="headerlink" title="5. Keypoint extraction: Corners"></a>5. Keypoint extraction: Corners</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042048431.png" alt="image-20210904204836818" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042049116.png" alt="image-20210904204908615" class="lazyload"></p>
+<ul>
+<li>平滑部分区域的各个方向梯度都为零</li>
+<li>边缘区域有一个方向的梯度不为零</li>
+<li>角点位置至少有两个方向的梯度值不为零</li>
+</ul>
+<h2 id="6-Corner-Detection"><a href="#6-Corner-Detection" class="headerlink" title="6. Corner Detection"></a>6. Corner Detection</h2><ul>
+<li>最终结果是一个窗口大小的像素，不是只有一个像素</li>
+</ul>
+<h3 id="6-1-Derivation"><a href="#6-1-Derivation" class="headerlink" title="6.1 Derivation"></a>6.1 Derivation</h3><script type="math/tex; mode=display">
+E(u,v)=\sum_{(x, y)\in W}[I(x+u, y+v)-I(x, y)]^{2}</script><ul>
+<li>窗口移动前后像素值变化</li>
+<li>类似于欧式距离</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042122164.png" alt="image-20210904212211890" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042122972.png" alt="image-20210904212228132" class="lazyload"></p>
+<script type="math/tex; mode=display">
+E(u, v)=\sum_{( x, y )\in W} w(x,y)[I(x+u, y+v)-I(x, y)]^{2}</script><ul>
+<li>window function 取窗口为矩形波或者高斯窗口</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042124226.png" alt="image-20210904212417658" class="lazyload"></p>
+<ul>
+<li>First-order Taylor approximation for small motions [u, v]:</li>
+</ul>
+<script type="math/tex; mode=display">
+I(x+u, y+v) \approx I(x, y)+I_{x} u+I_{y} v</script><ul>
+<li>一维泰勒：</li>
+</ul>
+<script type="math/tex; mode=display">
+f(x_0+h)=f(x_0)+\frac{f'(x_0)}{1!}h+\frac{f''(x_0)}{2!}h^2+o(h^2)</script><ul>
+<li>二维泰勒：</li>
+</ul>
+<script type="math/tex; mode=display">
+f(x_0+h,y_0+k)=f(x_0,y_0)+\frac{f'_x(x_0,y_0)h+f'_y(x_0,y_0)k}{1!}+\frac{f_{xx}''(x_0,y_0)}{2!}h^2+\frac{f_{xy}''(x_0,y_0)} {2!}hk+\frac{f_{yx}''(x_0,y_0)}{2!}hk+\frac{f_{yy}''(x_0,y_0)}{2!}k^2+...</script><ul>
+<li>代入$E(u,v)$：</li>
+</ul>
+<script type="math/tex; mode=display">
+E(u, v)=\sum_{(x, y) \in W}\left(I_{x} u+I_{y} v\right)^{2}=\sum_{(x, y) \in w} I_{x}^{2} u^{2}+2 I_{x} I_{y} u v+I_{y}^{2} v^{2}</script><script type="math/tex; mode=display">
+E(u, v) \approx u^{2} \sum_{x, y} I_{x}^{2}+2 u v \sum_{x, y} I_{x} I_{y}+v^{2} \sum_{x, y}I_{y}^{2}</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042139948.png" alt="image-20210904213920321" class="lazyload"></p>
+<script type="math/tex; mode=display">
+E(u, v) \approx[u, v]\left[\begin{array}{cc}
+\sum_{x,y\in w} I_{x}^{2} & \sum_{x,y\in w} I_{x} I_{y} \\
+\sum_{x,y\in w} I_{x} l_{y} & \sum_{x,y\in w} I_{y}^{2}
+\end{array}\right]\left[\begin{array}{l}
+u \\
+v
+\end{array}\right]</script><h3 id="6-2-研究-M-​矩阵"><a href="#6-2-研究-M-​矩阵" class="headerlink" title="6.2 研究$M$​矩阵"></a>6.2 研究$M$​矩阵</h3><ul>
+<li>A horizontal slice ” of 𝐸(𝑢,𝑣)is given by the equation of an ellipse: 做垂直切片，即令E=const</li>
+</ul>
+<script type="math/tex; mode=display">
+\left[\begin{array}{ll}
+u & v
+\end{array}\right] M\left[\begin{array}{l}
+u \\
+v
+\end{array}\right]=\mathrm{const}</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042143157.png" alt="image-20210904214334583" class="lazyload"></p>
+<script type="math/tex; mode=display">
+M =\left[\begin{array}{cc}
+\sum_{x,y\in w} I_{x}^{2} & \sum_{x,y\in w} I_{x} I_{y} \\
+\sum_{x,y\in w} I_{x} l_{y} & \sum_{x,y\in w} I_{y}^{2}
+\end{array}\right]</script><h4 id="6-2-1-假设窗口只朝x，y方向移动"><a href="#6-2-1-假设窗口只朝x，y方向移动" class="headerlink" title="6.2.1 假设窗口只朝x，y方向移动"></a>6.2.1 假设窗口只朝x，y方向移动</h4><ul>
+<li>$M$​矩阵为对角矩阵，记为：</li>
+</ul>
+<script type="math/tex; mode=display">
+M =\left[\begin{array}{cc}
+a & 0\\
+0 & b
+\end{array}\right]</script><ul>
+<li>即没有旋转角度的影响，角点刚好和x，y方向平行</li>
+</ul>
+<script type="math/tex; mode=display">
+[u, v]\left[\begin{array}{cc}
+a & 0\\
+0 & b
+\end{array}\right]\left[\begin{array}{l}
+u \\
+v
+\end{array}\right]=1</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109042159171.png" alt="image-20210904215934434" class="lazyload"></p>
+<script type="math/tex; mode=display">
+au^2+bv^2=1</script><script type="math/tex; mode=display">
+\frac{u^2}{(a^{-\frac{1}{2}})^2}+\frac{v^2}{(b^{-\frac{1}{2}})^2}=1</script><ul>
+<li>这个式子说明，$a,b$都不接近0，则为角点，这说明E随u,v呈现至少两个方向的变化。    </li>
+<li>当a或b其中一个接近于0，则为边缘，因为此时椭圆坍塌为一条直线，这说明E随着u,v变化只有一个方向。</li>
+<li>当a和b都很接近于零，则说明，E随着u,v基本不变，则说明此时该部分为平滑区域。</li>
+</ul>
+<h4 id="6-2-2-假设窗口只朝有一定转角"><a href="#6-2-2-假设窗口只朝有一定转角" class="headerlink" title="6.2.2 假设窗口只朝有一定转角"></a>6.2.2 假设窗口只朝有一定转角</h4><ul>
+<li>由于：</li>
+</ul>
+<script type="math/tex; mode=display">
+M =\left[\begin{array}{cc}
+\sum_{x,y\in w} I_{x}^{2} & \sum_{x,y\in w} I_{x} I_{y} \\
+\sum_{x,y\in w} I_{x} l_{y} & \sum_{x,y\in w} I_{y}^{2}
+\end{array}\right]</script><ul>
+<li>我们可以知道$M$是对称矩阵，所以$M$可以进行正交分解：</li>
+</ul>
+<script type="math/tex; mode=display">
+M=R^{-1}\left[\begin{array}{cc}
+\lambda_{1} & 0 \\
+0 & \lambda_{2}
+\end{array}\right] R</script><ul>
+<li>不难发现，$R$是决定旋转的旋转矩阵，$\lambda_1,\lambda_2$为$M$的特征值，所以真正决定该处是否为角点的是$M$的特征值。</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051513860.png" alt="image-20210905151352207" class="lazyload"></p>
+<p><img src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051518262.png"  /></p>
+<h4 id="6-3-改进"><a href="#6-3-改进" class="headerlink" title="6.3 改进"></a>6.3 改进</h4><script type="math/tex; mode=display">
+R=\operatorname{det}(M)-\alpha \operatorname{trace}(M)^{2}=\lambda_{1} \lambda_{2}-\alpha\left(\lambda_{1}+\lambda_{2}\right)^{2}</script><ul>
+<li>用这种方法，可以避免计算矩阵的特征值。</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051520755.png" alt="image-20210905152039117" class="lazyload"></p>
+<ul>
+<li>如果$\lambda_1,\lambda_2$可以比拟，且均不接近零，可以推出$R&gt;0$，则为角点：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{cc}
+R=\lambda_{1} \lambda_{2}-\alpha\left(\lambda_{1}+\lambda_{2}\right)^{2} \\
+=\lambda^2-\alpha(4\lambda^2)\\
+=0.84\lambda^2 > 0
+\end{array}</script><ul>
+<li>如果$\lambda_1,\lambda_2$​可以比拟，且均接近零，可以推出$|R|\approx 0$​​​，则为平滑区域：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{cc}
+R=\lambda_{1} \lambda_{2}-\alpha\left(\lambda_{1}+\lambda_{2}\right)^{2} \\
+=\lambda^2-\alpha(4\lambda^2)\\
+=0.84\lambda^2 \approx 0
+\end{array}</script><ul>
+<li>如果$\lambda_1\gg\lambda_2$，则可以推出$R&lt;0$,为边缘处：</li>
+</ul>
+<script type="math/tex; mode=display">
+R=\lambda_1\lambda_2-\alpha\lambda_1^2<0</script><h2 id="7-The-Harris-corner-detector"><a href="#7-The-Harris-corner-detector" class="headerlink" title="7. The Harris corner detector"></a>7. The Harris corner detector</h2><ul>
+<li><p>Compute partial derivatives at each pixel 计算每个像素值的梯度，即利用高斯偏导核做卷积</p>
+</li>
+<li><p>Compute second moment matrix $M$ in a Gaussian window around each pixel 用窗口遍历所有像素，并计算每个$M$​矩阵</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+M =\left[\begin{array}{cc}
+\sum_{x,y\in w} I_{x}^{2} & \sum_{x,y\in w} I_{x} I_{y} \\
+\sum_{x,y\in w} I_{x} l_{y} & \sum_{x,y\in w} I_{y}^{2}
+\end{array}\right]</script><ul>
+<li>Compute corner response function $R$</li>
+</ul>
+<script type="math/tex; mode=display">
+R=\operatorname{det}(M)-\alpha \operatorname{trace}(M)^{2}(\alpha\in(0.04,0.06))</script><ul>
+<li>Threshold $R$​, 对 $R$​ 进行阈值处理，以去除不必要的噪音 </li>
+<li>Find local maxima of response function nonmaximum suppression) 非极大抑制</li>
+</ul>
+<h2 id="8-Harris-Detector：Robustness-of-corner-features"><a href="#8-Harris-Detector：Robustness-of-corner-features" class="headerlink" title="8. Harris Detector：Robustness of corner features"></a>8. Harris Detector：Robustness of corner features</h2><h3 id="8-1-Affine-intensity-change-像素值强度发生仿射变化，例如光照"><a href="#8-1-Affine-intensity-change-像素值强度发生仿射变化，例如光照" class="headerlink" title="8.1 Affine intensity change 像素值强度发生仿射变化，例如光照"></a>8.1 Affine intensity change 像素值强度发生仿射变化，例如光照</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051538458.png" alt="image-20210905153852375" class="lazyload"></p>
+<ul>
+<li>$b$ 相当于均匀光照，对 $R$ 的计算没有影响；</li>
+<li>对于 $a$ 虽然会产生一定增益，但是部分角点的判别不会发生改变</li>
+</ul>
+<h3 id="8-2-Image-translation-图像平移"><a href="#8-2-Image-translation-图像平移" class="headerlink" title="8.2 Image translation 图像平移"></a>8.2 Image translation 图像平移</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051603983.png" alt="image-20210905160344357" class="lazyload"></p>
+<ul>
+<li>Derivatives and window function are shift invariant Corner location 检测到的角点会发生位置的变化</li>
+<li>Corner location is covariant w.r.t . translation</li>
+</ul>
+<h3 id="8-3-Image-rotation"><a href="#8-3-Image-rotation" class="headerlink" title="8.3 Image rotation"></a>8.3 Image rotation</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051606479.png" alt="image-20210905160623756" class="lazyload"></p>
+<ul>
+<li><p>Second moment ellipse rotates but its shape (i.e. eigenvalues ) remains the same</p>
+</li>
+<li><p>Corner location is covariant w.r.t . rotation</p>
+</li>
+</ul>
+<h3 id="8-4-Scaling"><a href="#8-4-Scaling" class="headerlink" title="8.4 Scaling"></a>8.4 Scaling</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051607364.png" alt="image-20210905160724042" class="lazyload"></p>
+<ul>
+<li><p>会导致角点被检测为边缘</p>
+</li>
+<li><p>Corner location is not covariant w.r.t .</p>
+</li>
+</ul>
+<h2 id="9-Blob-detection-为了解决尺度问题"><a href="#9-Blob-detection-为了解决尺度问题" class="headerlink" title="9. Blob detection 为了解决尺度问题"></a>9. Blob detection 为了解决尺度问题</h2><h3 id="9-1-Laplacian-of-Gaussian"><a href="#9-1-Laplacian-of-Gaussian" class="headerlink" title="9.1 Laplacian of Gaussian"></a>9.1 Laplacian of Gaussian</h3><ul>
+<li>Circularly symmetric operator for blob detection in 2D</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051611658.png" alt="image-20210905161142396" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\nabla^{2} g=\frac{\partial^{2} g}{\partial x^{2}}+\frac{\partial^{2} g}{\partial y^{2}}</script><ul>
+<li>Edge = ripple波纹</li>
+<li>Blob = superposition of two ripples 两个波纹的叠加</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051706036.png" alt="image-20210905170618778" class="lazyload"></p>
+<ul>
+<li><p>Spatial selection: the magnitude of the Laplacian response will achieve a maximum at the center of the blob, provided the scale of the Laplacian is matched ” to the scale of the blob.</p>
+</li>
+<li><p>当拉普拉斯核的规模和斑点相匹配，拉普拉斯响应模值处极为斑点中心处 </p>
+</li>
+<li>However, Laplacian response decays as scale increases: 拉普拉斯响应会随着规模增大而逐渐减小</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051714602.png" alt="image-20210905171418159" class="lazyload"></p>
+<h3 id="9-2-Laplacian-of-Gaussian’s-scale-normalization"><a href="#9-2-Laplacian-of-Gaussian’s-scale-normalization" class="headerlink" title="9.2 Laplacian of Gaussian’s scale normalization"></a>9.2 Laplacian of Gaussian’s scale normalization</h3><ul>
+<li>对于高斯一阶偏导核响应曲线与x轴围成的面积为$\frac{1}{\sigma \sqrt{2 \pi}}$，$\sigma$与响应强度呈反比：​</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051716542.png" alt="image-20210905171634346" class="lazyload"></p>
+<ul>
+<li><p>To keep response the same (scale invariant), must multiply Gaussian derivative by $\sigma$</p>
+</li>
+<li><p>Laplacian is the second Gaussian derivative, so it must be multiplied by $\sigma^2$</p>
+</li>
+<li><p>Effect of scale normalization：</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051721545.png" alt="image-20210905172106477" class="lazyload"></p>
+<ul>
+<li>Scale-normalized Laplacian of Gaussian:</li>
+</ul>
+<script type="math/tex; mode=display">
+\nabla_{\text {norm }}^{2} g=\sigma^{2}\left(\frac{\partial^{2} g}{\partial x^{2}}+\frac{\partial^{2} g}{\partial y^{2}}\right)</script><h3 id="9-3-Laplacian-of-Gaussian’s-scale"><a href="#9-3-Laplacian-of-Gaussian’s-scale" class="headerlink" title="9.3 Laplacian of Gaussian’s scale"></a>9.3 Laplacian of Gaussian’s scale</h3><ul>
+<li>拉普拉斯算子在多大尺度上对半径为 r 的二元圆达到最大响应?</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051723744.png" alt="image-20210905172345683" class="lazyload"></p>
+<ul>
+<li>To get maximum response, the zeros of the Laplacian have to be aligned with<br>the circle 为了得到最大的响应，拉普拉斯零点需要与斑点对齐</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051725743.png" alt="image-20210905172529389" class="lazyload"></p>
+<ul>
+<li><p>因为这样才可以把拉普拉斯小于零的部分完全抵消，注意上图，两条曲线做卷积后才得到响应。</p>
+</li>
+<li><p>演算：</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+G_{\sigma}=\frac{1}{2\pi \sigma^2}exp(-\frac{x^2+y^2}{2\sigma^2})</script><script type="math/tex; mode=display">
+\frac{\partial G_\sigma}{\partial x}=-\frac{x}{\sigma^2}exp(-\frac{x^2+y^2}{2\sigma^2})</script><script type="math/tex; mode=display">
+\frac{\partial G_\sigma}{\partial y}=-\frac{y}{\sigma^2}exp(-\frac{x^2+y^2}{2\sigma^2})</script><script type="math/tex; mode=display">
+\frac{\partial^2 G_\sigma}{\partial x^2}=\frac{x^2-\sigma^2}{\sigma^4}exp(-\frac{x^2+y^2}{2\sigma^2})</script><script type="math/tex; mode=display">
+\frac{\partial^2 G_\sigma}{\partial y^2}=\frac{y^2-\sigma^2}{\sigma^4}exp(-\frac{x^2+y^2}{2\sigma^2})</script><script type="math/tex; mode=display">
+LoG=\sigma^{2}\left(\frac{\partial^{2} g}{\partial x^{2}}+\frac{\partial^{2} g}{\partial y^{2}}\right)=\frac{x^2+y^2-2\sigma^2}{\sigma^2}exp(-\frac{x^2+y^2}{2\sigma^2})</script><ul>
+<li>Let $LoG = 0$：</li>
+</ul>
+<script type="math/tex; mode=display">
+x^2+y^2-2\sigma^2=0</script><script type="math/tex; mode=display">
+\sigma=\frac{r}{\sqrt{2}}</script><h2 id="10-Scale-space-blob-detector"><a href="#10-Scale-space-blob-detector" class="headerlink" title="10. Scale space blob detector"></a>10. Scale space blob detector</h2><ul>
+<li><p>Convolve image with scale normalized Laplacian at several scales 用归一化后的拉普拉斯核与图片卷积</p>
+</li>
+<li><p>Find maxima of squared Laplacian response in scale space 找到拉普拉斯响应平方的最大值</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051744411.png" alt="image-20210905174440732" class="lazyload"></p>
+<ul>
+<li>对于每一个像素点，不仅要比较邻近的八个像素点，还要比较相邻尺度的18个像素点</li>
+</ul>
+<h2 id="11-Scale-invariant-feature-transform-SIFT"><a href="#11-Scale-invariant-feature-transform-SIFT" class="headerlink" title="11. Scale-invariant feature transform (SIFT)"></a>11. Scale-invariant feature transform (SIFT)</h2><ul>
+<li>Approximating the Laplacian with a difference of Gaussians:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051747120.png" alt="image-20210905174726451" class="lazyload"></p>
+<ul>
+<li>Laplacian：</li>
+</ul>
+<script type="math/tex; mode=display">
+L=\sigma^{2}\left(G_{x x}(x, y, \sigma)+G_{y y}(x, y, \sigma)\right)</script><ul>
+<li>Difference of Gaussians：</li>
+</ul>
+<script type="math/tex; mode=display">
+D o G=G(x, y, k \sigma)-G(x, y, \sigma)</script><script type="math/tex; mode=display">
+\begin{aligned}
+D(x, y, \sigma) &=(G(x, y, k \sigma)-G(x, y, \sigma)) * I(x, y) \\
+&=L(x, y, k \sigma)-L(x, y, \sigma) 
+\end{aligned}</script><ul>
+<li>Scale space construction 尺度空间创建</li>
+<li>由于计算DoG等价于计算不同$\sigma$的高斯核的差分，所以要像下图计算：</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051753610.png" alt="image-20210905175349385" class="lazyload"></p>
+<ul>
+<li>首先是 <code>2n*2n</code> 的高斯核得到的响应，进行差分后才得到DoG，之后在进行下采样从而缩小高斯核的规模，再进行卷积得到响应，接着差分在得到一系列DoG</li>
+<li>最后再找出最大的像素，即为角点</li>
+</ul>
+<h2 id="12-Representing-keypoints-with-descriptors"><a href="#12-Representing-keypoints-with-descriptors" class="headerlink" title="12. Representing keypoints with descriptors"></a>12. Representing keypoints with descriptors</h2><ul>
+<li>用描述符表示关键点</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051758369.png" alt="image-20210905175846479" class="lazyload"></p>
+<ul>
+<li>对于每个窗口提取出来的角点，我们算出这些像素的梯度，然后将其每16个分为一个cell（4*4），对于每一个这样的cell我们用一个八维的向量表示它：第一个维度表示0~45°的幅值，第二个维度表示45°~90°的幅值…依次类推，对于cell里的每个梯度值我们通过量化的方式决定其在那个维度，即：若有个像素的梯度值的角度为25°，幅值为3，那么它表示为（3,0,0,0,0,0,0,0），对于每一个像素都这样表示，再把cell里的所有坐标求和，即可得表示结果。</li>
+<li>对于16*16大小的图片（关键点），我们可以分为16个cell，每一个cell会有8维向量表示，我们把它们都拼接起来，最就形成了一个128维向量</li>
+<li>16 cells * 8 orientations = 128 dimensional descriptor</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109051807881.png" alt="image-20210905180739701" class="lazyload"></p>
+<ul>
+<li>128 dim vector normalized to 1 对这128维向量进行归一化</li>
+<li>Threshold gradient magnitudes to avoid excessive influence of high gradients 对梯度幅值进行阈值处理（模值大于0.2）<ul>
+<li>after normalization, clamp gradients &gt; 0.2</li>
+<li>renormalize</li>
+</ul>
+</li>
+</ul>
+<h2 id="13-Numeric-Example"><a href="#13-Numeric-Example" class="headerlink" title="13. Numeric Example"></a>13. Numeric Example</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061022729.png" alt="image-20210906102214828" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061022450.png" alt="image-20210906102225222" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061022310.png" alt="image-20210906102235139" class="lazyload"></p>
+<ul>
+<li>Various code available <a target="_blank" rel="noopener" href="http://www.cs.ubc.ca/~lowe/keypoints/">http://www.cs.ubc.ca/~lowe/keypoints/</a></li>
+</ul>
+<h2 id="13-How-to-achieve-the-matching-result"><a href="#13-How-to-achieve-the-matching-result" class="headerlink" title="13. How to achieve the matching result?"></a>13. How to achieve the matching result?</h2><ul>
+<li><p>Given a feature in $I_1$​ , how to find the best match in $I_2$ ?</p>
+<ul>
+<li>Define distance function that compares two descriptors</li>
+<li>Test all the features in I 2 , find the one with min distance</li>
+</ul>
+</li>
+<li><p>Simple way:</p>
+<ul>
+<li>Calculate L 2 distance, $||f 1 - f 2 ||$</li>
+<li>But, may give good scores to ambiguous (incorrect) matches</li>
+</ul>
+</li>
+<li><p>Better way:</p>
+<ul>
+<li><p>Calculate ratio distance = $||f 1-f 2 || / || f 1-f 2 ’ ||$</p>
+<ul>
+<li><p>$f_2$ is best match to $f_1$​​ in $I_2$​</p>
+</li>
+<li><p>$f_2 ’$​​​ is $2^{nd}$​​ best match to $f_1$​ in $I_2$</p>
+</li>
+<li><p>gives large values for ambiguous matches</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202109061031066.png" alt="image-20210906103123721" class="lazyload"></p>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/4.1%20Image%20Feature%20Extraction/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;4.1%20Image%20Feature%20Extraction&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;4.1%20Image%20Feature%20Extraction&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902291988"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

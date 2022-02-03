@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Gaussian mixture model - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Gaussian mixture model">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gaussian mixture model">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/GMM%E5%8F%82%E8%80%83%E9%98%85%E8%AF%BB/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Gaussian mixture model">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011306570.jpeg">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307315.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307384.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20180714211408953?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbl9saW1pbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307536.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307559.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307996.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307826.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307475.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307890.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307632.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20180714214529711?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbl9saW1pbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307674.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307436.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307319.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T05:07:56.537Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011306570.jpeg">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292011">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Gaussian mixture model" class="lazyload">
+            <h1>Gaussian mixture model</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>5.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 27 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AF%A6%E8%A7%A3EM%E7%AE%97%E6%B3%95%E4%B8%8E%E6%B7%B7%E5%90%88%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B-Gaussian-mixture-model"><span class="toc-number">1.</span> <span class="toc-text">详解EM算法与混合高斯模型(Gaussian mixture model,</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GMM"><span class="toc-number">2.</span> <span class="toc-text">GMM)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8D%95%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B-Gaussian-single-model-GSM%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">1 单高斯模型(Gaussian single model, GSM）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%B7%B7%E5%90%88%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B%EF%BC%88Gaussian-mixture-model-GMM%EF%BC%89"><span class="toc-number">2.2.</span> <span class="toc-text">2 混合高斯模型（Gaussian mixture model, GMM）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89%E6%B7%B7%E5%90%88%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.1 为什么要有混合高斯模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E7%9B%B4%E8%A7%82%E4%B8%8A%E7%90%86%E8%A7%A3%E6%B7%B7%E5%90%88%E9%AB%98%E6%96%AF%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2 直观上理解混合高斯模型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1-Maximum-Likehood-Estimate-MLE-%EF%BC%88%E6%9C%80%E5%A4%A7%E5%8C%96%E5%AF%B9%E6%95%B0%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">3 极大似然估计(Maximum Likehood Estimate, MLE)（最大化对数似然函数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-EM%E7%AE%97%E6%B3%95%EF%BC%88%E6%9C%80%E5%A4%A7%E5%8C%96Q%E5%87%BD%E6%95%B0%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">4. EM算法（最大化Q函数）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89EM%E7%AE%97%E6%B3%95%EF%BC%88EM%E7%AE%97%E6%B3%95%E4%B8%8E%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E5%88%86%E5%88%AB%E9%80%82%E7%94%A8%E4%BA%8E%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-number">2.4.1.</span> <span class="toc-text">4.1 为什么要有EM算法（EM算法与极大似然估计分别适用于什么问题）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%9E%81%E5%A4%A7%E4%BC%BC%E7%84%B6%E4%BC%B0%E8%AE%A1%E4%B8%8EEM%E7%AE%97%E6%B3%95%E9%80%82%E7%94%A8%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="toc-number">2.5.</span> <span class="toc-text">5. 极大似然估计与EM算法适用问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-E-step"><span class="toc-number">2.5.1.</span> <span class="toc-text">4.2 E-step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-M-step"><span class="toc-number">2.5.2.</span> <span class="toc-text">4.3 M-step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90%E6%A2%B3%E7%90%86EM%E7%AE%97%E6%B3%95%E7%9A%84%E6%95%B4%E4%B8%AA%E8%BF%87%E7%A8%8B"><span class="toc-number">2.5.3.</span> <span class="toc-text">4.4 一个例子梳理EM算法的整个过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%80%BB%E7%BB%93"><span class="toc-number">2.6.</span> <span class="toc-text">5 总结</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Gaussian mixture model</p>
+<span id="more"></span>
+<h1 id="详解EM算法与混合高斯模型-Gaussian-mixture-model"><a href="#详解EM算法与混合高斯模型-Gaussian-mixture-model" class="headerlink" title="详解EM算法与混合高斯模型(Gaussian mixture model,"></a>详解EM算法与混合高斯模型(Gaussian mixture model,</h1><h1 id="GMM"><a href="#GMM" class="headerlink" title="GMM)"></a>GMM)</h1><h2 id="1-单高斯模型-Gaussian-single-model-GSM）"><a href="#1-单高斯模型-Gaussian-single-model-GSM）" class="headerlink" title="1 单高斯模型(Gaussian single model, GSM）"></a>1 单高斯模型(Gaussian single model, GSM）</h2><ul>
+<li>简单回顾一下概率论讲过的高斯模型。</li>
+<li>高斯模型是一种常用的变量分布模型，在数理统计领域有着广泛的应用（……好吧读了这么多年书没白费，教科书般的话语已植入骨髓）。一维高斯分布的概率密度函数如下</li>
+</ul>
+<script type="math/tex; mode=display">
+f(x)=\frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{(x-\mu)^{2}}{2 \sigma^{2}}\right)</script><ul>
+<li>$\mu$和 $\sigma^2$ 分别是高斯分布的均值和方差。</li>
+<li>譬如将男生身高视为变量X, 假设男生的身高服从高斯分布，则$X\sim N(\mu,\sigma^2)$​​,女生亦如此。只是男女生身高分布可能具有不同的均值和方差。图1是从谷歌图库中搜索到的男女生身高分布图，来源不清，个人觉得男生的均值身高虚高……四个记号分别表示$3\sigma$​准则。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011306570.jpeg'></p>
+<ul>
+<li>多维变量 $X=\left(x_{1}, x_{2}, \ldots x_{n}\right)$ 的联合概率密度函数为;</li>
+</ul>
+<script type="math/tex; mode=display">
+f(X)=\frac{1}{(2 \pi)^{d / 2}|\Sigma|^{1 / 2}} \exp \left[-\frac{1}{2}(X-u)^{T} \Sigma^{-1}(X-u)\right], X=\left(x_{1}, x_{2} \ldots x_{n}\right)</script><ul>
+<li>其中：d: 变量维度。对于二维高斯分布，有 $\mathrm{d}=2$​;<br>$u=\left(\begin{array}{c}u_{1} \ u_{2} \ \ldots \ u_{n}\end{array}\right):$​ 各维变量的均值；</li>
+<li>$\Sigma$​ : 协方差矩阵，描述各维变量之间的相关度。对于二维高斯分布，有:</li>
+</ul>
+<script type="math/tex; mode=display">
+\Sigma=\left[\begin{array}{ll}
+\delta_{11} & \delta_{12} \\
+\delta_{21} & \delta_{22}
+\end{array}\right]</script><p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307315.png'></p>
+<ul>
+<li>图 2 是二维高斯分布产生的数据示例，参数设定为: $u=\left(\begin{array}{c}0 \ 0\end{array}\right), \Sigma=\left[\begin{array}{cc}1 &amp; 0.8 \ 0.8 &amp; 5\end{array}\right]$. 关于二 维高斯分布的参数设定对为高斯曲面的影响，这篇文章二维高斯分布（Two-dimensional Gaussian distribution) 的参数分析有提及，主要是为了下文理解混合高斯分布做铺垫。服从二维高斯分布的数 据主要集中在一个䧎圆内部, 服从三维的数据集中在一个椭球内部。</li>
+</ul>
+<h2 id="2-混合高斯模型（Gaussian-mixture-model-GMM）"><a href="#2-混合高斯模型（Gaussian-mixture-model-GMM）" class="headerlink" title="2 混合高斯模型（Gaussian mixture model, GMM）"></a>2 混合高斯模型（Gaussian mixture model, GMM）</h2><h3 id="2-1-为什么要有混合高斯模型"><a href="#2-1-为什么要有混合高斯模型" class="headerlink" title="2.1 为什么要有混合高斯模型"></a>2.1 为什么要有混合高斯模型</h3><ul>
+<li>先来看一组数据。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307384.png'></p>
+<ul>
+<li>如果我们假设这组数据是由某个高斯分布产生的，利用极大似然估计（后文还会提及）对这个高斯分布做参数估计，得到一个最佳的高斯分布模型如下。</li>
+</ul>
+<p><img src='https://img-blog.csdn.net/20180714211408953?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbl9saW1pbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70'></p>
+<ul>
+<li>有什么问题吗？一般来讲越靠近椭圆的中心样本出现的概率越大，这是由概率密度函数决定的，但是这个高斯分布的椭圆中心的样本量却极少。显然样本服从单高斯分布的假设并不合理。单高斯模型无法产生这样的样本。</li>
+<li>实际上，这是用两个不同的高斯分布模型产生的数据。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307536.png'></p>
+<ul>
+<li><strong>正当单高斯模型抓耳挠腮的时候，混合高斯模型就大摇大摆地进场了。</strong>它通过求解两个高斯模型，并通过一定的权重将两个高斯模型融合成一个模型，即最终的混合高斯模型。这个混合高斯模型可以产生这样的样本。</li>
+<li>更一般化的描述为：假设混合高斯模型由K个高斯模型组成（即数据包含K个类），则GMM的概率密度函数如下</li>
+</ul>
+<script type="math/tex; mode=display">
+p(x)=\sum_{k=1}^{K} p(k) p(x \mid k)=\sum_{k=1}^{K} \pi_{k} N\left(x \mid u_{k}, \Sigma_{k}\right)</script><ul>
+<li><p>其中， $p(x \mid k)=N\left(x \mid u_{k}, \Sigma_{k}\right)$ 是第 $\mathrm{k}$ 个高斯模型的概率密度函数，可以看成选定第 $\mathrm{k}$ 个模型后， 该模型产生x的概率； $p(k)=\pi_{k}$ 是第 $\mathrm{k}$ 个高斯模型的权重，称作选择第 $\mathrm{k}$ 个模型的先验概率，且满足 $\sum_{k=1}^{K} \pi_{k}=1$</p>
+</li>
+<li><p>所以，混合高斯模型并不是什么新奇的东西，<strong>它的本质就是融合几个单高斯模型，来使得模型更加复杂，从而产生更复杂的样本。理论上，如果某个混合高斯模型融合的高斯模型个数足够多，它们之间的权重设定得足够合理，这个混合模型可以拟合任意分布的样本。</strong></p>
+</li>
+</ul>
+<h3 id="2-2-直观上理解混合高斯模型"><a href="#2-2-直观上理解混合高斯模型" class="headerlink" title="2.2 直观上理解混合高斯模型"></a>2.2 直观上理解混合高斯模型</h3><ul>
+<li>下面通过几张图片来帮助理解混合高斯模型。</li>
+<li>首先从简单的一维混合高斯模型说起。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307559.png'></p>
+<ul>
+<li>在图6中，$y_1,y_2$​和$y_3$​分别表示三个一维高斯模型，他们的参数设定如图所示。y4表示将三个模型的概率密度函数直接相加，注意的是这并不是一个混合高斯模型，因为不满足$\sum^K_{k=1}\pi_k = 1$​​的条件。而$y_5$​和$y_6$​分别是由三个相同的高斯模型融合生成的不同混合模型。由此可见，调整权重将极大影响混合模型的概率密度函数曲线。另一方面也可以直观地理解混合高斯模型可以更好地拟合样本的原因：它有更复杂更多变的概率密度函数曲线。理论上，混合高斯模型的概率密度函数曲线可以是任意形状的非线性函数。</li>
+</ul>
+<ul>
+<li>下面再给出一个二维空间3个高斯模型混合的例子。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307996.png'></p>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307826.png'></p>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307475.png'></p>
+<ul>
+<li>(a) 图表示的是3个高斯模型的截面轮廓图，3个模型的权重系数已在图中注明，由截面轮廓图可知3个模型之间存在很多重叠区域。其实这也正是混合高斯模型所希望的。因为如果它们之间的重叠区域较少，那么生成的混合高斯模型一般较为简单，难以生成较为复杂的样本。</li>
+<li>设定好了3个高斯模型和它们之间的权重系数之后，就可以确定二维混合高斯分布的概率密度函数曲面，如图©所示。图(b)是对于图©概率密度曲面的截面轮廓线。从图7也可以看出，整个混合高斯分布曲面相对比于单高斯分布曲面已经异常复杂。实际上，通过调整混合高斯分布的系数$(\pi ,\mu ,\Sigma )$，可以使得图©的概率密度曲面去拟合任意的三维曲面，从而采样生成所需要的数据样本。</li>
+</ul>
+<h2 id="3-极大似然估计-Maximum-Likehood-Estimate-MLE-（最大化对数似然函数）"><a href="#3-极大似然估计-Maximum-Likehood-Estimate-MLE-（最大化对数似然函数）" class="headerlink" title="3 极大似然估计(Maximum Likehood Estimate, MLE)（最大化对数似然函数）"></a>3 极大似然估计(Maximum Likehood Estimate, MLE)（最大化对数似然函数）</h2><ul>
+<li>最大化对数似然函数（log-likelihood function）的意义。首先直观化地解释一下最大化对数似然函数要解决的是什么问题。假设我们采样得到一组样本$y_t$​​ ,而且我们知道变量Y服从高斯分布（本文只提及高斯分布，其他变量分布模型类似），数学形式表示为$Y \sim N(\mu ,\Sigma )$​采样的样本如图8所示，我们的目的就是找到一个合适的高斯分布（也就是确定高斯分布的参数$(\mu ,\Sigma)$,使得这个高斯分布能产生这组样本的可能性尽可能大。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307890.png'></p>
+<ul>
+<li><p>那怎么找到这个合适的高斯分布呢（在图8中的表示就是1~4哪个分布较为合适）？这时候似然函数就闪亮登场了。</p>
+</li>
+<li><p>似然函数数学化：设有样本集 $Y=y_{1}, y_{2} \ldots y_{N}$$ p\left(y_{n} \mid \mu, \Sigma\right)$ 是高斯分布的概率分布函数，表示 变量 $Y=y_{n}$ 的概率。假设样本的抽样是独立的，那么我们同时抽到这 $\mathrm{N}$ 个样本的概率是抽到每个样 本概率的乘积，也就是样本集Y的联合概率。此联合概率即为似然函数：</p>
+<script type="math/tex; mode=display">
+L(\mu, \Sigma)=L\left(y_{1}, y_{2} \ldots y_{N} ; \mu, \Sigma\right)=\prod_{n=1}^{N} p\left(y_{n} ; \mu, \Sigma\right)</script></li>
+<li><p>对式子(4)进行求导并令导数为0（即最大化似然函数，一般还会先转化为对数似然函数再最大化），所求出的参数就是最佳的高斯分布对应的参数。</p>
+</li>
+<li>所以最大化似然函数的意义就是：通过使得样本集的联合概率最大来对参数进行估计，从而选择最佳的分布模型。</li>
+<li>对于图8产生的样本用最大化似然函数的方法，最终可以得到序号1对应的高斯分布模型是最佳的模型</li>
+</ul>
+<h2 id="4-EM算法（最大化Q函数）"><a href="#4-EM算法（最大化Q函数）" class="headerlink" title="4. EM算法（最大化Q函数）"></a>4. EM算法（最大化Q函数）</h2><h3 id="4-1-为什么要有EM算法（EM算法与极大似然估计分别适用于什么问题）"><a href="#4-1-为什么要有EM算法（EM算法与极大似然估计分别适用于什么问题）" class="headerlink" title="4.1 为什么要有EM算法（EM算法与极大似然估计分别适用于什么问题）"></a>4.1 为什么要有EM算法（EM算法与极大似然估计分别适用于什么问题）</h3><ul>
+<li>尝试用极大似然估计的方法来解GMM模型</li>
+<li>解GMM模型，实际上就是确定GMM模型的参数 $(\mu ,\Sigma ,\pi )$，使得由这组参数确定的GMM模型最有可能产生采样的样本。</li>
+<li>先试试看用极大似然估计的方法来解GMM模型会出现什么样的问题。</li>
+<li>如第3小节所述，要利用极大似然估计求解模型最重要的一步就是求出似然函数，即样本集出现的联合概率。而对于混合高斯模型，如何求解某个样本$y_t$的概率？显然我们得先知道这个样本来源于哪一类高斯模型，然后求这个高斯模型生成这个样本的概率$p(y_t)$​</li>
+<li>但是问题来了：我们只有样本。不知道样本到底来源于哪一类的高斯模型。那么如何求解样本的生成概率$p(y_t)$?</li>
+<li>先引入一个隐变量$\gamma$​​。它是一个K维二值随机变量，在它的K维取值中只有某个特定的元素$\gamma _k$的取值为1，其它元素的取值为0。实际上，隐变量描述的就是：每一次采样，选择第k个高斯模型的概率，故有：</li>
+</ul>
+<script type="math/tex; mode=display">
+p\left(\gamma_{k}=1\right)=\pi_{k}</script><ul>
+<li>当给定了$\gamma$的一个特定的值之后（也就是知道了这个样本从哪一个高斯模型进行采样），可以得到样本y的条件分布是一个高斯分布，满足：</li>
+</ul>
+<script type="math/tex; mode=display">
+p\left(y \mid \gamma_{k}=1\right)=N\left(y \mid \mu_{k}, \Sigma_{k}\right)</script><ul>
+<li>而实际上，每个样本到底是从这K个高斯模型中哪个模型进行采样的，是都有可能的。故样本y的概率为</li>
+</ul>
+<script type="math/tex; mode=display">
+p(y)=\sum_{\gamma} p(\gamma) p(y \mid \gamma)=\sum_{\mathrm{k}=1}^{K} \pi_{k} N\left(y \mid \mu_{k}, \Sigma_{k}\right)</script><ul>
+<li>样本集Y(n个样本点)的联合概率为：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+L(\mu, \Sigma, \pi)\\
+=L\left(y_{1}, y_{2} \ldots y_{N} ; \mu, \Sigma, \pi\right)\\
+=\prod_{n=1}^{N} p\left(y_{n} ; \mu, \Sigma, \pi\right)\\
+=\prod_{n=1}^{N} \sum_{\mathrm{k}=1}^{K} \pi_{k} N\left(y_{n} \mid\mu_{k}, \Sigma_{k}\right)
+\end{array}</script><ul>
+<li>对数似然函数表示为：</li>
+</ul>
+<script type="math/tex; mode=display">
+\ln L(\mu, \Sigma, \pi)=\sum_{n=1}^{N} \ln \sum_{\mathrm{k}=1}^{K} \pi_{k} N\left(y_{n} \mid \mu_{k}, \Sigma_{k}\right)</script><ul>
+<li>好了，然后求导，令导数为0，得到模型参数$(\mu ,\Sigma ,\pi)$。貌似问题已经解决了，喜大普奔。</li>
+<li>然而仔细观察可以发现，对数似然函数里面，对数里面还有求和。实际上没有办法通过求导的方法来求这个对数似然函数的最大值。</li>
+<li>MLE（极大似然估计）略显沮丧。这时候EM算法走过来，安慰着说：兄弟别哭，老哥帮你。</li>
+</ul>
+<h2 id="5-极大似然估计与EM算法适用问题分析"><a href="#5-极大似然估计与EM算法适用问题分析" class="headerlink" title="5. 极大似然估计与EM算法适用问题分析"></a>5. 极大似然估计与EM算法适用问题分析</h2><ul>
+<li>下面先阐述一下极大似然估计与EM算法分别适用于解决什么样的问题。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307632.png'></p>
+<p><img src='https://img-blog.csdn.net/20180714214529711?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpbl9saW1pbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70'></p>
+<ul>
+<li>如果我们已经清楚了某个变量服从的高斯分布，而且通过采样得到了这个变量的样本数据，想求高斯分布的参数，这时候极大似然估计可以胜任这个任务；而如果我们要求解的是一个混合模型，只知道混合模型中各个类的分布模型（譬如都是高斯分布）和对应的采样数据，而不知道这些采样数据分别来源于哪一类（隐变量），那这时候就可以借鉴EM算法。EM算法可以用于解决数据缺失的参数估计问题（隐变量的存在实际上就是数据缺失问题，缺失了各个样本来源于哪一类的记录）。</li>
+<li>下面将介绍EM算法的两个步骤：E-step(expectation-step，期望步)和M-step (Maximization-step,最大化步);</li>
+</ul>
+<h3 id="4-2-E-step"><a href="#4-2-E-step" class="headerlink" title="4.2 E-step"></a>4.2 E-step</h3><ul>
+<li>我们现有样本集$Y=(y_1,y_2,…y_T)$，通过隐变量$\gamma_{t,k}$（表示$y_t$这个样本来源于第k个模型）的引入，可以将数据展开成完全数据：</li>
+</ul>
+<script type="math/tex; mode=display">
+\left(y_{t}, \gamma_{t, 1}, \gamma_{t, 2} \ldots \gamma_{t, K}\right), t=1,2 \ldots T</script><ul>
+<li>所谓的完全数据，就是不缺失的数据。只有样本集 $Y=\left(y_{1}, y_{2} \ldots y_{T}\right)$ 的数据是不完整的，存在信息 缺失的。若 $y_{t}$ 由第1类采样而来，则有 $\gamma_{t, 1}=1, \gamma_{t, 2}=0 \ldots \gamma_{t, K}=0$ ，表示为 $\left(y_{t}, 1,0, \ldots 0\right)$ 。</li>
+<li>所以要求能采到这组数据的可能性，需要分两步走：(1)第 $\mathrm{t}$ 个样本由哪一类产生? (2)如果第 $\mathrm{t}$ 个样 本由第k类产生，那么第k类产生第t个样本的概率为多少?</li>
+<li>综合考虑上面两步，有了完全数据的似然函数：</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+p(y, y \mid \mu, \Sigma, \pi)=& \prod_{t=1}^{T} p\left(y_{t}, \gamma_{t, 1}, \gamma_{t, 2} \ldots \gamma_{t, K} \mid \mu, \Sigma, \pi\right) \\
+&=\prod_{t=1}^{T} \prod_{k=1}^{K}\left(\pi_{k} N\left(y_{t} ; \mu_{k}, \Sigma_{k}\right)\right)^{\gamma_{t, k}} \\
+&=\prod_{k=1}^{K} \pi_{k}^{\sum_{t=1}^{T} \gamma_{t, k}} \prod_{t=1}^{T}\left(N\left(y_{t} ; \mu_{k}, \Sigma_{k}\right)\right)^{\gamma_{t, k}}
+\end{aligned}</script><ul>
+<li>第 1 个等号到第 2 个等号的理解：若 $y_{t}$ 由第 1 类采样而来，则有 $\gamma_{t, 1}=1, \gamma_{t, 2}=0 \ldots \gamma_{t, K}=0$,</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+p(y_t,\gamma_{t,1},\gamma_{t,2}...,\gamma_{t,K}\mid \mu,\Sigma,\pi)\\
+=\prod_{i=1}^{K} \left(\pi_{k} N\left(y_{t} ; \mu_{k}, \Sigma_{k}\right)\right)^{\gamma_{t, k}} \\
+=\left(\pi_{1} N\left(y_{t} ; \mu_{1}, \Sigma_{1}\right)\right)^{\gamma_{t, 1}}\left(\pi_{2} N\left(y_{t} ; \mu_{2}, \Sigma_{2}\right)\right)^{\gamma_{t, 2}} \left(\pi_{K}\left(\left(y_{t} ; \mu_{K}, \Sigma_{K}\right)\right)^{\gamma_{t, K}}\right. \\
+=\left(\pi_{1} N\left(y_{t} ; \mu_{1}, \Sigma_{1}\right)\right)^{1}\left(\pi_{2} N\left(y_{t} ; \mu_{2}, \Sigma_{2}\right)\right)^{0} \ldots\left(\pi_{K} N\left(y_{t} ; \mu_{K}, \Sigma_{K}\right)\right)^{0} \\
+=\pi_{1} N\left(y_{t} ; \mu_{1}, \Sigma_{1}\right)
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{l}
+\ln p(y, \gamma \mid \mu, \Sigma, \pi)\\
+=\sum_{k=1}^{K}\left(\sum_{t=1}^{T} \gamma_{t, k}\right) \ln \pi_{k}\\
++\sum_{t=1}^{T} \gamma_{t, k}\left(-\ln (2 \pi)-\frac{1}{2} \ln \left|\Sigma_{k}\right|\right.\\
+\left.-\frac{1}{2}\left(y_t-\mu_{t}\right)^{T}\left(\Sigma_{k}\right)^{-1}\left(y_{t}-\mu_{t}\right)\right)
+\end{array}</script><ul>
+<li><p>这一步应该没啥问题吧。。。注意的是，此处考虑的是二维高斯分布的情况，对应于式子(2)中的d=2。</p>
+</li>
+<li><p>我们的目标就是找出一组参数 $(\mu <em>, \Sigma </em>, \pi *)$ 使得 $\ln p(y, \gamma \mid \mu, \Sigma, \pi)$ 最大。那么问题来了: $\ln p(y, \gamma \mid \mu, \Sigma, \pi)$ 中含有隐变量 $Y$ ， $Y$ 的存在使得我们没法最大化 $\ln p(y, \gamma \mid \mu, \Sigma, \pi)$ 。如果我们知道了 $Y$, 那么最大化 $\ln p(y, \gamma \mid \mu, \Sigma, \pi)$ 就显得水到渠 成。</p>
+</li>
+<li>但是坑忩的就是: 我们只有采样数据 $y_{t}, \quad$ 末知。那么怎么办呢? 对 $/$ 来一个估计。</li>
+<li>猜想我们给了一组起始参数 $\left(\mu^{0}, \Sigma^{0}, \pi^{0}\right)$ 或者优化过的第次迭代的参数 $\left(\mu^{i}, \Sigma^{i}, \pi^{i}\right)$<br>， 也就是说每一个高斯分布的参数我们都有了， $Y$ 做的事不就是决定每个样本由哪一个高斯分布产生的嘛，有了每个高斯分布的参数那我们就可以猜想每个样本最有可能来源于哪个高斯分布没错吧! Done!</li>
+<li>为此我们不最大化\operatornamen $p(y, y \mid \mu, \Sigma, \pi)$ (也无法最大化它)，而是最大化Q函数。Q函 数如下:</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&Q\left(\mu, \Sigma, \pi, \mu^{i}, \Sigma^{i}, \pi^{i}\right)=E_{\gamma}\left[\ln p(y, \gamma \mid \mu, \Sigma, \pi) \mid Y, \mu^{i}, \Sigma^{i}, \pi^{i}\right] \\
+&=E_{\gamma}\left[\sum_{k=1}^{K}\left(\sum_{t=1}^{T} \gamma_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right) \ln \pi_{k}\right.\\
+&+\left.\sum_{t=1}^{T}\left(y_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)(-\ln (2 \pi)-\right.\left.\left.\frac{1}{2} \ln \left|\Sigma_{k}\right|-\frac{1}{2}\left(y_{t}-\mu_{t}\right)^{T}\left(\Sigma_{k}\right)^{-1}\left(y_{t}-\mu_{t}\right)\right)\right] \\
+&=\sum_{k=1}^{K}\left(\sum_{t=1}^{T} E\left(\gamma_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right) \ln \pi_{k}\right.\\
+&+\left.\sum_{t=1}^{T} E\left(y_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)(-\ln (2 \pi)-\right.\left.\left.\frac{1}{2} \ln \left|\Sigma_{k}\right|-\frac{1}{2}\left(y_{t}-\mu_{t}\right)^{T}\left(\Sigma_{k}\right)^{-1}\left(y_{t}-\mu_{t}\right)\right)\right)
+\end{aligned}</script><ul>
+<li>其中, $ E\left(\gamma_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right) $​就是对 $\gamma$的估计: </li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&E\left(\gamma_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)=p\left(\gamma_{t, k}=1 \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)\\
+&=\frac{p\left(\gamma_{t, k}=1, y_{t} \mid \mu^{i}, \Sigma^{i}, \pi^{\prime}\right)}{p\left(y_{t}\right)}\\
+&=\frac{p\left(y_{t} \mid y_{t, k}=1, \mu^{2}, \Sigma^{2}, \pi^{2}\right) p\left(\gamma_{t, k}=1 \mid \mu^{2}, \Sigma^{2}, \pi^{i}\right)}{\sum_{k=1}^{K} p\left(y_{t} \mid \gamma_{t, k}=1, \mu^{i}, \Sigma^{i}, \pi^{i}\right) p\left(\gamma_{t, k}=1 \mid \mu^{i}, \Sigma^{i}, \pi^{i}\right)}\\
+&=\frac{\pi_{k}^{i} N\left(y_{t} ; \mu_{k}^{i}, \Sigma_{k}^{i}\right)}{\sum_{k=1}^{K} \pi_{k}^{i} N\left(y_{t} ; \mu_{k}^{i}, \Sigma_{k}^{i}\right)}
+\end{aligned}</script><ul>
+<li>这公式是不是很可怕? ? 别急，带上几点声明，再去看公式就很好理解了!<ul>
+<li>Q函数描述的其实就是在给定 $\left(\mu^{i}, \Sigma^{i}, \pi^{i}\right)$ 参数下，先对样本 $Y$ 做一个最有可能的划 分 (每个样本来源于各个类的可能性，即对 $\gamma$ 的估计 $E\left(\gamma_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)$ )，再描述能 够产生这组样本的可能性 (Q函数) ;</li>
+<li>有了对于 $\gamma$ 的估计之后， Q函数只和样本有关 (传统意义上的似然函数亦如此，完 全数据的似然函数还与 ${ }^{\mathbf{1}}$ 有关)，而不再含有隐变量，从而使得最大化Q函数成为可能;</li>
+<li>最大化Q函数的过程实则就是使得能够产生这组样本的可能性最大，与最大化似然 函数的思路如出一辙。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-3-M-step"><a href="#4-3-M-step" class="headerlink" title="4.3 M-step"></a>4.3 M-step</h3><ul>
+<li>有个Q函数，就可以对Q函数进行最大化，得到下一次迭代的模型参数了，即：</li>
+</ul>
+<script type="math/tex; mode=display">
+\dot{\mu}^{+1}, \Sigma^{i+1}, \pi^{i+1}=\arg \max Q\left(\mu, \Sigma, \pi, \mu^{i}, \Sigma^{i}, \pi^{i}\right)</script><p>对Q函数进行求导, 并另其导数为 0, 可得;</p>
+<script type="math/tex; mode=display">
+\mu_{k}^{i+1}=\frac{\sum_{t=1}^{T} \frac{\pi_{k}^{i} N\left(y_{t} ; \mu_{k}^{i}, \Sigma_{k}^{i}\right)}{\sum_{k=1}^{K} \pi_{k}^{i} N\left(y_{t} ; \mu_{k}^{k}, \Sigma_{k}^{i}\right)} y_{t}}{E\left(\gamma_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)}, k=1,2 \ldots K</script><script type="math/tex; mode=display">
+\Sigma_{k}^{i+1}=\frac{\sum_{t=1}^{T} \frac{\pi_{k}^{i} N\left(y_{t} ; \mu_{k}^{i}, \Sigma_{k}^{i}\right)}{\sum_{k=1}^{i} N\left(y_{t}, \mu_{k}^{i}, \Sigma_{k}^{i}\right)}\left(y_{t}-\mu_{k}^{i}\right)^{2}}{E\left(\gamma_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)}, k=1,2 \ldots K</script><script type="math/tex; mode=display">
+\pi_{k}^{i+1}=\frac{E\left(y_{t, k} \mid y_{t}, \mu^{i}, \Sigma^{i}, \pi^{i}\right)}{T}, k=1,2 \ldots K</script><ul>
+<li>其中 $\mu_{k}^{i+1}, \Sigma_{k}^{i+1}, \pi_{k}^{i+1}$ 分别表示第 $(\mathrm{i}+1)$ 次迭代，第 $\mathrm{k}$ 个类的均值，协方差矩阵和所占的权重。  </li>
+</ul>
+<h3 id="4-4-一个例子梳理EM算法的整个过程"><a href="#4-4-一个例子梳理EM算法的整个过程" class="headerlink" title="4.4 一个例子梳理EM算法的整个过程"></a>4.4 一个例子梳理EM算法的整个过程</h3><ul>
+<li>EM算法的核心思想是: 通过迭代的过程来找到一组最优的参数 $(\mu <em>, \Sigma </em>, \pi *)$, 使得这组参数表 示的模型最有可能产生现有的采样数据。每次迭代的过程就是参数矫正的过程。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307674.png'></p>
+<ul>
+<li><p>现假设初始化一组参数在这组参数$(\mu^0,\Sigma^0,\pi^0)$下，2类二维高斯分布如图11绿色椭圆所示。然后利用现有的参数，E-step开始对样本数据进行划分（对$\gamma$进行估计）。蓝色的样本大多都被划分给第1类模型，橘黄色的样本大多都被划分给第2类模型。但是第1类模型还有优化空间：第1类模型还不能使得蓝色样本出现的联合概率达到最大。第2类模型也是如此。M-step便优化了2类模型的参数，得到新的参数$({\mu ^1},{\Sigma ^1},{\pi ^1})$，使得优化后2类高斯分布如图11红色椭圆所示。其中，第1类模型主要优化的是模型均值（即椭圆的中心），第二类模型主要优化的是模型协方差矩阵（即椭圆的长轴、短轴和长短轴的方向）。然后重复进行E-step和M-step，直到参数$(\mu ,\Sigma ,\pi )$收敛。</p>
+</li>
+<li><p>最后谈谈混合高斯模型的参数$\pi$。</p>
+</li>
+<li>混合高斯模型的参数$\mu ,\Sigma$比较好理解，用于描述各个高斯分布的形状，对于它们的调整也比较直观：使得本高斯分布能够更好地接纳被划分到这类分布的样本。而为什么要有参数π \piπ？它描述的是各个高斯分布所占的比重，如果不加“歧视”的话（样本来源于各个高斯分布的可能性一致），则有$\pi_k=\frac{1}{K}$而如果对于某一类高斯分布（即为i）有侧重的话，则相应的$\pi_i$较大，体现在图11中就是被分配给各个类的样本数占样本总数的比例。如果一轮优化后，某一类高斯分布又接纳了更多样本，则其$\pi_i$变大，反之变小（所以图11从绿色椭圆调整为红色椭圆实际上两个类所对应的权重也被优化了）。</li>
+<li>而从本质上来看参数$\pi$，则是为了混合高斯模型能有更好的曲面拟合能力。当参数$\pi$退化为某一类高斯分布的权重远远大于其他类高斯分布的时候，混合高斯模型就退化成了单高斯模型！</li>
+</ul>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5 总结"></a>5 总结</h2><ul>
+<li>图12和图13梳理了高斯分布和混合高斯分布参数估计的逻辑流程。</li>
+</ul>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307436.png'></p>
+<p><img src='https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011307319.png'></p>
+<ul>
+<li>相对比于高斯分布的参数估计，混合高斯分布的参数估计更加复杂。主要原因在于隐变量的存在。而为什么混合高斯分布的参数估计需要多次迭代循环进行？是因为EM算法中对于γ 的估计利用的是初始化或者第i步迭代的参数$({\mu ^i},{\Sigma ^i},{\pi ^i})$​，这对于样本的分类划分是有误差的。所以它只能通过多次迭代优化寻找更佳的参数来抵消这一误差。</li>
+<li>终于把这篇文章梳理完了。世界杯要结束了，伪球迷也想见证一下冠军诞生。至此，本文结束</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/GMM%E5%8F%82%E8%80%83%E9%98%85%E8%AF%BB/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;GMM%E5%8F%82%E8%80%83%E9%98%85%E8%AF%BB&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;GMM%E5%8F%82%E8%80%83%E9%98%85%E8%AF%BB&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292014"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

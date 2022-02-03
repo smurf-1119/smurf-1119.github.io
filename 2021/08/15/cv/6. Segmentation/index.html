@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Image Segmentation - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Image Segmentation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Image Segmentation">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/6.%20Segmentation/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Image Segmentation">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029102936043.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029103052080.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029103203948.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104241599.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104417057.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104635038.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104852728.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104940982.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105022194.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105700524.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105824755.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105849114.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1024143/201701/1024143-20170111025934541-260409014.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1024143/201701/1024143-20170111025944728-1116870094.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1024143/201701/1024143-20170111025946338-787569010.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029110802650.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111302545.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111358316.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111452510.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029121629632.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111938306.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030205616816.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1603920/202109/1603920-20210901165752904-158413828.png">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/1603920/202107/1603920-20210708092558439-1346957446.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213252763.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213305656.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213321567.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029112015725.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029112129045.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029112323106.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213349936.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113157378.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113313200.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113412085.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113442543.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113603085.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113934212.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114250788.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114335399.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114509220.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114725010.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115503373.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115629012.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115724528.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115854118.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115936729.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029120032461.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:18:24.177Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029102936043.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902291994">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Image Segmentation" class="lazyload">
+            <h1>Image Segmentation</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.6k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 17 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Image-Segmentation"><span class="toc-number">1.</span> <span class="toc-text">1. Image Segmentation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Def"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Def</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-The-Goals-of-Segmentation"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 The Goals of Segmentation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-Separate-image-into-coherent-%E7%9B%B8%E5%B9%B2-%E2%80%9Cobjects%E2%80%9D"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 Separate image into coherent(相干) “objects”</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-Some-Problems"><span class="toc-number">2.</span> <span class="toc-text">1.3 Some Problems</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Clustering"><span class="toc-number">3.</span> <span class="toc-text">2.  Clustering</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Methords"><span class="toc-number">3.1.</span> <span class="toc-text">2.2 Methords</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-lnspiration-from-psychology"><span class="toc-number">4.</span> <span class="toc-text">3. lnspiration from psychology</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-The-Gestalt-Theory"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 The Gestalt Theory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Gestalt-Factors"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 Gestalt Factors</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Continuity-through-Occlusion-Cues-%E9%81%AE%E6%8C%A1"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 Continuity through Occlusion Cues 遮挡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Figure-Ground-Discrimination"><span class="toc-number">4.4.</span> <span class="toc-text">3.4 Figure-Ground Discrimination</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Grouping-phenomena-in-real-life"><span class="toc-number">4.5.</span> <span class="toc-text">3.5 Grouping phenomena in real life</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Clustering-for-Summarization"><span class="toc-number">5.</span> <span class="toc-text">4. Clustering for Summarization</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-K-means-clustering"><span class="toc-number">6.</span> <span class="toc-text">5. K-means clustering</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Problem"><span class="toc-number">6.1.</span> <span class="toc-text">5.1 Problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Pros-and-cons"><span class="toc-number">6.2.</span> <span class="toc-text">5.2 Pros  and cons</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-Pros"><span class="toc-number">6.2.1.</span> <span class="toc-text">5.2.1 Pros</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-Cons-issues"><span class="toc-number">6.2.2.</span> <span class="toc-text">5.2.2 Cons&#x2F;issues</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Qestions"><span class="toc-number">6.3.</span> <span class="toc-text">5.3 Qestions</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-local-minimum"><span class="toc-number">6.3.1.</span> <span class="toc-text">5.3.1 local minimum</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Solution-Kmeans"><span class="toc-number">6.3.1.1.</span> <span class="toc-text">Solution: Kmeans++</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-spherical-cluster"><span class="toc-number">6.3.2.</span> <span class="toc-text">5.3.2 spherical cluster</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Solution-GMM"><span class="toc-number">6.3.2.1.</span> <span class="toc-text">Solution: GMM</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-3-How-to-choose-the-number-of-clusters"><span class="toc-number">6.3.3.</span> <span class="toc-text">5.3.3 How to choose the number of clusters?</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Smoothing-Out-Cluster-Assignments"><span class="toc-number">6.4.</span> <span class="toc-text">6. Smoothing Out Cluster Assignments</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Spatial-Coherence"><span class="toc-number">6.5.</span> <span class="toc-text">6.1 Spatial Coherence</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Mean-Shift-Segmentation"><span class="toc-number">7.</span> <span class="toc-text">7. Mean-Shift Segmentation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-Algorithm-%E6%89%BE%E5%88%B0%E5%8C%BA%E5%9F%9F%E7%A9%BA%E9%97%B4%E5%AF%86%E5%BA%A6%E7%9A%84%E6%9E%81%E5%A4%A7%E5%80%BC"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 Algorithm 找到区域空间密度的极大值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-shift-point"><span class="toc-number">7.2.</span> <span class="toc-text">7.2 shift point</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-number">7.3.</span> <span class="toc-text">7.3 基本思想</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-%E5%BC%95%E5%85%A5%E6%A0%B8%E5%87%BD%E6%95%B0"><span class="toc-number">7.4.</span> <span class="toc-text">7.4 引入核函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%81%E6%98%8E%EF%BC%9A"><span class="toc-number">7.4.1.</span> <span class="toc-text">证明：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-%E5%A6%82%E4%BD%95%E8%81%9A%E7%B1%BB"><span class="toc-number">7.5.</span> <span class="toc-text">7.4 如何聚类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-5-%E5%A6%82%E4%BD%95%E5%9C%A8%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E4%B8%8A%E5%BA%94%E7%94%A8%EF%BC%9F"><span class="toc-number">7.6.</span> <span class="toc-text">7.5 如何在数字图像上应用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-6-speedups"><span class="toc-number">7.7.</span> <span class="toc-text">7.6 speedups</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-7-Summary-Mean-Shift"><span class="toc-number">7.8.</span> <span class="toc-text">7.7 Summary Mean-Shift</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Graph-based-segmentation"><span class="toc-number">8.</span> <span class="toc-text">8. Graph-based segmentation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#8-1-Efficient-graph-based-segmentation"><span class="toc-number">8.1.</span> <span class="toc-text">8.1 Efficient graph-based segmentation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-2-Segmentation-by-graph-cuts"><span class="toc-number">8.2.</span> <span class="toc-text">8.2 Segmentation by graph cuts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-3-Measuring-affinity%EF%BC%88%E4%BA%B2%E5%92%8C%E5%8A%9B%EF%BC%89-%EF%BC%88%E5%AE%9A%E4%B9%89%E7%9B%B8%E4%BC%BC%E5%BA%A6%EF%BC%89"><span class="toc-number">8.3.</span> <span class="toc-text">8.3 Measuring affinity（亲和力） （定义相似度）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-4-Cuts-in-a-graph-Min-cut-%E6%9C%80%E5%B0%8F%E5%89%B2"><span class="toc-number">8.4.</span> <span class="toc-text">8.4 Cuts in a graph: Min cut 最小割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-5-Problem"><span class="toc-number">8.5.</span> <span class="toc-text">8.5 Problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-6-Cuts-in-a-graph-Normalized-cut"><span class="toc-number">8.6.</span> <span class="toc-text">8.6 Cuts in a graph: Normalized cut</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Normalized-Cut"><span class="toc-number">8.6.1.</span> <span class="toc-text">Normalized Cut</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-7-Normalized-cuts-Pro-and-con"><span class="toc-number">8.7.</span> <span class="toc-text">8.7 Normalized cuts: Pro and con</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Pro"><span class="toc-number">8.7.1.</span> <span class="toc-text">Pro</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Con"><span class="toc-number">8.7.2.</span> <span class="toc-text">Con</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Feature-Space"><span class="toc-number">9.</span> <span class="toc-text">9. Feature Space</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#9-1-Recall-texture-representation-example"><span class="toc-number">9.1.</span> <span class="toc-text">9.1 Recall: texture representation example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-2-Segmentation-with-texture-features"><span class="toc-number">9.2.</span> <span class="toc-text">9.2 Segmentation with texture features</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-3-lmage-segmentation-example"><span class="toc-number">9.3.</span> <span class="toc-text">9.3 lmage segmentation example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-4-Segments-as-primitives-for-recognition"><span class="toc-number">9.4.</span> <span class="toc-text">9.4 Segments as primitives for recognition</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Summary"><span class="toc-number">10.</span> <span class="toc-text">10. Summary</span></a></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Image Segmentation</p>
+<span id="more"></span>
+<h2 id="1-Image-Segmentation"><a href="#1-Image-Segmentation" class="headerlink" title="1. Image Segmentation"></a>1. Image Segmentation</h2><h3 id="1-1-Def"><a href="#1-1-Def" class="headerlink" title="1.1 Def"></a>1.1 Def</h3><ul>
+<li>ldentify groups of pixels that go together<ul>
+<li>把图像分割为几个不相交的单连通区域</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029102936043.png" alt="image-20211029102936043" class="lazyload"></p>
+<h3 id="1-2-The-Goals-of-Segmentation"><a href="#1-2-The-Goals-of-Segmentation" class="headerlink" title="1.2 The Goals of Segmentation"></a>1.2 The Goals of Segmentation</h3><h4 id="1-2-1-Separate-image-into-coherent-相干-“objects”"><a href="#1-2-1-Separate-image-into-coherent-相干-“objects”" class="headerlink" title="1.2.1 Separate image into coherent(相干) “objects”"></a>1.2.1 Separate image into coherent(相干) “objects”</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029103052080.png" alt="image-20211029103052080" class="lazyload"></p>
+<ul>
+<li><strong>Group</strong> together <strong>similar-looking pixels</strong> for <strong>efficiency</strong> offurther processing</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029103203948.png" alt="image-20211029103203948" class="lazyload"></p>
+<h2 id="1-3-Some-Problems"><a href="#1-3-Some-Problems" class="headerlink" title="1.3 Some Problems"></a>1.3 Some Problems</h2><ul>
+<li>过分割：分割力度过细</li>
+<li>欠分割：分割过于粗糙</li>
+</ul>
+<h2 id="2-Clustering"><a href="#2-Clustering" class="headerlink" title="2.  Clustering"></a>2.  Clustering</h2><ul>
+<li>One way to think about “<strong>segmentation</strong>“ is <strong>Clustering</strong>.</li>
+<li>Clustering: <strong>group together</strong> similar <strong>data points</strong> and <strong>represent them with asingle token</strong></li>
+</ul>
+<h3 id="2-2-Methords"><a href="#2-2-Methords" class="headerlink" title="2.2 Methords"></a>2.2 Methords</h3><ul>
+<li><p><strong>Bottom up</strong> clustering</p>
+<ul>
+<li>tokens belong together because they are <strong>locally coherent</strong>. (像素级别，像素特征上类似)</li>
+</ul>
+</li>
+<li><p><strong>Top down</strong> clustering</p>
+<ul>
+<li>tokens belong together because they lie on the <strong>same visual entity</strong>(object, scene…) （语义级别，同样的马、鼻子等）</li>
+</ul>
+</li>
+<li>These two are not <strong>mutually exclusive</strong></li>
+</ul>
+<h2 id="3-lnspiration-from-psychology"><a href="#3-lnspiration-from-psychology" class="headerlink" title="3. lnspiration from psychology"></a>3. lnspiration from psychology</h2><ul>
+<li>Muller-Lyer illusion<ul>
+<li>下面的直线感觉会更长</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104241599.png" alt="image-20211029104241599" class="lazyload"></p>
+<h3 id="3-1-The-Gestalt-Theory"><a href="#3-1-The-Gestalt-Theory" class="headerlink" title="3.1 The Gestalt Theory"></a>3.1 The Gestalt Theory</h3><ul>
+<li>Gestalt: whole or group<ul>
+<li><strong>Whole</strong> is <strong>greater</strong> than sum of its <strong>parts</strong></li>
+<li>Relationships among parts can <strong>yield new properties/features</strong><ul>
+<li>通过组合形成新的关系</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104417057.png" alt="image-20211029104417057" class="lazyload"></p>
+<ul>
+<li>Psychologists <strong>identified series of factors</strong> that predispose(倾向) set of <strong>elements</strong> to be <strong>grouped</strong> (by human visual system)<ul>
+<li>stand at the window and see a house, trees, sky.Theoretically l might say there were 327 brightnessesand nuances of colour. bo l have “327”? No. I have sky,house, and trees.”                   Max Wertheimer</li>
+</ul>
+</li>
+<li>那么如何找到这种整体的关系呢？</li>
+</ul>
+<h3 id="3-2-Gestalt-Factors"><a href="#3-2-Gestalt-Factors" class="headerlink" title="3.2 Gestalt Factors"></a>3.2 Gestalt Factors</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104635038.png" alt="image-20211029104635038" class="lazyload"></p>
+<ul>
+<li>共同命运：即有相同运动趋势</li>
+</ul>
+<h3 id="3-3-Continuity-through-Occlusion-Cues-遮挡"><a href="#3-3-Continuity-through-Occlusion-Cues-遮挡" class="headerlink" title="3.3 Continuity through Occlusion Cues 遮挡"></a>3.3 Continuity through Occlusion Cues 遮挡</h3><h3 id="3-4-Figure-Ground-Discrimination"><a href="#3-4-Figure-Ground-Discrimination" class="headerlink" title="3.4 Figure-Ground Discrimination"></a>3.4 Figure-Ground Discrimination</h3><ul>
+<li>图像背景区别</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104852728.png" alt="image-20211029104852728" class="lazyload"></p>
+<h3 id="3-5-Grouping-phenomena-in-real-life"><a href="#3-5-Grouping-phenomena-in-real-life" class="headerlink" title="3.5 Grouping phenomena in real life"></a>3.5 Grouping phenomena in real life</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029104940982.png" alt="image-20211029104940982" class="lazyload"></p>
+<h2 id="4-Clustering-for-Summarization"><a href="#4-Clustering-for-Summarization" class="headerlink" title="4. Clustering for Summarization"></a>4. Clustering for Summarization</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105022194.png" alt="image-20211029105022194" class="lazyload"></p>
+<ul>
+<li>算相邻点到中心点的距离，进行分类</li>
+<li>Goal: choose three “centers” as the representative intensities, and label every pixel according to which of these centers it is nearest to.</li>
+<li>Best cluster centers are those that <strong>minimize Sum of SquareDistance</strong> (SSD) between <strong>all points</strong> and <strong>their nearest cluster center</strong> $c_i$​<ul>
+<li>最小化所有点到所有中心距离的加权和</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+c^{*}, \delta^{*}=\underset{c, \delta}{\arg \min } \frac{1}{N} \sum_{j}^{N} \sum_{i}^{K} \delta_{i j}\left(c_{i}-x_{j}\right)^{2}</script><ul>
+<li>$\delta_{i j}$: whether $x_j $​is assigned to $c_i$</li>
+</ul>
+<h2 id="5-K-means-clustering"><a href="#5-K-means-clustering" class="headerlink" title="5. K-means clustering"></a>5. K-means clustering</h2><ul>
+<li><p>Basic idea: randomly initialize the k cluster centers, and iterate between the two steps we just saw.</p>
+<ul>
+<li>step1: Randomly <strong>initialize the cluster centers</strong>, $c_1,..,c_K$​​​</li>
+<li>step2: Given cluster centers, <strong>determine points</strong> in each cluster</li>
+<li>step3: For each point $x_j$, find the closest $c$;. Put $x_j$into cluster $i_3$. Given points in each cluster, solve for $c$</li>
+<li>step4: Set $c$ to be the mean of points in cluster $i_4$. lf c; have changed, repeat Step 2-3.</li>
+</ul>
+</li>
+<li><p>An <strong>iterative clustering algorithm</strong></p>
+<ul>
+<li><strong>Pick K</strong> random points ascluster <strong>centers</strong> (means)- Alternate:</li>
+<li><strong>Assign data</strong> instances to closest mean</li>
+<li><strong>Assign each mean</strong> to the average of its assigned points</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-1-Problem"><a href="#5-1-Problem" class="headerlink" title="5.1 Problem"></a>5.1 Problem</h3><ul>
+<li><p>很依赖于初始值</p>
+</li>
+<li><p>A local optimum:</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105700524.png" alt="image-20211029105700524" class="lazyload"></p>
+<h3 id="5-2-Pros-and-cons"><a href="#5-2-Pros-and-cons" class="headerlink" title="5.2 Pros  and cons"></a>5.2 Pros  and cons</h3><h4 id="5-2-1-Pros"><a href="#5-2-1-Pros" class="headerlink" title="5.2.1 Pros"></a>5.2.1 Pros</h4><ul>
+<li>Simple, fast to compute</li>
+</ul>
+<h4 id="5-2-2-Cons-issues"><a href="#5-2-2-Cons-issues" class="headerlink" title="5.2.2 Cons/issues"></a>5.2.2 Cons/issues</h4><ul>
+<li><p>Converges to <strong>local minimum</strong> of within-cluster squared error</p>
+</li>
+<li><p>Setting k?</p>
+<ul>
+<li>k 是个超参</li>
+</ul>
+</li>
+<li><p>Sensitive to <strong>initial centers</strong>. </p>
+<ul>
+<li>对一开始初始化的中心很敏感</li>
+</ul>
+</li>
+<li><p>Sensitive to <strong>outliers</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105824755.png" alt="image-20211029105824755" class="lazyload"></p>
+<ul>
+<li>Detects <strong>spherical(球形)</strong> clusters </li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029105849114.png" alt="image-20211029105849114" class="lazyload"></p>
+<ul>
+<li>Assuming <strong>means</strong> can be computed<ul>
+<li>如果一些特性不能用均值</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-Qestions"><a href="#5-3-Qestions" class="headerlink" title="5.3 Qestions"></a>5.3 Qestions</h3><h4 id="5-3-1-local-minimum"><a href="#5-3-1-local-minimum" class="headerlink" title="5.3.1 local minimum"></a>5.3.1 local minimum</h4><ul>
+<li>Will K-means converge?<ul>
+<li>是收敛的，可以证明</li>
+</ul>
+</li>
+<li>To a global optimum?<ul>
+<li>不能</li>
+</ul>
+</li>
+</ul>
+<h5 id="Solution-Kmeans"><a href="#Solution-Kmeans" class="headerlink" title="Solution: Kmeans++"></a>Solution: Kmeans++</h5><ul>
+<li>Can we prevent arbitrarily bad local minima?<ul>
+<li><strong>Randomly choose</strong> first center.</li>
+<li>Pick new center with prob. proportional to (r-c)<br>(Contribution of $x$ to total error) 以距离为概率选择下一个中心点</li>
+<li>Repeat until $k$​​ centers.</li>
+</ul>
+</li>
+</ul>
+<p><img src='https://images2015.cnblogs.com/blog/1024143/201701/1024143-20170111025934541-260409014.png'></p>
+<ul>
+<li>下面结合一个简单的例子说明K-means++是如何选取初始聚类中心的。数据集中共有8个样本，分布以及对应序号如下图所示：</li>
+</ul>
+<p><img src='https://images2015.cnblogs.com/blog/1024143/201701/1024143-20170111025944728-1116870094.png'></p>
+<ul>
+<li>假设经过图2的步骤一后6号点被选择为第一个初始聚类中心，那在进行步骤二时每个样本的<strong><em>D(x)</em></strong>和被选择为第二个聚类中心的概率如下表所示：</li>
+</ul>
+<p><img src='https://images2015.cnblogs.com/blog/1024143/201701/1024143-20170111025946338-787569010.png'></p>
+<ul>
+<li>其中的<strong>P(x)</strong>就是每个样本被选为下一个聚类中心的概率。最后一行的<strong>Sum</strong>是概率<strong>P(x)</strong>的累加和，用于轮盘法选择出第二个聚类中心。方法是随机产生出一个0~1之间的随机数，判断它属于哪个区间，那么该区间对应的序号就是被选择出来的第二个聚类中心了。例如1号点的区间为[0,0.2)，2号点的区间为[0.2, 0.525)。</li>
+<li>从上表可以直观的看到第二个初始聚类中心是1号，2号，3号，4号中的一个的概率为0.9。而这4个点正好是离第一个初始聚类中心6号点较远的四个点。这也验证了K-means的改进思想：即离当前已有聚类中心较远的点有更大的概率被选为下一个聚类中心。可以看到，该例的K值取2是比较合适的。</li>
+<li>当K值大于2时，每个样本会有多个距离，需要取最小的那个距离作为<strong>D(x)</strong>。一开始只有一个中心，之后会有下一个，那么此时每个点都要遍历两个中心，则距离取最小值即可，物理意义就是希望下一个中心尽可能离这两个中心远一点</li>
+<li>下面是选择中心点的代码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">euler_distance</span>(<span class="params">point1: <span class="built_in">list</span>, point2: <span class="built_in">list</span></span>) -&gt; <span class="built_in">float</span>:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    计算两点之间的欧拉距离，支持多维</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    distance = <span class="number">0.0</span></span><br><span class="line">    <span class="keyword">for</span> a, b <span class="keyword">in</span> <span class="built_in">zip</span>(point1, point2):</span><br><span class="line">        distance += math.<span class="built_in">pow</span>(a - b, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">return</span> math.sqrt(distance)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_closest_dist</span>(<span class="params">point, centroids</span>):</span></span><br><span class="line">    min_dist = math.inf  <span class="comment"># 初始设为无穷大</span></span><br><span class="line">    <span class="keyword">for</span> i, centroid <span class="keyword">in</span> <span class="built_in">enumerate</span>(centroids):</span><br><span class="line">        dist = euler_distance(centroid, point)</span><br><span class="line">        <span class="keyword">if</span> dist &lt; min_dist:</span><br><span class="line">            min_dist = dist</span><br><span class="line">    <span class="keyword">return</span> min_dist</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kpp_centers</span>(<span class="params">data_set: <span class="built_in">list</span>, k: <span class="built_in">int</span></span>) -&gt; <span class="built_in">list</span>:</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    从数据集中返回 k 个对象可作为质心</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    cluster_centers = []</span><br><span class="line">    cluster_centers.append(random.choice(data_set))</span><br><span class="line">    d = [<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(data_set))]</span><br><span class="line">    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, k):</span><br><span class="line">        total = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">for</span> i, point <span class="keyword">in</span> <span class="built_in">enumerate</span>(data_set):</span><br><span class="line">            d[i] = get_closest_dist(point, cluster_centers) <span class="comment"># 与最近一个聚类中心的距离</span></span><br><span class="line">            total += d[i]</span><br><span class="line">        total *= random.random()</span><br><span class="line">        <span class="keyword">for</span> i, di <span class="keyword">in</span> <span class="built_in">enumerate</span>(d): <span class="comment"># 轮盘法选出下一个聚类中心；</span></span><br><span class="line">            total -= di</span><br><span class="line">            <span class="keyword">if</span> total &gt; <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            cluster_centers.append(data_set[i])</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> cluster_centers</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    iris = datasets.load_iris()</span><br><span class="line">    <span class="built_in">print</span>(kpp_centers(iris.data, <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+<h4 id="5-3-2-spherical-cluster"><a href="#5-3-2-spherical-cluster" class="headerlink" title="5.3.2 spherical cluster"></a>5.3.2 spherical cluster</h4><ul>
+<li>Will it always find the true patterns in the data?<ul>
+<li>不一定，他只能找到球状分布</li>
+<li>if the patterns are very clear?</li>
+</ul>
+</li>
+</ul>
+<h5 id="Solution-GMM"><a href="#Solution-GMM" class="headerlink" title="Solution: GMM"></a>Solution: GMM</h5><p>A probabilistic variant of Kimeans:</p>
+<ul>
+<li>E step: <strong>“soft assignment”</strong>of points to clusters   （标记属于某个类的概率）<ul>
+<li>estimate probability that a point is in a cluster <ul>
+<li>先随机初始化一个概率分布，就可以计算每个点归类的概率</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Mstep: <strong>update cluster parameters</strong><ul>
+<li><strong>mean and variance</strong> info (covariance matrix)</li>
+<li><strong>maximizes the likelihood</strong> of the points given the clusters</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029110802650.png" alt="image-20211029110802650" class="lazyload"></p>
+<ul>
+<li><p>理论上足够多的高斯分布可以拟合任意数据点</p>
+</li>
+<li><p>详细见参考阅读GMM</p>
+</li>
+</ul>
+<h4 id="5-3-3-How-to-choose-the-number-of-clusters"><a href="#5-3-3-How-to-choose-the-number-of-clusters" class="headerlink" title="5.3.3 How to choose the number of clusters?"></a>5.3.3 How to choose the number of clusters?</h4><ul>
+<li>Try <strong>different numbers of clusters</strong> in a validation set and look at performance.</li>
+<li>We can <strong>plot the objective function values</strong> for k equals 1 to 6…</li>
+<li>The <strong>abrupt change</strong> at k = 2, is highly suggestive of two clustersin the data. This technique for determining the number of clusters is known as <strong>“knee finding or “elbow finding</strong>.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111302545.png" alt="image-20211029111302545" class="lazyload"></p>
+<h3 id="6-Smoothing-Out-Cluster-Assignments"><a href="#6-Smoothing-Out-Cluster-Assignments" class="headerlink" title="6. Smoothing Out Cluster Assignments"></a>6. Smoothing Out Cluster Assignments</h3><ul>
+<li>聚类目标内部不连续</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111358316.png" alt="image-20211029111358316" class="lazyload"></p>
+<ul>
+<li>引入空间坐标的信息</li>
+<li>K-means clustering based on <strong>intensity</strong> or <strong>color</strong> is essentially vector quantization（量化） of the image attributes<ul>
+<li>基于<strong>强度</strong>或<strong>颜色</strong>的K均值聚类本质上是矢量量化(量化） 图像属性的分类</li>
+</ul>
+</li>
+<li>Clusters don’t have to <strong>be spatially coherent</strong> （空间相关性）</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111452510.png" alt="image-20211029111452510" class="lazyload"></p>
+<h3 id="6-1-Spatial-Coherence"><a href="#6-1-Spatial-Coherence" class="headerlink" title="6.1 Spatial Coherence"></a>6.1 Spatial Coherence</h3><ul>
+<li>Way to <strong>encode both similarity and proximity.</strong></li>
+<li>实际上就是在原本三维向量的基础上，多加两维空间信息</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029121629632.png" alt="image-20211029121629632" class="lazyload"></p>
+<h2 id="7-Mean-Shift-Segmentation"><a href="#7-Mean-Shift-Segmentation" class="headerlink" title="7. Mean-Shift Segmentation"></a>7. Mean-Shift Segmentation</h2><ul>
+<li>An advanced and versatile technique for clustering-based segmentation</li>
+</ul>
+<h3 id="7-1-Algorithm-找到区域空间密度的极大值"><a href="#7-1-Algorithm-找到区域空间密度的极大值" class="headerlink" title="7.1 Algorithm 找到区域空间密度的极大值"></a>7.1 Algorithm 找到区域空间密度的极大值</h3><ul>
+<li>随机初始化一个圆，然后找到点的重心，再以该重心为中心做圆，从而达到漂移的效果</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029111938306.png" alt="image-20211029111938306" class="lazyload"></p>
+<ul>
+<li><p>在一个 n 维空间内，存在一个点 x，以该点为球心，以 h 为半径，生成一个球 $S_h$，计算球心到球内所有点生成的向量的均值，显然这个均值也是一个向量，这个向量就是 mean shift 向量</p>
+</li>
+<li><p>公式如下:</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+M_{h}(x)=\frac{1}{k} \sum_{x_{i} \in S_{h}}\left(x_{i}-x\right)</script><ul>
+<li>可以这么理解以上公式，我们定义了一个叫mean-shift的东西，它用于计算漂移距离</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030205616816.png" alt="image-20211030205616816" class="lazyload"></p>
+<h3 id="7-2-shift-point"><a href="#7-2-shift-point" class="headerlink" title="7.2 shift point"></a>7.2 shift point</h3><ul>
+<li>我给起个名字，叫 偏移点；</li>
+<li>注意，几乎没有资料专门提到这个概念，我为什么要讲呢？因为我们需要把 shift point 和 mean shift 区分开，这俩可不是一回事；</li>
+<li>而在我们写算法时，需要的是 shift point，而不是 mean shift</li>
+</ul>
+<script type="math/tex; mode=display">
+\hat{M}_n(X)=\frac{1}{k}(x_i),\text{shift point}</script><p><img src='https://img2020.cnblogs.com/blog/1603920/202109/1603920-20210901165752904-158413828.png'></p>
+<h3 id="7-3-基本思想"><a href="#7-3-基本思想" class="headerlink" title="7.3 基本思想"></a>7.3 基本思想</h3><ul>
+<li><p>对于 样本中的每一个点 $x$，做如下操作</p>
+</li>
+<li><p>以 x 为起点，计算他的 $\text{shift point } x’$​，然后把 该点 “移动” 到 x’.【注意不是真的移动点，而是把 x 标记成 x’】</p>
+</li>
+<li><p>以 $x’ $为新起点，计算他的 shift point</p>
+</li>
+<li><p>重复 前两步，直至 前后两次 的 mean shift 向量满足条件，如 距离很近【这一步才用到 mean shift，也就是 前后两个 shift point 相减得到 向量，再计算向量的模】</p>
+</li>
+<li><p>把 $x$ 标记为 最终的 shift point，即为对应的类</p>
+</li>
+<li><p>遍历计算所有点</p>
+</li>
+</ul>
+<p>过程大致如下图：</p>
+<p><img src='https://img2020.cnblogs.com/blog/1603920/202107/1603920-20210708092558439-1346957446.png'></p>
+<ul>
+<li><p>从上图可以看到，mean shift 向量指向了更密集的区域，也就是说 mean shift 算法是在寻找 最密集 的区域，作为最后的类别</p>
+</li>
+<li><p><strong>存在问题</strong></p>
+<ul>
+<li>在计算 mean shift 向量时，圆圈内所有点的贡献是一样的 即1/k，而实际上离圆心越远可能贡献越小，</li>
+<li>为此 mean shift 算法引入核函数来表达这种贡献，代替 1/k</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-4-引入核函数"><a href="#7-4-引入核函数" class="headerlink" title="7.4 引入核函数"></a>7.4 引入核函数</h3><ul>
+<li>此处以 高斯核函数 为例</li>
+</ul>
+<script type="math/tex; mode=display">
+N(x)=\frac{1}{\sqrt{2 \pi} h} e^{-\frac{x^{2}}{2 h^{2}}}</script><ul>
+<li>其中 h 代表核函数的带宽(bandwidth)【这个 h 和 高斯分布 里的 标准差σ 类似，但它不是 标准差，而是 人工指定的，但是起到的作用和 标准差一样】</li>
+<li>h 越小，衰减为 0 的速度就越快，也就是说 mean shift 向量对应的球 Sh 越小，稍微远点就没有贡献了；</li>
+<li>于是，引入 核函数 的 mean shift 向量变成如下样子，此时的 Sh <strong>可以</strong>为整个数据集（原因为上句）</li>
+</ul>
+<script type="math/tex; mode=display">
+M_{h}(x)=\frac{\sum_{i=1}^{n} G\left(\frac{x_{i}-x}{h_{i}}\right)\left(x_{i}-x\right)}{\sum_{i=1}^{n} G\left(\frac{x_{i}-x}{h_{i}}\right)}</script><ul>
+<li>代码见：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yanshw/p/14931658.html">Mean shift 【1】- 基本原理 - 努力的孔子 - 博客园 (cnblogs.com)</a></li>
+</ul>
+<h4 id="证明："><a href="#证明：" class="headerlink" title="证明："></a>证明：</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213252763.png" alt="image-20211030213252763" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213305656.png" alt="image-20211030213305656" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213321567.png" alt="image-20211030213321567" class="lazyload"></p>
+<h3 id="7-4-如何聚类"><a href="#7-4-如何聚类" class="headerlink" title="7.4 如何聚类"></a>7.4 如何聚类</h3><ul>
+<li>Cluster: all data points in the attraction basin of amode<ul>
+<li>模式吸引区中的所有数据点</li>
+</ul>
+</li>
+<li>Attraction basin (吸引池): the region for which all trajectories（轨迹） lead to the same mode<ul>
+<li>对于指定一片区域，该区域中所有点最终会漂移到同一个点，这个区域被称为吸引区</li>
+<li>遍历所有数据点，最后数据点最终漂移到哪一个中心，那么最后就是属于哪一个类</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029112015725.png" alt="image-20211029112015725" class="lazyload"></p>
+<h3 id="7-5-如何在数字图像上应用？"><a href="#7-5-如何在数字图像上应用？" class="headerlink" title="7.5 如何在数字图像上应用？"></a>7.5 如何在数字图像上应用？</h3><ul>
+<li>Find <strong>features</strong> (color, gradients, texture, etc)</li>
+<li><strong>Initialize</strong> <strong>windows</strong> at individual pixel locations 在各个像素位置初始化window</li>
+<li><strong>Perform mean shift</strong> for each window <strong>until convergence</strong> </li>
+<li><strong>Merge windows</strong> that end up near the same “peak” or mode 合并峰值点<ul>
+<li>可以理解为，虽然一开始生成了很多window，但是最终对于峰值接近的重心点，我们可以进行合并</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029112129045.png" alt="image-20211029112129045" class="lazyload"></p>
+<h3 id="7-6-speedups"><a href="#7-6-speedups" class="headerlink" title="7.6 speedups"></a>7.6 speedups</h3><ul>
+<li>遍历所有点，速度太慢</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029112323106.png" alt="image-20211029112323106" class="lazyload"></p>
+<ul>
+<li>我们可以定义对于圆内r/c部分的点和中心点都会最终漂移到同一个点，那么这部分点就不用再遍历</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211030213349936.png" alt="image-20211030213349936" class="lazyload"></p>
+<ul>
+<li>一开始初始化多个圆，然后依次进行漂移，从而实现聚类</li>
+</ul>
+<h3 id="7-7-Summary-Mean-Shift"><a href="#7-7-Summary-Mean-Shift" class="headerlink" title="7.7 Summary Mean-Shift"></a>7.7 Summary Mean-Shift</h3><ul>
+<li><p>Pros</p>
+<ul>
+<li>General, application-independent tool</li>
+<li><strong>Model-free</strong>, does not assume <strong>any prior shape</strong> (spherical, elliptical, etc.)on data clusters</li>
+<li>Just a <strong>single parameter</strong> (<strong>window size h</strong>)<ul>
+<li>h has a <strong>physical meaning</strong> (unlike k-means)· </li>
+</ul>
+</li>
+<li>Finds variable number of modes</li>
+<li><strong>Robust to outliers</strong></li>
+</ul>
+</li>
+<li><p>Cons</p>
+<ul>
+<li>Output depends on <strong>window size</strong></li>
+<li><strong>Computationally (relatively) expensive</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="8-Graph-based-segmentation"><a href="#8-Graph-based-segmentation" class="headerlink" title="8. Graph-based segmentation"></a>8. Graph-based segmentation</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113157378.png" alt="image-20211029113157378" class="lazyload"></p>
+<h3 id="8-1-Efficient-graph-based-segmentation"><a href="#8-1-Efficient-graph-based-segmentation" class="headerlink" title="8.1 Efficient graph-based segmentation"></a>8.1 Efficient graph-based segmentation</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113313200.png" alt="image-20211029113313200" class="lazyload"></p>
+<ul>
+<li>Runs in time nearly linear <strong>in the number of edges</strong> <ul>
+<li>时间复杂度和边数相关</li>
+</ul>
+</li>
+<li>Easy to control <strong>coarseness</strong>（粗糙度） of segmentations</li>
+<li>Results can be <strong>unstable</strong></li>
+</ul>
+<h3 id="8-2-Segmentation-by-graph-cuts"><a href="#8-2-Segmentation-by-graph-cuts" class="headerlink" title="8.2 Segmentation by graph cuts"></a>8.2 Segmentation by graph cuts</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113412085.png" alt="image-20211029113412085" class="lazyload"></p>
+<ul>
+<li>断掉某些边，把没连通的集合分为两类</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113442543.png" alt="image-20211029113442543" class="lazyload"></p>
+<ul>
+<li>A <strong>graph cut</strong> is a set of edges whose <strong>removal disconnects the graph</strong><ul>
+<li>图割是一个从原图断掉联系的边集，去掉该边集，会使得原图不在连通即不相连</li>
+</ul>
+</li>
+<li><strong>Cost of a cut:</strong> <strong>sum of weights of cut edges</strong><ul>
+<li>即图割中所有边的权值和</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113603085.png" alt="image-20211029113603085" class="lazyload"></p>
+<ul>
+<li>断掉相似度最小的边</li>
+</ul>
+<h3 id="8-3-Measuring-affinity（亲和力）-（定义相似度）"><a href="#8-3-Measuring-affinity（亲和力）-（定义相似度）" class="headerlink" title="8.3 Measuring affinity（亲和力） （定义相似度）"></a>8.3 Measuring affinity（亲和力） （定义相似度）</h3><ul>
+<li>One possibility:<ul>
+<li>特征上的距离差异，与相似度成反比</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+a f f(x, y)=\exp (-\frac{\|x-y\|^{2}}{2 \sigma_{d}^{2}})</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029113934212.png" alt="image-20211029113934212" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114250788.png" alt="image-20211029114250788" class="lazyload"></p>
+<h3 id="8-4-Cuts-in-a-graph-Min-cut-最小割"><a href="#8-4-Cuts-in-a-graph-Min-cut-最小割" class="headerlink" title="8.4 Cuts in a graph: Min cut 最小割"></a>8.4 Cuts in a graph: Min cut 最小割</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114335399.png" alt="image-20211029114335399" class="lazyload"></p>
+<ul>
+<li><strong>Link Cut</strong>: set of links whose <strong>removal makes a graph disconnected</strong></li>
+<li><p><strong>cost of a cut:</strong></p>
+<script type="math/tex; mode=display">
+\operatorname{cut}(A, B)=\sum_{p \in A, q \in B} w_{p, q}</script><p>Find <strong>minimum cut</strong>：</p>
+</li>
+<li><p>gives you a <strong>segmentation</strong></p>
+</li>
+<li>fast algorithms exist for doing this<ul>
+<li>断掉的权重值之和最小</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-5-Problem"><a href="#8-5-Problem" class="headerlink" title="8.5 Problem"></a>8.5 Problem</h3><ul>
+<li>Minimum cut tends to cut off <strong>very small, isolated components</strong><ul>
+<li>容易造成孤立点分割，因为这些点可能和其他点的相似度都很低，所以自然就被切割走了·</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114509220.png" alt="image-20211029114509220" class="lazyload"></p>
+<h3 id="8-6-Cuts-in-a-graph-Normalized-cut"><a href="#8-6-Cuts-in-a-graph-Normalized-cut" class="headerlink" title="8.6 Cuts in a graph: Normalized cut"></a>8.6 Cuts in a graph: Normalized cut</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029114725010.png" alt="image-20211029114725010" class="lazyload"></p>
+<h4 id="Normalized-Cut"><a href="#Normalized-Cut" class="headerlink" title="Normalized Cut"></a>Normalized Cut</h4><ul>
+<li>fix bias of Min Cut by <strong>normalizing for size of segments</strong>:<script type="math/tex; mode=display">
+N \operatorname{cut}(A, B)=\frac{\operatorname{cut}(A, B)}{\operatorname{assoc}(A, V)}+\frac{\operatorname{cut}(A, B)}{\operatorname{assoc}(B, V)}</script></li>
+<li><p>$\operatorname{assoc}(\mathrm{A}, \mathrm{V})=$​ sum of weights of all edges that touch $\mathrm{A}$​</p>
+<ul>
+<li>即除以割开后，分别处以两个图的权重之和，再相加</li>
+<li>这样可以使得，分割后的连个cluster的权重之和尽可能均衡</li>
+</ul>
+</li>
+<li><p>Ncut value <strong>small</strong> when we get <strong>two clusters</strong> <strong>with many edges with high weights</strong>, and few edges of low weight between them</p>
+<ul>
+<li>尽可能使得同一类多边</li>
+</ul>
+</li>
+<li><strong>Approximate solution</strong> for minimizing the Ncut value : <strong>generalized eigenvalue problem.</strong><ul>
+<li>求解方法：广义特征值</li>
+</ul>
+</li>
+</ul>
+<h3 id="8-7-Normalized-cuts-Pro-and-con"><a href="#8-7-Normalized-cuts-Pro-and-con" class="headerlink" title="8.7 Normalized cuts: Pro and con"></a>8.7 Normalized cuts: Pro and con</h3><h4 id="Pro"><a href="#Pro" class="headerlink" title="Pro"></a>Pro</h4><ul>
+<li><strong>Generic framework</strong>, can be used with many <strong>different features</strong> and affinity formulations</li>
+</ul>
+<h4 id="Con"><a href="#Con" class="headerlink" title="Con"></a>Con</h4><ul>
+<li><strong>High storage</strong> requirement and <strong>time complexity</strong>:<ul>
+<li>involves solving <strong>a generalized eigenvalue problem</strong> of size $n \times n$​, where n is the number of pixels</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-Feature-Space"><a href="#9-Feature-Space" class="headerlink" title="9. Feature Space"></a>9. Feature Space</h2><ul>
+<li>Depending on what we choose as <strong>the feature space</strong>, we can <strong>group pixels in different ways.</strong></li>
+<li><strong>Grouping</strong> pixels based on <strong>color similarity</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115503373.png" alt="image-20211029115503373" class="lazyload"></p>
+<ul>
+<li><strong>color, brightness, position</strong> alone are <strong>not enough to distinguish</strong> all regions…</li>
+</ul>
+<h3 id="9-1-Recall-texture-representation-example"><a href="#9-1-Recall-texture-representation-example" class="headerlink" title="9.1 Recall: texture representation example"></a>9.1 Recall: texture representation example</h3><ul>
+<li>分别计算一个小窗口里水平方向梯度的均值以及垂直方向梯度的均值，作为这个小窗口的特征，再进行聚类</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115629012.png" alt="image-20211029115629012" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115724528.png" alt="image-20211029115724528" class="lazyload"></p>
+<h3 id="9-2-Segmentation-with-texture-features"><a href="#9-2-Segmentation-with-texture-features" class="headerlink" title="9.2 Segmentation with texture features"></a>9.2 Segmentation with texture features</h3><ul>
+<li>Find “textons” （文本） by clustering vectors of filter bank outputs. <ul>
+<li>查找“内容” 通过对滤波器组输出向量进行聚类。</li>
+</ul>
+</li>
+<li>Describe texture in a window <strong>based on texton histogram</strong><ul>
+<li>对于每个小窗口，我们可以得到多个filter在该小窗口的多个值，我们可以以filtter为横坐标建立直方图</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115854118.png" alt="image-20211029115854118" class="lazyload"></p>
+<h3 id="9-3-lmage-segmentation-example"><a href="#9-3-lmage-segmentation-example" class="headerlink" title="9.3 lmage segmentation example"></a>9.3 lmage segmentation example</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029115936729.png" alt="image-20211029115936729" class="lazyload"></p>
+<ul>
+<li>利用多特征融合，实现通过不同特征分割的手段，融合出较好的图像分割结果</li>
+</ul>
+<h3 id="9-4-Segments-as-primitives-for-recognition"><a href="#9-4-Segments-as-primitives-for-recognition" class="headerlink" title="9.4 Segments as primitives for recognition"></a>9.4 Segments as primitives for recognition</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211029120032461.png" alt="image-20211029120032461" class="lazyload"></p>
+<ul>
+<li>一辆车可能方位形状不一样，且经常有遮挡，但我们也要完成这个任务</li>
+</ul>
+<h2 id="10-Summary"><a href="#10-Summary" class="headerlink" title="10. Summary"></a>10. Summary</h2><ul>
+<li><strong>Segmentation</strong> to find object boundaries or mid-level regions,tokens.</li>
+<li><strong>Bottom-up</strong> segmentation via <strong>clustering</strong></li>
+<li>General choices — features, affinity functions, and clustering algorith ms</li>
+<li>Grouping also useful for quantization, can create new featuresummaries</li>
+<li>Texton histograms for texture within local region· </li>
+<li>Example clustering methods<ul>
+<li>K-means</li>
+<li>Mean shift</li>
+<li>Graph cut, normalized cuts</li>
+</ul>
+</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/6.%20Segmentation/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;6.%20Segmentation&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;6.%20Segmentation&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902291997"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

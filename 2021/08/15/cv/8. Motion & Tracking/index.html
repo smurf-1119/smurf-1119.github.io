@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Motion &amp; Tracking - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Motion &amp; Tracking">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Motion &amp; Tracking">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/8.%20Motion%20&%20Tracking/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Motion &amp; Tracking">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118231.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118500.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118527.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118635.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118274.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119000.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119839.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119201.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119794.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119015.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119737.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120368.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120136.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120071.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120993.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120862.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120048.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121359.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121887.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121881.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121457.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121418.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20180909205551998?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMzY4MjQ3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121651.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121184.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121120.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121688.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122024.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122727.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122056.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122207.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122139.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122318.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122320.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122475.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122782.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122606.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122567.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122448.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123665.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123929.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123151.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123720.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123251.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123143.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123779.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123966.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123200.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123455.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123954.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124920.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124823.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124800.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:18:11.027Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118231.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292069">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Motion &amp; Tracking" class="lazyload">
+            <h1>Motion &amp; Tracking</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>5.2k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 28 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Recall-Histograms-of-oriented-gradients-HOG"><span class="toc-number">1.</span> <span class="toc-text">1. Recall: Histograms of oriented gradients (HOG)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Pedestrian-detection-with-HOG"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Pedestrian detection with HOG</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Window-based-detection-strengths"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Window-based detection: strengths</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-High-computational-complexity"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 High computational complexity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Discriminative-part-based-models"><span class="toc-number">2.</span> <span class="toc-text">2. Discriminative part-based models</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Solution"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Solution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Object-proposals"><span class="toc-number">3.</span> <span class="toc-text">3. Object proposals</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Main-idea"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Main idea:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Summary"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Summary</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Motion-and-Tracking"><span class="toc-number">4.</span> <span class="toc-text">4. Motion and Tracking</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-From-images-to-videos"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 From images to videos</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Motion-is-a-powerful-perceptual-cue"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 Motion is a powerful perceptual cue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Uses-of-motion-in-computer-vision"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 Uses of motion in computer vision</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Motion-field"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 Motion field</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-Motion-estimation-Optical-flow"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 Motion estimation: Optical flow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6-Estimating-optical-flow"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 Estimating optical flow</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-1-Key-Assumptions-small-motions"><span class="toc-number">4.6.1.</span> <span class="toc-text">4.6.1 Key Assumptions: small motions</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-2-Key-Assumptions-spatial-coherence"><span class="toc-number">4.6.2.</span> <span class="toc-text">4.6.2 Key Assumptions: spatial coherence</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-6-3-Key-Assumptions-brightness-Constancy"><span class="toc-number">4.6.3.</span> <span class="toc-text">4.6.3 Key Assumptions: brightness Constancy</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7-The-brightness-constancy-constraint"><span class="toc-number">4.7.</span> <span class="toc-text">4.7 The brightness constancy constraint</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8-The-aperture-problem"><span class="toc-number">4.8.</span> <span class="toc-text">4.8 The aperture problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9-Solving-the-ambiguity"><span class="toc-number">4.9.</span> <span class="toc-text">4.9 Solving the ambiguity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-10-Recall-second-moment-matrix"><span class="toc-number">4.10.</span> <span class="toc-text">4.10 Recall: second moment matrix</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-10-1-Low-texture-region"><span class="toc-number">4.10.1.</span> <span class="toc-text">4.10.1 Low texture region</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-10-2-The-aperture-problem-resolved"><span class="toc-number">4.10.2.</span> <span class="toc-text">4.10.2 The aperture problem resolved</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-11-Errors-in-Lucas-Kanade"><span class="toc-number">4.11.</span> <span class="toc-text">4.11 Errors in Lucas-Kanade</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Revisiting-the-small-motion-assumption"><span class="toc-number">4.12.</span> <span class="toc-text">Revisiting the small motion assumption</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-12-Reduce-the-resolution"><span class="toc-number">4.13.</span> <span class="toc-text">4.12 Reduce the resolution!</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-13-Coarse-to-fine-optical-flow-estimation"><span class="toc-number">4.14.</span> <span class="toc-text">4.13 Coarse-to-fine optical flow estimation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-14-A-point-does-not-move-like-its-neighbors"><span class="toc-number">4.15.</span> <span class="toc-text">4.14 A point does not move like its neighbors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Feature-Tracking"><span class="toc-number">5.</span> <span class="toc-text">5. Feature Tracking</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Single-object-tracking"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 Single object tracking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Multiple-object-tracking"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 Multiple object tracking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Tracking-with-a-fixed-camera"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 Tracking with a fixed camera</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Tracking-with-a-moving-camera"><span class="toc-number">5.4.</span> <span class="toc-text">5.4 Tracking with a moving camera</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-Tracking-with-multiple-cameras"><span class="toc-number">5.5.</span> <span class="toc-text">5.5 Tracking with multiple cameras</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-Challenges-in-Feature-tracking"><span class="toc-number">5.6.</span> <span class="toc-text">5.6 Challenges in Feature tracking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-What-are-good-features-to-track"><span class="toc-number">5.7.</span> <span class="toc-text">5.7 What are good features to track?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-8-Motion-estimation-techniques"><span class="toc-number">5.8.</span> <span class="toc-text">5.8 Motion estimation techniques</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-9-Optical-flow-can-help-track-features"><span class="toc-number">5.9.</span> <span class="toc-text">5.9 Optical flow can help track features</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Shi-Tomasifeature-tracker"><span class="toc-number">6.</span> <span class="toc-text">6. Shi-Tomasifeature tracker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-1-Simple-KLT-tracker"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 Simple KLT tracker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-2-Recall-Challenges-in-Feature-tracking"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 Recall: Challenges in Feature tracking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-3-2D-transformations"><span class="toc-number">6.3.</span> <span class="toc-text">6.3 2D transformations</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-1-Translation"><span class="toc-number">6.3.1.</span> <span class="toc-text">6.3.1 Translation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-2-Similarity-motion"><span class="toc-number">6.3.2.</span> <span class="toc-text">6.3.2 Similarity motion</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-3-3-Affine-motion"><span class="toc-number">6.3.3.</span> <span class="toc-text">6.3.3 Affine motion</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-4-Iterative-KLT-tracker"><span class="toc-number">6.4.</span> <span class="toc-text">6.4 Iterative KLT tracker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-5-Overall-KLT-tracker-algorithm"><span class="toc-number">6.5.</span> <span class="toc-text">6.5 Overall KLT tracker algorithm</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Motion &amp; Tracking</p>
+<span id="more"></span>
+<h2 id="1-Recall-Histograms-of-oriented-gradients-HOG"><a href="#1-Recall-Histograms-of-oriented-gradients-HOG" class="headerlink" title="1. Recall: Histograms of oriented gradients (HOG)"></a>1. Recall: Histograms of oriented gradients (HOG)</h2><ul>
+<li>Partition image into blocks and compute histogram of gradient orientations in each block</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118231.png" alt="image-20211112101107477" class="lazyload"></p>
+<ul>
+<li>对光照不敏感，一定程度上可以容忍一些变化</li>
+</ul>
+<h3 id="1-1-Pedestrian-detection-with-HOG"><a href="#1-1-Pedestrian-detection-with-HOG" class="headerlink" title="1.1 Pedestrian detection with HOG"></a>1.1 Pedestrian detection with HOG</h3><ul>
+<li>Train a pedestrian template using a linear support vector machine</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118500.png" alt="image-20211112160512964" class="lazyload"></p>
+<ul>
+<li>At test time, <strong>convolve feature map with template</strong>(SVM)</li>
+<li>Find local <strong>maxima of response</strong></li>
+<li>For multi-scale detection, <strong>repeat over multiple levels of a HOG pyramid</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118527.png" alt="image-20211112101757736" class="lazyload"></p>
+<h3 id="1-2-Window-based-detection-strengths"><a href="#1-2-Window-based-detection-strengths" class="headerlink" title="1.2 Window-based detection: strengths"></a>1.2 Window-based detection: strengths</h3><ul>
+<li>Sliding window detection and global appearance descriptors: <strong>Simple detection</strong> <ul>
+<li>protocol to implement</li>
+<li>Good feature choices critical</li>
+<li>Past successes for certain classes</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-High-computational-complexity"><a href="#1-3-High-computational-complexity" class="headerlink" title="1.3 High computational complexity"></a>1.3 High computational complexity</h3><ul>
+<li>For example: 250,000 locations x 30 orientations x 4 scales = 30,000,000 evaluations!</li>
+<li><p>If training binary detectors independently, means cost increases linearly with number of classes</p>
+</li>
+<li><p>对于一些方形的框不能有针对进行目标检测，因为物体不一定都是呈矩形分布的</p>
+</li>
+<li><p>Non-rigid, deformable（非刚性的、可变形的物体） objects not captured well with representations assuming a fixed 2d structure; or <strong>must assume fixed viewpoint</strong></p>
+<ul>
+<li>对非刚性形变不具有鲁棒性</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118635.png" alt="image-20211112102029293" class="lazyload"></p>
+<ul>
+<li>If considering windows in isolation, context is lost、<ul>
+<li>丢失上下文信息</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011118274.png" alt="image-20211112102120417" class="lazyload"></p>
+<ul>
+<li>In practice, often entails large, cropped training set (expensive)</li>
+<li>Requiring good match to <strong>a global appearance description</strong> can lead to <strong>sensitivity to partial occlusions</strong><ul>
+<li>需要标记</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119000.png" alt="image-20211112102153812" class="lazyload"></p>
+<h2 id="2-Discriminative-part-based-models"><a href="#2-Discriminative-part-based-models" class="headerlink" title="2. Discriminative part-based models"></a>2. Discriminative part-based models</h2><ul>
+<li><strong>Single rigid template</strong> usually not enough to <strong>represent a category</strong><ul>
+<li>Many objects (e.g. humans) are articulated(铰接式), or <strong>have parts</strong> that can <strong>vary in configuration(结构)</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119839.png" alt="image-20211112102307078" class="lazyload"></p>
+<ul>
+<li>Many object categories look very different from different viewpoints, or from instance to instance<ul>
+<li>不同视角带来的变化</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119201.png" alt="image-20211112102327294" class="lazyload"></p>
+<h3 id="2-1-Solution"><a href="#2-1-Solution" class="headerlink" title="2.1 Solution"></a>2.1 Solution</h3><ul>
+<li>先用全局做响应，再用局部算子做相应</li>
+<li>不管是哪个部分存在，都可以判定为目标检测成功</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119794.png" alt="image-20211112102420082" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119015.png" alt="image-20211112102511133" class="lazyload"></p>
+<ul>
+<li>虽然空间组合发生变化，但是部件仍能检测出来</li>
+</ul>
+<h2 id="3-Object-proposals"><a href="#3-Object-proposals" class="headerlink" title="3. Object proposals"></a>3. Object proposals</h2><h3 id="3-1-Main-idea"><a href="#3-1-Main-idea" class="headerlink" title="3.1 Main idea:"></a>3.1 Main idea:</h3><ul>
+<li>Learn to generate category-independent regions/boxes that <strong>have object-like properties.</strong></li>
+<li>Let object detector <strong>search over “proposals”</strong>, <strong>not exhaustive</strong> sliding windows<ul>
+<li>找有目标的窗口</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011119737.png" alt="image-20211112102650467" class="lazyload"></p>
+<ul>
+<li>多尺度显著性<ul>
+<li>人眼在观测物体时，会有关注点</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120368.png" alt="image-20211112171725348" class="lazyload"></p>
+<ul>
+<li>颜色对比度<ul>
+<li>一般物体检测周围环境的颜色存在明显的变化</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120136.png" alt="image-20211112171741049" class="lazyload"></p>
+<ul>
+<li>边缘密度，一般来说一个物体的边缘是闭合的</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120071.png" alt="image-20211112171935002" class="lazyload"></p>
+<ul>
+<li>超像素跨越性：把相似的像素点聚类在一起叫超像素，一个超像素不应该属于两个类。一个框不可能跨越超像素，否则框内无目标</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120993.png" alt="image-20211112171949130" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120862.png" alt="image-20220201112046906" class="lazyload"></p>
+<ul>
+<li>只需要1000个窗口，就能把目标框出来</li>
+</ul>
+<h3 id="3-2-Summary"><a href="#3-2-Summary" class="headerlink" title="3.2 Summary"></a>3.2 Summary</h3><ul>
+<li>Object recognition as classification task<ul>
+<li>Boosting (face detection ex)</li>
+<li>Support vector machines and HOG (person detection ex)</li>
+<li>Sliding window search paradigm<ul>
+<li>Pros and cons</li>
+<li>Speed up with attentional cascade</li>
+<li>Discriminative part-based models, object proposals</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Motion-and-Tracking"><a href="#4-Motion-and-Tracking" class="headerlink" title="4. Motion and Tracking"></a>4. Motion and Tracking</h2><h3 id="4-1-From-images-to-videos"><a href="#4-1-From-images-to-videos" class="headerlink" title="4.1 From images to videos"></a>4.1 From images to videos</h3><ul>
+<li>A video is a sequence of frames captured over time</li>
+<li>Now our image data is <strong>a function of space (𝑥,𝑦)and time (𝑡)</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011120048.png" alt="image-20211112104251188" class="lazyload"></p>
+<h3 id="4-2-Motion-is-a-powerful-perceptual-cue"><a href="#4-2-Motion-is-a-powerful-perceptual-cue" class="headerlink" title="4.2 Motion is a powerful perceptual cue"></a>4.2 Motion is a powerful perceptual cue</h3><ul>
+<li>Sometimes, it is the only cue<ul>
+<li>每一帧图片具有强相关性，运动可以带来丰富的信息</li>
+<li>下图在运动时可以看到两个圆</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121359.png" alt="image-20211112172531965" class="lazyload"></p>
+<ul>
+<li>Even “impoverished” motion data can evoke a strong percept<ul>
+<li>下图可以看出一个运动的人</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121887.png" alt="image-20211112104543427" class="lazyload"></p>
+<h3 id="4-3-Uses-of-motion-in-computer-vision"><a href="#4-3-Uses-of-motion-in-computer-vision" class="headerlink" title="4.3 Uses of motion in computer vision"></a>4.3 Uses of motion in computer vision</h3><ul>
+<li>3D shape reconstruction<ul>
+<li>多角度拍摄</li>
+</ul>
+</li>
+<li>Object segmentation</li>
+<li>Learning and tracking of dynamical models<ul>
+<li>目标追踪</li>
+</ul>
+</li>
+<li>Event and activity recognition</li>
+</ul>
+<h3 id="4-4-Motion-field"><a href="#4-4-Motion-field" class="headerlink" title="4.4 Motion field"></a>4.4 Motion field</h3><ul>
+<li>motion field is <strong>the projection of the 3D scene motion into the image</strong><ul>
+<li>运动场是<strong>3D场景运动到图像中的投影</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121881.png" alt="image-20211112185523651" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121457.png" alt="image-20211112185537326" class="lazyload"></p>
+<h3 id="4-5-Motion-estimation-Optical-flow"><a href="#4-5-Motion-estimation-Optical-flow" class="headerlink" title="4.5 Motion estimation: Optical flow"></a>4.5 Motion estimation: Optical flow</h3><ul>
+<li><p>Definition: optical flow is the <strong>apparent</strong> motion of brightness patterns in the image</p>
+<ul>
+<li>明显亮度模式的运动</li>
+<li>光流（optical flow）是<strong>空间运动物体</strong>在观察成像平面上的<strong>像素运动的瞬时速度</strong>。</li>
+</ul>
+</li>
+<li><p>Ideally, optical flow would be <strong>the same as the motion field</strong></p>
+</li>
+<li>Have to be careful: apparent motion can be <strong>caused by lighting changes</strong> <strong>without any actual motion</strong><ul>
+<li>Think of a uniform rotating sphere under fixed lighting vs. a stationary sphere under moving illumination</li>
+<li>一种是均匀光照对选装球体的影响</li>
+<li>一种是光照变化，但是物体不动</li>
+</ul>
+</li>
+<li>GOAL:Recover image motion at each pixel from optical flow</li>
+</ul>
+<h3 id="4-6-Estimating-optical-flow"><a href="#4-6-Estimating-optical-flow" class="headerlink" title="4.6 Estimating optical flow"></a>4.6 Estimating optical flow</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121418.png" alt="image-20211112105209683" class="lazyload"></p>
+<ul>
+<li><p>时间很小，位移矢量近似于速度矢量</p>
+</li>
+<li><p>Given two subsequent frames, estimate the <strong>apparent motion field</strong> <strong>u(x,y), v(x,y)</strong> between them</p>
+<ul>
+<li>u,v分别是横向速度和纵向速度</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://img-blog.csdn.net/20180909205551998?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMzY4MjQ3/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="img" class="lazyload"></p>
+<ul>
+<li>Key assumptions<ul>
+<li><strong>Brightness constancy:</strong> projection of the same point looks the same in every frame<ul>
+<li>亮度恒定不变。相同的投影点在不同帧间运动时，其亮度不会发生改变。</li>
+</ul>
+</li>
+<li><strong>Small motion</strong>:points do not move very far<ul>
+<li>时间连续或运动是“小运动”。即时间的变化不会引起目标位置的剧烈变化，相邻帧之间位移要比较小。</li>
+</ul>
+</li>
+<li><strong>Spatial coherence</strong>:points move like their neighbors<ul>
+<li>空间相关性：相邻的点相似</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-6-1-Key-Assumptions-small-motions"><a href="#4-6-1-Key-Assumptions-small-motions" class="headerlink" title="4.6.1 Key Assumptions: small motions"></a>4.6.1 Key Assumptions: small motions</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121651.png" alt="image-20211112105312822" class="lazyload"></p>
+<ul>
+<li>相邻帧，某个区域的像素是逐渐变化的</li>
+</ul>
+<h4 id="4-6-2-Key-Assumptions-spatial-coherence"><a href="#4-6-2-Key-Assumptions-spatial-coherence" class="headerlink" title="4.6.2 Key Assumptions: spatial coherence"></a>4.6.2 Key Assumptions: spatial coherence</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121184.png" alt="image-20211112105346029" class="lazyload"></p>
+<ul>
+<li>空间上的一致性，在小领域上运动趋势是相似的</li>
+</ul>
+<h4 id="4-6-3-Key-Assumptions-brightness-Constancy"><a href="#4-6-3-Key-Assumptions-brightness-Constancy" class="headerlink" title="4.6.3 Key Assumptions: brightness Constancy"></a>4.6.3 Key Assumptions: brightness Constancy</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121120.png" alt="image-20211112105441741" class="lazyload"></p>
+<h3 id="4-7-The-brightness-constancy-constraint"><a href="#4-7-The-brightness-constancy-constraint" class="headerlink" title="4.7 The brightness constancy constraint"></a>4.7 The brightness constancy constraint</h3><ul>
+<li>亮度恒定</li>
+</ul>
+<script type="math/tex; mode=display">
+I(x, y, t-1)=I(x+u(x, y), y+v(x, y), t)</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011121688.png" alt="image-20211112105722858" class="lazyload"></p>
+<ul>
+<li>Brightness Constancy Equation:<script type="math/tex; mode=display">
+I(x, y, t-1)=I(x+u(x, y), y+v(x, y), t)</script></li>
+<li>Linearizing the right side using <strong>Taylor expansion:</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\quad I(x+u, y+v, t) \approx I(x, y, t-1)+I_{x}u(x, y)+I_{y} v(x, y)+I_{t} \\ \\
+&\quad I(x+u, y+v, t)-I(x, y, t-1)=I_{x} \cdot u(x, y)+I_{y} \cdot v(x, y)+I_{t} \\ \\
+&\text { Hence, } \quad I_{x} \cdot u+I_{y} \cdot v+I_{t} \approx 0 \rightarrow \nabla I \cdot[u ,v]^{T}+I_{t}=0
+\end{aligned}</script><ul>
+<li>t方向求导即为：</li>
+</ul>
+<script type="math/tex; mode=display">
+F_t=\left[\begin{array}{cc}
+1 & 1\\
+1 & 1
+\end{array}\right]，\ 
+F_{t-1}=\left[\begin{array}{cc}
+-1 & -1\\
+-1 & -1
+\end{array}\right]</script><ul>
+<li>Can we use this equation to recover image motion (u,v) at each pixel?</li>
+</ul>
+<script type="math/tex; mode=display">
+\nabla I \cdot[u, v]^{T}+I_{t}=0</script><ul>
+<li>增量和梯度方向垂直的话，增量就无影响</li>
+</ul>
+<script type="math/tex; mode=display">
+\nabla I \cdot[u, v]^{T}=0,\text{for any u, v, if }\nabla I \perp [u,v]</script><ul>
+<li><p>How many equations and unknowns per pixel?</p>
+<ul>
+<li>One equation (this is a scalar equation!), <strong>two unknowns (u,v)</strong></li>
+<li>无法求解参数</li>
+</ul>
+</li>
+<li><p>The component of the flow <strong>perpendicular（垂直） to the gradient</strong> (i.e., parallel to the edge) <strong>cannot be measured</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122024.png" alt="image-20211112110314933" class="lazyload"></p>
+<ul>
+<li>会有多个解，与实际运动就会不一致</li>
+</ul>
+<h3 id="4-8-The-aperture-problem"><a href="#4-8-The-aperture-problem" class="headerlink" title="4.8 The aperture problem"></a>4.8 The aperture problem</h3><ul>
+<li>孔径问题指在运动估计（Motion Estimation）中无法通过单个算子【计算某个像素值变化的操作，例如：梯度】准确无误地评估物体的运行轨迹。原因是每一个算子只能处理它所负责局部区域的像素值变化，然而同一种像素值变化可能是由物体的多种运行轨迹导致。</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122727.png" alt="image-20211112110432783" class="lazyload"></p>
+<ul>
+<li>在小孔里看是平行运动，但实际三维运动却不是</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122056.png" alt="image-20211112193313123" class="lazyload"></p>
+<ul>
+<li>三维是旋转，但是二维看起来是向上走</li>
+<li>這就是「<strong>區域</strong>(local)」 和「 <strong>全域</strong> (global)」 視覺處理的差別。我們的視覺系統區域上 (locally) 可以有孔徑問題的錯覺，但是當我們觀察的範圍是全域 (globally)的時候，卻又分析的出來三張紙條不同的移動方向。</li>
+</ul>
+<h3 id="4-9-Solving-the-ambiguity"><a href="#4-9-Solving-the-ambiguity" class="headerlink" title="4.9 Solving the ambiguity"></a>4.9 Solving the ambiguity</h3><ul>
+<li>How to get more equations for a pixel?</li>
+<li><strong>Spatial coherence constraint:</strong><ul>
+<li>Assume the <strong>pixel’s neighbors have the same</strong> (u,v)</li>
+<li>If we <strong>use a 5x5 window</strong>, that gives us <strong>25 equations per pixel</strong></li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gathered}
+0=I_{t}\left(\mathrm{p}_{\mathrm{i}}\right)+\nabla I\left(\mathrm{p}_{\mathrm{i}}\right) \cdot\left[\begin{array}{ll}
+u & v
+\end{array}\right] \\ \\
+{\left[\begin{array}{cc}
+I_{x}\left(\mathrm{p}_{1}\right) & I_{y}\left(\mathrm{p}_{1}\right) \\
+I_{x}\left(\mathrm{p}_{2}\right) & I_{y}\left(\mathrm{p}_{2}\right) \\
+\vdots & \vdots \\
+I_{x}\left(\mathrm{p}_{25}\right) & I_{y}\left(\mathrm{p}_{25}\right)
+
+\end{array}\right]\left[\begin{array}{l}
+u \\
+v
+\end{array}\right]=-\left[\begin{array}{c}
+I_{t}\left(\mathrm{p}_{1}\right) \\
+I_{t}\left(\mathrm{p}_{2}\right) \\
+\vdots \\
+I_{t}\left(\mathrm{p}_{25}\right)
+\end{array}\right]}
+\end{gathered}</script><ul>
+<li><strong>Overconstrained linear system</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\left[\begin{array}{cc}
+I_{x}\left(\mathrm{p}_{1}\right) & I_{y}\left(\mathrm{p}_{1}\right) \\
+I_{x}\left(\mathrm{p}_{2}\right) & I_{y}\left(\mathrm{p}_{2}\right) \\
+\vdots & \vdots \\
+I_{x}\left(\mathrm{p}_{25}\right) & I_{y}\left(\mathrm{p}_{25}\right)
+\end{array}\right]\left[\begin{array}{l}
+u \\
+v
+\end{array}\right]=-\left[\begin{array}{c}
+I_{t}\left(\mathrm{p}_{1}\right) \\
+I_{t}\left(\mathrm{p}_{2}\right) \\
+\vdots \\
+I_{t}\left(\mathrm{p}_{25}\right)
+\end{array}\right] \quad \begin{array}{cc}
+A & d=b \\
+25 \times 2 & 2 \times 1
+\end{array}</script><ul>
+<li>Least squares solution for $d$ given by $\left(A^{T} A\right) d=A^{T} b$</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gathered}
+{\left[\begin{array}{cc}
+\sum I_{x} I_{x} & \sum I_{x} I_{y} \\
+\sum I_{x} I_{y} & \sum I_{y} I_{y}
+\end{array}\right]\left[\begin{array}{l}
+u \\
+v
+\end{array}\right]=-\left[\begin{array}{c}
+\sum I_{x} I_{t} \\
+\sum I_{y} I_{t}
+\end{array}\right]} \\
+A^{T} A
+\end{gathered}</script><ul>
+<li><p>The summations are over all pixels in the $\mathrm{K} \times \mathrm{K}$ window</p>
+</li>
+<li><p>Optimal $(u, v)$ satisfies <strong>Lucas-Kanade equation</strong></p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gathered}
+{\left[\begin{array}{cc}
+\sum I_{x} I_{x} & \sum I_{x} I_{y} \\
+\sum I_{x} I_{y} & \sum I_{y} I_{y}
+\end{array}\right]\left[\begin{array}{l}
+u \\
+v
+\end{array}\right]=-\left[\begin{array}{c}
+\sum I_{x} I_{t} \\
+\sum I_{y} I_{t}
+\end{array}\right]} \\
+A^{T} A
+\end{gathered}</script><ul>
+<li>When is this solvable? I.e., <strong>what are good points to track</strong>?<ul>
+<li>$A^TA$​ should be <strong>invertible</strong><ul>
+<li>不一定可逆</li>
+</ul>
+</li>
+<li>$A^TA$​​ should <strong>not be too small due to noise</strong> <ul>
+<li>eigenvalues $\lambda_{1}$ and $\lambda_{2}$ of $A^{\top} A$​ should not be too small</li>
+<li>如果$A^TA$值很小，如果有噪音，就会造成很大的扰动，所以特征值不能太小</li>
+</ul>
+</li>
+<li>$A^TA$​ should be well-conditioned<ul>
+<li>$\lambda_{1} / \lambda_{2}$​ should <strong>not be too large</strong> $\left(\lambda_{1}=\right.$​ larger eigenvalue $)$​​</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Does this remind you of anything?<ul>
+<li>Criteria for <strong>Harris corner detector</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="4-10-Recall-second-moment-matrix"><a href="#4-10-Recall-second-moment-matrix" class="headerlink" title="4.10 Recall: second moment matrix"></a>4.10 Recall: second moment matrix</h3><ul>
+<li>Estimation of optical flow is <strong>well-conditioned</strong> precisely for regions with high <strong>“cornerness”</strong>:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122207.png" alt="image-20211112111242638" class="lazyload"></p>
+<h4 id="4-10-1-Low-texture-region"><a href="#4-10-1-Low-texture-region" class="headerlink" title="4.10.1 Low texture region"></a>4.10.1 Low texture region</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122139.png" alt="image-20211112111338210" class="lazyload"></p>
+<ul>
+<li>对于平滑区域和边缘都不好检测光流估计</li>
+<li>角点会较为容易检测，因为他的梯度在各个方向都有变化</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122318.png" alt="image-20211112111531761" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122320.png" alt="image-20211112111548776" class="lazyload"></p>
+<h4 id="4-10-2-The-aperture-problem-resolved"><a href="#4-10-2-The-aperture-problem-resolved" class="headerlink" title="4.10.2 The aperture problem resolved"></a>4.10.2 The aperture problem resolved</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122475.png" alt="image-20211112194950828" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122782.png" alt="image-20211112111617281" class="lazyload"></p>
+<ul>
+<li>用找交点的方式，来进行约束</li>
+</ul>
+<h3 id="4-11-Errors-in-Lucas-Kanade"><a href="#4-11-Errors-in-Lucas-Kanade" class="headerlink" title="4.11 Errors in Lucas-Kanade"></a>4.11 Errors in Lucas-Kanade</h3><ul>
+<li>The <strong>motion is large</strong> (larger than a pixel)</li>
+<li>A point does <strong>not move like its neighbors</strong><ul>
+<li>柔性物体的变化</li>
+</ul>
+</li>
+<li>Brightness constancy does not hold</li>
+</ul>
+<h3 id="Revisiting-the-small-motion-assumption"><a href="#Revisiting-the-small-motion-assumption" class="headerlink" title="Revisiting the small motion assumption"></a>Revisiting the small motion assumption</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122606.png" alt="image-20211112111953534" class="lazyload"></p>
+<ul>
+<li>Is this motion small enough?<ul>
+<li>Probably not—it’s much larger than one pixel</li>
+<li>How might we solve this problem?</li>
+</ul>
+</li>
+<li>意思是对于一些比较大的运动怎么进行测量？</li>
+</ul>
+<h3 id="4-12-Reduce-the-resolution"><a href="#4-12-Reduce-the-resolution" class="headerlink" title="4.12 Reduce the resolution!"></a>4.12 Reduce the resolution!</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122567.png" alt="image-20211112112017252" class="lazyload"></p>
+<ul>
+<li>利用下采样，那么原来偏移两个像素的运动，就会变成偏移一个像素，从而提高鲁棒性</li>
+</ul>
+<h3 id="4-13-Coarse-to-fine-optical-flow-estimation"><a href="#4-13-Coarse-to-fine-optical-flow-estimation" class="headerlink" title="4.13 Coarse-to-fine optical flow estimation"></a>4.13 Coarse-to-fine optical flow estimation</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011122448.png" alt="image-20211112112057805" class="lazyload"></p>
+<ul>
+<li>先将图片进行下采样</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123665.png" alt="image-20211112112213427" class="lazyload"></p>
+<ul>
+<li>然后从最低分辨率的图片开始进行光流估计，然后在进行上采样<ul>
+<li>对于低分辨率求得的u,v将作为下一层的初始值</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123929.png" alt="image-20211112112228573" class="lazyload"></p>
+<h3 id="4-14-A-point-does-not-move-like-its-neighbors"><a href="#4-14-A-point-does-not-move-like-its-neighbors" class="headerlink" title="4.14 A point does not move like its neighbors"></a>4.14 A point does not move like its neighbors</h3><ul>
+<li>Motion segmentation</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123151.png" alt="image-20211112112307861" class="lazyload"></p>
+<ul>
+<li>先分块，再用聚类的方法，找真正的方向，把图像分为不同的层，作为整体目标的考虑</li>
+<li>Brightness constancy does not hold<ul>
+<li>Feature matching</li>
+</ul>
+</li>
+<li>先检测关键点，就可以追踪关键点的轨迹</li>
+</ul>
+<h2 id="5-Feature-Tracking"><a href="#5-Feature-Tracking" class="headerlink" title="5. Feature Tracking"></a>5. Feature Tracking</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123720.png" alt="image-20211112113206451" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123251.png" alt="image-20211112113215094" class="lazyload"></p>
+<ul>
+<li>通过找到图像的关键点，然后最终图像关键点，从而形成特征追踪</li>
+</ul>
+<h3 id="5-1-Single-object-tracking"><a href="#5-1-Single-object-tracking" class="headerlink" title="5.1 Single object tracking"></a>5.1 Single object tracking</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123143.png" alt="image-20211112113258446" class="lazyload"></p>
+<ul>
+<li>可以有效的解决遮挡问题</li>
+</ul>
+<h3 id="5-2-Multiple-object-tracking"><a href="#5-2-Multiple-object-tracking" class="headerlink" title="5.2 Multiple object tracking"></a>5.2 Multiple object tracking</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123779.png" alt="image-20211112113414866" class="lazyload"></p>
+<ul>
+<li>可能遇到的问题<ul>
+<li>实体重叠</li>
+<li>实体分开（id不能搞混）</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-Tracking-with-a-fixed-camera"><a href="#5-3-Tracking-with-a-fixed-camera" class="headerlink" title="5.3 Tracking with a fixed camera"></a>5.3 Tracking with a fixed camera</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123966.png" alt="image-20211112113517750" class="lazyload"></p>
+<ul>
+<li>因为用固定的相机拍摄，当人运动时会导致尺度会发生变化</li>
+</ul>
+<h3 id="5-4-Tracking-with-a-moving-camera"><a href="#5-4-Tracking-with-a-moving-camera" class="headerlink" title="5.4 Tracking with a moving camera"></a>5.4 Tracking with a moving camera</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123200.png" alt="image-20211112113604544" class="lazyload"></p>
+<ul>
+<li>运动的相机背景发生变化</li>
+</ul>
+<h3 id="5-5-Tracking-with-multiple-cameras"><a href="#5-5-Tracking-with-multiple-cameras" class="headerlink" title="5.5 Tracking with multiple cameras"></a>5.5 Tracking with multiple cameras</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123455.png" alt="image-20211112113629083" class="lazyload"></p>
+<ul>
+<li>角度变化</li>
+</ul>
+<h3 id="5-6-Challenges-in-Feature-tracking"><a href="#5-6-Challenges-in-Feature-tracking" class="headerlink" title="5.6 Challenges in Feature tracking"></a>5.6 Challenges in Feature tracking</h3><ul>
+<li>Figure out which features can be tracked<ul>
+<li>Efficiently track across frames</li>
+</ul>
+</li>
+<li>Some points may change appearance over time<ul>
+<li>e.g., due to rotation, moving into shadows, etc.</li>
+</ul>
+</li>
+<li>Drift: small errors can accumulate as appearance model is updated<ul>
+<li>两帧有小的误差，小的误差累积成大的误差</li>
+</ul>
+</li>
+<li>Points may appear or disappear.<ul>
+<li>特征点消失与出现</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-7-What-are-good-features-to-track"><a href="#5-7-What-are-good-features-to-track" class="headerlink" title="5.7 What are good features to track?"></a>5.7 What are good features to track?</h3><ul>
+<li>Intuitively, we want to avoid smooth regions and edges. But is there a more is principled way to define good features?</li>
+<li>稳定好计算</li>
+<li>Key idea: “good” features to track are the ones whose motion <strong>can be estimated reliably</strong></li>
+<li>What kinds of image regions can we detect easily and consistently?</li>
+</ul>
+<h3 id="5-8-Motion-estimation-techniques"><a href="#5-8-Motion-estimation-techniques" class="headerlink" title="5.8 Motion estimation techniques"></a>5.8 Motion estimation techniques</h3><ul>
+<li>Optical flow<ul>
+<li>Recover image motion at each pixel from spatio-temporal image <strong>brightness variations</strong> (optical flow)</li>
+</ul>
+</li>
+<li><p>Feature-tracking</p>
+<ul>
+<li>Extract visual features (corners, textured areas) and <strong>“track” them over multiple frames</strong></li>
+</ul>
+</li>
+<li><p>特征跟踪：可以用光流算法来帮助最终跟踪</p>
+</li>
+</ul>
+<h3 id="5-9-Optical-flow-can-help-track-features"><a href="#5-9-Optical-flow-can-help-track-features" class="headerlink" title="5.9 Optical flow can help track features"></a>5.9 Optical flow can help track features</h3><ul>
+<li>Once we have the features we want to track, lucas-kanadeor other <strong>optical flow algorithsmcan help track those features</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011123954.png" alt="image-20211113095002936" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124920.png" alt="image-20211112114119079" class="lazyload"></p>
+<h2 id="6-Shi-Tomasifeature-tracker"><a href="#6-Shi-Tomasifeature-tracker" class="headerlink" title="6. Shi-Tomasifeature tracker"></a>6. Shi-Tomasifeature tracker</h2><h3 id="6-1-Simple-KLT-tracker"><a href="#6-1-Simple-KLT-tracker" class="headerlink" title="6.1 Simple KLT tracker"></a>6.1 Simple KLT tracker</h3><ol>
+<li>Find <strong>a good point to track</strong> (harriscorner)</li>
+<li>For each Harris corner <strong>compute motion</strong> (translation or affine) between consecutive frames.</li>
+<li><strong>Link motion</strong> vectors in successive frames to get a track <strong>for each Harris point</strong></li>
+<li>Introduce <strong>new Harris points</strong> by applying <strong>Harris detector</strong> at every m (10 or 15) frames<ul>
+<li>检查是否有新的好的特征点</li>
+</ul>
+</li>
+<li>Track new and old Harris points using steps 1‐3</li>
+</ol>
+<h3 id="6-2-Recall-Challenges-in-Feature-tracking"><a href="#6-2-Recall-Challenges-in-Feature-tracking" class="headerlink" title="6.2 Recall: Challenges in Feature tracking"></a>6.2 Recall: Challenges in Feature tracking</h3><ul>
+<li>Figure out <strong>which features can be tracked</strong></li>
+<li>Some points may change appearance over time</li>
+<li>Drift: <strong>small errors</strong> can <strong>accumulate</strong> as appearance model is updated<ul>
+<li>所以要找一些比较稳定的特征点作为最终对象</li>
+</ul>
+</li>
+<li><p>Points may appear or disappear.</p>
+<ul>
+<li>Need to be able to <strong>add/delete tracked points</strong></li>
+</ul>
+</li>
+<li><p>Check <strong>consistency of tracks</strong> by affine registration to the first observed instance of the feature</p>
+</li>
+<li>Affine model is more accurate for larger displacements</li>
+</ul>
+<h3 id="6-3-2D-transformations"><a href="#6-3-2D-transformations" class="headerlink" title="6.3 2D transformations"></a>6.3 2D transformations</h3><ul>
+<li>可参考阅读 2D transformation review</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124823.png" alt="image-20211113142726063" class="lazyload"></p>
+<h4 id="6-3-1-Translation"><a href="#6-3-1-Translation" class="headerlink" title="6.3.1 Translation"></a>6.3.1 Translation</h4><ul>
+<li><p>Let the initial feature be located by (x, y).</p>
+</li>
+<li><p>In the next frame, it has translated to (x’, y’).</p>
+</li>
+<li><p>We can write the transformation as:</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+x'=x+b_1\\
+y'=y+b_2
+\end{array}</script><ul>
+<li>We can write this as a matrix transformation using <strong>homogeneous coordinates:</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011124800.png" alt="image-20211113143027956" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{l}
+x^{\prime} \\
+y^{\prime}
+\end{array}\right]=\left[\begin{array}{lll}
+1 & 0 & b_{1} \\
+0 & 1 & b_{2}
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+1
+\end{array}\right]</script><ul>
+<li>Notation:</li>
+</ul>
+<script type="math/tex; mode=display">
+W(\boldsymbol{x} ; \boldsymbol{p})=\left[\begin{array}{lll}
+1 & 0 & b_{1} \\
+0 & 1 & b_{2}
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+1
+\end{array}\right]</script><ul>
+<li>There are only two parameters:</li>
+</ul>
+<script type="math/tex; mode=display">
+\boldsymbol{p}=\left[\begin{array}{l}
+b_{1} \\
+b_{2}
+\end{array}\right]</script><ul>
+<li>The derivative of the transformation w.r.t. $\mathbf{p}$ :</li>
+</ul>
+<script type="math/tex; mode=display">
+\frac{\partial W}{\partial \boldsymbol{p}}(\boldsymbol{x} ; \boldsymbol{p})=\left[\begin{array}{ll}
+1 & 0 \\
+0 & 1
+\end{array}\right]</script><ul>
+<li>This is called the Jacobian.</li>
+</ul>
+<h4 id="6-3-2-Similarity-motion"><a href="#6-3-2-Similarity-motion" class="headerlink" title="6.3.2 Similarity motion"></a>6.3.2 Similarity motion</h4><ul>
+<li>Rigid motion includes scaling + translation.</li>
+<li>We can write the transformations as:</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+x'=ax+b_1\\
+y'=ay+b_2
+\end{array}</script><script type="math/tex; mode=display">
+W(\boldsymbol{x} ; \boldsymbol{p})=\left[\begin{array}{lll}a & 0 & b_{1} \\ 0 & a & b_{2}\end{array}\right]\left[\begin{array}{l}x \\ y \\ 1\end{array}\right]</script><script type="math/tex; mode=display">
+\boldsymbol{p}=\left[\begin{array}{lll}a & \mathrm{~b}_{1} & \mathrm{~b}_{2}\end{array}\right]^{T}</script><script type="math/tex; mode=display">
+\frac{\partial W}{\partial p}(\boldsymbol{x} ; \boldsymbol{p})=\left[\begin{array}{lll}x & 1 & 0 \\ y & 0 & 1\end{array}\right]</script><h4 id="6-3-3-Affine-motion"><a href="#6-3-3-Affine-motion" class="headerlink" title="6.3.3 Affine motion"></a>6.3.3 Affine motion</h4><ul>
+<li>Affine motion includes scaling + rotation + translation.</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&W(\boldsymbol{x} ; \boldsymbol{p})=\left[\begin{array}{lll}
+a_{1} & a_{2} & b_{1} \\
+a_{3} & a_{4} & b_{2}
+\end{array}\right]\left[\begin{array}{l}
+x \\
+y \\
+1
+\end{array}\right] \\ \\
+&\boldsymbol{p}=\left[\begin{array}{llll}
+a_{1} & \mathrm{a}_{2} & \mathrm{~b}_{1} & a_{3} & a_{4} & b_{2}
+\end{array}\right]^{T} \\ \\
+&\frac{\partial W}{\partial p}(\boldsymbol{x} ; \boldsymbol{p})=\left[\begin{array}{llllll}
+x & y & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & x & y & 1
+\end{array}\right]
+\end{aligned}</script><h3 id="6-4-Iterative-KLT-tracker"><a href="#6-4-Iterative-KLT-tracker" class="headerlink" title="6.4 Iterative KLT tracker"></a>6.4 Iterative KLT tracker</h3><ul>
+<li>Given a video sequence, <strong>find all the features</strong> and <strong>track them across the video</strong>.</li>
+<li>First, use Harris corner detection to <strong>find features</strong> and <strong>their location</strong> $\boldsymbol{x}$. For each feature at location $\boldsymbol{x}=\left[\begin{array}{ll}x &amp; y\end{array}\right]^{T}$​</li>
+<li><strong>Choose a descriptor</strong> create an <strong>initial template</strong> for that feature: $T(\boldsymbol{x})$​.</li>
+<li>注意初始帧数会对每个特征计算一个描述符模板，用于比较往后特征描述符和该模板的差距</li>
+<li>Our aim is to find the $\boldsymbol{p}$ that <strong>minimizes the difference</strong> between <strong>the template</strong> $T(\boldsymbol{x})$ and <strong>the description of the new location</strong> of $\boldsymbol{x}$​​​ <strong>after undergoing the transformation</strong>.<ul>
+<li>在特征对应的这样一个小区域，进行最小化变化前后描述符之间的差值</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\sum_{x}[I(W(\boldsymbol{x} ; \boldsymbol{p}))-T(x)]^{2}</script><ul>
+<li><p>For all the features $x$ in the image $I$,</p>
+<ul>
+<li>$I(W(\boldsymbol{x} ; \boldsymbol{p}))$ is the <strong>estimate of where the features move to in the next frame</strong> after the transformation defined by $W(\boldsymbol{x} ; \boldsymbol{p})$. Recall that $\boldsymbol{p}$​ is our vector of parameters.</li>
+<li>Sum is over <strong>an image patch around $\boldsymbol{x}$​</strong>.</li>
+</ul>
+</li>
+<li><p>We will instead break down $\boldsymbol{p}=\boldsymbol{p}_{\mathbf{0}}+\Delta \boldsymbol{p}$</p>
+<ul>
+<li>Large $+$ small $/$ residual motion</li>
+<li>Where $\boldsymbol{p}_{\mathbf{0}}$ is going to be fixed and we will solve for $\Delta \boldsymbol{p}$, which is a small value.</li>
+<li>We can <strong>initialize</strong> $\boldsymbol{p}_{\mathbf{0}}$ <strong>with our best guess</strong> of what the motion is and initialize $\Delta \boldsymbol{p}$​​ <strong>as zero.</strong></li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+& \sum_{x}\left[I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}+\Delta \boldsymbol{p}\right)\right)-T(x)\right]^{2} \\
+\approx & \sum_{x}\left[I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)+\nabla I \frac{\partial W}{\partial \boldsymbol{p}} \Delta \boldsymbol{p}-T(x)\right]^{2}
+\end{aligned}</script><ul>
+<li><p>It’s a good thing we have already calculated what $\frac{\partial W}{\partial p}$ would look like for affine, translations and other transformations!</p>
+</li>
+<li><p>So our aim is to find the $\Delta \boldsymbol{p}$ that minimizes the following:</p>
+<script type="math/tex; mode=display">
+J=\underset{\Delta p}{\operatorname{argmin}} \sum_{x}\left[I\left(W\left(x ; p_{0}\right)\right)+\nabla I \frac{\partial W}{\partial p} \Delta p-T(x)\right]^{2}</script></li>
+<li><p>Where $\nabla I=\left[\begin{array}{ll}I_{x} &amp; I_{y}\end{array}\right]$</p>
+</li>
+<li><p>Differentiate wrt $\Delta \boldsymbol{p}$​ and setting it to zero:</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\frac{\partial J}{\partial \Delta p}=2\sum_{x}\left[\nabla I \frac{\partial W}{\partial p}\right]^{T}\left[I\left(W\left(x ; p_{0}\right)\right)+\nabla I \frac{\partial W}{\partial p} \Delta p-T(x)\right]</script><script type="math/tex; mode=display">
+\sum_{x}\left[\nabla I \frac{\partial W}{\partial p}\right]^{T}\left[I\left(W\left(x ; p_{0}\right)\right)+\nabla I \frac{\partial W}{\partial p} \Delta p-T(x)\right]=0</script><ul>
+<li>Solving for $\Delta \boldsymbol{p}$ in:<script type="math/tex; mode=display">
+\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^{T}\left[I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)+\nabla I \frac{\partial W}{\partial \boldsymbol{p}} \Delta \boldsymbol{p}-T(x)\right]=0</script></li>
+<li>we get:</li>
+</ul>
+<script type="math/tex; mode=display">
+\sum_{x}\left[\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^{T}I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)+\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^T\nabla I \frac{\partial W}{\partial \boldsymbol{p}} \Delta \boldsymbol{p}-\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^TT(x)\right]=0</script><script type="math/tex; mode=display">
+\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^{T}I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)+\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^T\nabla I \frac{\partial W}{\partial \boldsymbol{p}} \Delta \boldsymbol{p}-\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^TT(x)=0</script><script type="math/tex; mode=display">
+\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^T\nabla I \frac{\partial W}{\partial \boldsymbol{p}} \Delta \boldsymbol{p}=\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^T\left[T(x)-I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)\right]</script><script type="math/tex; mode=display">
+\left(\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^T\nabla I \frac{\partial W}{\partial\boldsymbol{p}}\right)  \Delta \boldsymbol{p}=\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^T\left[T(x)-I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)\right]</script><script type="math/tex; mode=display">
+\Delta \boldsymbol{p}=H^{-1} \sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^{T}\left[T(x)-I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)\right]</script><ul>
+<li>where $H=\sum_{x}\left[\nabla I \frac{\partial W}{\partial p}\right]^{T}\left[\nabla I \frac{\partial W}{\partial p}\right]$</li>
+</ul>
+<script type="math/tex; mode=display">
+H=\sum_{x}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]^{T}\left[\nabla I \frac{\partial W}{\partial \boldsymbol{p}}\right]</script><ul>
+<li><strong>H matrix for translation transformations</strong></li>
+</ul>
+<p><strong>Recall that</strong></p>
+<ol>
+<li>$\nabla I=\left[\begin{array}{ll}I_{x} &amp; I_{y}\end{array}\right]$ and</li>
+<li>for translation motion, $\frac{\partial W}{\partial p}(\boldsymbol{x} ; \boldsymbol{p})=\left[\begin{array}{ll}1 &amp; 0 \ 0 &amp; 1\end{array}\right]$<br>Therefore,</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{aligned}
+H&=\sum_{x}\left[
+\left[\begin{array}{ll}
+I_{x} & I_{y}
+\end{array}\right]
+\left[\begin{array}{ll}
+1 & 0 \\
+0 & 1
+\end{array}\right]\right]^{T}\left[\begin{array}{ll}
+I_{x} & I_{y}
+\end{array}\right]\left[\begin{array}{ll}
+1 & 0 \\
+0 & 1
+\end{array}\right] \\
+&={\sum_{x}\left[\begin{array}{ll}
+I_{x}^{2} & I_{x} I_{y} \\
+I_{x} I_{y} & I_{y}^{2}
+\end{array}\right]} \begin{array}{l}
+\text { That's the Harris corner } \\
+\text { detector we learnt in } \\
+\text { class!!! }
+\end{array}
+\end{aligned}</script><ul>
+<li><strong>H matrix for affine transformations</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+H&=\sum_{x}\left[
+\left[\begin{array}{ll}
+I_{x} & I_{y}
+\end{array}\right]
+\left[\begin{array}{llllll}
+x & y & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & x & y & 1
+\end{array}\right]\right]^{T}\left[\begin{array}{ll}
+I_{x} & I_{y}
+\end{array}\right]
+\left[\begin{array}{llllll}
+x & y & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & x & y & 1
+\end{array}\right] \\
+&={\sum_{x}\left[\begin{array}{llllll}
+x & y & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & x & y & 1
+\end{array}\right]^T\left[\begin{array}{ll}
+I_{x}^{2} & I_{x} I_{y} \\
+I_{x} I_{y} & I_{y}^{2}
+\end{array}\right]}\left[\begin{array}{llllll}
+x & y & 1 & 0 & 0 & 0 \\
+0 & 0 & 0 & x & y & 1
+\end{array}\right]\\
+&=\sum_{\mathbf{x}}\left[\begin{array}{cccccc}
+I_{x}^{2} & I_{x} I_{y} & x I_{x}^{2} & y I_{x} I_{y} & x I_{x} I_{y} & y I_{x} I_{y} \\
+I_{x} I_{y} & I_{y}^{2} & x I_{x} I_{y} & y I_{y}^{2} & x I_{y}^{2} & y I_{y}^{2} \\
+x I_{x}^{2} & y I_{x} I_{y} & x^{2} I_{x}^{2} & y^{2} I_{x} I_{y} & x y I_{x} I_{y} & y^{2} I_{x} I_{y} \\
+y I_{x} I_{y} & y I_{y}^{2} & x y I_{x} I_{y} & y^{2} I_{y}^{2} & x y I_{y}^{2} & y^{2} I_{y}^{2} \\
+x I_{x} I_{y} & x I_{y}^{2} & x^{2} I_{x} I_{y} & x y I_{y}^{2} & x^{2} I_{y}^{2} & x y I_{y}^{2} \\
+y I_{x} I_{y} & y I_{y}^{2} & x y I_{x} I_{y} & y^{2} I_{y}^{2} & x y I_{y}^{2} & y^{2} I_{y}^{2}
+\end{array}\right]
+\end{aligned}</script><h3 id="6-5-Overall-KLT-tracker-algorithm"><a href="#6-5-Overall-KLT-tracker-algorithm" class="headerlink" title="6.5 Overall KLT tracker algorithm"></a>6.5 Overall KLT tracker algorithm</h3><ul>
+<li>Given the features from Harris detector:<ul>
+<li>这里应该指的是得到特征的坐标信息以及特征信息</li>
+<li>对于追踪而言可以直接用光流法最终特征，但光流法是有误差的</li>
+<li>因为存在噪声，所以需要去比较10帧前后的特征变化，一般来讲经过2D变换后仍能找到特征</li>
+<li>存在一种情况，也就是该特征已经消失，则此时一定找不到一种合适小运动，使得特征进行有效的变换</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>Initialize $\boldsymbol{p}_{\mathbf{0}}$ and $\Delta \boldsymbol{p}$.</li>
+<li>Compute the <strong>initial templates</strong> $T(x)$ for each feature.</li>
+<li>Transform the features in the image $I$ with $W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)$.</li>
+<li>Measure the error: $I\left(W\left(\boldsymbol{x} ; \boldsymbol{p}_{\mathbf{0}}\right)\right)-T(x)$.</li>
+<li>Compute the image gradients $\nabla I=\left[\begin{array}{ll}I_{x} &amp; I_{y}\end{array}\right]$.</li>
+<li>Evaluate the Jacobian $\frac{\partial W}{\partial p}$.</li>
+<li>Compute steepest descent $\nabla I \frac{\partial W}{\partial p}$.</li>
+<li>Compute Inverse Hessian $H^{-1}$</li>
+<li>Calculate the change in parameters $\Delta \boldsymbol{p}$</li>
+<li>Update parameters $\boldsymbol{p}_{\mathbf{0}}=\boldsymbol{p}_{\mathbf{0}}+\Delta \boldsymbol{p}$</li>
+<li>Repeat 2 to 10 until $\Delta \boldsymbol{p}$ is small.</li>
+</ol>
+<ul>
+<li><p>$\Delta \boldsymbol{p}$如果一直很大，则把该特征删去</p>
+</li>
+<li><p>总的来说，该算法是为了持续监视特征的一个算法，每隔10帧左右进行依次运算，当该运算指的是在给定两张图片，给定了一开始计算的特征模板，然后每隔10fp做一次判别，从当前帧的前第十帧的某一个特征点进行2D变换到当前帧就可以得到当前帧的小区域描述符，通过最小化两者的rms，找到符合的小$\Delta p$说明该特征完好，否则该特征可能已经消失，则不再对该特征进行追踪</p>
+</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/8.%20Motion%20&%20Tracking/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;8.%20Motion%20&amp;%20Tracking&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;8.%20Motion%20&amp;%20Tracking&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292072"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>semi-supervised learning - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="semi-supervised learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="semi-supervised learning">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/12.%20semi-supervised%20learning/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="semi-supervised learning">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223731.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223968.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223308.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223669.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223188.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223768.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223945.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224347.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224133.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224461.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224711.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224015.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211210102924267.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224956.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224455.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224361.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224633.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224014.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224573.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224881.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224728.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224094.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224385.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224763.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224286.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224768.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225286.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225354.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225298.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225004.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225537.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225416.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225745.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225518.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225351.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225291.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225103.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225243.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211210110041712.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225675.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225247.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225232.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225159.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225701.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225517.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226163.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226477.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226850.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226113.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226047.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226701.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211210112321616.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226614.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226686.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232819.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232264.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232736.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232097.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233888.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233473.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233696.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233867.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233255.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233589.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233470.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233148.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233388.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233966.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233884.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233907.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233058.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234164.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234191.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234813.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234508.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234287.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:34:17.655Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223731.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902291982">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="semi-supervised learning" class="lazyload">
+            <h1>semi-supervised learning</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>1.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 10 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-What-is-semi-supervised-learning"><span class="toc-number">1.</span> <span class="toc-text">1. What is semi-supervised learning?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Why-semi-supervised-learning-helps"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Why semi-supervised learning helps?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Low-density-Separation-Assumption"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Low-density Separation Assumption</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Entropy-based-Regularization"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 Entropy-based Regularization</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Smoothness-Assumption"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 Smoothness Assumption</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-Graph-based-Approach"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 Graph-based Approach</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Unsupervised-Neural-Network"><span class="toc-number">2.</span> <span class="toc-text">2. Unsupervised Neural Network</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Recall-Unsupervised-learning"><span class="toc-number">2.1.</span> <span class="toc-text">2.1  Recall: Unsupervised learning</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Auto-encoder"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Auto-encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Deep-Auto-encoder"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 Deep Auto-encoder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Auto-encoder-%E2%80%93Text-Retrieval"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 Auto-encoder –Text Retrieval</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Auto-encoder-%E2%80%93Similar-Image-Search"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 Auto-encoder –Similar Image Search</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-6-Auto-encoder-for-CNN"><span class="toc-number">2.6.</span> <span class="toc-text">2.6 Auto-encoder for CNN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-7-CNN-Unpooling"><span class="toc-number">2.7.</span> <span class="toc-text">2.7 CNN -Unpooling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-8-CNN-Deconvolution"><span class="toc-number">2.8.</span> <span class="toc-text">2.8 CNN -Deconvolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-9-Why-VAE-Variational-Auto-Encoders"><span class="toc-number">2.9.</span> <span class="toc-text">2.9 Why VAE (Variational Auto-Encoders)?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-10-Pokemon-Creation"><span class="toc-number">2.10.</span> <span class="toc-text">2.10 Pokémon Creation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-11-Problems-of-VAE"><span class="toc-number">2.11.</span> <span class="toc-text">2.11 Problems of VAE</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Generative-Adversarial-Network-GAN"><span class="toc-number">3.</span> <span class="toc-text">3. Generative Adversarial Network (GAN)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Basic-Idea-of-GAN"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Basic Idea of GAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Generative-adversarial-networks"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Generative adversarial networks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Evolution"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 Evolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-The-evolution-of-generation"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 The evolution of generation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-GAN-objective"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 GAN objective</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Training-algorithm-in-practice"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 Training algorithm in practice</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-Original-GAN-results"><span class="toc-number">3.7.</span> <span class="toc-text">3.7 Original GAN results</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-Problems-with-GAN-training"><span class="toc-number">3.8.</span> <span class="toc-text">3.8 Problems with GAN training</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-9-DCGAN"><span class="toc-number">3.9.</span> <span class="toc-text">3.9 DCGAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-10-DCGAN-results"><span class="toc-number">3.10.</span> <span class="toc-text">3.10 DCGAN results</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Conditional-generation"><span class="toc-number">4.</span> <span class="toc-text">4. Conditional generation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-BigGAN"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 BigGAN</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Image-to-image-translation"><span class="toc-number">5.</span> <span class="toc-text">5. Image-to-image translation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Translating-between-maps-and-aerial-photos"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 Translating between maps and aerial photos</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Unpaired-image-to-image-translation"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 Unpaired image-to-image translation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-CycleGAN"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 CycleGAN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-CycleGAN-Limitations"><span class="toc-number">5.4.</span> <span class="toc-text">5.4 CycleGAN: Limitations</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-Multimodal-image-to-image-translation"><span class="toc-number">5.5.</span> <span class="toc-text">5.5 Multimodal image-to-image translation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-5-1-Human-generation-conditioned-on-pose"><span class="toc-number">5.5.1.</span> <span class="toc-text">5.5.1 Human generation conditioned on pose</span></a></li></ol></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>semi-supervised learning</p>
+<span id="more"></span>
+<h2 id="1-What-is-semi-supervised-learning"><a href="#1-What-is-semi-supervised-learning" class="headerlink" title="1. What is semi-supervised learning?"></a>1. What is semi-supervised learning?</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223731.png" alt="image-20211210100412162" class="lazyload"></p>
+<ul>
+<li>Humans learn in semi-supervised way</li>
+</ul>
+<h3 id="1-1-Why-semi-supervised-learning-helps"><a href="#1-1-Why-semi-supervised-learning-helps" class="headerlink" title="1.1 Why semi-supervised learning helps?"></a>1.1 Why semi-supervised learning helps?</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223968.png" alt="image-20211210100909904" class="lazyload"></p>
+<ul>
+<li>The <strong>distribution</strong> of the unlabeled data tell us something.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223308.png" alt="image-20211210100942292" class="lazyload"></p>
+<h3 id="1-2-Low-density-Separation-Assumption"><a href="#1-2-Low-density-Separation-Assumption" class="headerlink" title="1.2 Low-density Separation Assumption"></a>1.2 Low-density Separation Assumption</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223669.png" alt="image-20211210101011787" class="lazyload"></p>
+<ul>
+<li><p>希望分开的类内差距尽量大</p>
+</li>
+<li><p>Given: labelled data set $=\left\{\left(x^{r}, \hat{y}^{r}\right)\right\}_{r=1}^{R}$, unlabeled data set $=\left\{x^{u}\right\}_{u=1}^{U}$</p>
+</li>
+<li>Repeat:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223188.png" alt="image-20211210101306510" class="lazyload"></p>
+<ul>
+<li>Hard label vs Soft label<ul>
+<li>Considering using neural network $𝜃^∗$(network parameter) from labelled data</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223768.png" alt="image-20211210101454065" class="lazyload"></p>
+<ul>
+<li>软标记对训练没有影响，所以应该使用硬标记</li>
+</ul>
+<h3 id="1-3-Entropy-based-Regularization"><a href="#1-3-Entropy-based-Regularization" class="headerlink" title="1.3 Entropy-based Regularization"></a>1.3 Entropy-based Regularization</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011223945.png" alt="image-20211210101842324" class="lazyload"></p>
+<ul>
+<li>我们希望我们的分类是非黑即白的</li>
+<li>可以通过信息熵来判断是否分类成功，对于无标记数据我们希望其分类越集中越好</li>
+</ul>
+<h3 id="1-4-Smoothness-Assumption"><a href="#1-4-Smoothness-Assumption" class="headerlink" title="1.4 Smoothness Assumption"></a>1.4 Smoothness Assumption</h3><ul>
+<li>Assumption: “similar” $x$​ has the same $\hat{y}$​<ul>
+<li>数据相似带来标签相似</li>
+</ul>
+</li>
+<li>More precisely:<ul>
+<li>$\mathrm{x}$ is not uniform.</li>
+<li>If $x^{1}$ and $x^{2}$ are close in a high density region, $\hat{y}^{1}$ and $\hat{y}^{2}$ are the same.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224347.png" alt="image-20211210102237830" class="lazyload"></p>
+<ul>
+<li>Connected by a high density path</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224133.png" alt="image-20211210102337143" class="lazyload"></p>
+<ul>
+<li><p>我们可以在训练数据库中插入多个2，使得可以左边的2可以通向右边的2</p>
+</li>
+<li><p>Classify astronomyvs. travelarticles</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224461.png" alt="image-20211210102620958" class="lazyload"></p>
+<ul>
+<li>可以找到一条连通区域，从而进行分类</li>
+</ul>
+<h3 id="1-5-Graph-based-Approach"><a href="#1-5-Graph-based-Approach" class="headerlink" title="1.5 Graph-based Approach"></a>1.5 Graph-based Approach</h3><ul>
+<li>$\text { How to know } x^{1} \text { and } x^{2} \text { are connected by a high density path? }$</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224711.png" alt="image-20211210102726729" class="lazyload"></p>
+<ul>
+<li><p>Define the similarity $s\left(x^{i}, x^{j}\right)$ between $x^{i}$ and $x^{j}$</p>
+</li>
+<li><p>Add edge:</p>
+<ul>
+<li>K Nearest Neighbor</li>
+<li>e-Neighborhood</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224015.png" alt="image-20211210102920349" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211210102924267.png" alt="image-20211210102924267" class="lazyload"></p>
+<ul>
+<li>Edge weight is proportional to $s\left(x^{i}, x^{j}\right)$ Gaussian Radial Basis Function:</li>
+</ul>
+<script type="math/tex; mode=display">
+s\left(x^{i}, x^{j}\right)=\exp \left(-\gamma\left\|x^{i}-x^{j}\right\|^{2}\right)</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224956.png" alt="image-20211210102943612" class="lazyload"></p>
+<ul>
+<li>The labelled data influence their neighbors. Propagate through the graph<ul>
+<li>图上的标记会随着路径传播</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224455.png" alt="image-20211210103022932" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224361.png" alt="image-20211210103102308" class="lazyload"></p>
+<ul>
+<li>不一定有效</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224633.png" alt="image-20211210103106161" class="lazyload"></p>
+<ul>
+<li>Define the smoothness of the labelson the graph<ul>
+<li>w是特征空间的相似度，S越小越平滑</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224014.png" alt="image-20211210103143848" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224573.png" alt="image-20211210103225622" class="lazyload"></p>
+<ul>
+<li>Define the smoothness of the labels on the graph</li>
+</ul>
+<script type="math/tex; mode=display">
+S=\frac{1}{2} \sum_{i, j} w_{i, j}\left(y^{i}-y^{j}\right)^{2}=y^{T} L y</script><ul>
+<li>$y:(R+U)-\operatorname{dim}$​ vector<ul>
+<li>在标记传播过程中，会先初始化标签，R表示有标签，U表示原来无标签</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+y=\left[\cdots y^{i} \cdots y^{j} \cdots\right]^{T}</script><ul>
+<li>$L:(R+U) \times(R+U)$​​ matrix</li>
+<li>D是行和放于对角线</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224881.png" alt="image-20211210103429450" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224728.png" alt="image-20211210103437375" class="lazyload"></p>
+<ul>
+<li>不同层都可以加如smooth，即传播后会返回每一层的输出以便于计算loss</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224094.png" alt="image-20211210103501154" class="lazyload"></p>
+<h2 id="2-Unsupervised-Neural-Network"><a href="#2-Unsupervised-Neural-Network" class="headerlink" title="2. Unsupervised Neural Network"></a>2. Unsupervised Neural Network</h2><h3 id="2-1-Recall-Unsupervised-learning"><a href="#2-1-Recall-Unsupervised-learning" class="headerlink" title="2.1  Recall: Unsupervised learning"></a>2.1  Recall: Unsupervised learning</h3><p>Data: x<br>Just data, no labels!<br>Goal: Learn some underlying<br>hidden structure of the data<br>Examples: Clustering, dimensionality reduction, density estimation, etc.</p>
+<ul>
+<li>K-means clustering</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224385.png" alt="image-20211210104309326" class="lazyload"></p>
+<h3 id="2-2-Auto-encoder"><a href="#2-2-Auto-encoder" class="headerlink" title="2.2 Auto-encoder"></a>2.2 Auto-encoder</h3><ul>
+<li>希望编码器可以自动凝练特征，编码后又可以恢复</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224763.png" alt="image-20211210104423492" class="lazyload"></p>
+<ul>
+<li>Output of the hidden layer is the code</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224286.png" alt="image-20211210104607869" class="lazyload"></p>
+<h3 id="2-3-Deep-Auto-encoder"><a href="#2-3-Deep-Auto-encoder" class="headerlink" title="2.3 Deep Auto-encoder"></a>2.3 Deep Auto-encoder</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011224768.png" alt="image-20211210104754054" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225286.png" alt="image-20211210104829374" class="lazyload"></p>
+<ul>
+<li>深度网络更具表征更具判别性</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225354.png" alt="image-20211210105000945" class="lazyload"></p>
+<ul>
+<li>De-noising auto-encoder<ul>
+<li>希望有噪音的图像能够恢复为无噪图像，即希望自编码器能够自主去噪</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225298.png" alt="image-20211210105036929" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225004.png" alt="image-20211210105156254" class="lazyload"></p>
+<h3 id="2-4-Auto-encoder-–Text-Retrieval"><a href="#2-4-Auto-encoder-–Text-Retrieval" class="headerlink" title="2.4 Auto-encoder –Text Retrieval"></a>2.4 Auto-encoder –Text Retrieval</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225537.png" alt="image-20211210105259882" class="lazyload"></p>
+<ul>
+<li>The documents talking about the same thing will have close code.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225416.png" alt="image-20211210105420650" class="lazyload"></p>
+<h3 id="2-5-Auto-encoder-–Similar-Image-Search"><a href="#2-5-Auto-encoder-–Similar-Image-Search" class="headerlink" title="2.5 Auto-encoder –Similar Image Search"></a>2.5 Auto-encoder –Similar Image Search</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225745.png" alt="image-20211210105545554" class="lazyload"></p>
+<h3 id="2-6-Auto-encoder-for-CNN"><a href="#2-6-Auto-encoder-for-CNN" class="headerlink" title="2.6 Auto-encoder for CNN"></a>2.6 Auto-encoder for CNN</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225518.png" alt="image-20211210105625444" class="lazyload"></p>
+<h3 id="2-7-CNN-Unpooling"><a href="#2-7-CNN-Unpooling" class="headerlink" title="2.7 CNN -Unpooling"></a>2.7 CNN -Unpooling</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225351.png" alt="image-20211210105714259" class="lazyload"></p>
+<h3 id="2-8-CNN-Deconvolution"><a href="#2-8-CNN-Deconvolution" class="headerlink" title="2.8 CNN -Deconvolution"></a>2.8 CNN -Deconvolution</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225291.png" alt="image-20211210105939710" class="lazyload"></p>
+<ul>
+<li>Greedy Layer-wise Pre-training<ul>
+<li>逐层进行训练，训练完后的参数freeze</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225103.png" alt="image-20211210110004456" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225243.png" alt="image-20211210110034495" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211210110041712.png" alt="image-20211210110041712" class="lazyload"></p>
+<ul>
+<li>最后进行微调</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225675.png" alt="image-20211210110135765" class="lazyload"></p>
+<h3 id="2-9-Why-VAE-Variational-Auto-Encoders"><a href="#2-9-Why-VAE-Variational-Auto-Encoders" class="headerlink" title="2.9 Why VAE (Variational Auto-Encoders)?"></a>2.9 Why VAE (Variational Auto-Encoders)?</h3><ul>
+<li>对编码进行插值能否采样？<ul>
+<li>不会</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225247.png" alt="image-20211210110245646" class="lazyload"></p>
+<ul>
+<li>但我们希望编码能够一定线性插值得到新的图片<ul>
+<li>将确定性的向量变为一个分布，即对编码进行加噪</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225232.png" alt="image-20211210110336087" class="lazyload"></p>
+<ul>
+<li>e为来自高斯分布的采样权值，$\sigma$为标准差</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225159.png" alt="image-20211210110752205" class="lazyload"></p>
+<h3 id="2-10-Pokemon-Creation"><a href="#2-10-Pokemon-Creation" class="headerlink" title="2.10 Pokémon Creation"></a>2.10 Pokémon Creation</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225701.png" alt="image-20211210111103357" class="lazyload"></p>
+<ul>
+<li>垂直方向控制大小，水平方向控制方向</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011225517.png" alt="image-20211210111141895" class="lazyload"></p>
+<h3 id="2-11-Problems-of-VAE"><a href="#2-11-Problems-of-VAE" class="headerlink" title="2.11 Problems of VAE"></a>2.11 Problems of VAE</h3><ul>
+<li>It does not really try to simulate real images</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226163.png" alt="image-20211210111330749" class="lazyload"></p>
+<ul>
+<li>有其重构函数是像素级别的，所以不一定完全相近</li>
+</ul>
+<h2 id="3-Generative-Adversarial-Network-GAN"><a href="#3-Generative-Adversarial-Network-GAN" class="headerlink" title="3. Generative Adversarial Network (GAN)"></a>3. Generative Adversarial Network (GAN)</h2><h3 id="3-1-Basic-Idea-of-GAN"><a href="#3-1-Basic-Idea-of-GAN" class="headerlink" title="3.1 Basic Idea of GAN"></a>3.1 Basic Idea of GAN</h3><ul>
+<li>$\text { The data we want to generate has a distribution } P_{\text {data }}(x)$</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226477.png" alt="image-20211210111657576" class="lazyload"></p>
+<ul>
+<li>A generator G is a network. The network defines a probability distribution.<ul>
+<li>不考虑原始数据的分布</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226850.png" alt="image-20211210111725293" class="lazyload"></p>
+<h3 id="3-2-Generative-adversarial-networks"><a href="#3-2-Generative-adversarial-networks" class="headerlink" title="3.2 Generative adversarial networks"></a>3.2 Generative adversarial networks</h3><ul>
+<li>Train two networks with opposing objectives:<ul>
+<li>Generator:<strong>learns to generate samples</strong></li>
+<li>Discriminator:learns to <strong>distinguish between generated and real samples</strong></li>
+</ul>
+</li>
+<li>两者互相博弈，最后越来越好</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226113.png" alt="image-20211210111921680" class="lazyload"></p>
+<h3 id="3-3-Evolution"><a href="#3-3-Evolution" class="headerlink" title="3.3 Evolution"></a>3.3 Evolution</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226047.png" alt="image-20211210112204048" class="lazyload"></p>
+<ul>
+<li>Generator<ul>
+<li>每一维度都觉了图像某一特征</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226701.png" alt="image-20211210112302058" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211210112321616.png" alt="image-20211210112321616" class="lazyload"></p>
+<ul>
+<li>Discriminator</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226614.png" alt="image-20211210112503642" class="lazyload"></p>
+<h3 id="3-4-The-evolution-of-generation"><a href="#3-4-The-evolution-of-generation" class="headerlink" title="3.4 The evolution of generation"></a>3.4 The evolution of generation</h3><ul>
+<li>固定一个更新另一个，从而迭代更新</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011226686.png" alt="image-20211210113116528" class="lazyload"></p>
+<ul>
+<li>The discriminator $D(x)$ should output the probability that the sample $x$ is real</li>
+<li>That is, we want $D(x)$ to be close to 1 for real data and close to 0 for fake</li>
+<li>Expected conditional log likelihood for real and generated data:<ul>
+<li>对于判别器，我们希望区分出真假</li>
+<li>而生成器则相反，希望他越小越好<script type="math/tex; mode=display">
+V(G, D)=\mathbb{E}_{x \sim p_{\text {data }}} \log D(x)+\mathbb{E}_{z \sim p} \log (1-D(G(z)))</script></li>
+</ul>
+</li>
+<li>We seed the generator with noise $z$ drawn from a simple distribution $p$<br>(Gaussian or uniform)</li>
+</ul>
+<h3 id="3-5-GAN-objective"><a href="#3-5-GAN-objective" class="headerlink" title="3.5 GAN objective"></a>3.5 GAN objective</h3><script type="math/tex; mode=display">
+V(G, D)=\mathbb{E}_{x \sim p_{\text {data }}} \log D(x)+\mathbb{E}_{z \sim p} \log (1-D(G(z)))</script><ul>
+<li>The discriminator wants to correctly distinguish real and fake samples:<script type="math/tex; mode=display">
+D^{*}=\arg \max _{D} V(G, D)</script></li>
+<li>The generator wants to fool the discriminator:<script type="math/tex; mode=display">
+G^{*}=\arg \min _{G} V(G, D)</script></li>
+<li><p>Train the generator and discriminator jointly in a minimax game</p>
+</li>
+<li><p>Update discriminator:</p>
+</li>
+<li>Repeat for $k$ steps:</li>
+<li>Sample mini-batch of noise samples $z_{1}, \ldots, z_{m}$ and mini-batch of real samples $x_{1}, \ldots, x_{m}$</li>
+</ul>
+<h3 id="3-6-Training-algorithm-in-practice"><a href="#3-6-Training-algorithm-in-practice" class="headerlink" title="3.6 Training algorithm in practice"></a>3.6 Training algorithm in practice</h3><ul>
+<li>Update parameters of $D$​ by <strong>stochastic gradient ascent</strong> on<ul>
+<li>Repeat for $k$ steps:<ul>
+<li>Sample mini-batch of noise samples $z_{1}, \ldots, z_{m}$ and mini-batch of real samples $x_{1}, \ldots, x_{m}$</li>
+<li>Update parameters of $D$ by stochastic gradient ascent on<script type="math/tex; mode=display">
+\frac{1}{m} \sum_{m}\left[\log D\left(x_{m}\right)+\log \left(1-D\left(G\left(z_{m}\right)\right)\right)\right]</script></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Update generator:<ul>
+<li>Sample mini-batch of noise samples $z_{1}, \ldots, z_{m}$</li>
+<li>Update parameters of $G$ by stochastic gradient ascent on<script type="math/tex; mode=display">
+\frac{1}{m} \sum_{m} \log D\left(G\left(z_{m}\right)\right)</script></li>
+</ul>
+</li>
+<li><p>Repeat until happy with results</p>
+</li>
+<li><p>Update discriminator: push $D\left(x_{\text {data }}\right)$ close to 1 and $D(G(z))$ close to 0</p>
+<ul>
+<li>The generator is a “black box” to the discriminator</li>
+<li>The generator is exposed to real data only via the output of the discriminator (and its gradients)</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232819.png" alt="image-20211210113852972" class="lazyload"></p>
+<ul>
+<li>Test time –the discriminator is discarded</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232264.png" alt="image-20211210113926463" class="lazyload"></p>
+<h3 id="3-7-Original-GAN-results"><a href="#3-7-Original-GAN-results" class="headerlink" title="3.7 Original GAN results"></a>3.7 Original GAN results</h3><ul>
+<li>原始GAN比较模糊，因为这样能够难以分类</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232736.png" alt="image-20211210114030461" class="lazyload"></p>
+<h3 id="3-8-Problems-with-GAN-training"><a href="#3-8-Problems-with-GAN-training" class="headerlink" title="3.8 Problems with GAN training"></a>3.8 Problems with GAN training</h3><ul>
+<li><p>Stability</p>
+<ul>
+<li>Parameters can oscillate or <strong>diverge</strong>, generator loss does not correlate with sample quality</li>
+<li>Behavior very <strong>sensitive to hyperparameter selection</strong></li>
+</ul>
+</li>
+<li><p>只能模仿几个模式而无法生成实际的多模态</p>
+</li>
+<li><p>Mode collapse</p>
+<ul>
+<li>Generator ends up modeling only a small subset of the training data</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011232097.png" alt="image-20211210114206921" class="lazyload"></p>
+<h3 id="3-9-DCGAN"><a href="#3-9-DCGAN" class="headerlink" title="3.9 DCGAN"></a>3.9 DCGAN</h3><ul>
+<li>Early, influential convolutional architecture for generator<ul>
+<li>使用卷积，且不用池化，即用stride代替</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233888.png" alt="image-20211210114305737" class="lazyload"></p>
+<ul>
+<li>Early, influential convolutional architecture for generator</li>
+<li>Discriminator architecture (empirically determined to give best training stability):<ul>
+<li><strong>Don’t use pooling</strong>, only strided convolutions</li>
+<li>Use <strong>Leaky ReLU</strong> activations (sparse gradients cause problems for training)</li>
+<li>Use only one <strong>FC layer</strong> before the softmax output</li>
+<li><strong>Use batch normalization</strong> after most layers (in the generator also)<ul>
+<li>降低对超参敏感程度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-10-DCGAN-results"><a href="#3-10-DCGAN-results" class="headerlink" title="3.10 DCGAN results"></a>3.10 DCGAN results</h3><ul>
+<li>Interpolation between different points in the z space<ul>
+<li>即是连续的</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233473.png" alt="image-20220201123318837" class="lazyload"></p>
+<ul>
+<li>Vector arithmetic in the z space</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233696.png" alt="image-20211210114630443" class="lazyload"></p>
+<ul>
+<li>Pose transformation by adding a “turn” vector</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233867.png" alt="image-20211210114740203" class="lazyload"></p>
+<h2 id="4-Conditional-generation"><a href="#4-Conditional-generation" class="headerlink" title="4. Conditional generation"></a>4. Conditional generation</h2><ul>
+<li>To condition the generation of samples on discrete side information (label) 𝑦, we need to add 𝑦 as an input to both generator and discriminator<ul>
+<li>加入类的标签，加入限制</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233255.png" alt="image-20211210114953302" class="lazyload"></p>
+<h3 id="4-1-BigGAN"><a href="#4-1-BigGAN" class="headerlink" title="4.1 BigGAN"></a>4.1 BigGAN</h3><ul>
+<li>Class-conditional generation of ImageNet images up to</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233589.png" alt="image-20211210115037569" class="lazyload"></p>
+<ul>
+<li>对Z空间进行截断，防止由于分布带来的模糊，因为只取了一部分作为编码空间，从而提高分辨率</li>
+<li>但也有可能降低保真度，所以需要tradeoff</li>
+</ul>
+<h2 id="5-Image-to-image-translation"><a href="#5-Image-to-image-translation" class="headerlink" title="5. Image-to-image translation"></a>5. Image-to-image translation</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233470.png" alt="image-20211210115403644" class="lazyload"></p>
+<ul>
+<li>Produce modified image $y$ conditioned on input image $x$<br>(note change of notation)<ul>
+<li>Generator receives $x$ as input</li>
+<li>Discriminator receives an $x, y$ pair and has to decide whether it is real or fake</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233148.png" alt="image-20211210115629713" class="lazyload"></p>
+<ul>
+<li>作为一个对照来进行判别，以增加条件<ul>
+<li>即希望鞋的形状一致</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-1-Translating-between-maps-and-aerial-photos"><a href="#5-1-Translating-between-maps-and-aerial-photos" class="headerlink" title="5.1 Translating between maps and aerial photos"></a>5.1 Translating between maps and aerial photos</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233388.png" alt="image-20211210115821902" class="lazyload"></p>
+<ul>
+<li>Day to night</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233966.png" alt="image-20211210120013228" class="lazyload"></p>
+<ul>
+<li>Edges to photos</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233884.png" alt="image-20211210120028070" class="lazyload"></p>
+<h3 id="5-2-Unpaired-image-to-image-translation"><a href="#5-2-Unpaired-image-to-image-translation" class="headerlink" title="5.2 Unpaired image-to-image translation"></a>5.2 Unpaired image-to-image translation</h3><ul>
+<li><p>有时候我们并不能得到成对的样本</p>
+</li>
+<li><p>Given two unordered image collections 𝑋 and 𝑌, learn to “translate” an image from one into the other and vice versa</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233907.png" alt="image-20211210120218174" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011233058.png" alt="image-20211210120245504" class="lazyload"></p>
+<h3 id="5-3-CycleGAN"><a href="#5-3-CycleGAN" class="headerlink" title="5.3 CycleGAN"></a>5.3 CycleGAN</h3><ul>
+<li>Given: domains $X$ and $Y$​<ul>
+<li>就是我们希望X可以变为Y，Y经过反变换后还可以生成Y</li>
+<li>就可以限制Y的形状类似X</li>
+</ul>
+</li>
+<li>Train two generators $F$ and $G$ and two discriminators $D_{X}$ and $D_{Y}$<ul>
+<li>$G$ translates from $X$ to $Y, F$ translates from $Y$ to $X$</li>
+<li>$D_{X}$ recognizes images from $X, D_{Y}$ from $Y$</li>
+<li>Cycle consistency: we want $F(G(x)) \approx x$ and $G(F(y)) \approx y$</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234164.png" alt="image-20211210120508806" class="lazyload"></p>
+<ul>
+<li>Illustration of cycle consistency:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234191.png" alt="image-20211210120758130" class="lazyload"></p>
+<ul>
+<li>Translation between maps and aerial photos</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234813.png" alt="image-20211210120822260" class="lazyload"></p>
+<ul>
+<li>Tasks for which paired data is unavailable</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234508.png" alt="image-20211210120854718" class="lazyload"></p>
+<h3 id="5-4-CycleGAN-Limitations"><a href="#5-4-CycleGAN-Limitations" class="headerlink" title="5.4 CycleGAN: Limitations"></a>5.4 CycleGAN: Limitations</h3><ul>
+<li><p>Cannot handle <strong>shape changes</strong> (e.g., dog to cat)</p>
+</li>
+<li><p>Can <strong>get confused on images outside of the training domains</strong> (e.g., horse with rider)</p>
+<ul>
+<li>不能对训练数据以外的做拟合</li>
+</ul>
+</li>
+<li>Cannot close the gap with paired translation methods</li>
+</ul>
+<h3 id="5-5-Multimodal-image-to-image-translation"><a href="#5-5-Multimodal-image-to-image-translation" class="headerlink" title="5.5 Multimodal image-to-image translation"></a>5.5 Multimodal image-to-image translation</h3><h4 id="5-5-1-Human-generation-conditioned-on-pose"><a href="#5-5-1-Human-generation-conditioned-on-pose" class="headerlink" title="5.5.1 Human generation conditioned on pose"></a>5.5.1 Human generation conditioned on pose</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011234287.png" alt="image-20211210121344553" class="lazyload"></p>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/12.%20semi-supervised%20learning/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;12.%20semi-supervised%20learning&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;12.%20semi-supervised%20learning&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902291984"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

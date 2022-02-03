@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Knowledge Graph Construction from Semi-Structured Data and Unstructured Data - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Knowledge Graph Construction from Semi-Structured Data and Unstructured Data">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Knowledge Graph Construction from Semi-Structured Data and Unstructured Data">
+<meta property="og:url" content="http://example.com/2021/08/15/knowledge%20engineering/11.%20Knowledge%20Graph%20Construction%20from%20Semi-Structured%20Data/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Knowledge Graph Construction from Semi-Structured Data and Unstructured Data">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020002971.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020002928.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003632.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003392.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003585.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003016.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003724.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003737.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003488.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003467.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003817.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003720.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004252.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004705.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004005.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004378.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004287.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004624.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004281.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004377.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004746.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004760.png">
+<meta property="og:image" content="e:/third_year_in_University/knowledge%20engineering/note/img/image-20211201101332874.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020005512.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T16:05:03.397Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020002971.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292014">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Knowledge Graph Construction from Semi-Structured Data and Unstructured Data" class="lazyload">
+            <h1>Knowledge Graph Construction from Semi-Structured Data and Unstructured Data</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 23 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Taxonomy-Induction"><span class="toc-number">1.</span> <span class="toc-text">1. Taxonomy Induction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-The-first-step-Pre-Cleansing"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 The first step - Pre-Cleansing:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-The-second-step-Syntax-based-Method%EF%BC%9A"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 The second step - Syntax-based Method：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-The-third-step-Connectivity-based-Method-%EF%BC%9A"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 The third step - Connectivity-based Method ：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-The-fourth-step-Lexico-Syntactic-based-Method%EF%BC%9A"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 The fourth step - Lexico-Syntactic based Method：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-The-fifth-step-Inference-based-Method%EF%BC%9A"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 The fifth step - Inference based Method：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-Exercise"><span class="toc-number">1.6.</span> <span class="toc-text">1.6 Exercise</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-Summary-KG-construction-from-Semi-Structured-Data"><span class="toc-number">1.7.</span> <span class="toc-text">1.7 Summary: KG construction from Semi-Structured Data</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Knowledge-Graph-Construction-from-Unstructured-Data-Text"><span class="toc-number">2.</span> <span class="toc-text">2. Knowledge Graph Construction from Unstructured Data (Text)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Basic-Tasks"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Basic Tasks</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Two-Specific-Tasks-in-Knowledge-Engineering"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 Two Specific Tasks in Knowledge Engineering</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-General-is-a-Relation-Extraction"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 General is-a Relation Extraction</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-1-problem1"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 problem1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-2-problem2"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 problem2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-Methods-Classification"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 Methods Classification:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-1-Pattern-based-Methods%EF%BC%9AHearst-Patterns"><span class="toc-number">2.4.1.</span> <span class="toc-text">2.4.1 Pattern-based Methods：Hearst Patterns</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Exercise"><span class="toc-number">2.4.1.1.</span> <span class="toc-text">Exercise</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Why-Introducing-Distributional-Methods"><span class="toc-number">2.4.1.2.</span> <span class="toc-text">Why Introducing Distributional Methods?</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4-2-Unsupervised-Distributional-Methods"><span class="toc-number">2.4.2.</span> <span class="toc-text">2.4.2 Unsupervised Distributional Methods</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-5-Supervised-Distributional-Methods"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 Supervised Distributional Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-1-What%E2%80%99s-wrong-with-simple-calculations"><span class="toc-number">2.5.1.</span> <span class="toc-text">2.5.1 What’s wrong with simple calculations?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5-2-Project-learning"><span class="toc-number">2.5.2.</span> <span class="toc-text">2.5.2 Project learning</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Terminology-Term-Extraction"><span class="toc-number">3.</span> <span class="toc-text">3. Terminology&#x2F; Term Extraction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Definition%E2%80%94Framework"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 Definition—Framework</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1-Input-Text"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 Input Text:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-2-Preprocessing"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 Preprocessing</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-3-Filtering"><span class="toc-number">3.1.3.</span> <span class="toc-text">3.1.3 Filtering</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Approaches"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 Approaches</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-Linguistic-based-approaches-%E2%80%94-Chunker"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 Linguistic-based approaches — Chunker</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Step1-Define-patterns-of-NPs"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">Step1: Define patterns of NPs</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Step2-Find-Candidate-Terms-using-Chunker"><span class="toc-number">3.2.1.2.</span> <span class="toc-text">Step2: Find Candidate Terms using Chunker</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-Statistical-based-approaches"><span class="toc-number">3.2.2.</span> <span class="toc-text">3.2.2 Statistical-based approaches</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Exercise%E2%80%94%E2%80%94TF-IDF"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">Exercise——TF-IDF</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Statistical-based-approaches%E2%80%94MI"><span class="toc-number">4.</span> <span class="toc-text">4. Statistical-based approaches—MI</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-PMI"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 PMI</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Exercise%E2%80%94-PMI"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 Exercise— PMI</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Graph-based-methods"><span class="toc-number">5.</span> <span class="toc-text">5. Graph-based methods</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-PageRank-And-TextRank"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 PageRank And TextRank</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-PageRank"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 PageRank</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-PageRank%E2%80%99s-Theory"><span class="toc-number">5.2.1.</span> <span class="toc-text">5.2.1 PageRank’s Theory</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-PageRank%E2%80%99s-Formula"><span class="toc-number">5.2.2.</span> <span class="toc-text">5.2.2 PageRank’s Formula</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-3-Example"><span class="toc-number">5.2.3.</span> <span class="toc-text">5.2.3 Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-4-Extended-formula-of-PageRank"><span class="toc-number">5.2.4.</span> <span class="toc-text">5.2.4 Extended formula of PageRank</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Graph-based-approaches%E2%80%94TextRank"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 Graph-based approaches—TextRank</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-1-TextRank%E2%80%99s-Formula"><span class="toc-number">5.3.1.</span> <span class="toc-text">5.3.1 TextRank’s Formula:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-2-Steps-Of-TextRank"><span class="toc-number">5.3.2.</span> <span class="toc-text">5.3.2 Steps Of TextRank</span></a></li></ol></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Knowledge Graph Construction from Semi-Structured Data and Unstructured Data<br><span id="more"></span></p>
+<h2 id="1-Taxonomy-Induction"><a href="#1-Taxonomy-Induction" class="headerlink" title="1. Taxonomy Induction"></a>1. Taxonomy Induction</h2><ul>
+<li><p>A taxonomy is a directed acyclic graph consisting of <strong>is-a relations</strong> between entities, including <strong>conceptual entities</strong> and <strong>individual entities.</strong></p>
+</li>
+<li><p>example: a part of the taxonomy of Books</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020002971.png" alt="image-20211124095515924" class="lazyload"></p>
+<ul>
+<li><p>Here, Taxonomy induction is to <strong>induce a taxonomy</strong> from <strong>the online encyclopedia.</strong></p>
+</li>
+<li><p>Wikipedia has its own categorization system, but categories <strong>do not form a taxonomy with a fully-fledged subsumption hierarchy</strong>, so it is only a thematically organized thesaurus.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020002928.png" alt="image-20211124095614383" class="lazyload"></p>
+<ul>
+<li>Taxonomy induction from Wikipedia is to <strong>refine</strong> the Wikipedia category system <strong>by removing not-is-a relations.</strong> (WikiTaxonomy)</li>
+</ul>
+<h3 id="1-1-The-first-step-Pre-Cleansing"><a href="#1-1-The-first-step-Pre-Cleansing" class="headerlink" title="1.1 The first step - Pre-Cleansing:"></a>1.1 The first step - Pre-Cleansing:</h3><ul>
+<li><p>Remove the categories used for Wikipedia <strong>administration,</strong> i.e., remove the categories whose labels contain any of the following strings: <strong>wikipedia, wikiprojects, lists, mediawiki, template, user, portal, categories, articles, and pages.</strong></p>
+</li>
+<li><p>Wikipedia organizes many category pairs using patterns: Y X and X by Z (e.g., Miles Davis albums, Albums by artist)</p>
+<ul>
+<li><strong>不是Is-A关系，remove</strong></li>
+</ul>
+</li>
+<li>The relation between these categories is defined as <strong>is-refined-by</strong>, which is to better structure and simplify the categorization system and should be removed.</li>
+</ul>
+<h3 id="1-2-The-second-step-Syntax-based-Method："><a href="#1-2-The-second-step-Syntax-based-Method：" class="headerlink" title="1.2 The second step - Syntax-based Method："></a>1.2 The second step - Syntax-based Method：</h3><ul>
+<li>if a category pair <strong>share the same</strong> <strong>lexical head</strong>, then there exists an is-a relation between these two categories,<ul>
+<li>lexical head 词汇中心词</li>
+<li>e.g., British Computer <strong>Scientists</strong> <strong>is-a</strong> Computer <strong>Scientists</strong></li>
+</ul>
+</li>
+<li>if the <strong>lexical head</strong> of one of the category occurs in <strong>non-head position</strong> in the other category, then a not-is-a relation is labeled between these categories. <ul>
+<li>categories的中心词出现在非中心词的位置，则不是IS-A关系</li>
+<li>e.g., Crime comics not-is-a Crime</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-3-The-third-step-Connectivity-based-Method-："><a href="#1-3-The-third-step-Connectivity-based-Method-：" class="headerlink" title="1.3 The third step - Connectivity-based Method ："></a>1.3 The third step - Connectivity-based Method ：</h3><ol>
+<li>For each category $c$​, we find the article <strong>titled as the category name</strong>, e.g., article Microsoft for category Microsoft;<ul>
+<li>首先对于每个category c，我们可以找到其article</li>
+</ul>
+</li>
+<li><strong>On the found article</strong>, we collect <strong>all categories</strong> whose <strong>lexical heads are plural nouns</strong> $c a S e t=\left\{c a_{1}, c a_{2}, \ldots, c a_{n}\right\} ;$​<ul>
+<li>然后在我们找到的article页面下，收集每个category对应的中心词集合</li>
+</ul>
+</li>
+<li>For each $c$ ‘s super category $s c$ in the category system, we label the relation between $c$ and $s c$ as $i s-a$, if the head lemma of $s c$​ matches the head lemma of <strong>at least one category in caset</strong>.<ul>
+<li>对于c的上级类sc，我们可以从其名称找到他的head lemmma（词根）</li>
+<li>比如Human names的中心词就是names</li>
+<li>然后进行匹配，如果某个sc和c是IS-A关系，则其lexical head 和head lemma是相同的</li>
+</ul>
+</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003632.png" alt="image-20211124095614383" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003392.png" alt="image-20211124100551049" class="lazyload"></p>
+<h3 id="1-4-The-fourth-step-Lexico-Syntactic-based-Method："><a href="#1-4-The-fourth-step-Lexico-Syntactic-based-Method：" class="headerlink" title="1.4 The fourth step - Lexico-Syntactic based Method："></a>1.4 The fourth step - Lexico-Syntactic based Method：</h3><ul>
+<li><strong>lexico-syntactic patterns</strong> are leveraged to identify is-a and not-is-a relations <strong>between categories</strong> from large-scale corpora, e.g., all article in Wikipedia.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003585.png" alt="image-20211124100852055" class="lazyload"></p>
+<h3 id="1-5-The-fifth-step-Inference-based-Method："><a href="#1-5-The-fifth-step-Inference-based-Method：" class="headerlink" title="1.5 The fifth step - Inference based Method："></a>1.5 The fifth step - Inference based Method：</h3><ul>
+<li>propagate the previously found relations based on the properties of <strong>transitivity of the is-a relation.</strong><ul>
+<li>传递性</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003016.png" alt="image-20211124100935192" class="lazyload"></p>
+<h3 id="1-6-Exercise"><a href="#1-6-Exercise" class="headerlink" title="1.6 Exercise"></a>1.6 Exercise</h3><ul>
+<li>Please extract a taxonomy from the following sentence (denote the answer as A is-a B): <ul>
+<li>IBM, AMD, and Intel are High-tech companies using nanotechnology for several years.<ul>
+<li>High-tech company is-a company</li>
+<li>IBM is-a High-tech company</li>
+<li>AMD is-a High-tech company</li>
+<li>Intel is-a High-tech company</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1-7-Summary-KG-construction-from-Semi-Structured-Data"><a href="#1-7-Summary-KG-construction-from-Semi-Structured-Data" class="headerlink" title="1.7 Summary: KG construction from Semi-Structured Data"></a>1.7 Summary: KG construction from Semi-Structured Data</h3><ul>
+<li>Online encyclopedias are <strong>typical semi-structured data</strong> for knowledge graph construction.</li>
+<li>We have introduced techniques on <strong>fact extraction</strong>, <strong>type inference</strong>, and <strong>taxonomy induction</strong>.</li>
+<li>All introduced techniques have already been used to build real-word knowledge graphs, and <strong>shown good effectiveness</strong> and <strong>practicability.</strong></li>
+<li>There is no perfect technique on knowledge graph construction, so we need to study more.</li>
+</ul>
+<h2 id="2-Knowledge-Graph-Construction-from-Unstructured-Data-Text"><a href="#2-Knowledge-Graph-Construction-from-Unstructured-Data-Text" class="headerlink" title="2. Knowledge Graph Construction from Unstructured Data (Text)"></a>2. Knowledge Graph Construction from Unstructured Data (Text)</h2><h3 id="2-1-Basic-Tasks"><a href="#2-1-Basic-Tasks" class="headerlink" title="2.1 Basic Tasks"></a>2.1 Basic Tasks</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003724.png" alt="image-20211124102916056" class="lazyload"></p>
+<ul>
+<li>面向文本的实体链接或者发现新的实体</li>
+<li>关系抽取，已知两个实体看是否有关系/槽填充</li>
+<li>事件抽取</li>
+</ul>
+<h3 id="2-2-Two-Specific-Tasks-in-Knowledge-Engineering"><a href="#2-2-Two-Specific-Tasks-in-Knowledge-Engineering" class="headerlink" title="2.2 Two Specific Tasks in Knowledge Engineering"></a>2.2 Two Specific Tasks in Knowledge Engineering</h3><ul>
+<li>General <strong>IS-A</strong> Relation Extraction <ul>
+<li>(benefit to <strong>build taxonomies</strong>)</li>
+</ul>
+</li>
+<li>Terminology/ Term Extraction <ul>
+<li>术语抽取，利于领域构建知识图谱</li>
+<li>(benefit to <strong>domain-specific knowledge graph</strong> construction)</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-General-is-a-Relation-Extraction"><a href="#2-3-General-is-a-Relation-Extraction" class="headerlink" title="2.3 General is-a Relation Extraction"></a>2.3 General is-a Relation Extraction</h3><h4 id="2-3-1-problem1"><a href="#2-3-1-problem1" class="headerlink" title="2.3.1 problem1"></a>2.3.1 problem1</h4><ul>
+<li><p>The general is-a relation is the semantic relationship between <strong>a more specific word</strong> (i.e., <strong>hyponym下位词</strong>) and the <strong>more general term</strong> (i.e., <strong>hypernym上位词</strong>).</p>
+<ul>
+<li>hyponym e.g., daisy and rose</li>
+<li>hypernym e.g., flower</li>
+</ul>
+</li>
+<li><p><strong>Features of is-a relations:</strong></p>
+<ul>
+<li><strong>Transitivity:</strong> $A$ is-a $B, B$ is-a $C \rightarrow A$ is-a $C$<br>e.g., dog is-a mammal, mammal is-a animal $\rightarrow$ dog is-a anima</li>
+<li><strong>Asymmetry:</strong> $A$​ is-a $B \nrightarrow B$​ is-a $A$​<br>e.g., dog is-a animal $\nrightarrow$​ animal is-a dog</li>
+</ul>
+</li>
+<li><p>Task Description:</p>
+<ul>
+<li>Triple generation: <ul>
+<li><strong>Input: a large scale corpus</strong></li>
+<li>即输入是一大段语料</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003737.png" alt="image-20211124104317101" class="lazyload"></p>
+<ul>
+<li>Output: <strong>triples denoting is-a relations</strong><ul>
+<li>Beijing is-a capital, Beijing is-a city, Tianjin is-a city, Hebei is-a province, Shanghai is-a city</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-3-2-problem2"><a href="#2-3-2-problem2" class="headerlink" title="2.3.2 problem2"></a>2.3.2 problem2</h4><ul>
+<li><strong>Task Description:</strong> <ul>
+<li>IS-A relation prediction: </li>
+<li>Input: <strong>a pair of candidate hyponym and hypernym</strong>, and the corresponding vector representations <ul>
+<li>输入为下位词和上位词组成的pair</li>
+</ul>
+</li>
+<li><strong>Output: true or false</strong><ul>
+<li>e.g., Pair(dog, animal) → true Pair(dog, cat) → false</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-Methods-Classification"><a href="#2-4-Methods-Classification" class="headerlink" title="2.4 Methods Classification:"></a>2.4 Methods Classification:</h3><ul>
+<li><strong>Pattern-based</strong> Methods (task: triple generation)</li>
+<li><strong>Distributional Methods</strong> (task: is-a relation prediction) <ul>
+<li>Unsupervised Distributional Methods </li>
+<li>Supervised Distributional Methods</li>
+</ul>
+</li>
+</ul>
+<h4 id="2-4-1-Pattern-based-Methods：Hearst-Patterns"><a href="#2-4-1-Pattern-based-Methods：Hearst-Patterns" class="headerlink" title="2.4.1 Pattern-based Methods：Hearst Patterns"></a>2.4.1 Pattern-based Methods：Hearst Patterns</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003488.png" alt="image-20211124104823150" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003467.png" alt="image-20211124104949369" class="lazyload"></p>
+<h5 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h5><ul>
+<li><p>Please extract is-a relations from the following sentence with <strong>Hearst Patterns</strong>, and <strong>derive all is-a relations</strong> by <strong>the transitivity of the is-a relation.</strong></p>
+</li>
+<li><p>There are further opportunities on exporting UK red meat to such countries as China, Japan, Korea, and Southeast Asian countries, including Singapore or Vietnam.</p>
+<ul>
+<li>China is-a country</li>
+<li>Japan is-a country</li>
+<li>Korea is-a country</li>
+<li>Southeast Asian country is-a country</li>
+<li>Singapore is-a Southeast Asian country</li>
+<li>Vietnam is-a Southeast Asian country</li>
+<li>Inference:<ul>
+<li>Singapore is-a country</li>
+<li>Vietnam is-a country</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="Why-Introducing-Distributional-Methods"><a href="#Why-Introducing-Distributional-Methods" class="headerlink" title="Why Introducing Distributional Methods?"></a>Why Introducing Distributional Methods?</h5><ul>
+<li>Limitations of Pattern-based Methods: <ul>
+<li>The coverage and generalization are uncertain: <ul>
+<li>无法推广</li>
+<li>The <strong>hyponym and hypernym must appear in a sentence</strong> at the same time.</li>
+<li>召回率低</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Distributional Methods aim to <strong>solve</strong> the problem of <strong>co-occurrence sparsity</strong> between the hyponym and hypernym.</li>
+</ul>
+<h4 id="2-4-2-Unsupervised-Distributional-Methods"><a href="#2-4-2-Unsupervised-Distributional-Methods" class="headerlink" title="2.4.2 Unsupervised Distributional Methods"></a>2.4.2 Unsupervised Distributional Methods</h4><ul>
+<li><p>Distributional Inclusion Hypothesis: </p>
+<ul>
+<li>It assumes that a hyponym only appears in some of its hypernym‘s contexts, but a hypernym appears in all contexts of its hyponyms. </li>
+<li>下位词只出现在一些上位词的contexts里，而上位词出现在下位词所有contexts里</li>
+<li>e.g., the concept <strong>“fruit”</strong> has a broader spectrum of contexts than its hyponyms, such as <strong>”apple“, ”banana“ and “pear”.</strong></li>
+</ul>
+</li>
+<li><p><strong>A Classic Asymmetric Distributional Similarity Measure:</strong> <strong>WeedsPrec.</strong></p>
+<ul>
+<li>一种无监督提取is-a关系的方法</li>
+<li>It captures the features of $u$, which are included in the set of features for a broader term $v$.</li>
+</ul>
+<script type="math/tex; mode=display">
+\operatorname{WeedsPrec}(u \rightarrow v)=\frac{\sum_{f \in F_{u} \cap F_{v}} W_{u}(f)}{\sum_{f \in F_{u}} W_{u}(f)}</script><ul>
+<li><p>For each term $u, v$​​​ is <strong>candidate hypernym;</strong></p>
+<ul>
+<li>$u,v$都是候选上位词</li>
+</ul>
+</li>
+<li><p>$f$ represents a contextual word with which $u$​ co-occurs;</p>
+<ul>
+<li>$f$代表u的context word</li>
+</ul>
+</li>
+<li>$F_{u}$ is a set of $f$<ul>
+<li>$F_u\cap F_v$是$u,v$背景词的交集</li>
+</ul>
+</li>
+<li>$W_{u}(\mathrm{f})$ quantifies the <strong>statistical association</strong> between the $f$ and $u$, such as Point-Wise Mutual Information (i.e., $P M I(u, f))$.</li>
+</ul>
+</li>
+<li><p><strong>Point-Wise Mutual Information:</strong> </p>
+<ul>
+<li>compute the point-wise mutual information <strong>between a word w and a context word c.</strong></li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+P M I(w, c)=\log \frac{p(w, c)}{p(w) p(c)}</script><ul>
+<li><p>$N:$​​​ How many sentences does the corpus contain? </p>
+</li>
+<li><p>$ f(w) \leq N:$ How many sentences contain  $w$ ?</p>
+</li>
+<li><p>$ f(w, c) \leq f(w):$  How many sentences contain $w$ and $c$ ? </p>
+</li>
+<li>$ f(\mathrm{c}) \leq N:$​​ How many sentences contain $c$​​​ ?</li>
+<li>$p(w)=f(w) / N    $</li>
+<li>$p(\mathrm{c})=f(c) / N  $</li>
+<li><p>$p(w, c)=f(w, c) / N$</p>
+</li>
+<li><p>When the correlation between two words $w$​ and $c$​ is strong, $P(w, c)$​ will be much larger than $P(w) \mathrm{P}(c)$​, so $P M I(w, c)$​ is larger.</p>
+</li>
+</ul>
+<h3 id="2-5-Supervised-Distributional-Methods"><a href="#2-5-Supervised-Distributional-Methods" class="headerlink" title="2.5 Supervised Distributional Methods"></a>2.5 Supervised Distributional Methods</h3><ul>
+<li>Represent the term pair $(u, v)$ as a combination of $\boldsymbol{u}$ and $\boldsymbol{v}$ (vector representations)<ul>
+<li>Concat : $u \oplus v$</li>
+<li>Diff: $v-u$</li>
+<li>Sum: $\quad u+v$</li>
+<li>Dot-product: $u \cdot v$</li>
+</ul>
+</li>
+<li><strong>train a binary classifier</strong> over the representation $(\boldsymbol{u}, \boldsymbol{v})$​</li>
+</ul>
+<h4 id="2-5-1-What’s-wrong-with-simple-calculations"><a href="#2-5-1-What’s-wrong-with-simple-calculations" class="headerlink" title="2.5.1 What’s wrong with simple calculations?"></a>2.5.1 What’s wrong with simple calculations?</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003817.png" alt="image-20211124112446025" class="lazyload"></p>
+<ul>
+<li>这种方法可能由于数据集的原因导致并没有学会推理而是记住某个词就是上位词</li>
+</ul>
+<h4 id="2-5-2-Project-learning"><a href="#2-5-2-Project-learning" class="headerlink" title="2.5.2 Project learning"></a>2.5.2 Project learning</h4><ul>
+<li><p>学习如何将下位词映射到上位词的空间，再进行分类</p>
+</li>
+<li><p><strong>Project learning</strong> learns a function to measure <strong>how possible there is an is-a relation between two words.</strong></p>
+</li>
+<li><p><strong>KeyPoint:</strong> A projection tensor $T$ is used to <strong>project the hyponym vector into the hypernym vector.</strong></p>
+<ul>
+<li>​    下位词映射到上位词</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020003720.png" alt="image-20211124113224399" class="lazyload"></p>
+<ul>
+<li><strong>Input:</strong> Given a query $\mathbf{q}$​ and a candidate hypernym $\mathbf{h}$​</li>
+<li><p><strong>Output:</strong> The possibility that pair(q, h) is an is-a relation</p>
+</li>
+<li><p>Step1: look up word embeddings $\mathbf{q}$​ and $\mathbf{h}$​ <strong>through a embedding table</strong></p>
+</li>
+<li>Step2 : <strong>Randomly initialize</strong> the projection vector $\boldsymbol{T}(K \times d \times d)$​</li>
+<li>Step3: <strong>Calculate the similarity vector s:</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+s=q^{T} T_{i} h</script><ul>
+<li>Step4: Map vector $s$ to score $\mathrm{y}, \mathbf{F}$ is generally a <strong>multilayer perceptron :</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\mathrm{y}=\mathrm{F}(s)</script><h2 id="3-Terminology-Term-Extraction"><a href="#3-Terminology-Term-Extraction" class="headerlink" title="3. Terminology/ Term Extraction"></a>3. Terminology/ Term Extraction</h2><ul>
+<li><p>Terminology extraction is associated with some other tasks, such as <strong>NER,keyword extraction</strong>, etc.</p>
+</li>
+<li><p>Different from other tasks, <strong>terminology extraction</strong> is highly related to the domain.</p>
+</li>
+<li>Terminology extraction is th key issue of ontology construction, text summarization, knowledge graphs, etc.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004252.png" alt="image-20211124113902135" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004705.png" alt="image-20211124114103072" class="lazyload"></p>
+<h3 id="3-1-Definition—Framework"><a href="#3-1-Definition—Framework" class="headerlink" title="3.1 Definition—Framework"></a>3.1 Definition—Framework</h3><h4 id="3-1-1-Input-Text"><a href="#3-1-1-Input-Text" class="headerlink" title="3.1.1 Input Text:"></a>3.1.1 Input Text:</h4><ul>
+<li>Eg: He did not try to navigate after the first bold flight, for the reaction had taken something out of his soul.</li>
+</ul>
+<h4 id="3-1-2-Preprocessing"><a href="#3-1-2-Preprocessing" class="headerlink" title="3.1.2 Preprocessing"></a>3.1.2 Preprocessing</h4><ul>
+<li><p><strong>Tokenization:</strong> Tokenization describes <strong>splitting paragraphs into sentences</strong>, or sentences into <strong>individual words</strong>.</p>
+<ul>
+<li>Eg: [‘He’, ‘did’, ‘not’, ‘try’, ‘to’, ‘navigate’, ‘after’, ‘the’, ‘first’, ‘bold’, ‘flight’, ‘,’, ‘for’, ‘the’, ‘reaction’, ‘had’, ‘taken’, ‘something’, ‘out’, ‘of’, ‘his’, ‘soul’, ‘.’]</li>
+</ul>
+</li>
+<li><p><strong>Cleaning(Stopwords):**</strong>A majority of the <strong>words</strong> in a given text are <strong>connecting parts</strong> of a sentence <strong>rather than showing subjects</strong>, <strong>objects or intent.</strong> Word like  ‘the’ or ‘and’ can be removed by comparing text to a list of stopword.</p>
+</li>
+<li>Eg: [‘try’, ‘navigate’, ‘first’, ‘bold’, ‘flight’, ‘reaction’, ‘taken’, ‘something’, ‘soul’, ‘.’]</li>
+<li><strong>POS:</strong> Part of Speech (POS) often requires look at the proceeding and following words and combined with either a rule-based or stochastic method. <ul>
+<li>词性标注</li>
+<li>Eg: [(‘try’, ‘VB’), (‘to’, ‘TO’), (‘navigate’, ‘VB’), (‘first’, ‘JJ’), (‘bold’, ‘JJ’), (‘flight’, ‘NN’), (‘reaction’, ‘NN’), (‘taken’, ‘VBN’), (‘something’, ‘NN’), (‘soul’, ‘NN‘)]</li>
+</ul>
+</li>
+<li><strong>Stemming:</strong>Stemming is a process where words are <strong>reduced to a root</strong> by removing inflection through dropping unnecessary characters, usually a suffix.<ul>
+<li>通过去除后缀找词根</li>
+<li>Eg: The stemmed form of leafs is: leaf</li>
+<li>Eg:The stemmed form of leaves is: leav</li>
+</ul>
+</li>
+<li><strong>Lemmazation:</strong>Lemmazation is an alternative approach from stemming to removing inflection.<ul>
+<li>找词根</li>
+<li>Eg: The lemmatized form of leafs is: leaf</li>
+<li>Eg: The lemmatized form of leaves is: leaf</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-1-3-Filtering"><a href="#3-1-3-Filtering" class="headerlink" title="3.1.3 Filtering"></a>3.1.3 Filtering</h4><ul>
+<li><strong>Filtering:</strong><ul>
+<li><strong>Common Dictionary Filtering</strong> (Filter by common Chinese dictionary)</li>
+<li>去除常用词<ul>
+<li><strong>If Candidate Terms appear in common Chinese dictionary:Delete the Candidate Terms</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Irregular Filtering</strong> (Filter irregular words)</p>
+<ul>
+<li>For each Candidate Terms in <strong>Candidate list</strong>, <strong>Calculate the frequency of strings appearing in the corpus:</strong><br>$\mathrm{A}=$ frequency of Candidate Terms striing<br>$B=$ frequency of Candidate Terms string removing the first character<br>$\mathrm{C}=$ frequency of Candidate Terms string removing the last character Then: score $=$ $\mathrm{A} /(\mathrm{B}+\mathrm{C}-\mathrm{A})$<br>If score $&lt;$​​​ Threshold: Delete the Candidate Terms</li>
+</ul>
+</li>
+<li><p>Example:<br>A = “right of transit passage”<br>B = ”right of transit“                    score = 0.99, keep the Candidate Terms:<br>C = “of transit passage”.             ”right of transit passage“</p>
+</li>
+</ul>
+<h3 id="3-2-Approaches"><a href="#3-2-Approaches" class="headerlink" title="3.2 Approaches"></a>3.2 Approaches</h3><ul>
+<li>Linguistic-based approaches</li>
+<li>Statistical-based approaches</li>
+<li>Graph-based approaches</li>
+</ul>
+<h4 id="3-2-1-Linguistic-based-approaches-—-Chunker"><a href="#3-2-1-Linguistic-based-approaches-—-Chunker" class="headerlink" title="3.2.1 Linguistic-based approaches — Chunker"></a>3.2.1 Linguistic-based approaches — Chunker</h4><ul>
+<li><p><strong>NPs——Noun Phrases:</strong></p>
+<ul>
+<li>NPs: Noun Phrases<ul>
+<li>A type of phrase whose grammatical function is <strong>equivalent to a noun</strong></li>
+</ul>
+</li>
+<li><strong>Noun phrases can name a person, place, thing or idea.</strong></li>
+<li>Examples:<ul>
+<li>I want a skateboard.</li>
+<li>The yellow house is for sale.</li>
+</ul>
+</li>
+<li>Noun phrases can generally serve as subject, object, attributive and other components in a sentence.</li>
+</ul>
+</li>
+<li><p>Theory</p>
+<ul>
+<li>More than 90% of the terms extracted in corpus are Noun Phrases</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004005.png" alt="image-20211124225317975" class="lazyload"></p>
+<ul>
+<li>Toolkit<ul>
+<li>NLTK RegexpParser: Convert regular expressions into syntax trees</li>
+<li>Step1: Define patterns of NPs</li>
+<li>Step2: Find Candidate Terms using Chunker</li>
+<li>Step3: Candidate Terms Filtering</li>
+</ul>
+</li>
+</ul>
+<h5 id="Step1-Define-patterns-of-NPs"><a href="#Step1-Define-patterns-of-NPs" class="headerlink" title="Step1: Define patterns of NPs"></a>Step1: Define patterns of NPs</h5><ul>
+<li>一些模板</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004378.png" alt="image-20211124225408862" class="lazyload"></p>
+<ul>
+<li>{<DT\><WP\><VBP\><em><RB\>\</em><VBN\><IN\><NN\>}</li>
+<li>{<NN|NNS|NNP|NNPS><IN\>*<NN|NNS|NNP|NNPS>+}</li>
+<li>{\<JJ>*<NN|NNS|NNP|NNPS><CC\>*<NN|NNS|NNP|NNPS>+}</li>
+<li>{\<JJ\>*<NN|NNS|NNP|NNPS>+}</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004287.png" alt="image-20211124225618726" class="lazyload"></p>
+<h5 id="Step2-Find-Candidate-Terms-using-Chunker"><a href="#Step2-Find-Candidate-Terms-using-Chunker" class="headerlink" title="Step2: Find Candidate Terms using Chunker"></a>Step2: Find Candidate Terms using Chunker</h5><ul>
+<li>Define NP patterns using methods before<ul>
+<li>NPChunker = <strong>nltk.RegexpParser(patterns)</strong></li>
+</ul>
+</li>
+<li>POS tagging for each sentence<ul>
+<li>tagged_words = [nltk.pos_tag(word) for word in train_dataset]</li>
+</ul>
+</li>
+<li>Using NPChunker to get tree and Candidate Terms<ul>
+<li><strong>tree = NPChunker.parse(tagged_words)</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004624.png" alt="image-20211124225742778" class="lazyload"></p>
+<h4 id="3-2-2-Statistical-based-approaches"><a href="#3-2-2-Statistical-based-approaches" class="headerlink" title="3.2.2 Statistical-based approaches"></a>3.2.2 Statistical-based approaches</h4><ul>
+<li>Theory<ul>
+<li>Candidate terminology with <strong>higher frequency is more likely to be a terminology.</strong></li>
+</ul>
+</li>
+<li>Statistical Feature:<ul>
+<li>Termhood: Measure the relevance between term and domain.<ul>
+<li>TF-IDF</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Unithood: Measure the collocation and adhesion within term.</p>
+<ul>
+<li>MI(Mutual information)</li>
+</ul>
+</li>
+<li><p><strong>Evaluate the importance of a word to a document.</strong></p>
+</li>
+<li>Assuming word with <strong>higher TF</strong> value and <strong>higher IDF</strong> value is <strong>more relevant to domain.</strong><ul>
+<li>TF: Term frequency.</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\mathrm{TF}=\frac{\text { Number of certain word in a document }}{\text { Number of all words in a document }}</script><ul>
+<li>IDF: Inverse document frequency</li>
+</ul>
+<script type="math/tex; mode=display">
+\text{IDF}=\log \left(\frac{\text { Number of all documents in corpu }}{\text { Number of documents containing the certain word }+1}\right)</script><ul>
+<li>Formula<ul>
+<li>TF-IDF value is directly proportional to the number of occurrences of a word in the document and inversely proportional to the number of occurrences of the word in the whole corpus.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004281.png" alt="image-20211124230101741" class="lazyload"></p>
+<h5 id="Exercise——TF-IDF"><a href="#Exercise——TF-IDF" class="headerlink" title="Exercise——TF-IDF"></a>Exercise——TF-IDF</h5><ul>
+<li>Suppose there are 100 words in a document, and the word “cow” appears three times. The word “cow” has appeared in 1,000 documents, and the total number of documents is 10,000,000. What is the TF-IDF score of the word “cow”?</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{TF}=\frac{3}{100}\\
+\text{IDF}=\log \frac{10000000}{1000+1}=3.9996\\
+TF\times IDF=0.119987
+\end{array}</script><ul>
+<li>例：假定《亚洲的网络技术》一文长度为1000个词，“亚洲”、“网络”、“技术”各出现20次，则这三个词的“词频”（TF）都为0.02。 然后，搜索Google发现，包含“的”字的网页共有250亿张（假定这就是中文网页总数），包含“亚洲”的网页共有62.3亿张，包含“网络”的网页为0.484亿张，包含“技术”的网页为0.973亿张。计算“亚洲”、“网络”、“技术”的TF-IDF值.</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{IDF(亚洲)}=\lg\frac{250}{26.3}=0.603\\
+\text{IDF(网络)}=\lg\frac{250}{0.484}=2.713\\
+\text{IDF(技术)}=\lg\frac{250}{0.973}=2.410\\
+\text{TF-IDF(亚洲)}=0.603\times 0.02=0.01206\\
+\text{TF-IDF(网络)}=2.713\times 0.02=0.05426\\
+\text{TF-IDF(技术)}=2.410\times 0.02=0\\
+\end{array}</script><h2 id="4-Statistical-based-approaches—MI"><a href="#4-Statistical-based-approaches—MI" class="headerlink" title="4. Statistical-based approaches—MI"></a>4. Statistical-based approaches—MI</h2><h3 id="4-1-PMI"><a href="#4-1-PMI" class="headerlink" title="4.1 PMI"></a>4.1 PMI</h3><ul>
+<li>A special case of MI. It is used to calculate the degree of association between words in NLP.<ul>
+<li>用于计算两个词的联系程度</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+P M I(x ; y)=\log _{2} \frac{p(x, y)}{p(x) p(y)}=\log _{2} \frac{p(x \mid y)}{p(x)}=\log _{2} \frac{p(y \mid x)}{p(y)}</script><ul>
+<li><p>xy represents $2 \sim \mathrm{n}(\mathrm{n} \geq 2)$ words. For example, when two words are used, $\mathrm{x}$ represents the former word and $\mathrm{y}$ represents the latter word; In three words, $\mathrm{x}$ represents the first (two) words and y represents the last two (one) words; And so on. $-$​ Usually used for double-word terminology.</p>
+<ul>
+<li>xy表示一个组合,xy是内部的词</li>
+</ul>
+</li>
+<li><p>When the correlation between words $x y$ is strong: $P M I&gt;0$, and when it is weak: $P M I \approx 0$</p>
+</li>
+<li><p><strong>A large PMI value</strong> means that the <strong>combination between words is tight</strong>, and the more likely it is to become a <strong>terminology.</strong></p>
+</li>
+</ul>
+<h3 id="4-2-Exercise—-PMI"><a href="#4-2-Exercise—-PMI" class="headerlink" title="4.2 Exercise— PMI"></a>4.2 Exercise— PMI</h3><ul>
+<li>Use the following Co-occurrence Matrix to represent the frequency of simultaneous appearance of two words in text. Calculate the PMI between information and data.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004377.png" alt="image-20211201100006489" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+P(\text{Information,data})=6/19\\
+P(\text{Information})=11/19\\
+P(\text{data})=7/19\\
+PMI(\text{Information}|\text{data})=\log_2\frac{6/19}{(11/19)\times(7/19)}=\log_2\frac{114}{77}
+\end{array}</script><h2 id="5-Graph-based-methods"><a href="#5-Graph-based-methods" class="headerlink" title="5. Graph-based methods"></a>5. Graph-based methods</h2><h3 id="5-1-PageRank-And-TextRank"><a href="#5-1-PageRank-And-TextRank" class="headerlink" title="5.1 PageRank And TextRank"></a>5.1 PageRank And TextRank</h3><ul>
+<li>PageRank:<ul>
+<li>Calculate the importance of webpages based on the link between them.<ul>
+<li>如果这个网页被多次链接，那么这个网页更重要</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TextRank:<ul>
+<li>Regard ‘word’ as ‘webpage’<br>Calculate the importance of words based on the </li>
+<li><strong>co-occurrence between them.</strong></li>
+<li>Turn the directed graph in PageRank into an undirected graph.</li>
+<li>把单词当成网页，算单词的重要性</li>
+</ul>
+</li>
+<li>Feature<ul>
+<li>TextRank can extract terminologies from a single document without relying on other corpora.<ul>
+<li>无需训练，可直接抽取术语</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-2-PageRank"><a href="#5-2-PageRank" class="headerlink" title="5.2 PageRank"></a>5.2 PageRank</h3><h4 id="5-2-1-PageRank’s-Theory"><a href="#5-2-1-PageRank’s-Theory" class="headerlink" title="5.2.1 PageRank’s Theory"></a>5.2.1 PageRank’s Theory</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004746.png" alt="image-20211201101101914" class="lazyload"></p>
+<ul>
+<li>Regard the Internet as a <strong>directed graph</strong>, with webpages as <strong>nodes</strong> in the graph and links between webpages as edges in the graph.</li>
+<li>When a webpage is linked by many other webpages, it means that this webpage is more important, that is, the PR value (PageRank value) of this webpage will be higher.</li>
+<li>If a webpage with a high PR value links to another webpage, the PR value of the linked webpage will increase accordingly.</li>
+<li>简单理解就是互联网是一张巨大的有向图，网页被链接越多那么重要程度越高，并且这种重要程度可以传递给邻居</li>
+</ul>
+<h4 id="5-2-2-PageRank’s-Formula"><a href="#5-2-2-PageRank’s-Formula" class="headerlink" title="5.2.2 PageRank’s Formula"></a>5.2.2 PageRank’s Formula</h4><ul>
+<li>Divide the PR value of a webpage equally according to the total number of its links, and take this value as the voting value of the webpage to its’ linked webpage. Therefore, for webpage $i$​, its PR value can be expressed as:<ul>
+<li>$i$​​处的PR值等于邻居的PR值除以其自身的出度</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+P R(\mathrm{i})=\sum_{j \in B_{\mathrm{i}}} \frac{P R(\mathrm{j})}{O u t(j)}</script><ul>
+<li>$P R(\mathrm{i}): \mathrm{PR}($​ PageRank )score of webpage i.</li>
+<li>$B_{\mathrm{i}}$ : Collection of webpages that linked to webpage i.</li>
+<li>Out(i): Out degree of webpage $\mathrm{i}$​.</li>
+</ul>
+<h4 id="5-2-3-Example"><a href="#5-2-3-Example" class="headerlink" title="5.2.3 Example"></a>5.2.3 Example</h4><ul>
+<li>As shown in the right figure, suppose a set consisting of only four webpages: $A, B, C$​ and $\mathrm{D}$​. If webpages $\mathrm{B}, \mathrm{C}$​ and $\mathrm{D}$​ are all linked to webpage $\mathrm{A}$​, and webpages $\mathrm{B}, \mathrm{C}$​ and $\mathrm{D}$​ have no other links, then the PR value of webpage $A$​ will be the sum of the PR values of webpages $B, C$​ and $D$​ :</li>
+</ul>
+<script type="math/tex; mode=display">
+P R(A)=P R(B)+P R(C)+P R(D)</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020004760.png" alt="image-20211201101250483" class="lazyload"></p>
+<ul>
+<li>As shown in the right figure, webpage $B$​ has links to webpage $A$​ and $C$​, webpage $D$​ has links to webpages $A, B$​ and $C$​. Suppose one webpage can only vote for another webpage once. So webpage B will vote for $1 / 2$​ of the linked webpage and webpage $\mathrm{D}$​ will vote for $1 / 3$​ of the linked webpage. In this case, the PR value of webpage A is:</li>
+</ul>
+<script type="math/tex; mode=display">
+P R(A)=\frac{P R(B)}{2}+\frac{P R(C)}{1}+\frac{P R(D)}{3}</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/knowledge%20engineering/note/img/image-20211201101332874.png" alt="image-20211201101332874" class="lazyload"></p>
+<h4 id="5-2-4-Extended-formula-of-PageRank"><a href="#5-2-4-Extended-formula-of-PageRank" class="headerlink" title="5.2.4 Extended formula of PageRank"></a>5.2.4 Extended formula of PageRank</h4><ul>
+<li>The above formula assumes that users only click the link of the current webpage to browse the next webpage, but the random browsing method is more in line with the real situation. Thus, the random browsing model is generated, and the $P R$​​ value of each web page in the random browsing model is calculated by the following formula:<ul>
+<li>d 阻尼系数，即有一定可能随机跳转页面</li>
+<li>最终PageRank会收敛到一个稳态</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+P R(i)=(1-\mathrm{d})+d \times \sum_{j \in B i} \frac{P R(j)}{\operatorname{Out}(j)}</script><ul>
+<li><p>$P R$​ <strong>value is initially set as</strong> $1 / \mathrm{N}$​.</p>
+</li>
+<li><p>N: Num of all webpages.</p>
+</li>
+<li>d: Damping coefficient, representing the probability of browsing webpages accordance with the link, <strong>default value is</strong> $0.85$​.</li>
+<li>1-d: The probability that the viewer randomly browses another webpage.</li>
+</ul>
+<h3 id="5-3-Graph-based-approaches—TextRank"><a href="#5-3-Graph-based-approaches—TextRank" class="headerlink" title="5.3 Graph-based approaches—TextRank"></a>5.3 Graph-based approaches—TextRank</h3><ul>
+<li>PageRank:Construct graph according to the link relationship <strong>between webpages.</strong></li>
+<li>TextRank:Construct graph according to the <strong>co-occurrence</strong> relationship <strong>between words.</strong></li>
+</ul>
+<h4 id="5-3-1-TextRank’s-Formula"><a href="#5-3-1-TextRank’s-Formula" class="headerlink" title="5.3.1 TextRank’s Formula:"></a>5.3.1 TextRank’s Formula:</h4><ul>
+<li>其相当于构建了有向有权图,i点的重要程度由其邻居决定</li>
+</ul>
+<script type="math/tex; mode=display">
+W S\left(\mathrm{~V}_{\mathrm{i}}\right)=(1-d)+d \times \sum_{\mathrm{V}_{\mathrm{i}} \epsilon\left(\mathrm{V}_{\mathrm{i}}\right)} \frac{w_{j i}}{\sum_{\mathrm{V}_{k} \in O u t\left(\mathrm{v}_{j}\right)} w_{j k}} W S\left(\mathrm{~V}_{j}\right)</script><ul>
+<li>$w_{j i}$ ​ :Weight of edge connecting node $\mathrm{i}$​ and node $\mathrm{j}$​.</li>
+<li>$W S\left(\mathrm{~V}_{\mathrm{i}}\right):$ Weight of word $\mathrm{i}$, initially value is 1 .</li>
+<li>$\operatorname{Out}\left(\mathrm{V}_{\mathrm{i}}\right):$ Out degree of word $\mathrm{i}$.</li>
+</ul>
+<h4 id="5-3-2-Steps-Of-TextRank"><a href="#5-3-2-Steps-Of-TextRank" class="headerlink" title="5.3.2 Steps Of TextRank"></a>5.3.2 Steps Of TextRank</h4><ul>
+<li>InputText:<ul>
+<li>淡黄的长裙, 蓬松的头发, 牵着我的手看最新展的油画</li>
+</ul>
+</li>
+<li><p>Preprocessing:</p>
+<ul>
+<li>淡黄 长裙 蓬松 头发</li>
+<li>牵我 手 看最新 展出 油画</li>
+</ul>
+</li>
+<li><p>Construct graph $\mathbf{G}(\mathbf{V}, \mathbf{E}): \mathrm{V}$​ is <strong>composed of words</strong> generated in the above steps, and then use the <strong>co-occurrence relationship</strong> to construct an edge between <strong>any two nodes.</strong> The edge between two nodes is only when their corresponding words cooccur in a window of length $\mathrm{K}$​. Given $\mathrm{K}=2$​ :</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020005512.png" alt="image-20211201101738054" class="lazyload"></p>
+<ul>
+<li>Iteration: <strong>Iteratively calculate</strong> the weight of each node <strong>until convergence</strong> according to the formula.</li>
+</ul>
+<script type="math/tex; mode=display">
+W S\left(\mathrm{~V}_{\mathrm{i}}\right)=(1-d)+d \times \sum_{\mathrm{V}_{\mathrm{i}} \epsilon\left(\mathrm{V}_{\mathrm{i}}\right)} \frac{w_{j i}}{\sum_{\mathrm{V}_{k} \in \text { out }\left(\mathrm{v}_{j}\right)} w_{j k}} W S\left(\mathrm{~V}_{j}\right)</script>
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/knowledge%20engineering/11.%20Knowledge%20Graph%20Construction%20from%20Semi-Structured%20Data/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;11.%20Knowledge%20Graph%20Construction%20from%20Semi-Structured%20Data&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;11.%20Knowledge%20Graph%20Construction%20from%20Semi-Structured%20Data&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292017"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

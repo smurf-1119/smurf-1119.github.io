@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Triple Extraction from Relational Web Tables - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Triple Extraction from Relational Web Tables">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Triple Extraction from Relational Web Tables">
+<meta property="og:url" content="http://example.com/2021/08/15/knowledge%20engineering/9.Triple%20Extraction%20from%20Relational%20Web%20Tables/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Triple Extraction from Relational Web Tables">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012352619.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353482.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353629.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353505.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353848.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353690.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353354.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353890.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354698.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354289.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354105.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354550.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354725.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354533.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354917.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354874.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354610.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354800.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354048.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355557.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355763.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355228.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355385.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355570.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355468.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355253.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355505.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355617.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012356261.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T15:56:03.257Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012352619.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292037">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Triple Extraction from Relational Web Tables" class="lazyload">
+            <h1>Triple Extraction from Relational Web Tables</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>3.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 18 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Tables-are-Everywhere-on-the-Web"><span class="toc-number">1.</span> <span class="toc-text">1. Tables are Everywhere on the Web</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Statistics-on-Web-Tables"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Statistics on Web Tables</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Web-Table-Types"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Web Table Types</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-Relational-Table"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 Relational Table</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Def"><span class="toc-number">1.3.1.</span> <span class="toc-text">Def</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-Steps-of-Triple-Extraction"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 Steps of Triple Extraction</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Entity-Linking"><span class="toc-number">2.</span> <span class="toc-text">2. Entity Linking</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-What-is-Entity-Linking-EL-in-Web-Tables"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 What is Entity Linking (EL) in Web Tables?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-Detailed-Steps-of-Entity-Linking-Assumption-strings-in-a-cell-are-a-mention"><span class="toc-number">3.</span> <span class="toc-text">2.2 Detailed Steps of Entity Linking (Assumption: strings in a cell are a mention):</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Entity-Linking-Candidate-Generation"><span class="toc-number">4.</span> <span class="toc-text">2.3 Entity Linking: Candidate Generation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-Dictionary-based-method"><span class="toc-number">4.1.</span> <span class="toc-text">2.3.1 Dictionary-based method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-String-similarity-based-method"><span class="toc-number">4.2.</span> <span class="toc-text">2.3.2 String similarity based method</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Def%EF%BC%9A"><span class="toc-number">4.2.1.</span> <span class="toc-text">Def：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Levenshtein-distance"><span class="toc-number">4.2.2.</span> <span class="toc-text">Levenshtein distance</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jaccard-similarity"><span class="toc-number">4.2.3.</span> <span class="toc-text">Jaccard similarity</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise"><span class="toc-number">4.2.4.</span> <span class="toc-text">Exercise</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-Synonym-based-method"><span class="toc-number">4.3.</span> <span class="toc-text">2.3.3 Synonym-based method</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#With-the-above-methods-Top-K-candidate-referent-entities-for-each-mention-can-be-obtained"><span class="toc-number">4.4.</span> <span class="toc-text">With the above methods, Top-K candidate referent entities for each mention can be obtained.</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-Entity-Disambiguation"><span class="toc-number">5.</span> <span class="toc-text">2.4 Entity Disambiguation</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-Def"><span class="toc-number">5.1.</span> <span class="toc-text">2.4.1 Def</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-2-Local-Disambiguation-A-Generative-Model"><span class="toc-number">5.2.</span> <span class="toc-text">2.4.2 Local Disambiguation: A Generative Model</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Entity-popular-model"><span class="toc-number">5.2.1.</span> <span class="toc-text">Entity popular model:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Entity-name-model"><span class="toc-number">5.2.2.</span> <span class="toc-text">Entity name model:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Entity-context-model-use-text-to-explain"><span class="toc-number">5.2.3.</span> <span class="toc-text">Entity context model (use text to explain):</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-3-More-Features-in-Entity-Disambiguation"><span class="toc-number">5.3.</span> <span class="toc-text">2.4.3 More Features in Entity Disambiguation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Web-Table-Features"><span class="toc-number">5.3.1.</span> <span class="toc-text">Web Table Features:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-4-Global-Disambiguation-A-Graph-Model"><span class="toc-number">5.4.</span> <span class="toc-text">2.4.4 Global Disambiguation: A Graph Model</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Entity-Disambiguation%E2%80%94Computing-EL-Impact-Factors"><span class="toc-number">5.4.1.</span> <span class="toc-text">Entity Disambiguation—Computing EL Impact Factors.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Mention-Entity-Semantic-Relatedness"><span class="toc-number">5.4.2.</span> <span class="toc-text">Mention-Entity Semantic Relatedness</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Entity-Disambiguation-Computing-EL-Impact-Factors"><span class="toc-number">5.4.3.</span> <span class="toc-text">Entity Disambiguation-Computing EL Impact Factors.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Entity-Disambiguation-Iterative-Probability-Propagation"><span class="toc-number">5.4.4.</span> <span class="toc-text">Entity Disambiguation-Iterative Probability Propagation.</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-5-A-Test-on-Zhishi-me%E2%80%94Consisting-of-Three-Chinese-Linked-KBs"><span class="toc-number">5.5.</span> <span class="toc-text">2.4.5 A Test on Zhishi.me—Consisting of Three Chinese Linked KBs.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Reasons-of-Conflicts"><span class="toc-number">5.5.1.</span> <span class="toc-text">Reasons of Conflicts</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Detail-Rules"><span class="toc-number">5.5.2.</span> <span class="toc-text">Detail Rules</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Column-Typing-Column-to-Class-i-e-Type"><span class="toc-number">6.</span> <span class="toc-text">3.  Column Typing: Column to Class (i.e., Type)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Relation-Extraction"><span class="toc-number">7.</span> <span class="toc-text">4. Relation Extraction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Definition"><span class="toc-number">7.1.</span> <span class="toc-text">Definition</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Triple Extraction from Relational Web Tables<br><span id="more"></span></p>
+<h2 id="1-Tables-are-Everywhere-on-the-Web"><a href="#1-Tables-are-Everywhere-on-the-Web" class="headerlink" title="1. Tables are Everywhere on the Web"></a>1. Tables are Everywhere on the Web</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012352619.png" alt="image-20211110152206650" class="lazyload"></p>
+<h3 id="1-1-Statistics-on-Web-Tables"><a href="#1-1-Statistics-on-Web-Tables" class="headerlink" title="1.1 Statistics on Web Tables"></a>1.1 Statistics on Web Tables</h3><ul>
+<li>Web Tables : In 2008, the WebTables systems (developed by Google) <strong>extracts 14.1 billion HTML tables</strong> and finds 154 million are high-quality tables (1.1%).</li>
+<li>Web Tables: The Web Data Commons project extracts 233 million Web tables from HTML pages in 2015.</li>
+<li>Wikipedia Tables: In 2019, the Wikipedia <strong>snapshot</strong> contains more than 3 million tables from more than 520 thousand Wikipedia articles.</li>
+</ul>
+<h3 id="1-2-Web-Table-Types"><a href="#1-2-Web-Table-Types" class="headerlink" title="1.2 Web Table Types"></a>1.2 Web Table Types</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353482.png" alt="image-20211110152333997" class="lazyload"></p>
+<h3 id="1-3-Relational-Table"><a href="#1-3-Relational-Table" class="headerlink" title="1.3 Relational Table"></a>1.3 Relational Table</h3><h4 id="Def"><a href="#Def" class="headerlink" title="Def"></a>Def</h4><ul>
+<li>Arelational table describes <strong>a set of entities in the core column(s)(相当于主键)</strong> along with their attributes in the remaining columns.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353629.png" alt="image-20211110152529479" class="lazyload"></p>
+<h3 id="1-4-Steps-of-Triple-Extraction"><a href="#1-4-Steps-of-Triple-Extraction" class="headerlink" title="1.4 Steps of Triple Extraction"></a>1.4 Steps of Triple Extraction</h3><ul>
+<li><p>Entity Linking: <strong>Mention to Entity</strong></p>
+<ul>
+<li>使得可以找到真正的信息</li>
+</ul>
+</li>
+<li><p>Column Typing: Column to Class (i.e., Type)</p>
+<ul>
+<li>给column分类</li>
+</ul>
+</li>
+<li><p>Relation Extraction: Semantic Association between Columns to Relation</p>
+<ul>
+<li>推出列之间的关系</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353505.png" alt="image-20211110152709016" class="lazyload"></p>
+<h2 id="2-Entity-Linking"><a href="#2-Entity-Linking" class="headerlink" title="2. Entity Linking"></a>2. Entity Linking</h2><h3 id="2-1-What-is-Entity-Linking-EL-in-Web-Tables"><a href="#2-1-What-is-Entity-Linking-EL-in-Web-Tables" class="headerlink" title="2.1 What is Entity Linking (EL) in Web Tables?"></a>2.1 What is Entity Linking (EL) in Web Tables?</h3><ul>
+<li>Mapping the string mentions in <strong>table cells</strong> to <strong>their referent entities</strong> in a given knowledge base (KB).</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353848.png" alt="image-20211110153051484" class="lazyload"></p>
+<h2 id="2-2-Detailed-Steps-of-Entity-Linking-Assumption-strings-in-a-cell-are-a-mention"><a href="#2-2-Detailed-Steps-of-Entity-Linking-Assumption-strings-in-a-cell-are-a-mention" class="headerlink" title="2.2 Detailed Steps of Entity Linking (Assumption: strings in a cell are a mention):"></a>2.2 Detailed Steps of Entity Linking (Assumption: strings in a cell are a mention):</h2><ul>
+<li><strong>Candidate Generation:</strong><ul>
+<li><strong>Identifying candidate referent entities</strong> of each string mention in table cells when given a knowledge base.</li>
+</ul>
+</li>
+<li><strong>Entity Disambiguation:</strong><ul>
+<li>Choosing <strong>only one entity</strong> from the candidate set as the referent entity of <strong>each string mention.</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="2-3-Entity-Linking-Candidate-Generation"><a href="#2-3-Entity-Linking-Candidate-Generation" class="headerlink" title="2.3 Entity Linking: Candidate Generation"></a>2.3 Entity Linking: Candidate Generation</h2><h3 id="2-3-1-Dictionary-based-method"><a href="#2-3-1-Dictionary-based-method" class="headerlink" title="2.3.1 Dictionary-based method"></a>2.3.1 Dictionary-based method</h3><ul>
+<li>collecting all (string, entity) pairs from <strong>anchor texts, redirect pages, and disambiguation pages</strong> in Wikipedia; </li>
+<li><p>ranking based on <strong>co-occurrence frequency</strong>.（成对出现概率）</p>
+</li>
+<li><p>可以理解为通过已知的实体链接来学习出表格里的链接</p>
+</li>
+</ul>
+<p>例如：</p>
+<p>Jordan——-basketball player</p>
+<p>​            ——-professor</p>
+<p>​            ——-actor</p>
+<ul>
+<li>出现的频率并不一样，可以做一个排序</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353690.png" alt="image-20211110153920987" class="lazyload"></p>
+<h3 id="2-3-2-String-similarity-based-method"><a href="#2-3-2-String-similarity-based-method" class="headerlink" title="2.3.2 String similarity based method"></a>2.3.2 String similarity based method</h3><h4 id="Def："><a href="#Def：" class="headerlink" title="Def："></a>Def：</h4><ul>
+<li>computing string similarities between mentions and entities</li>
+</ul>
+<h4 id="Levenshtein-distance"><a href="#Levenshtein-distance" class="headerlink" title="Levenshtein distance"></a>Levenshtein distance</h4><ul>
+<li>Edit distance: <strong>Levenshtein distance</strong><ul>
+<li>The Levenshtein distance between two words is <strong>the minimum number of single-character edits</strong> (insertions, deletions or substitutions) required to <strong>change one word into the other</strong>.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353354.png" alt="image-20211110154111266" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012353890.png" alt="image-20211110154120425" class="lazyload"></p>
+<h4 id="Jaccard-similarity"><a href="#Jaccard-similarity" class="headerlink" title="Jaccard similarity"></a>Jaccard similarity</h4><ul>
+<li>Jaccard similarity J(A, B) measures the <strong>similarity</strong> between <strong>finite sample set A and B.</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+J(A, B)=\frac{|A\cap B|}{|A\cup B|}</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354698.png" alt="image-20211110154536838" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354289.png" alt="image-20211110154544585" class="lazyload"></p>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Compute the Levenshtein distance between “kitten” and “sitting”.<ul>
+<li>1+1+1=3</li>
+</ul>
+</li>
+<li>Compute the Jaccard similarity between “University of California, Davis” and “University of California, Berkeley”in word level.</li>
+</ul>
+<script type="math/tex; mode=display">
+A\cup B=\{University, of, California, Davis, Berkeley\}</script><script type="math/tex; mode=display">
+A\cap B=\{University, of, California\}</script><script type="math/tex; mode=display">
+J(A, B)=\frac{|A\cup B|}{|A\cap B|}=\frac{3}{5}</script><ul>
+<li>Compute the Jaccard similarity between “English”and “England”based on character-level trigrams.</li>
+</ul>
+<script type="math/tex; mode=display">
+A=\{Eng, ngl, gli, lis, ish\}</script><script type="math/tex; mode=display">
+B=\{Eng, ngl, gla, lan, and\}</script><script type="math/tex; mode=display">
+J(A, B)=\frac{|A\cap B|}{|A\cup B|}=\frac{2}{8}=\frac{1}{4}</script><h3 id="2-3-3-Synonym-based-method"><a href="#2-3-3-Synonym-based-method" class="headerlink" title="2.3.3 Synonym-based method"></a>2.3.3 Synonym-based method</h3><ul>
+<li>combine with the dictionary-based method or string similarity based method</li>
+<li>use a knowledge graph <strong>containing rich synonym information</strong>, e.g., BabelNet, WordNet</li>
+</ul>
+<h3 id="With-the-above-methods-Top-K-candidate-referent-entities-for-each-mention-can-be-obtained"><a href="#With-the-above-methods-Top-K-candidate-referent-entities-for-each-mention-can-be-obtained" class="headerlink" title="With the above methods, Top-K candidate referent entities for each mention can be obtained."></a>With the above methods, Top-K candidate referent entities for each mention can be obtained.</h3><h2 id="2-4-Entity-Disambiguation"><a href="#2-4-Entity-Disambiguation" class="headerlink" title="2.4 Entity Disambiguation"></a>2.4 Entity Disambiguation</h2><h3 id="2-4-1-Def"><a href="#2-4-1-Def" class="headerlink" title="2.4.1 Def"></a>2.4.1 Def</h3><p><strong>Local Disambiguation</strong> </p>
+<ul>
+<li>Only use <strong>the contextual information</strong> of the given mention and target entity for disambiguation <strong>without considering the effects of other referent entities in the same table.</strong></li>
+</ul>
+<p><strong>Global (Collective) Disambiguation</strong> </p>
+<ul>
+<li>Leverage the semantic associations between candidate <strong>referent entities</strong> to <strong>jointly disambiguate all entities for the mentions in a table.</strong><ul>
+<li>不同mention里的实体可以帮助链接</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-2-Local-Disambiguation-A-Generative-Model"><a href="#2-4-2-Local-Disambiguation-A-Generative-Model" class="headerlink" title="2.4.2 Local Disambiguation: A Generative Model"></a>2.4.2 Local Disambiguation: A Generative Model</h3><ul>
+<li>The classic generative model is originally proposed to <strong>entity linking in text</strong>, but <strong>it can be applied to Web tables</strong>.</li>
+<li>假设Mention如下述生成过程：</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354105.png" alt="image-20211110161238254" class="lazyload"></p>
+<ul>
+<li>The generative process for text: three steps<ul>
+<li>Choose the referent <strong>entity e</strong> from the knowledge base with <strong>P(e)</strong>, e.g., “Michael Jeffrey Jordan”;</li>
+<li>Choose a <strong>name s with 𝑃(𝑠│𝑒)</strong>, e.g., “Jordan”;</li>
+<li>Choose <strong>a context c with 𝑃(𝑐│𝑒)</strong>, e.g., “joins Bulls in 1984”.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354550.png" alt="image-20211110161609536" class="lazyload"></p>
+<ul>
+<li>Based on the above generative story, the probability of <strong>a name mention m (its context is c and its name is s)</strong> referring to a specific entity e can be expressed as <strong>(assume that s and c are independent given e)</strong><ul>
+<li>s|e 与 c|e 条件独立</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+𝑃(𝑚,𝑒)=𝑃(𝑠,𝑐,𝑒)=𝑃(𝑒)𝑃(𝑠│𝑒)𝑃(𝑐│𝑒)</script><ul>
+<li><p>where <strong>P(e)</strong> corresponds to the popularity knowledge, </p>
+<ul>
+<li><strong>P(s|e)</strong> corresponds to the name knowledge , and </li>
+<li><strong>P(c|e)</strong> corresponds to the context knowledge.</li>
+</ul>
+</li>
+<li><p>Given a name mention m, to perform entity disambiguation, we need to find the entity e which <strong>maximizes the probability P(e|m),</strong> i.e.,</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+𝑒=argmax_𝑒\frac{P(m,e)}{P(m)}=argmax_e𝑃(𝑒)𝑃(𝑠|𝑒)𝑃(𝑐|𝑒)</script><ul>
+<li>Training data: <ul>
+<li>a set of annotated name mentions $𝑀=\{𝑚_1,𝑚_2,…,𝑚_𝑛\}$​​​, each m is a triple $𝑚=\{𝑠,𝑒,𝑐\}$​​; </li>
+<li><strong>example for text</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354725.png" alt="image-20211110162402615" class="lazyload"></p>
+<ul>
+<li>table: Annotated Web tables from Web Data Commons project.<ul>
+<li>只需将context换一下</li>
+</ul>
+</li>
+</ul>
+<h4 id="Entity-popular-model"><a href="#Entity-popular-model" class="headerlink" title="Entity popular model:"></a>Entity popular model:</h4><ul>
+<li>P(e) reflects the popularity knowledge of the entity e; </li>
+<li>if e1 is more popular than e2, then $P(e_1)&gt;P(e_2)$;</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354533.png" alt="image-20211110162837305" class="lazyload"></p>
+<ul>
+<li>A more popular entity $e_1$ usually <strong>appears more times</strong> than a less popular entity $e_2$​ <strong>in a large text corpus</strong>（这里指的是知识库）, i.e., the frequency of occurrence $count(e_1)&gt;count(e_2)$​, e.g., in Wikipedia,<ul>
+<li>这里应该是看mentions到知识库里映射实体数来决定</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354917.png" alt="image-20211110163123808" class="lazyload"></p>
+<ul>
+<li>Thus, we model the popularity knowledge as：</li>
+</ul>
+<script type="math/tex; mode=display">
+P(e)=\frac{count(e)+1}{N+|M|}</script><ul>
+<li>where $count(e)$ is the count of the name mentions whose referent entities are e in the training data,  （对应所有mention中在知识库映射的实体是e的个数）</li>
+<li>N is the number of all entities </li>
+<li><p>and |M| is the total name mention size.（用于平滑，使得所有实体至少有一个很小的base prob）</p>
+</li>
+<li><p>The estimation is further smoothed using the simple <strong>add-one smoothing</strong><br>method for the zero probability problem.</p>
+</li>
+</ul>
+<h4 id="Entity-name-model"><a href="#Entity-name-model" class="headerlink" title="Entity name model:"></a>Entity name model:</h4><ul>
+<li><p>P(s|e) encodes the name knowledge of entities;</p>
+</li>
+<li><p>for <strong>a specific entity e</strong>, its <strong>more frequently used name</strong> should be assigned <strong>a higher P(s|e)</strong>, and a <strong>zero</strong> P(s|e) value should be assigned to those <strong>never used names.</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354874.png" alt="image-20211110164527362" class="lazyload"></p>
+<ul>
+<li>after <strong>collecting all (entity, name) pairs</strong> from the <strong>name mention</strong> data set, then <strong>the maximum likelihood estimation</strong> is used to estimate the entity name model as<ul>
+<li>不同于实体训练，这时候训练集是一个pair，之前的实体训练只要从知识库里找到所有实体就行</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+P(s \mid e)=\frac{\operatorname{count}(e, s)}{\sum_{s} \operatorname{count}(e, s)}</script><ul>
+<li><p>where the count(e,s) is the count of <strong>the name mention s whose referent entity is e</strong>.</p>
+</li>
+<li><p>Problem: it cannot deal with unseen names.</p>
+</li>
+</ul>
+<ul>
+<li><strong>unseen names include:</strong></li>
+</ul>
+<ol>
+<li>aliases 别词: “New York” $\rightarrow$​ “Big Apple” ;</li>
+<li>acronyms 简写: “Michael Jeffrey Jordan” $\rightarrow$ “MJ” ;</li>
+<li>misspellings: “Barack Obama” $\rightarrow$ “Barack Opama” .</li>
+</ol>
+<ul>
+<li>to solve this problem, <strong>apply the statistical translation model (IBM Model 1)</strong> to capture all possible name variations of the given word <strong>by translation operations as</strong><br>1) It is retained (translated into itself);<br>2) It is translated into its acronym;<br>3) It is omitted（省略）(translated into the word NULL);<br>4) It is translated into another word (misspelling or alias).</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354610.png" alt="image-20211110165233909" class="lazyload"></p>
+<ul>
+<li>P(s|e) can be modeled as</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354800.png" alt="image-20211110165305914" class="lazyload"></p>
+<ul>
+<li><p>where $\varepsilon$ is a normalization factor, $f$ is the full name of entity e, $l_{s}$ and $l_{f}$ are respectively the lengths of $s$ and $f, s_{i}$ is the $i$-th word of $s$, and $f_{j}$ is the $j$-th word of $f$​.</p>
+<ul>
+<li>这么理解就是$f_j$是full name 第j个word，full name 就是原来训练中出现的word，而$s_i$​是变换后出现的第i个word</li>
+</ul>
+</li>
+<li><p>unseen names include:</p>
+</li>
+</ul>
+<ol>
+<li>aliases: “New York” $\rightarrow$ “Big Apple” ;</li>
+<li>acronyms: “Michael Jeffrey Jordan” $\rightarrow$ “MJ” ;</li>
+<li>misspellings: “Barack Obama” $\rightarrow$ “Barack Opama” .</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012354048.png" alt="image-20211110165649968" class="lazyload"></p>
+<h4 id="Entity-context-model-use-text-to-explain"><a href="#Entity-context-model-use-text-to-explain" class="headerlink" title="Entity context model (use text to explain):"></a>Entity context model (use text to explain):</h4><p>$P(c \mid e)$​​ encodes the context knowledge of entities;</p>
+<ul>
+<li>if the entity $e$​​ frequently appears in the context $c$​​, then $P(c \mid e)$​​​ should be higher; <ul>
+<li>如果一个实体与知识库里出现的上下文频繁一致，则概率大</li>
+</ul>
+</li>
+<li>e.g.,</li>
+<li>$C_1$: _wins NBA MVP.</li>
+<li>$C_2$: _is a researcher in machine learning.</li>
+</ul>
+<script type="math/tex; mode=display">
+P(C_1 \mid \text{Michael Jeffrey Jordan} )>P(C_2 \mid \text{Michael Jeffrey Jordan} )</script><p>Entity context model (use text to explain):</p>
+<ul>
+<li>the <strong>context</strong> of each <strong>name mention</strong> $m$​ is the <strong>words surrounding</strong> $m$​;</li>
+<li>the context knowledge of an entity $e$​ is encoded in <strong>an unigram language</strong> model $M_{e} .$​<ul>
+<li>这么理解，我们把对于某个实体的context拆开成word级别，根据一元语法，就可以计算每个word的概率，从而形成集合<script type="math/tex; mode=display">
+M_{e}=\left\{P_{e}(t)\right\}</script>where $P_{e}(t)$​ is the probability of the term $t$​ appearing in the context of $e$​. <strong>The term can be a word, a named entity, or a Wikipedia entity.</strong></li>
+</ul>
+</li>
+</ul>
+<p>Entity context model (use text to explain):</p>
+<ul>
+<li>given a context $c$​​ containing $\mathrm{n}$​​ terms $t_{1}, t_{2} \ldots t_{n}$​​, <strong>the entity context model estimates the probability</strong> $P(c \mid e)$​​ as<script type="math/tex; mode=display">
+P(c \mid e)=P\left(t_{1} t_{2} \ldots t_{n} \mid M_{e}\right)=P_{e}\left(t_{1}\right) P_{e}\left(t_{2}\right) \ldots P_{e}\left(t_{n}\right)</script></li>
+<li>according to the <strong>annotated name mention data set</strong> $M, P_{e}(t)$​ can be estimated by the maximum likelihood estimation:<script type="math/tex; mode=display">
+P_{e_{-} M L}(t)=\frac{\operatorname{Count}_{e}(t)}{\sum_{t} \operatorname{Count}_{e}(t)}</script></li>
+<li>where $Count _{e}(t)$ is <strong>the frequency of occurrences of a term $t$</strong> in the contexts of the name mentions whose referent entity is $e$​​​.<ul>
+<li>从$e$的所有context收集所有的term，这样就可以统计每一个term的频率</li>
+</ul>
+</li>
+</ul>
+<p>Entity context model (use text to explain):</p>
+<ul>
+<li>due to the sparse data problem, $P_{e}(t)$ is <strong>smoothed by Jelinek-Mercer smoothing</strong> method as<script type="math/tex; mode=display">
+P_{e}(t)=\lambda P_{e_{M L}}(t)+(1-\lambda) P_{g}(t)</script></li>
+<li>where $P_{g}(t)$​ is <strong>a general language model</strong> estimated <strong>using the whole Wikipedia data.</strong></li>
+</ul>
+<h3 id="2-4-3-More-Features-in-Entity-Disambiguation"><a href="#2-4-3-More-Features-in-Entity-Disambiguation" class="headerlink" title="2.4.3 More Features in Entity Disambiguation"></a>2.4.3 More Features in Entity Disambiguation</h3><h4 id="Web-Table-Features"><a href="#Web-Table-Features" class="headerlink" title="Web Table Features:"></a>Web Table Features:</h4><ul>
+<li>Features found in the table (T) or <strong>outside the table (C)</strong> <ul>
+<li>表格外同样可以找到很多资源</li>
+</ul>
+</li>
+<li>Single table features (TS) refer to a value in a single cell while multiple features combine values coming from more than one cell (TM)</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355557.png" alt="image-20211110172440570" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355763.png" alt="image-20211110172448079" class="lazyload"></p>
+<h3 id="2-4-4-Global-Disambiguation-A-Graph-Model"><a href="#2-4-4-Global-Disambiguation-A-Graph-Model" class="headerlink" title="2.4.4 Global Disambiguation: A Graph Model"></a>2.4.4 Global Disambiguation: A Graph Model</h3><ul>
+<li>Why global disambiguation works? <ul>
+<li>suppose <strong>we have three mentions</strong> which are needed to perform entity linking</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355228.png" alt="image-20211110172613678" class="lazyload"></p>
+<ul>
+<li><p>假设有三个mention需要做实体链接，借助他们的候选实体的语义关联，可以消除local ambiguation</p>
+</li>
+<li><p>Building an Entity Disambiguation Graph for each given table. Each graph consists of:</p>
+<ul>
+<li><strong>Mention Nodes, Entity Nodes</strong> </li>
+<li><strong>Mention-Entity Edge</strong>s: undirected edges between mentions and its candidate referent entities, </li>
+<li><strong>Entity-Entity Edges</strong>: undirected edges between entities.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355385.png" alt="image-20211110172837491" class="lazyload"></p>
+<h4 id="Entity-Disambiguation—Computing-EL-Impact-Factors"><a href="#Entity-Disambiguation—Computing-EL-Impact-Factors" class="headerlink" title="Entity Disambiguation—Computing EL Impact Factors."></a>Entity Disambiguation—Computing EL Impact Factors.</h4><ul>
+<li>Two EL impact factors are as follows:<ul>
+<li><strong>importance</strong> of each <strong>mention</strong>; </li>
+<li><strong>semantic relatedness</strong> between different nodes.<ul>
+<li>测量不同节点的语义相关度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Each node or edge</strong> in a constructed Entity Disambiguation Graph is <strong>assigned with a probability</strong> .<ul>
+<li>For <strong>mention-entity edges,</strong> their probabilities refer to the semantic relatedness between mentions and entities, called <strong>Mention-Entity Semantic Relatedness.</strong></li>
+<li>For <strong>entity-entity edges</strong>, their probabilities are seen as the semantic relatedness between entities, called <strong>Entity-Entity Semantic Relatedness</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="Mention-Entity-Semantic-Relatedness"><a href="#Mention-Entity-Semantic-Relatedness" class="headerlink" title="Mention-Entity Semantic Relatedness"></a><strong>Mention-Entity Semantic Relatedness</strong></h4><ul>
+<li>Two features are used to measure <strong>Mention-Entity Semantic Relatedness</strong> $S R_{m e}(m, e)$​ between the given mention $m$​ and entity $e$​.</li>
+</ul>
+<ol>
+<li><p>String Similarity Feature <strong>strSim(m,e)</strong>: depending on the <strong>Levenshtein distance between the string labels of $m$​​ and $e$​​.</strong></p>
+<ul>
+<li>就算mention和实体的相似度</li>
+</ul>
+</li>
+<li><p><strong>Mention-Entity Context Similarity Feature</strong> $contSim _{\text {me }}(m, e)$​​ :</p>
+<ul>
+<li>计算mention和entity的背景相似度</li>
+</ul>
+<p>The <strong>context</strong> of mention $m$​​ is denoted as <strong>menContext (m)</strong> :<br>a) Collecting other mentions in the row or column where $m$​​​​ locates.</p>
+<ul>
+<li>同行与列词的集合</li>
+</ul>
+<p>b) Segmenting all the collected mentions into a set of words.</p>
+</li>
+</ol>
+<p>  The context of entity $e$ is denoted as entContext(e):<br>  a) Collecting all the <strong>RDF triples</strong> which $e$ exists in.<br>  b) Segmenting all the objects (e is the subject) and subjects (e is the object) into a set of words.</p>
+<ul>
+<li><p>从知识库里找所有包含e的三元组，从而组成相应的背景集合</p>
+<p>$contSim_{m e}(m, e)$​​​​ is computed by the <strong>Jaccard similarity</strong> between <strong>menContext (m) and entContext ( e )</strong>.</p>
+</li>
+<li><p>使用Jaccard similarity计算相似度</p>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+S R_{m e}(m, e)=0.99 \times\left(\alpha_{1} \cdot \operatorname{strSim}(m, e)+\beta_{1} \cdot \operatorname{contSim}_{m e}(m, e)\right)+0.01</script><h4 id="Entity-Disambiguation-Computing-EL-Impact-Factors"><a href="#Entity-Disambiguation-Computing-EL-Impact-Factors" class="headerlink" title="Entity Disambiguation-Computing EL Impact Factors."></a>Entity Disambiguation-Computing EL Impact Factors.</h4><p>Two features are used to measure <strong>Entity-Entity Semantic Relatedness</strong> $S R_{e e}\left(e_{1}, e_{2}\right)$ between entities $e_{1}$ and $e_{2}$</p>
+<p>1) Triple Relation Feature $\operatorname{I_{SRDF}}\left(e_{1}, e_{2}\right)$​ : <strong>verifying whether $e_{1}$​ and $e_{2}$​​ are in the same triple.</strong><br>2) Entity-Entity Context <strong>Similarity Feature contSim</strong> $_{e e}\left(e_{1}, e_{2}\right):$​<br>    cont Sim $_{\text {ee }}\left(e_{1}, e_{2}\right)$​ is computed by the $\operatorname{Jaccard}$​ similarity between entContext $\left(e_{1}\right)$​ and entContext $\left(e_{2}\right)$​​.</p>
+<script type="math/tex; mode=display">
+S R_{e e}\left(e_{1}, e_{2}\right)=0.99 \times\left(\alpha_{2} \cdot I_{S R D F}\left(e_{1}, e_{2}\right)+\beta_{2} \cdot \operatorname{contSim}_{e e}\left(e_{1}, e_{2}\right)\right)+0.01</script><h4 id="Entity-Disambiguation-Iterative-Probability-Propagation"><a href="#Entity-Disambiguation-Iterative-Probability-Propagation" class="headerlink" title="Entity Disambiguation-Iterative Probability Propagation."></a>Entity Disambiguation-Iterative Probability Propagation.</h4><ul>
+<li>Iterative probability propagation is used for combining different $\boldsymbol{E} \boldsymbol{L}$ impact factors for the $E L$ decisions.</li>
+<li><p>Given an Entity Disambiguation Graph $G$ with $n$ nodes, we denote $G$ as an $n \times n$ adjacency matrix $A, A_{i j}$ is the normalized semantic relatedness between node $i$ and node $j$, and $A_{i j}=A_{j i}$​.</p>
+</li>
+<li><p>We define an $n \times 1$ vector $r$ to record the probabilities assigned to all the nodes, and iteratively compute $r$ with the following formula until convergence.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355570.png" alt="image-20211110195021381" class="lazyload"></p>
+<h3 id="2-4-5-A-Test-on-Zhishi-me—Consisting-of-Three-Chinese-Linked-KBs"><a href="#2-4-5-A-Test-on-Zhishi-me—Consisting-of-Three-Chinese-Linked-KBs" class="headerlink" title="2.4.5 A Test on Zhishi.me—Consisting of Three Chinese Linked KBs."></a>2.4.5 A Test on Zhishi.me—Consisting of Three Chinese Linked KBs.</h3><ul>
+<li>Applying our proposed approach to more than 70,000Web tables with each single KB in Zhishi.me.</li>
+<li>For each mention, and if any two identified entities from different KBs do not have the samesAs relation, then there exists a conflict here.<br>2) 对于每条mention，如果有两个相同的实体来自不同的知识库，但是他们没有相同的关系，那么就会产生冲突</li>
+<li>According to the statistics, there exist conflicts in the EL results of<br><strong>38.94%</strong> mentions.<ul>
+<li>单一知识库的实体映射问题，这其实可以理解就是，你一开始在做实体链接的时候，如果只用到一个知识库，那么由于这个知识库</li>
+</ul>
+</li>
+</ul>
+<h4 id="Reasons-of-Conflicts"><a href="#Reasons-of-Conflicts" class="headerlink" title="Reasons of Conflicts"></a>Reasons of Conflicts</h4><p><strong>Reason 1: The samesAs relations are incomplete between KBs.</strong></p>
+<p><strong>Solution:</strong> </p>
+<ul>
+<li>Completing samesAs relations with <strong>a supervised learning model</strong> using synonym feature, string similarity feature and entity-entity context similarity feature.</li>
+</ul>
+<p><strong>Reason 2: For some KBs, some potential correct referent entities do not rank the highest.</strong></p>
+<ul>
+<li>没有排序对</li>
+</ul>
+<p><strong>Solution:</strong> </p>
+<ul>
+<li><p><strong>Grouping</strong> the entities representing the same individual <strong>into different</strong><br><strong>sets</strong> using the existing and newly learned samesAs relations.</p>
+<ul>
+<li>把相同的实体组成一个集合</li>
+</ul>
+</li>
+<li><p>Computing the <strong>average ranking</strong>, the highest ranking and the number of the entities in each set, and then applying three heuristic rules to solving conflicts.</p>
+<ul>
+<li>计算每个集合的平均rangking，再排序</li>
+</ul>
+</li>
+</ul>
+<h4 id="Detail-Rules"><a href="#Detail-Rules" class="headerlink" title="Detail Rules"></a>Detail Rules</h4><p><strong>Rule 1</strong>: If both the <strong>average ranking</strong> and the <strong>highest ranking</strong> of the entities in a set <strong>rank the highest</strong>, and the <strong>number of the entities</strong> in this set is <strong>not less than half of the number of KBs</strong>, then we <strong>choose this set</strong> as the final EL results for the given mention.</p>
+<p><strong>Rule 2</strong>: If there exist <strong>two or more sets</strong> that the average ranking and the highest ranking of the sets’ corresponding entities <strong>are the same and rank the highest</strong>, also <strong>the number of the entities</strong> in each of these sets is <strong>not less than half of the number of KBs</strong>, then we <strong>choose one set at random</strong> as the final EL results for the given mention.</p>
+<p><strong>Rule 3</strong>: If the <strong>number of the entities</strong> in each set <strong>is less than half of the number of KBs,</strong> the <strong>original EL</strong> results of the given mention <strong>remain unchanged</strong>.</p>
+<ul>
+<li>总结就是只有当相同的实体出现到一定数量，才使用这个特殊规则</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355468.png" alt="image-20211110201929538" class="lazyload"></p>
+<ul>
+<li>对于一个mention我们去各个KB找相同的候选实体</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355253.png" alt="image-20211110202050330" class="lazyload"></p>
+<h2 id="3-Column-Typing-Column-to-Class-i-e-Type"><a href="#3-Column-Typing-Column-to-Class-i-e-Type" class="headerlink" title="3.  Column Typing: Column to Class (i.e., Type)"></a>3.  Column Typing: Column to Class (i.e., Type)</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355505.png" alt="image-20211110202158872" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012355617.png" alt="image-20211110202206906" class="lazyload"></p>
+<ul>
+<li>利用同一列某一个mention的实体类型作为该mention的实体类型</li>
+<li>或者利用Table本身head的信息比如city</li>
+</ul>
+<h2 id="4-Relation-Extraction"><a href="#4-Relation-Extraction" class="headerlink" title="4. Relation Extraction"></a>4. Relation Extraction</h2><h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><ul>
+<li><p>Relation extraction refers to the task of associating a pair of columns in atable with the relation that holds between their contents and / or extractingrelationship information from tabular data and representing them in astructured format (e.g., as subject-predicate-object triples).</p>
+</li>
+<li><p>For binary relationships, the relationship between columns A and B islabeled with R if a substantial number of pairs of values from A and Boccur in the relations database.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012356261.png" alt="image-20211110202450606" class="lazyload"></p>
+<ul>
+<li>利用知识库中本来存在的三元组，来推测出未知的三元组</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/knowledge%20engineering/9.Triple%20Extraction%20from%20Relational%20Web%20Tables/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;9.Triple%20Extraction%20from%20Relational%20Web%20Tables&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;9.Triple%20Extraction%20from%20Relational%20Web%20Tables&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292039"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

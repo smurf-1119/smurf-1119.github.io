@@ -1,0 +1,2467 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>题目 - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="题目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="题目">
+<meta property="og:url" content="http://example.com/2021/08/15/knowledge%20engineering/%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="题目">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020016924.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119547.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119018.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119454.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119877.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/18/F1K9YBzjwOXWb5h.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/18/b1vDKEYwaqFACMj.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/18/qaXyp6kYKG4wAou.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/18/53HZbPNpxw4TBQe.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/18/4FCTKVefh6HlUZs.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108191721085.png">
+<meta property="og:image" content="https://i.loli.net/2021/08/18/cBxAVzgEUpltv43.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120376.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108250958326.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108251030427.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120242.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120354.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120778.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110132329253.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110132345839.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020017715.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120524.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141640820.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141642564.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141646378.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141647879.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110201013679.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121466.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110201014413.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271112683.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121212.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271142405.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121073.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271148352.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271554836.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271203949.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121131.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121768.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020018218.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121753.png">
+<meta property="og:image" content="e:/third_year_in_University/knowledge%20engineering/note/img/image-20211110154544585.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122611.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122858.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122913.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122721.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122369.png">
+<meta property="og:image" content="http://example.com/2021/08/15/knowledge%20engineering/%E9%A2%98%E7%9B%AE/img/image-20220105164122027.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122553.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122504.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122440.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122935.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122161.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122522.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050103025.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050105335.png">
+<meta property="og:image" content="http://example.com/2021/08/15/knowledge%20engineering/TyporaImg/image-20211222113825979.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050105688.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124082.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124933.png">
+<meta property="og:image" content="http://example.com/2021/08/15/knowledge%20engineering/TyporaImg/image-20211222113245076.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124163.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124577.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124845.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125911.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125457.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125657.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125618.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125970.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125761.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125733.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125209.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125868.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125700.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125805.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125612.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126637.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126676.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126892.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126105.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126736.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126788.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126473.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126472.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126170.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126848.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126772.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126612.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126256.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126332.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126552.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126784.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126764.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127499.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127061.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127249.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127288.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127915.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127721.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127455.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127250.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127809.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127819.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127136.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127952.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127620.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128376.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128450.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128304.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128368.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128808.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128204.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128609.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128701.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128556.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T16:21:22.724Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020016924.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292077">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="题目" class="lazyload">
+            <h1>题目</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>8.5k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 51 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-XML-Rdf"><span class="toc-number">1.</span> <span class="toc-text">1. XML Rdf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-OWL"><span class="toc-number">2.</span> <span class="toc-text">2. OWL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Propositional-Logic"><span class="toc-number">3.</span> <span class="toc-text">3. Propositional Logic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Knowledge-Graph-Reasoning"><span class="toc-number">4.</span> <span class="toc-text">4. Knowledge Graph Reasoning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Knowledge-Graph-Construction"><span class="toc-number">5.</span> <span class="toc-text">5. Knowledge Graph Construction</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Triple-Extraction-from-Relational-Web-Tables"><span class="toc-number">6.</span> <span class="toc-text">6. Triple Extraction from Relational Web Tables</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise"><span class="toc-number">6.0.1.</span> <span class="toc-text">Exercise</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Knowledge-Graph-Construction-from-Semi-Structured-Data"><span class="toc-number">7.</span> <span class="toc-text">7. Knowledge Graph Construction from Semi-Structured Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Unstructured-Data"><span class="toc-number">8.</span> <span class="toc-text">8. Unstructured Data</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Exercise%E2%80%94%E2%80%94TF-IDF"><span class="toc-number">8.0.0.1.</span> <span class="toc-text">Exercise——TF-IDF</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Knowledge-Graph-Alignment"><span class="toc-number">9.</span> <span class="toc-text">9. Knowledge Graph Alignment</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Knowledge-Graph-Querying"><span class="toc-number">10.</span> <span class="toc-text">10. Knowledge Graph Querying</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Exercise-1"><span class="toc-number">10.0.1.</span> <span class="toc-text">Exercise</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Q1"><span class="toc-number">10.0.2.</span> <span class="toc-text">Q1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Q2"><span class="toc-number">10.0.3.</span> <span class="toc-text">2. Q2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LIMIT"><span class="toc-number">10.0.4.</span> <span class="toc-text">LIMIT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OFFSET"><span class="toc-number">10.0.5.</span> <span class="toc-text">OFFSET</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BINDINGS"><span class="toc-number">10.0.6.</span> <span class="toc-text">BINDINGS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VALUE"><span class="toc-number">10.0.7.</span> <span class="toc-text">VALUE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AGGREGATES"><span class="toc-number">10.0.8.</span> <span class="toc-text">AGGREGATES</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Cypher"><span class="toc-number">11.</span> <span class="toc-text">10. Cypher</span></a></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>题目<br><span id="more"></span></p>
+<h2 id="1-XML-Rdf"><a href="#1-XML-Rdf" class="headerlink" title="1. XML Rdf"></a>1. XML Rdf</h2><p>Authoring guidelines:</p>
+<ol>
+<li>All elements must have an end tag. 标签有头有尾</li>
+<li>All elements must be cleanly nested (overlapping elements are not allowed). 所有元素必须不能重复</li>
+<li>All attribute values must be enclosed in quotation marks. </li>
+<li>Each document must have a unique first element, the root node.</li>
+<li>大小写敏感</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">book</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Knowledge Graph<span class="tag">&lt;/<span class="name">Title</span>&gt;</span> <span class="comment">&lt;!--尾标签有误--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">author</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">firstName</span>&gt;</span>Guilin<span class="tag">&lt;/<span class="name">firstName</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">lastName</span>&gt;</span>Qi<span class="tag">&lt;/<span class="name">lastName</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">email</span>&gt;</span>gqi@seu.edu.cn<span class="tag">&lt;/<span class="name">email</span>&gt;</span></span><br><span class="line">		This is some text inside an XML element.</span><br><span class="line">	<span class="tag">&lt;/<span class="name">author</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">author</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">firstName</span>&gt;</span>Tianxing<span class="tag">&lt;<span class="name">lastName</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">firstName</span>&gt;</span>Wu<span class="tag">&lt;/<span class="name">lastName</span>&gt;</span> <span class="comment">&lt;!--嵌套出错--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">email</span>&gt;</span>tianxingwu@seu.edu.cn<span class="tag">&lt;/<span class="name">email</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">author</span>&gt;</span><span class="comment">&lt;!--缺少&lt;/book&gt;--&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Typed Literals:--&gt;</span></span><br><span class="line">“Beantown”^^xsd:string</span><br><span class="line">“The Bay State” ^^xsd:string</span><br><span class="line"><span class="comment">&lt;!--Plain literal and literals with language tags:--&gt;</span></span><br><span class="line">“France” “France”@en “France”@fr</span><br><span class="line">“法国”@zh “Frankreich”@de</span><br><span class="line"><span class="comment">&lt;!--Equalities for Literals:--&gt;</span> </span><br><span class="line">“001”^^xsd:integer = “1”^^xsd:integer </span><br><span class="line">“123.0”^^xsd:decimal = “00123”^^xsd:integer (based on datatype hierarchy)</span><br><span class="line"><span class="comment">&lt;!--上面这两种形式等价，因为integer是decimal的父节点--&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Naming conflicts exist in different XML documents</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">XML document_1</span><br><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">td</span>&gt;</span>Apples<span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">td</span>&gt;</span>Bananas<span class="tag">&lt;/<span class="name">td</span>&gt;</span>&lt;/ tr&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Solution </li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">XML document_1</span><br><span class="line"><span class="tag">&lt;<span class="name">h:table</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">h:tr</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h:td</span>&gt;</span>Apples<span class="tag">&lt;/<span class="name">h:td</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h:td</span>&gt;</span>Bananas<span class="tag">&lt;/<span class="name">h:td</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">h:tr</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">h:table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>2.Naming conflicts exist in different XML documents</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">XML document_2</span><br><span class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>African Coffee Table<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">width</span>&gt;</span>8G&lt; /width&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">length</span>&gt;</span>120<span class="tag">&lt;/<span class="name">length</span>&gt;</span></span><br><span class="line">&lt; /table&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>answer</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">XML document_2</span><br><span class="line">&lt; f:table&gt;</span><br><span class="line">	<span class="tag">&lt;<span class="name">f:name</span> &gt;</span>African Coffee lable<span class="tag">&lt;/<span class="name">f:name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">f:width</span>&gt;</span>80<span class="tag">&lt;/<span class="name">f:width</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">f:length</span>&gt;</span>120<span class="tag">&lt;/<span class="name">f:length</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">f:table</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020016924.png" alt="image-20211103095753577" class="lazyload"></p>
+<ul>
+<li>Does the datatype “德国” equals to “德国” @ zh ?<ul>
+<li>Answer：不相同，因为他们位于的层次结构不同</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119547.png" alt="image-20211103095926352" class="lazyload"></p>
+<ul>
+<li>URI 英文字符   IRI任何编码</li>
+</ul>
+<p><strong>Equalities for Literals:</strong><br>“0013^^xsd:integer =“13”^^xsd:integer<br>“123.0^^xsd:decimal= “00123”1^^xsd:integer <strong>(based on data type hierarchy)</strong></p>
+<p><strong>Exercise</strong></p>
+<p>Does the datatype“德国”equals to“德国”@ zh ?</p>
+<ul>
+<li>不一样</li>
+</ul>
+<p><strong>RDF表示N元关系</strong></p>
+<ul>
+<li>用一个节点中介</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119018.png" alt="" class="lazyload"></p>
+<ul>
+<li>利用一个空节点</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119454.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050119877.png" alt="" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@prefix sw: &lt;http://www.semanticweb.org/ontology-9/&gt;</span><br><span class="line">sw:John sw:is_a sw:professors;</span><br><span class="line">		sw:has_id sw:987654321;</span><br><span class="line">		sw:has_name sw:John Doe.</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://i.loli.net/2021/08/18/F1K9YBzjwOXWb5h.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://i.loli.net/2021/08/18/b1vDKEYwaqFACMj.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://i.loli.net/2021/08/18/qaXyp6kYKG4wAou.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://i.loli.net/2021/08/18/53HZbPNpxw4TBQe.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://i.loli.net/2021/08/18/4FCTKVefh6HlUZs.png" alt="" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108191721085.png" alt="" class="lazyload"></p>
+<ul>
+<li>Represent the following sentence graphically by means of the blank node:<br>Wikipedia said that Tolkien wrote Lord of the Rings.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://i.loli.net/2021/08/18/cBxAVzgEUpltv43.png" alt="" class="lazyload"></p>
+<ol>
+<li>Please represent the following sentences graphically by means of blank nodes.<br>Jonathon says cherries taste sweet.<br>1月14日，国家药监局宣布酚酞片停止生产</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120376.png" alt="image-20211103114451839" class="lazyload"></p>
+<ul>
+<li>Given：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ex:happilyMarriedWith rdfs:subPropertyOf ex:isMarriedTo . </span><br><span class="line">ex:isMarriedTo rdfs:domain ex:Person . </span><br><span class="line">ex:isMarriedTo rdfs:range ex:Person . </span><br><span class="line">ex:pascal ex:happilyMarriedWith ex:lisa .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可推出：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ex:pascal ex:isMarriedTo ex:lisa . </span><br><span class="line">ex:pascal rdf:type ex:Person . </span><br><span class="line">ex:lisa rdf:type ex:Person .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>What can be inferred from the following triples using RDFS semantics?</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ex:Postgraduate_student rdfs:subClassOf ex:Student </span><br><span class="line">ex:Professor rdfs:subClassOf ex:Academic_staff </span><br><span class="line">ex:Supervise rdfs:domain ex:Professor </span><br><span class="line">ex:Supervise rdfs:range ex:Postgraduate_student </span><br><span class="line">ex:John ex:Supervise ex:Mary</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ex:John rdf:type ex:Professor </span><br><span class="line">ex:Mary rdf:type ex:Postgraduate_student </span><br><span class="line"></span><br><span class="line">ex:John rdf:type ex:Academic_staff</span><br><span class="line">ex:Mary rdf:type ex:Studentt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>What can be inferred from the following triples using RDFS semantics?</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ex:Undergraduate_student rdfs:subClassOf ex:Student .</span><br><span class="line">ex:Postgraduate_student rdfs:subClassOf ex:Student .</span><br><span class="line">ex:Professor rdfs:subClassOf ex: Academic_staff .</span><br><span class="line">ex:Academic_staff rdfs:subClassOf ex:University_staff .</span><br><span class="line">ex:Teach rdfs:domain ex:Academic_staff .</span><br><span class="line">ex:Teach rdfs:range ex:Student .</span><br><span class="line">ex:Supervise rdfs:domain ex:Professor .</span><br><span class="line">ex:Supervise rdfs:range ex:Postgraduate_student .</span><br><span class="line">ex:John ex:Supervise ex:Mary .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ex:Professor rdfs:subClassOf ex: University_staff .</span><br><span class="line">ex:John rdf:type ex:Professor .</span><br><span class="line">ex:Mary rdf:type ex:Postgraudate_student .</span><br><span class="line">ex:John rdf:type ex:Academic_staff .</span><br><span class="line">ex:John rdf:type ex:University_staff .</span><br><span class="line">ex:Mary rdf:type ex:Student .</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108250958326.png" alt="" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sw:John sw:is_a sw:professors . </span><br><span class="line">sw:John sw:has_name “John Doe” . </span><br><span class="line">sw:John sw:has_id “987654321” .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sw:John sw:is_a sw:professors ; </span><br><span class="line">		sw:has_name “John Doe” ; </span><br><span class="line">		sw:has_id “987654321” .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Use a RDF graph to represent the sentence “John is working in a company located in Sydney” (bland node can be considered).</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202108251030427.png" alt=" " class="lazyload"></p>
+<ul>
+<li><p>Does the datatype “3.14”^^xsd:string equal to “+03.14”^^xsd:string? If not, why?</p>
+</li>
+<li><p>Answer:不是；这是字符串形式，字符串要考虑每个character，明显两个字符串不一样。</p>
+</li>
+</ul>
+<h2 id="2-OWL"><a href="#2-OWL" class="headerlink" title="2. OWL"></a>2. OWL</h2><p> <strong>Equivalence between classes, individuals, and properties: 一些等价关系</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exp:Athlete owl:equivalentClass exp:SportsPlayer . </span><br><span class="line">exp:obtain owl:equivalentProperty exp:acquire . </span><br><span class="line">exp:SportsPlayerA owl:sameAs exp:Thomas .</span><br></pre></td></tr></table></figure>
+<p><strong>Disjointness between classes: 类别不相交关系</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:Man owl:disjointWith exp:Woman .</span><br></pre></td></tr></table></figure>
+<p><strong>Intersection of classes: 交</strong>集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exp:Mother rdf:type owl:class ; </span><br><span class="line">		   owl:intersectionOf (exp:Woman exp:Parent) .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里括号里面可以有更多类别</li>
+</ul>
+<p><strong>Negation of a class: 类别取反</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exp:ABC rdf:type owl:class ; </span><br><span class="line">		owl:complementOf exp:Meat .</span><br></pre></td></tr></table></figure>
+<p><strong>Property definitions: object property and data property.对属性的定义（谓词）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ex:friendOf rdf:type owl:ObjectProperty . </span><br><span class="line">ex:age rdf:type owl:DataProperty .</span><br></pre></td></tr></table></figure>
+<p><strong>Transitive property: 传递性</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:ancestor rdf:type owl:TransitiveProperty .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Given triples</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exp:Thmoas exp:ancestor exp:Jimmy . </span><br><span class="line">exp:Jimmy exp:ancestor exp:Michael .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Then what can we infer from them?</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:Thmoas exp:ancestor exp:Michael .</span><br></pre></td></tr></table></figure>
+<p><strong>Functional property:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:hasMother rdf:type owl:FunctionalProperty .</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Please explain using natural language:<br><strong><em>Everyone has only one mother.</em></strong></p>
+</li>
+<li><p>谓词的函数特性表示他的range取值只能有一个</p>
+</li>
+</ul>
+<p><strong>inverse functional property 具有反函数特性</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:postgraduateSupervisor rdf:type owl:InverseFunctionalProperty .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Please explain using natural language:</li>
+</ul>
+<p>Each post-graduate student has only one supervisor.</p>
+<ul>
+<li>这表示谓语的定义域只能有一个</li>
+</ul>
+<p><strong>Symmetric property</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:friendOf rdf:type owl:SymmetricProperty .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Given a triple</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:Thmoas exp:friendOf exp:Lisa .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Then what can we infer from it?</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:Lisa exp:friendOf exp:Thmoas .</span><br></pre></td></tr></table></figure>
+<p><strong>Inverse relations between properties</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:ancestor owl:inverseOf exp:descendant .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Given a triple</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:Thmoas exp:ancestor exp:Jimmy .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Then what can we infer from it?</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exp:Jimmy exp:descendant exp:Thmoas .</span><br></pre></td></tr></table></figure>
+<p><strong>Constraints on properties: universal quantifier ∀任意（谓词限定词）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exp:Person rdf:type owl:Restriction ; </span><br><span class="line">		   owl:onProperty exp:hasMother ; #表示Person可以充当hasMother的主语</span><br><span class="line">           owl:allValuesFrom exp:Women . #表示前一句谓语的range的取值范围</span><br></pre></td></tr></table></figure>
+<ul>
+<li>What do we know from the above triples?</li>
+<li>If the subject of exp:hasMother comes from the class exp:Person, then the object can be only from the class exp:Women</li>
+</ul>
+<p><strong>Constraints on properties: existential quantifier ∃ 存在</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exp:SemanticWebPapers rdf:type owl:Restriction ; </span><br><span class="line">					  owl:onProperty exp:publishedIn ; </span><br><span class="line">					  owl:someValuesFrom exp:AAAIPapers . #存在一部分的发表在AAAIPapers</span><br></pre></td></tr></table></figure>
+<ul>
+<li>What do we know from the above triples?</li>
+<li><p>If the subject of exp:publishedIn comes from the class exp:SemanticWebPapers, then the object may be (at least one) from the class exp:AAAIPapers.</p>
+</li>
+<li><p>A part of the Semantic Web papers were published in AAAI.</p>
+</li>
+</ul>
+<p><strong>Constraints on properties: cardinalities</strong> </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exp:Person rdf:type owl:Restriction ; </span><br><span class="line">		   owl:onProperty exp:hasParent ; </span><br><span class="line">		   owl:cardinality “2”^^xsd:integer . #限定hasParent的range只能有两个</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Please explain using natural language:</li>
+<li><p>Each person should have two parents.</p>
+</li>
+<li><p><strong>cardinality</strong>也可以换成<strong>owl:maxCardinality/ owl:minCardinality</strong>，表示最多或者最少</p>
+</li>
+<li><p>Giraffe is a kind of animal which only eats leaves.</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@prefix sw: &lt;http://semanticweb.org/&gt; </span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; . </span><br><span class="line">@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; . </span><br><span class="line">@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; . </span><br><span class="line"></span><br><span class="line">sw:Giraffe rdfs:subClassOf _:x .</span><br><span class="line">_:x rdfs:subClassOf sw:Animal ; </span><br><span class="line">	rdf:type owl:Restriction ; </span><br><span class="line">	owl:onProperty sw:eat ; </span><br><span class="line">	owl:allValuesFrom sw:Leaf .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Please write the corresponding RDF triples (in Turtle) of the following sentence: “Childless Persons are the persons who are not parents”. Note that classes “ChildlessPerson”, “Person”, “Parent” are defined in the namespace <a target="_blank" rel="noopener" href="http://semanticweb.org/">http://semanticweb.org/</a> with the prefix “SW”.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">_:x0 rdf:type owl:class;</span><br><span class="line">	 owl:complement owl:Parent.</span><br><span class="line">_:x1 rdf:type owl:class;</span><br><span class="line">	 owl:intersectionOf (sw:Person _:x0);</span><br><span class="line">	 owl:equivalentClass sw:ChildlessPerson.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Exercise 1:The father of each person should be a man</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exp:Person rdf:type owl:Restriction ; </span><br><span class="line">		   owl:onProperty exp:hasFather ;			    		   </span><br><span class="line">		   owl:allValuesFrom exp:Men .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Please useRDF triples (in Turtle) to represent the following sentence: “Each human <strong>has only one</strong> biological mother who should be a woman” with the classes: “Human”and “Women”, and the property“biologicalMotherOf ”. Each class or property can be defined in the namespace <a target="_blank" rel="noopener" href="http://semanticweb.org/">http://semanticweb.org/</a> with the prefix “SW”.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@prefix sw: &lt;http://semanticweb.org/&gt; </span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; . </span><br><span class="line">@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; . </span><br><span class="line">@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .</span><br><span class="line">sw:biologicalMotherOf rdfs:domain sw:Women ;</span><br><span class="line">                      rdfs:range  sw:Human ;</span><br><span class="line">                      rdf:type    owl:InverscFunctionalProperty .</span><br></pre></td></tr></table></figure>
+<p>5) Please write the corresponding RDF triples (in Turtle) of the following sentence: “Grandpas are the men who are grandparents”. Specific classes are defined in the namespace<br>   <a target="_blank" rel="noopener" href="http://semanticweb.org/">http://semanticweb.org/</a>. Prefixes are given as follows:<br>   @prefix sw: <a target="_blank" rel="noopener" href="http://semanticweb.org/">http://semanticweb.org/</a> .<br>   @prefix rdf: <a target="_blank" rel="noopener" href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a> .<br>   @prefix owl: <a target="_blank" rel="noopener" href="http://www.w3.org/2002/07/owl#">http://www.w3.org/2002/07/owl#</a> .</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">_:x  rdf:type  owl:class  ;</span><br><span class="line">     owl:intersectionOf  (sw:Man  sw:Grandparent)  ;</span><br><span class="line">     owl:equivalentClass  sw:Grandpa .</span><br></pre></td></tr></table></figure>
+<h2 id="3-Propositional-Logic"><a href="#3-Propositional-Logic" class="headerlink" title="3. Propositional Logic"></a>3. Propositional Logic</h2><ul>
+<li><strong>Example: Natural Language: Nigiri is a type of Sushi which has ingredient Rice and Fish</strong></li>
+</ul>
+<ul>
+<li>FOL:<br><strong>∀x.[Nigiri(x) → Sushi(x) ∧ ∃y.[hasIngredient(x,y) ∧ Rice(y)] ∧</strong><br><strong>∃z.[hasIngredient(x,z) ∧ Fish(z)]]</strong></li>
+<li>Are the following valid OWL axioms? If not, why? (class: A,B,C,D, role: R)</li>
+<li>A⨅(B⨆ ∃R)</li>
+<li>(∀R.A⨆B)⨅A</li>
+<li>(A⨅B)¬C⨆D</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120242.png" alt="image-20211103120142002" class="lazyload"></p>
+<ul>
+<li>Everybody knowing some actor has only envious friends</li>
+</ul>
+<p><strong>例1</strong>：$\exists$knows.Actor $\subseteq$​ $\forall$hasfriend.Envious</p>
+<p>用一阶逻辑来改写：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120354.png" alt="image-20211013230758625" class="lazyload"></p>
+<p>All students that attend <strong>only</strong> master courses.</p>
+<p><strong>例2</strong>：Student ⊓<strong>∀</strong>attendsCourse.MasterCourse</p>
+<p>用一阶逻辑改写：<br>∀x (Student(x) ∧ ∀y(attendsCourse(x,y) ∧ MasterCourse(y)))</p>
+<p><strong>例3</strong>：自然语言解释：<br>All students that attend <strong>at least one</strong> lecture.</p>
+<p>Student ⊑<strong>∃</strong>Attend.Lecture<br>用一阶逻辑改写：<br>∀x (Student(x) → ∃y(Attend(x,y) ∧ Lecture(y)))</p>
+<p><strong>Example</strong></p>
+<p>(1) Any student must attend at least one lecture.<br>    <strong>Student ⊑ ∃Attend.Lecture</strong><br>(2) John is a brother of Mary.<br>    <strong>Brother(John,Mary)</strong><br>(3) Parents are <strong>exactly</strong> those who are mothers or fathers.<br>    <em>*Parent ≡ Mother ⊔ Father</em></p>
+<ul>
+<li><strong>Exercise</strong></li>
+</ul>
+<ol>
+<li>A Phd Student is a student who has a supervisor. </li>
+</ol>
+<script type="math/tex; mode=display">
+\text{Phd\_student} \subseteq \text{student}\ \cap\ \exist\text{Supervisedby.}\ \text{human}</script><p> 2.Animals are not vegetables.</p>
+<script type="math/tex; mode=display">
+\text{Animal} \subseteq\ \neg\text{vegetable}</script><ul>
+<li>Express the following sentences in Description Logics.</li>
+</ul>
+<p>Li is a student of SEU. Any person who is enrolled in a university is a college student.</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120778.png" alt="image-20211103115803638" class="lazyload"></p>
+<ul>
+<li>Example: ¬Feamale ⊓ ∃haschild.Human ⊑ Human</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110132329253.png" alt="image-20211013232918934" class="lazyload"></p>
+<ul>
+<li>Modify:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110132345839.png" alt="image-20211013234500299" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020017715.png" alt="image-20211013234510570" class="lazyload"></p>
+<ul>
+<li><p>Exercise:</p>
+</li>
+<li><p>Give a model for the ontology:</p>
+<ul>
+<li>$\text{PhD}_\text{student} \sqsubseteq \text{Student}$​</li>
+<li>$\text{Student} \sqsubseteq \neg\text{Employee}$​​, $\text{PhD}_\text{student}(\text{John})$</li>
+<li>$\text{Emploee}(\text{Lisa}),\text{Marriedto}(\text{John},\text{Lisa})$​​​ </li>
+</ul>
+</li>
+<li><p>Answer:</p>
+<ul>
+<li>$\Delta=\{jo,l\}$</li>
+<li>$I_I(\text{John})=jo$​​</li>
+<li>$I_I(\text{Lisa})=l$​​</li>
+<li>$I_C(\text{Emploee})={l}$​</li>
+<li>$I_C(\text{PhD}_\text{student})={jo}$​​</li>
+<li>$I_C(\text{Student})={jo}$​​</li>
+<li>$I_R(\text{Marriedto})={<jo,l>}$</li>
+</ul>
+</li>
+<li><p>Inconsistency is often caused by modeling errors. 如果不一致，常常都无法找到一个model</p>
+<ul>
+<li>Unicorn(beauty) </li>
+<li>Unicorn ⊑ Fictitious</li>
+<li>Unicorn ⊑ Animal</li>
+<li>Animal ⊑¬Fictitious</li>
+</ul>
+</li>
+<li><p>A knowledge base is incoherent if a named class is equivalent to ⊥.</p>
+</li>
+<li><p>It usually also points to a modeling error. 即通过构造空集可以证明model的错误</p>
+<ul>
+<li>Unicorn ⊑ Fictitious</li>
+<li>Unicorn ⊑ Animal </li>
+<li>Animal ⊓ Fictitious ⊑ ⊥</li>
+</ul>
+</li>
+<li><p>Express the following sentences in Description Logic.</p>
+</li>
+</ul>
+<ol>
+<li>Every teacher must teach someone<br>Teacher $\subseteq \exists$ Teach. Human</li>
+<li>Every finger is a bodypart and is a part-of hand.<br>Finger $\subseteq$ BodyPart $\cap \exists$ PartOf. Hand</li>
+<li>Zhang is a teacher of SEU<br>Teacher (Zhang), TeachIn(Zhang,SEU)</li>
+</ol>
+<ul>
+<li><p>Give a model of the following ontology:<br>PhD $_{\text {student }}$ U Undergraduatge $_{\text {student }} \sqsubseteq$ Student,<br>PhD $_{\text {student }}($ John $)$,<br>Undergraduatge $_{\text {student }}($ Jack $)$,<br>Sister $($ Lisa,Jack $)$,<br>Employee $($ Lisa $)$</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}\Delta=\{j o, j a, l\} \\ I_{I}(\text { John })=j o \\ I_{I}(\text { Jack })=j a \\ I_{I}(\text { Lisa })=l \\ I_{C}(\text { Employee })=\{l\}\end{array}</script><p>$I_{C}\left(\right.$ Undergraduatge $\left._{\text {student }}\right)=\{j a\}$<br>$I_{C}\left(\right.$ Phd $\left._{\text {student }}\right)=\{j o\}$<br>$I_{C}($ Student $)=\{j o, j a\}$<br>$I_{R}($ Sister $)=\{(l, j a)\}$</p>
+</li>
+<li><p>Give a model of the following ontology</p>
+</li>
+<li><p>Professor⊑FacultyMember,</p>
+</li>
+<li><p>Professor(Guilin Qi),</p>
+</li>
+<li><p>hasAffiliation(Guilin Qi, SEU),</p>
+</li>
+<li><p>StudentOf(Zhang, Guilin Qi)</p>
+</li>
+</ul>
+<p><strong>A model:</strong> </p>
+<ul>
+<li>∆={a,b,c}</li>
+<li>I(Guilin Qi)=a, I(SEU)=b, I(Zhang)=c</li>
+<li>I( Professor)={a}, I(FacultyMember)={<em>a</em>},</li>
+<li>I(hasAffiliation)={(<em>a</em>,b)},</li>
+<li><p>I(StudentOf)={(<em>c</em>,a)},</p>
+</li>
+<li><p>Give a model of the following ontology</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\text{Professor} \sqsubseteq \text{FacultyMember},\\
+\text{Professor (Guilin Qi)},\\
+\text{hasAffiliation (Guilin Qi, SEU)},\\
+\text{StudentOf (Zhang, Guilin Qi)}\\
+\end{array}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\Delta &= \{q,z,seu\} \\
+\mathrm{I}_{\mathbf{I}}(\text{Guilin Qi})&=q \\
+\mathrm{I}_{\mathbf{I}}(\text{Zhang})&=z \\
+\mathrm{I}_{\mathbf{C}}(\text{Professor})&=\{q\} \\
+\mathrm{I}_{\mathbf{C}}(\text{FacultyMember})&=\{q\} \\
+\mathrm{I}_{\mathbf{R}}(\text{hasAffiliation})&=\{(q,seu)\} \\
+\mathrm{I}_{\mathbf{R}}(\text{StudentOf})&=\{(z,q)\} \\
+\end{aligned}</script></li>
+</ul>
+<hr>
+<ul>
+<li><p>Write the inferred axioms using description logic after conducting classification in forward reasoning on the following axioms.</p>
+<p>Endocarditis $\sqsubseteq$ Heart Disease<br>Miocardial Infarction $\sqsubseteq$ Heart Disease<br>Heart Disease $\sqsubseteq$ Disease<br>Enterococcal Endocarditis $\sqsubseteq$ Endocarditis</p>
+</li>
+<li><p>Answer</p>
+<p>Miocardial_Infarction $\sqsubseteq$​​​​ Disease<br>Endocarditis $\sqsubseteq$​​​​ Disease<br>Enterococcal_Endocarditis $\sqsubseteq$​​​​ Heart_Disease<br>Enterococcal_Endocarditis $\sqsubseteq$​​​​ Disease</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050120524.png" alt="image-20220104221111796" class="lazyload"></p>
+<h2 id="4-Knowledge-Graph-Reasoning"><a href="#4-Knowledge-Graph-Reasoning" class="headerlink" title="4. Knowledge Graph Reasoning"></a>4. Knowledge Graph Reasoning</h2><p><strong>Example1:</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141640820.png" alt="image-20211014164036416" class="lazyload"></p>
+<p><strong>Example2:</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141642564.png" alt="image-20211014164229482" class="lazyload"></p>
+<ul>
+<li><strong>So what type of Endocarditis is?</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141646378.png" alt="image-20211014164651146" class="lazyload"></p>
+<p><strong>Example1:</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110141647879.png" alt="image-20211014164734902" class="lazyload"></p>
+<ul>
+<li><p><strong>Classification</strong> is to compute all implicit subclass relations by applying rules on a TBox.</p>
+<p><em>利用TBox的规则计算所有子类的依赖关系</em></p>
+</li>
+</ul>
+<p><strong>Example2:</strong></p>
+<ul>
+<li>Highvalue_Company ⊑ ∃beInvestedBy. Investment_Company</li>
+<li>高价值公司由投资公司投资。</li>
+<li>Investment_Company ⊑ Financial_Institute</li>
+<li>投资公司属于金融机构</li>
+<li>∃beInvestedBy. Financial_Institute ⊑ Solvent_Company</li>
+<li>借助金融机构投资的公司都是具备偿还能力的 企业。</li>
+</ul>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Highvalue_Company ⊑ ∃beInvestedBy. Financial_Institute</li>
+<li>Highvalue_Company ⊑ Solvent_Company</li>
+</ul>
+<p><strong>Example1:</strong></p>
+<ul>
+<li>Rule: If you are human, then you are mortal.</li>
+<li>Human(x)→Mortal(x)</li>
+<li><strong>Question: Is Socrates a mortal?</strong></li>
+<li>Solution: <strong>Check</strong> whether <strong>Mortal(Scorates)</strong> or <strong>Human(Scorates)</strong> is true.</li>
+</ul>
+<p><strong>Example2:</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110201013679.png" alt="image-20211020101305861" class="lazyload"></p>
+<ul>
+<li><strong>Query:</strong> Find all patients with heart diseases, i.e., Heart_Disease(x)</li>
+<li><strong>Rewriting</strong>: Endocarditis(x) ⋁ Miocardial_Infarction(x) ⋁ Coronary_disease(x)</li>
+<li><p>可以理解成重写问题</p>
+</li>
+<li><p>Given the following KG, use query rewriting on the query <em>Person(x)</em> (this query is used for checking whether x is a person) .</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121466.png" alt="image-20211103152402394" class="lazyload"></p>
+<p><strong>Exercize：</strong></p>
+<p>Find all sports players with the following KG, i.e., rewrite the query Sports_Player(x).</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110201014413.png" alt="image-20211020101450138" class="lazyload"></p>
+<ul>
+<li><strong>Query</strong>: Find all sports players </li>
+<li><strong>Rewriting</strong>: SportsPlayer(x) ⋁ BasketballPlayer(x) ⋁ FootballPlayer(x) ⋁ TennisPlayer(x) </li>
+</ul>
+<p><strong>Example:</strong> </p>
+<ul>
+<li><p>PhDStudent ⊑ Student, </p>
+</li>
+<li><p>PhDStudent ⊑ Employee, </p>
+</li>
+<li><p>Student ⊑ ¬ Employee</p>
+<ul>
+<li>以上最终可以退出Student和Employee都是空集，所以找不到一个model</li>
+<li>Inconsistent ontology: ontology without a model. </li>
+</ul>
+</li>
+</ul>
+<p><strong>Example:</strong> </p>
+<ul>
+<li><p>PhDStudent ⊑ Student, </p>
+</li>
+<li><p>PhDStudent ⊑ Employee,</p>
+</li>
+<li><p>Student ⊑ ¬ Employee, </p>
+</li>
+<li><p>PhDStudent(John)</p>
+<ul>
+<li>这里则产生了矛盾</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example: DICE ontology</strong>:</p>
+<ul>
+<li>Brain $\sqsubseteq$ <strong>CentralNervousSystem</strong> $\sqcap$ <strong>$\exists$systempart.NervousSystem</strong> $\sqcap$ <strong>BodyPart</strong> $\sqcap$ $\exists$ region.HeadAndNeck $\sqcap$ $\forall$ region.HeadAndNeck</li>
+<li>CentralNervousSystem $\sqsubseteq$​​​ NervousSystem</li>
+<li>BodyPart $\sqsubseteq \neg$​​ NervousSystem    or   DisjointWith(BodyPart,NervousSystem)<ul>
+<li>Reasoning: <ul>
+<li>Brain $\sqsubseteq$​​​ Bodypart $\sqsubseteq$​​​ $\neg$​​ NervousSystem</li>
+<li>Brain $\sqsubseteq$​​ CentralNervousSystem $\sqsubseteq$​​ NervousSystem</li>
+<li>Brain = $\emptyset$</li>
+</ul>
+</li>
+<li>Brain是空集</li>
+</ul>
+</li>
+</ul>
+<p><strong>Example from Foaf:</strong></p>
+<ul>
+<li>Person(timbl)</li>
+<li>Homepage(timbl, <a target="_blank" rel="noopener" href="http://w3.org/">http://w3.org/</a>)</li>
+<li>Homepage(w3c, <a target="_blank" rel="noopener" href="http://w3c.org/">http://w3c.org/</a>)</li>
+<li>Organization(w3c)</li>
+<li><strong>InverseFunctionalProperty(Homepage)</strong> <strong>(Homepage的domain只有一个值，所以矛盾)</strong></li>
+<li>DisjointWith(Organization, Person)</li>
+</ul>
+<p><strong>Example from OpenCyc:</strong></p>
+<ul>
+<li>ArtifactualFeatureType(<strong>PopulatedPlace</strong>)</li>
+<li>ExistingStuffType(<strong>PopulatedPlace</strong>)</li>
+<li><strong>DisjointWith</strong>(ExistingobjectType,ExistingStuffType)</li>
+<li><p>ArtifactualFeatureType $\sqsubseteq$​ ExistingObjectType</p>
+</li>
+<li><p>ExistingObjectType与ExistingStuddType不相交，但是却拥有相同的实例，所以矛盾</p>
+</li>
+</ul>
+<p><strong>Exercise：</strong><br>The following ontology is inconsistent, and remove one axiom or assertion in it to make it consistent.</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\operatorname{Ph} D_{\text {student }} \sqcup \text { Undergraduatge }_{\text {student }} \sqsubseteq \text { Student, } \\
+&\text { Student } \sqsubseteq \neg \text { Employee } \\
+&\text { PhD }_{\text {student }} \text { (John), } \\
+&\text { Employee(John), } \\
+&\text { Marriedto(John, Lisa), } \\
+&\text { Undergraduate(Jack) }
+\end{aligned}</script><ul>
+<li>$\text { Student } \sqsubseteq \neg \text { Employee }$ or $\text { Employee(John)}$ or $\text { PhD }_{\text {student }} \text { (John) }$</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">%%Facts</span><br><span class="line">friend(joe,sue) .</span><br><span class="line">friend(ann,sue) .</span><br><span class="line">friend(sue,max) .</span><br><span class="line">friend(max,ann) .</span><br><span class="line"></span><br><span class="line">%% Rules</span><br><span class="line">fof(X,Y) :- friend(X,Y)</span><br><span class="line">fof(X,Z) :- friend(X,Y), fof(Y,Z)</span><br><span class="line"></span><br><span class="line">%%Quiery 1</span><br><span class="line">query(X) :- fof(X,ann)</span><br><span class="line"></span><br><span class="line">%%Answer:</span><br><span class="line">fof(sue,ann) .</span><br><span class="line">fof(max,ann) .</span><br><span class="line">fof(joe,ann) .</span><br><span class="line">fof(ann,ann) .</span><br></pre></td></tr></table></figure>
+<p><strong>Exercise</strong></p>
+<ul>
+<li><p>Rule：fatherinlawOf(X,Z) :- wifeOf(X,Y), fatherOf(Y,Z)</p>
+</li>
+<li><p>Fact： wifeOf (YaoMing，YeLi)</p>
+</li>
+<li><p>Fact： fatherOf (YeLi，YeFa)</p>
+<p><em>Who is the father-in-law of Yao Ming？</em></p>
+</li>
+<li><p>fatherinlawOf(YaoMing, YeFa)</p>
+</li>
+</ul>
+<h2 id="5-Knowledge-Graph-Construction"><a href="#5-Knowledge-Graph-Construction" class="headerlink" title="5. Knowledge Graph Construction"></a>5. Knowledge Graph Construction</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271112683.png" alt="image-20211027111243049" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@base &lt;http://foo.example/DB/&gt; . </span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;. </span><br><span class="line"></span><br><span class="line">&lt;People/ID=7&gt; rdf:type &lt;People&gt; . #某条记录的类别</span><br><span class="line">&lt;People/ID=7&gt; &lt;People#ID&gt; &quot;7&quot; .  #具体属性</span><br><span class="line">&lt;People/ID=7&gt; &lt;People#fname&gt; &quot;Bob&quot; . </span><br><span class="line">&lt;People/ID=7&gt; &lt;People#addr&gt; &quot;18&quot; . </span><br><span class="line">&lt;People/ID=7&gt; &lt;People#ref-addr&gt; &lt;Addresses/ID=18&gt; . #利用外键关联映射两张表的记录</span><br><span class="line"></span><br><span class="line">&lt;People/ID=8&gt; rdf:type &lt;People&gt; . </span><br><span class="line">&lt;People/ID=8&gt; &lt;People#ID&gt; &quot;8&quot; . </span><br><span class="line">&lt;People/ID=8&gt; &lt;People#fname&gt; &quot;Sue&quot; . </span><br><span class="line"></span><br><span class="line">&lt;Addresses/ID=18&gt; rdf:type &lt;Addresses&gt; . </span><br><span class="line">&lt;Addresses/ID=18&gt; &lt;Addresses#ID&gt; &quot;18&quot; . </span><br><span class="line">&lt;Addresses/ID=18&gt; &lt;Addresses#city&gt; &quot;Cambridge&quot; . </span><br><span class="line">&lt;Addresses/ID=18&gt; &lt;Addresses#state&gt; &quot;MA&quot; .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Please use direct mapping to map the following two relational tables to RDF triples with the base IRI <a target="_blank" rel="noopener" href="http://foo.example/DB/">http://foo.example/DB/</a> and prefix rdf：<a target="_blank" rel="noopener" href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a> .</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121212.png" alt="image-20211027112228218" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@base &lt;http://foo.example/DB/&gt; .</span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;.</span><br><span class="line"></span><br><span class="line">&lt;Student/ID=001&gt; rdf:type &lt;Student&gt; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#ID&gt; &quot;001&quot; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#sname&gt; &quot;Zhang&quot; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#major&gt; &quot;101&quot; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#ref-major&gt; &lt;Major/ID=101&gt; .</span><br><span class="line"></span><br><span class="line">&lt;Major/ID=101&gt; rdf:type &lt;Major&gt; .</span><br><span class="line">&lt;Major/ID=101&gt; &lt;Major#ID&gt; &quot;101&quot; .</span><br><span class="line">&lt;Major/ID=101&gt; &lt;Major#mname&gt; &quot;CS&quot; .</span><br><span class="line">&lt;Major/ID=101&gt; &lt;Major#address&gt; &quot;CS_Building&quot; .</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271142405.png" alt="image-20211027114215875" class="lazyload"></p>
+<p><strong>Example: database view</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121073.png" alt="image-20211027114357042" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271148352.png" alt="image-20211027114825313" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">@prefix rr: &lt;http:l//www.w3.org/ns/r2rml#&gt; .</span><br><span class="line">&lt;TriplesMap1&gt;</span><br><span class="line">a rr:TriplesMap;       #&lt;TriplesMap1&gt;前没有‘#’时要加这一句</span><br><span class="line"></span><br><span class="line">rr:logicalTable [rr:tableName &quot;Person&quot;];</span><br><span class="line"></span><br><span class="line">rr:subjectMap[</span><br><span class="line">	rr:template &quot;http://www.ex.com/Person/ID=&#123;ID&#125;&quot;; </span><br><span class="line">                #ID=&#123;ID&#125;  直接&#123;ID&#125;都是可以的  看你自己怎么定义template</span><br><span class="line">	rr:class &lt;http://www.ex.com/Person&gt;;#表示从url拿class</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [</span><br><span class="line">	rr:predicate &lt;http:7/www.ex.com/Person#NAME&gt;; #表示从url拿predicate</span><br><span class="line">    rr:objectMap [rr:column &quot;NAME&quot;]; #表示从db中取</span><br><span class="line">].</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png" alt="image-20211027115000107" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271554836.png" alt="image-20211027155406385" class="lazyload"></p>
+<ul>
+<li><strong>Set of RDF triples</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://data.example.com/employee/7369&gt; rdf:type ex:Employee.</span><br><span class="line">&lt;http://data.example.com/employee/7369&gt; ex:name &quot;SMITH&quot;. </span><br><span class="line">&lt;http://data.example.com/employee/7369&gt; ex:department &lt;http://data.example.com/department/10&gt;.</span><br><span class="line"></span><br><span class="line">&lt;http://data.example.com/department/10&gt; rdf:type ex:Department.</span><br><span class="line">&lt;http://data.example.com/department/10&gt; ex:name &quot;APPSERVER&quot;.</span><br><span class="line">&lt;http://data.example.com/department/10&gt; ex:location &quot;NEW YORK&quot;.</span><br><span class="line">&lt;http://data.example.com/department/10&gt; ex:staff 1.</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>R2RML</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">@prefix rr: &lt;http://www.w3.org/ns/r2rml#&gt;.</span><br><span class="line">@prefix ex: &lt;http://example.com/ns#&gt;.</span><br><span class="line">&lt;#TriplesMap1&gt;</span><br><span class="line">rr:logicalTable [ rr:tableName &quot;EMP&quot; ];</span><br><span class="line"></span><br><span class="line">rr:subjectMap [</span><br><span class="line">	rr:template &quot;http://data.example.com/employee/&#123;EMPNO&#125;&quot;;</span><br><span class="line">	rr:class ex:Employee;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [</span><br><span class="line">	rr:predicate ex:name;</span><br><span class="line">	rr:objectMap [ rr:column &quot;ENAME&quot; ];</span><br><span class="line">].</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [</span><br><span class="line">	rr:predicate ex:department; #与rdf对应</span><br><span class="line">	rr:objectMap [#定义宾语映射，在第二张表找</span><br><span class="line">		rr:parentTriplesMap &lt;#TriplesMap2&gt;; #去map2去找subject来当宾语</span><br><span class="line">		rr:joinCondition [#表示这些属性是相同的</span><br><span class="line">			rr:child &quot;DEPTNO&quot;;#triple2就是child</span><br><span class="line">			rr:parent &quot;DEPTNO&quot;;#triple1就是parent</span><br><span class="line">		];</span><br><span class="line">	];</span><br><span class="line">].</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;#TriplesMap2&gt; </span><br><span class="line">rr:logicalTable &lt;#DeptTableView&gt;;</span><br><span class="line"></span><br><span class="line">rr:subjectMap [ </span><br><span class="line">    rr:template &quot;http://data.example.com/department/&#123;DEPTNO&#125;&quot;; </span><br><span class="line">	rr:class ex:Department; </span><br><span class="line">]; </span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [ </span><br><span class="line">	rr:predicate ex:name; #对于rdf的Property</span><br><span class="line">	rr:objectMap [ rr:column &quot;DNAME&quot; ]; </span><br><span class="line">]; </span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [ </span><br><span class="line">	rr:predicate ex:location; </span><br><span class="line">	rr:objectMap [ rr:column &quot;LOC&quot; ]; </span><br><span class="line">]; </span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [ </span><br><span class="line">	rr:predicate ex:staff; </span><br><span class="line">	rr:objectMap [ rr:column &quot;STAFF&quot; ]; </span><br><span class="line">].</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Please write the R2RML triples map to map the following relational database to RDF triples with prefix rr: <a target="_blank" rel="noopener" href="http://www.w3.org/ns/r2rml#">http://www.w3.org/ns/r2rml#</a> and prefix ex: <a href="http://example.com/ns#">http://example.com/ns#</a>(for <strong>classes</strong> and properties).</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271203949.png" alt="image-20211027120354890" class="lazyload"></p>
+<ul>
+<li><strong>RDF Triples</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://data.example.com/student/001&gt; ex:name &quot;Zhang&quot;. &lt;http://data.example.com/student/002&gt; ex:name &quot;Wang&quot;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@prefix rr:&lt;http://www.w3.org/ns/r2rml#&gt; .</span><br><span class="line">@prefix rr:&lt;http://example.com/ns#&gt; .</span><br><span class="line">&lt;#TriplesMap1&gt;</span><br><span class="line">	rr:logicalTable [rr:tabelName &quot;RDB&quot;];</span><br><span class="line">	rr:subjectMap[</span><br><span class="line">		rr:template &quot;http://data.example.com/student/&#123;ID&#125;&quot;;</span><br><span class="line">		rr:class ex:Student;</span><br><span class="line">	];</span><br><span class="line">	rr:predicateObjectMap[</span><br><span class="line">		rr:predicate ex:name; </span><br><span class="line">		rr:objectMap [rr:column &quot;Name&quot;];</span><br><span class="line">	].</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Please use direct mapping to map the following three relational tables to RDF triples,</p>
+<p>Given: </p>
+<p>@base <a target="_blank" rel="noopener" href="http://foo.example/DB/">http://foo.example/DB/</a> .</p>
+</li>
+</ul>
+<p>@prefix rdf: <a target="_blank" rel="noopener" href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Answer:</span><br><span class="line"></span><br><span class="line">@base &lt;http://foo.example/DB/&gt; .</span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;.</span><br><span class="line"></span><br><span class="line">&lt;Student/ID=001&gt; rdf:type &lt;Student&gt;.</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#ID&gt; “001”.</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#sname&gt; “Wang”.</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student# major&gt; ”211”.</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#ref-major&gt; &lt;Major/ID=211&gt;.</span><br><span class="line"></span><br><span class="line">&lt;Course/ID=8&gt; rdf:type &lt;Course&gt;.</span><br><span class="line">&lt;Course/ID=8&gt; &lt;Course#ID&gt; “8”. </span><br><span class="line">&lt;Course/ID=8&gt; &lt;Course#cname&gt; “KG”.</span><br><span class="line">&lt;Course/ID=8&gt; &lt;Course#ref-major&gt; &lt;Major/ID=211&gt;.</span><br><span class="line">&lt;Course/ID=8&gt; &lt;Course#major&gt; “211”.</span><br><span class="line">&lt;Course/ID=8&gt; &lt;Course#ref-major&gt; &lt;Major/ID=211&gt;.</span><br><span class="line"></span><br><span class="line">&lt;Course/ID=9&gt; rdf:type &lt;Course&gt;.</span><br><span class="line">&lt;Course/ID=9&gt; &lt;Course#ID&gt; “9”. </span><br><span class="line">&lt;Course/ID=9&gt; &lt;Course#cname&gt; “NLP”.</span><br><span class="line">&lt;Course/ID=9&gt; &lt;Course#major&gt; “211”.</span><br><span class="line">&lt;Course/ID=9&gt; &lt;Course#ref-major&gt; &lt;Major/ID=211&gt;.</span><br><span class="line"></span><br><span class="line">&lt;Major/ID=211&gt; rdf:type &lt;Major&gt;.</span><br><span class="line">&lt;Major/ID=211&gt; &lt;Major#ID&gt; “211”.</span><br><span class="line">&lt;Major/ID=211&gt; &lt;Major#mname&gt; “AI”.</span><br><span class="line">&lt;Major/ID=211&gt; &lt;Major#address&gt; “CS_Building”.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>\2) Given a relational database and RDF triples, please write corresponding R2RML triples maps which can map the given RDB to RDF.</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121131.png" alt="image-20220104224845301" class="lazyload"></p>
+<p><strong>RDF Triples</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://data.example.com/student/001&gt; rdf:type ex:Student ;</span><br><span class="line"></span><br><span class="line">	ex:id &quot;001&quot; ;</span><br><span class="line">	foaf:name &quot;Wang&quot; ;</span><br><span class="line">	ex:major &quot;211&quot; ;</span><br><span class="line">    ex:gender &quot;Male&quot;. </span><br><span class="line">&lt;http://data.example.com/student/002&gt; rdf:type ex:Student ;</span><br><span class="line">    ex:id &quot;002&quot; ;</span><br><span class="line">    foaf:name &quot;Wu&quot; ;</span><br><span class="line">    ex:major &quot;201&quot; ;</span><br><span class="line">    ex:gender &quot;Female&quot;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Answer:</span><br><span class="line"></span><br><span class="line">@prefix rr: &lt;http:l//www.w3.org/ns/r2rml#&gt; .</span><br><span class="line">@prefix ex: &lt;http://example.com/ns#&gt;.</span><br><span class="line">@prefix foaf: &lt; http://w3.org/ff#&gt;.</span><br><span class="line">&lt;#TriplesMap1&gt;</span><br><span class="line"></span><br><span class="line">rr:logicalTable [rr:tableName “Student”]</span><br><span class="line"></span><br><span class="line">rr:subjectMap[</span><br><span class="line">	rr:template “http://data.example.com/student/&#123;ID&#125;”;</span><br><span class="line">	rr:class ex:Student;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap[</span><br><span class="line">	rr:predicate ex:id;</span><br><span class="line">	rr:objectMap [rr:column “ID”];</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap[</span><br><span class="line">	rr:predicate foaf:name;</span><br><span class="line">	rr:objectMap [rr:column “sname”];</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap[</span><br><span class="line">	rr:predicate ex:mayjor;</span><br><span class="line">	rr:objectMap [rr:column “major”];</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap[</span><br><span class="line">	rr:predicate ex:gender;</span><br><span class="line">	rr:objectMap [rr:column “gender”];</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>Given a relational database and RDF triples, please write corresponding R2RML triples maps which can map the given RDB to RDF.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121768.png" alt="image-20211103152446128" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://data.example.com/student/001&gt; rdf:type ex:Student ;</span><br><span class="line">									  ex:id &quot;001&quot; ;</span><br><span class="line">                                      ex:name &quot;Wang&quot; ;</span><br><span class="line">                                      ex:major &lt;http://data.example.com/major/211&gt; .</span><br><span class="line">&lt;http://data.example.com/student/002&gt; rdf:type ex:Student ;</span><br><span class="line">                                      ex:id &quot;002&quot; ;</span><br><span class="line">                                      ex:name &quot;Wu&quot; .</span><br><span class="line">&lt;http://data.example.com/major/211&gt; rdf:type ex:Major ;</span><br><span class="line">                                                             ex:name &quot;AI&quot; .</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="6-Triple-Extraction-from-Relational-Web-Tables"><a href="#6-Triple-Extraction-from-Relational-Web-Tables" class="headerlink" title="6. Triple Extraction from Relational Web Tables"></a>6. Triple Extraction from Relational Web Tables</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202020018218.png" alt="image-20211110154111266" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050121753.png" alt="image-20211110154536838" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/knowledge%20engineering/note/img/image-20211110154544585.png" alt="image-20211110154544585" class="lazyload"></p>
+<h4 id="Exercise"><a href="#Exercise" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Compute the Levenshtein distance between “kitten” and “sitting”.<ul>
+<li>1+1+1=3</li>
+</ul>
+</li>
+<li>Compute the Jaccard similarity between “University of California, Davis” and “University of California, Berkeley”in word level.</li>
+</ul>
+<script type="math/tex; mode=display">
+A\cup B=\{University, of, California, Davis, Berkeley\}</script><script type="math/tex; mode=display">
+A\cap B=\{University, of, California\}</script><script type="math/tex; mode=display">
+J(A, B)=\frac{|A\cup B|}{|A\cap B|}=\frac{3}{5}</script><ul>
+<li>Compute the Jaccard similarity between “English”and “England”based on character-level trigrams.</li>
+</ul>
+<script type="math/tex; mode=display">
+A=\{Eng, ngl, gli, lis, ish\}</script><script type="math/tex; mode=display">
+B=\{Eng, ngl, gla, lan, and\}</script><script type="math/tex; mode=display">
+J(A, B)=\frac{|A\cap B|}{|A\cup B|}=\frac{2}{8}=\frac{1}{4}</script><ul>
+<li>Please compute the Levenshtein distance between two strings “Saturday” and “Sunday”. </li>
+</ul>
+<p>Answer:</p>
+<p>Saturday→Sturday (delete a)</p>
+<p>Sturday→Surday (delete t)</p>
+<p>Surday→Sunday (replace r with n)</p>
+<p>Thus, the Levenshtein distance is 3.</p>
+<ul>
+<li>Please compute the Jaccard similarity between “French” and “France” based on character-level bi-grams.</li>
+</ul>
+<p>Answer:</p>
+<p>Segment “French” and “France” into bi-grams as follows:</p>
+<p>French: {Fr, re, en, nc, ch}</p>
+<p>France: {Fr, ra, an, nc, ce}</p>
+<p>JaccardSimilarity=2/8=0.25</p>
+<ul>
+<li>Please tell the difference between local disambiguation and global disambiguation in entity linking.</li>
+</ul>
+<p>Answer:</p>
+<p>Local disambiguation does not consider the effects of other referent entities in the same table/ document. With semantic associations between candidate referent entities, global disambiguation can correct mistakes of local disambiguation.</p>
+<ul>
+<li>Why do we need candidate generation in entity linking?</li>
+</ul>
+<p>Answer:</p>
+<p>Candidate generation can significantly reduce the number of comparison between mentions and entities so that we no longer require to iterate through all entities in the knowledge base for each mention. It does improve the efficiency of entity linking.</p>
+<h2 id="7-Knowledge-Graph-Construction-from-Semi-Structured-Data"><a href="#7-Knowledge-Graph-Construction-from-Semi-Structured-Data" class="headerlink" title="7. Knowledge Graph Construction from Semi-Structured Data"></a>7. Knowledge Graph Construction from Semi-Structured Data</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122611.png" alt="image-20211117155204555" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122858.png" alt="image-20211117155359253" class="lazyload"></p>
+<ul>
+<li>subject: the article entity<ul>
+<li>Qiang Yang</li>
+</ul>
+</li>
+<li>predicate: the target relation<ul>
+<li>birthOnDate</li>
+</ul>
+</li>
+<li>object: the string captured by the brackets of the regular expression<ul>
+<li>1964 births</li>
+</ul>
+</li>
+<li>提取完之后需要做property<ul>
+<li>Note: <strong>Domain and Range checking is necessary.</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122913.png" alt="image-20211117155639932" class="lazyload"></p>
+<ul>
+<li>In the Wikipedia article page of “Mo Yan”, the categories as follows. Please extract facts from them in turtle using YAGO category maps without domain and range checking, and clarify the subsequent validation steps on the extracted fact.</li>
+<li>YAGO category maps</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122721.png" alt="image-20211117155941473" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122369.png" alt="image-20211117102520453" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="img/image-20220105164122027.png" alt="image-20220105164122027" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@prefix expr: &lt;http://www.example.org/resource/&gt;</span><br><span class="line">@prefix expp: &lt;http://www.example.org/property/&gt;</span><br><span class="line"></span><br><span class="line">expr: MoYan expp: bornOnDate &quot;1955&quot;;</span><br><span class="line">			expp: hasWonPrice expr: Han Chinese Nobel,</span><br><span class="line">							  expr: Nobel,</span><br><span class="line">							  expr: Mao Dun Literature Prize.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>需要check property的 range和domain</li>
+<li><p>type inference</p>
+</li>
+<li><p>Given the Wikipedia article page of “IntelliJ IDEA”, including the first sentence, categories, and the infobox. Please write correct types from them (directly use plain strings).</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122553.png" alt="image-20211117115757471" class="lazyload"></p>
+<ul>
+<li>第一句话：integrated development environment(IDE)</li>
+<li>categories：Free integrated development environments，Integrated development environments, Java development tools，Products, software</li>
+<li>Infobox：Software</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122504.png" alt="image-20211117221901039" class="lazyload"></p>
+<p>Please extract a taxonomy from the following sentence (denote the answer as A is-a B):</p>
+<ul>
+<li>IBM, AMD, and Intel are High-tech companies using nanotechnology for several years.</li>
+<li>IBM is-a High-tech company</li>
+<li>AMD is-a High-tech company</li>
+<li>Intel is-a High-tech company</li>
+<li>High-tech company is-a company</li>
+<li>IBM is-a company</li>
+<li>AMD is-a company</li>
+<li>Intel is-a company</li>
+</ul>
+<h2 id="8-Unstructured-Data"><a href="#8-Unstructured-Data" class="headerlink" title="8. Unstructured Data"></a>8. Unstructured Data</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122440.png" alt="image-20211124104823150" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122935.png" alt="image-20211124104949369" class="lazyload"></p>
+<ul>
+<li>Assuming word with <strong>higher TF</strong> value and <strong>higher IDF</strong> value is <strong>more relevant to domain.</strong><ul>
+<li>TF: Term frequency.</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\mathrm{TF}=\frac{\text { Number of certain word in a document }}{\text { Number of all words in a document }}</script><ul>
+<li>IDF: Inverse document frequency</li>
+</ul>
+<script type="math/tex; mode=display">
+\text{IDF}=\log \left(\frac{\text { Number of all documents in corpu }}{\text { Number of documents containing the certain word }+1}\right)</script><h5 id="Exercise——TF-IDF"><a href="#Exercise——TF-IDF" class="headerlink" title="Exercise——TF-IDF"></a>Exercise——TF-IDF</h5><ul>
+<li>Suppose there are 100 words in a document, and the word “cow” appears three times. The word “cow” has appeared in 1,000 documents, and the total number of documents is 10,000,000. What is the TF-IDF score of the word “cow”?</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{TF}=\frac{3}{100}\\
+\text{IDF}=\log \frac{10000000}{1000+1}=3.9996\\
+TF\times IDF=0.119987
+\end{array}</script><ul>
+<li>例：假定《亚洲的网络技术》一文长度为1000个词，“亚洲”、“网络”、“技术”各出现20次，则这三个词的“词频”（TF）都为0.02。 然后，搜索Google发现，包含“的”字的网页共有250亿张（假定这就是中文网页总数），包含“亚洲”的网页共有62.3亿张，包含“网络”的网页为0.484亿张，包含“技术”的网页为0.973亿张。计算“亚洲”、“网络”、“技术”的TF-IDF值.</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\text{IDF(亚洲)}=\lg\frac{250}{26.3}=0.603\\
+\text{IDF(网络)}=\lg\frac{250}{0.484}=2.713\\
+\text{IDF(技术)}=\lg\frac{250}{0.973}=2.410\\
+\text{TF-IDF(亚洲)}=0.603\times 0.02=0.01206\\
+\text{TF-IDF(网络)}=2.713\times 0.02=0.05426\\
+\text{TF-IDF(技术)}=2.410\times 0.02=0.04820\\
+\end{array}</script><h2 id="9-Knowledge-Graph-Alignment"><a href="#9-Knowledge-Graph-Alignment" class="headerlink" title="9. Knowledge Graph Alignment"></a>9. Knowledge Graph Alignment</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122161.png" alt="image-20211202161306966" class="lazyload"></p>
+<ul>
+<li><p>Example:</p>
+<ul>
+<li>trigrams(nikon) $=\{$ nik, iko, kon $\}$</li>
+<li>trigrams(nike) $=\{$ nik, ike $\}$</li>
+<li>$\operatorname{sim}($​ nikon, nike $)=1 / 4$​</li>
+</ul>
+</li>
+<li><p>Compute the <strong>trigram based similarity</strong> between two strings <strong>University</strong> and <strong>Universe</strong></p>
+</li>
+<li><p>trigrams(University)={Uni,niv,ive,ver,ers,rsi,sit,ity}</p>
+</li>
+<li><p>trigrams(Universe)={Uni,niv,ive,ver,ers,rse}</p>
+</li>
+<li><p>$\text{sim(University,Universe)}=5/8$</p>
+</li>
+<li><p>Compute the Jaccard similarity between the <strong>first-order neighbor classes of the classes</strong> Car and Automobile from different ontologies.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050122522.png" alt="image-20211201110313663" class="lazyload"></p>
+<ul>
+<li><strong>StringSimilarity</strong><ul>
+<li>len(book)=4,len(Textbook)=8</li>
+<li>substring(book, Textbook)=book</li>
+<li>len(substring)=4</li>
+<li><strong>strIngSimilarity(book, Textbook)=4/4=1</strong></li>
+<li><strong>strIngSimilarity(Textbook, book)=4/8=1/2</strong></li>
+</ul>
+</li>
+<li><strong>Neighbor Class Set Similarity</strong><ul>
+<li>Neighbor(book)={literature,volume}</li>
+<li>Neighbor(Textbook)={volume,Engineering,Science}</li>
+<li><strong>Neighbor Class Set Similarity(book, Textbook)=1/2</strong></li>
+<li><strong>Neighbor Class Set Similarity(Textbook, book)=1/3</strong></li>
+</ul>
+</li>
+<li><strong>Instance Set Similarity</strong><ul>
+<li>Instance(book)={Red Sorghum,Introduction to Algorithm}</li>
+<li>Instance(Textbook)={Red Sorghum}</li>
+<li><strong>Instance Set Similarity(book, Textbook)=1/2</strong></li>
+<li><strong>Instance Set Similarity(Textbook, book)=1</strong></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Question: now we have <strong>String Similarity, Neighbor Class Set Similarity, Textual Context Similarity, and Instance Set Similarity,</strong> please tell which one belongs to the element-level matching techniques? Which one is a structure-level matching technique?</p>
+</li>
+<li><p><strong>String Similarity,Textual Context Similarity element-level matching techniques</strong></p>
+</li>
+<li><p><strong>Neighbor Class Set Similarity, Instance Set Similarity structure-level matching technique</strong></p>
+</li>
+<li><p>Compute the Jaccard similarity between the instance set of class “Book” and that of class “Textbook”.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050103025.png" alt="image-20211231150900624" class="lazyload"></p>
+<ul>
+<li>$A\cup B$:{Red Sorghum, The Republic of Wine, Data Structure, Introduction to Algorithm, Operation System}</li>
+<li>$A\cap B$:{Data Structure, Introduction to Algorithm}</li>
+<li><p>Jaccard = $\frac{|A\cap B|}{|A\cup B|}=\frac{2}{5}$​</p>
+</li>
+<li><p>Please tell the differences between the <code>rdf:type</code> relation and the general <code>is-a</code> relation.</p>
+<ul>
+<li>general is-a relation be inter-class.</li>
+</ul>
+</li>
+<li><p>Given the Wikipedia article page of “NumPy”, including the first sentence, categories, and the infobox. Please write correct types from them (directly use plain strings).</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050105335.png" alt="image-20211222113819926" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="../TyporaImg/image-20211222113825979.png" alt="image-20211222113825979" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050105688.png" alt="image-20211222113833570" class="lazyload"></p>
+<ul>
+<li><p>Answer</p>
+<ul>
+<li>library, software, Free mathematics software, Free science software, Numerical analysis software for Linux, Numerical analysis software for MacOS, Numerical analysis software for Windows, Numerical programming languages, Python (programming language) scientific libraries, Software using the BSD license.</li>
+</ul>
+</li>
+<li><p>In the Wikipedia article page of “Tim Berners-Lee”, the categories are as follows. Please extract facts from them in turtle using YAGO category maps and the following prefixes without domain and range checking, and clarify the subsequent validation steps on the extracted fact.</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124082.png" alt="image-20211222113235194" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124933.png" alt="image-20211222113241159" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="../TyporaImg/image-20211222113245076.png" alt="image-20211222113245076" class="lazyload"></p>
+<ul>
+<li><p>Answer</p>
+<ul>
+<li><p>Extract facts</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">expr:Tim Berners-Lee	expp:bornOnDate		&quot;1955&quot; ;</span><br><span class="line">						expp:hasWonPrize	expr:Turing Award ;</span><br><span class="line">						expp:hasWonPrize	expr:Roval Medal ;</span><br><span class="line">						expp:hasWonPrize	expr:Medal ;</span><br><span class="line">						expp:hasWonPrize	expr:Webby Award ;</span><br><span class="line">						expp:hasWonPrize	expr:Award ;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Validation</p>
+<ul>
+<li>Check if <code>expr:Tim Berners-Lee</code> is in the domain of <code>expp:bornOnDate</code> and if <code>&quot;1955&quot;</code> is in the range of <code>expp:bornOnDate</code>;</li>
+<li>Check if <code>expr:Tim Berners-Lee</code> is in the domain of <code>expp:hasWonPrize</code> and if <code>expr:Turing Award</code> <code>expr:Roval Medal</code> <code>expr:Medal</code> <code>expr:Webby Award</code> <code>expr:Award</code> is in the range of <code>expp:hasWonPrize</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Extract is-a relations form the following sentence, and derive all is-a relations using the transitivity of the is-a relation (in RDF Triple)</p>
+<ul>
+<li>We have rules for keeping animals, such as horses and other farm animals, especially cows and chickens.</li>
+</ul>
+</li>
+<li>Answer<ul>
+<li>farm animal $\to$ animal</li>
+<li>horse $\to$ animal</li>
+<li>cow $\to$ animal</li>
+<li>chicken $\to$ animal</li>
+<li>cow $\to$ farm animal</li>
+<li>chicken $\to$ animal</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Compute the TF-IDF values of <code>knowledge</code>, <code>AI</code>, <code>Engineering</code> with the statistics in the following tables, and rank them (Computing IDF using Ig).</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\begin{array}{|l|l|}
+\hline \text { Doc1 } &  \\
+\hline \text { Term } & \text { Count } \\
+\hline \text { Knowledge } & 3 \\
+\hline \text { Al } & 6 \\
+\hline \text { Engineering } & 4 \\
+\hline
+\end{array}
+&\begin{array}{|l|l|}
+\hline \text { Doc2 } & \\
+\hline \text { Term } & \text { Count } \\
+\hline \text { Knowledge } & 0 \\
+\hline \text { Al } & 5 \\
+\hline \text { Engineering } & 1 \\
+\hline
+\end{array}
+\quad \quad
+&\begin{array}{|l|l|}
+\hline \text { Doc3 } &  \\
+\hline \text { Term } & \text { Count } \\
+\hline \text { Knowledge } & 0 \\
+\hline \text { Ak } & 0 \\
+\hline \text { Engineering } & 5 \\
+\hline
+\end{array}
+\end{aligned}</script></li>
+<li><p>Answer</p>
+<ul>
+<li>Doc 1</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+TF-IDF_{Knowledge} = \frac{3}{13} \times \log (\frac{3}{2}) = 0.0406 \\
+TF-IDF_{AI} = \frac{6}{13} \times \log (\frac{3}{3}) = 0 \\
+TF-IDF_{Engineering} = \frac{4}{13} \times \log (\frac{3}{4}) = -0.0384 \\
+\end{array}</script><ul>
+<li><p>Doc 2</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+TF-IDF_{Knowledge} = 0\\
+TF-IDF_{AI} = \frac{5}{6} \times \log (\frac{3}{3}) = 0 \\
+TF-IDF_{Engineering} = \frac{1}{6} \times \log (\frac{3}{4}) = -0.0208 \\
+\end{array}</script></li>
+<li><p>Doc 3</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+TF-IDF_{Knowledge} = 0\\
+TF-IDF_{AI} = 0 \\
+TF-IDF_{Engineering} = \frac{5}{5} \times \log (\frac{3}{4}) = -0.1249 \\
+\end{array}</script></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Please compute the Levenshtein distance between two strings <code>Saturday</code> and <code>Sunday</code>.</p>
+</li>
+<li><p>Answer</p>
+<script type="math/tex; mode=display">
+at \to \varnothing \quad r \to n \\
+LD = 3</script></li>
+</ul>
+<hr>
+<ul>
+<li>Please compute the Jaccard similarity between “French” and “France” based on character-level bi-grams.</li>
+<li>Answer<ul>
+<li>$\text{French} = \{Fr,re,en,nc,ch\}$</li>
+<li>$\text{French} = \{Fr,ra,an,nc, ce\}$</li>
+<li>$\text{Jaccard Similarity} = \frac{2}{5}$</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Please tell the difference between local disambiguation and global disambiguation in entity linking.<ul>
+<li>Local Disambiguation (局部消歧)<ul>
+<li>Only use the contextual information of the given mention and target entity for disambiguation <strong>without considering the effects of other referent entities in the same table</strong>.</li>
+</ul>
+</li>
+<li>Global (Collective) Disambiguation (联合消歧)<ul>
+<li>Leverage the semantic associations between candidate referent entities to <strong>jointly disambiguate all entities for the mentions in a table</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li>Why do we need candidate generation in entity linking?<ul>
+<li>Identifying <strong>candidate referent entities</strong> of each string mention in table cells when given a knowledge base.</li>
+<li>Select Top k entities for further disambiguation to <strong>accelerate</strong>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="10-Knowledge-Graph-Querying"><a href="#10-Knowledge-Graph-Querying" class="headerlink" title="10. Knowledge Graph Querying"></a>10. Knowledge Graph Querying</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124163.png" alt="image-20211208105032370" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124577.png" alt="image-20211208105224660" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050124845.png" alt="image-20211208105746800" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125911.png" alt="image-20211208110026967" class="lazyload"></p>
+<ul>
+<li>Please rewrite the following triple pattern by using the same subject only once.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?a int:number 123789 .</span><br><span class="line">?a int:pair 34567.</span><br><span class="line">?a int:id 666777 .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">?a int:number 123789；</span><br><span class="line">   int:pair 34567；</span><br><span class="line">   int:id 666777 .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Please rewrite the following triple pattern by using the same subject and predicate only once.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?a string:name ‘Bob’.</span><br><span class="line">?a string:name ’Bobby’.</span><br><span class="line">?a string:name ‘Boob’.</span><br><span class="line">?a string:name ‘Bob_’.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a string:name ‘Bob’,’Bobby’,‘Boob’,‘Bob_’.</span><br></pre></td></tr></table></figure>
+<p>Exercise<br>Given the dataset and the SPARQL query as follows, please write the query results.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Graph: http://example/addresses</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:familyName &quot;McKinley&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:familyName &quot;Taft&quot; .</span><br><span class="line">&lt;http://example/president42&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president42&gt; foaf:familyName &quot;Clinton&quot; .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">SELECT ?name ?family</span><br><span class="line">WHERE &#123; ?x foaf:givenName ?name .</span><br><span class="line">?x foaf:familyName ?family .&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Bill”</td>
+<td>“McKinley”</td>
+</tr>
+<tr>
+<td>“Bill”</td>
+<td>“Taft”</td>
+</tr>
+<tr>
+<td>“Bill”</td>
+<td>“Clinton”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125457.png" alt="image-20211208112118772" class="lazyload"></p>
+<ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Graph: http://example/addresses</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:givenName &quot;Bill&quot; .</span><br><span class="line">&lt;http://example/president25&gt; foaf:familyName &quot;McKinley&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:givenName “Bob&quot; .</span><br><span class="line">&lt;http://example/president27&gt; foaf:id 159486.</span><br><span class="line">&lt;http://example/president42&gt; foaf:givenName “Marry&quot; .</span><br><span class="line">&lt;http://example/president42&gt; foaf:familyName &quot;Clinton&quot; .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">SELECT ?name ?family</span><br><span class="line">WHERE &#123; ?x foaf:givenName ?name .</span><br><span class="line">?x foaf:familyName ?family .&#125;</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Bill”</td>
+<td>“McKinley”</td>
+</tr>
+<tr>
+<td>“Marry”</td>
+<td>“Clinton”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>Matching RDF literals</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@prefix dt: &lt;http://example.org/datatype#&gt; .</span><br><span class="line">@prefix ns: &lt;http://example.org/ns#&gt; .</span><br><span class="line">@prefix : &lt;http://example.org/ns#&gt; .</span><br><span class="line">@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .</span><br><span class="line">:x ns:p &quot;cat&quot;@en .</span><br><span class="line">:y ns:p &quot;42&quot;^^xsd:integer .</span><br><span class="line">:z ns:p &quot;abc&quot;^^dt:specialDatatype .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一种是找不到结果的，因为不加@是不一样的意义</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125657.png" alt="image-20211208112234236" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125618.png" alt="image-20211208113210921" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125970.png" alt="image-20211208113243218" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125761.png" alt="image-20211208113552720" class="lazyload"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Bill”</td>
+<td>“McKinley”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125733.png" alt="image-20211208163455567" class="lazyload"></p>
+<ul>
+<li>Exercise<ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125209.png" alt="image-20211208163522593" class="lazyload"></p>
+<ul>
+<li>Answer</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">name</th>
+<th style="text-align:center">family</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">“Bill”</td>
+<td style="text-align:center">“McKinley”</td>
+</tr>
+<tr>
+<td style="text-align:center">“Bob”</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">“Marry”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125868.png" alt="image-20211208163647154" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125700.png" alt="image-20211208163807370" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125805.png" alt="image-20211208163833063" class="lazyload"></p>
+<ul>
+<li>Please write the SPARQL query on “list all volcanos located in Italy or Norway” given the following data.</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">depedia:Mount_Etna	rdf:type	umbel-sc:Volcano;</span><br><span class="line">					rdfs:label 	&quot;Etna&quot;;</span><br><span class="line">					p:location	dbpedia:Italy.</span><br><span class="line">depedia:Mount_Baker	rdf:type	umbel-sc:Volcano;</span><br><span class="line">					p:location	dbpedia:United_States.</span><br><span class="line">depedia:Beerenberg	rdf:type	umbel-sc:Volcano;</span><br><span class="line">					rdfs:label	&quot;Beerenberg&quot;@en;</span><br><span class="line">					p:location	dbpedia:Norway.</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Answer</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT ?volcano rdf:type umbel-sc:Volcano.</span><br><span class="line">WHERE &#123;</span><br><span class="line">    &#123;?Mount p:location dbpedia:Italy.&#125;</span><br><span class="line">    UNION &#123;?Mount p:location dbpedia:Norway.&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050125612.png" alt="image-20211215095900388" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126637.png" alt="image-20211215095921101" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126676.png" alt="image-20211215100228264" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126892.png" alt="image-20211215100406729" class="lazyload"></p>
+<h4 id="Exercise-1"><a href="#Exercise-1" class="headerlink" title="Exercise"></a>Exercise</h4><ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+<li>Dataset</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># Default graph (stored at http://example.org/dft.ttl)</span><br><span class="line">@prefix dc: &lt;http://purl.org/dc/elements/1.1/&gt; .</span><br><span class="line">&lt;http://example.org/bob&gt; dc:publisher &quot;Bob Hacker&quot; .</span><br><span class="line">&lt;http://example.org/alice&gt; dc:publisher &quot;Alice Hacker&quot; .</span><br><span class="line"></span><br><span class="line"># Named graph: http://example.org/bob</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">_:a foaf:name &quot;Bob&quot; .</span><br><span class="line">_:a foaf:mbox &lt;mailto:bob@oldcorp.example.org&gt; .</span><br><span class="line"></span><br><span class="line"># Named graph: http://example.org/alice</span><br><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .</span><br><span class="line">_:a foaf:name &quot;Alice&quot; .</span><br><span class="line">_:a foaf:mbox &lt;mailto:alice@work.example.org&gt; .</span><br></pre></td></tr></table></figure>
+<ul>
+<li>SPARQL query<ul>
+<li>FROMNAMD可以省略，因为标明了GRAPH ?g</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;</span><br><span class="line">SELECT ?who ?g ?mbox</span><br><span class="line">FROM &lt;http://example.org/dft.ttl&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/alice&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/bob&gt;</span><br><span class="line">WHERE</span><br><span class="line">&#123;</span><br><span class="line">?g dc:publisher ?who .</span><br><span class="line">GRAPH ?g &#123; ?x foaf:mbox ?mbox &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Answer:</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>who</th>
+<th>g</th>
+<th>mbox</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“Bob Hacker”</td>
+<td>\<a target="_blank" rel="noopener" href="http://example.org/bob">http://example.org/bob</a></td>
+<td>\<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x62;&#x6f;&#98;&#64;&#111;&#108;&#x64;&#x63;&#x6f;&#x72;&#x70;&#x2e;&#101;&#120;&#97;&#109;&#x70;&#x6c;&#x65;&#x2e;&#111;&#114;&#x67;&#92;">&#x62;&#x6f;&#98;&#64;&#111;&#108;&#x64;&#x63;&#x6f;&#x72;&#x70;&#x2e;&#101;&#120;&#97;&#109;&#x70;&#x6c;&#x65;&#x2e;&#111;&#114;&#x67;&#92;</a></td>
+</tr>
+<tr>
+<td>“Alice Hacker”</td>
+<td>\<a target="_blank" rel="noopener" href="http://example.org/alice">http://example.org/alice</a></td>
+<td><mailto:alice@work.example.org ></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126105.png" alt="image-20211215101912520" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126736.png" alt="image-20211215102306783" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126788.png" alt="image-20211215102537976" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126473.png" alt="image-20211215104717764" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126472.png" alt="image-20211215104955005" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126170.png" alt="image-20211215105255654" class="lazyload"></p>
+<ul>
+<li>Given the dataset and the SPARQL query as follows, please write the query results.</li>
+</ul>
+<h4 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@prefix org: &lt;http://example.com/ns#&gt; .</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br><span class="line">_:b org:employeeName &quot;Bob&quot; .</span><br><span class="line">_:b org:employeeId 67890 .</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX org: &lt;http://example.com/ns#&gt;</span><br><span class="line">DELETE &#123;?person ?p ?o .&#125;</span><br><span class="line">where &#123;?person org:employeeId ?id .</span><br><span class="line">FILTER (?id &gt; 50000)</span><br><span class="line">?person ?p ?o .&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除后：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br></pre></td></tr></table></figure>
+<h4 id="2-Q2"><a href="#2-Q2" class="headerlink" title="2. Q2"></a>2. Q2</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@prefix org: &lt;http://example.com/ns#&gt; .</span><br><span class="line"># Graph: http://person</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br><span class="line">_:b org:employeeName &quot;Bob&quot; .</span><br><span class="line">_:b org:employeeId 67890 .</span><br><span class="line"># Graph: http://person2</span><br><span class="line">_:c org:employeeId 13579</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX org: &lt;http://example.com/ns#&gt;</span><br><span class="line">INSERT &#123;GRAPH &lt;http://person2&gt; &#123;?person ?p ?o .&#125;&#125;</span><br><span class="line">where &#123;Graph: &lt;http://person&gt;</span><br><span class="line">&#123;?person org:employeeId ?id .</span><br><span class="line">FILTER (?id &lt; 50000)</span><br><span class="line">?person ?p ?o .&#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@prefix org: &lt;http://example.com/ns#&gt; .</span><br><span class="line"># Graph: http://person</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br><span class="line">_:b org:employeeName &quot;Bob&quot; .</span><br><span class="line">_:b org:employeeId 67890 .</span><br><span class="line"># Graph: http://person2</span><br><span class="line">_:c org:employeeId 13579 .</span><br><span class="line">_:a org:employeeName &quot;Alice&quot; .</span><br><span class="line">_:a org:employeeId 12345 .</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126848.png" alt="image-20211215110528044" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126772.png" alt="image-20211215110550501" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126612.png" alt="image-20211215110728620" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126256.png" alt="image-20211215110734271" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126332.png" alt="image-20211215110739530" class="lazyload"></p>
+<ul>
+<li>Order the results.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126552.png" alt="image-20211215110814813" class="lazyload"></p>
+<ul>
+<li>ASC for ascending (default) and DESC (e.g., DESC(?name)) for descending.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126784.png" alt="image-20211215110909379" class="lazyload"></p>
+<h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4><ul>
+<li>limits the number of result:<ul>
+<li>只返回5个</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050126764.png" alt="image-20211215111028802" class="lazyload"></p>
+<h4 id="OFFSET"><a href="#OFFSET" class="headerlink" title="OFFSET"></a>OFFSET</h4><ul>
+<li>position/index of the first reported results:</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127499.png" alt="image-20211215111113085" class="lazyload"></p>
+<ul>
+<li>Order of the result should be predictable (combine with ORDER BY)</li>
+</ul>
+<h4 id="BINDINGS"><a href="#BINDINGS" class="headerlink" title="BINDINGS"></a>BINDINGS</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127061.png" alt="image-20211215111325636" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127249.png" alt="image-20211215111347379" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127288.png" alt="image-20211215111357307" class="lazyload"></p>
+<h4 id="VALUE"><a href="#VALUE" class="headerlink" title="VALUE"></a>VALUE</h4><ul>
+<li>add data to the query directly.<ul>
+<li>增加限制</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127915.png" alt="image-20211215111516484" class="lazyload"></p>
+<h4 id="AGGREGATES"><a href="#AGGREGATES" class="headerlink" title="AGGREGATES"></a>AGGREGATES</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127721.png" alt="image-20211215111700791" class="lazyload"></p>
+<ul>
+<li>Question: Please use natural language to explain this SPARQL query!<ul>
+<li>查选课人数超过5人的课</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127455.png" alt="image-20211215111848348" class="lazyload"></p>
+<ul>
+<li>Question: Please use natural language to explain the above SPARQL queries!</li>
+</ul>
+<ul>
+<li><p>Translate the following natural language sentences into SPARQL.</p>
+<ul>
+<li><p>What are all the countries and their capitals in Africa?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Given</span><br><span class="line">http://dbpedia.org/property/continent,</span><br><span class="line">http://dbpedia.org/resource/Africa,</span><br><span class="line">http://dbpedia.org/ontology/Country,</span><br><span class="line">http://dbpedia.org/ontology/capital.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PREFIX dbp: &lt;http://dbpedia.org/&gt;</span><br><span class="line">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><br><span class="line"></span><br><span class="line">SELECT ?x ?y</span><br><span class="line">WHERE&#123;</span><br><span class="line">    ?x 	rdf:type	dbp:ontology/Country .</span><br><span class="line">    ?x 	dbp:property/continent	dbp:resource/Africa .</span><br><span class="line">    ?x 	dbp:ontology/capital	?y .</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>What are the devices whose manufacturers are in Korea or Japan?</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#Given</span><br><span class="line">http://dbpedia.org/property/locationCountry,</span><br><span class="line">http://dbpedia.org/resource/Korea,</span><br><span class="line">http://dbpedia.org/resource/Japan,</span><br><span class="line">http://dbpedia.org/ontology/manufactury,</span><br><span class="line">http://dbpedia.org/ontology/Device.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">PREFIX dbp: &lt;http://dbpedia.org/&gt;</span><br><span class="line">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><br><span class="line"></span><br><span class="line">SELECT ?device</span><br><span class="line">WHERE&#123;</span><br><span class="line">    ?device 	rdf:type	dbp:ontology/Device .</span><br><span class="line">    ?device 	dbp:ontology/manufacturer	?location .</span><br><span class="line">    &#123;?location 	dbp:property/locationCountry	dbp:resource/Japan .&#125;</span><br><span class="line">    UNION &#123;?location 	dbp:property/locationCountry	dbp:resource/Korea .&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>From the following RDF triples and the result of query, construct a SPARQL query.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; . </span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; . </span><br><span class="line"></span><br><span class="line">_:a 	rdf:type 	foaf:Person . </span><br><span class="line">_:a 	foaf:name 	&quot;Alice&quot; . </span><br><span class="line">_:a 	foaf:mbox 	&lt;mailto:alice@example.com&gt; . </span><br><span class="line">_:a 	foaf:mbox 	&lt;mailto:alice@work.example&gt; . </span><br><span class="line">_:b 	rdf:type 	foaf:Person . </span><br><span class="line">_:b 	foaf:name 	&quot;Bob&quot; .</span><br></pre></td></tr></table></figure>
+<p>| name    | mbox                                                   |<br>| :——— | :——————————————————————————- |<br>| “Alice” | <a href="mailto:alice@example.com">mailto:alice@example.com</a>   |<br>| “Alice” | <a href="mailto:alice@work.example">mailto:alice@work.example</a> |<br>| “Bob”   |                                                        |</p>
+</li>
+<li><p>Answer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><br><span class="line"></span><br><span class="line">SELECT ?name, ?mbox</span><br><span class="line">WHERE&#123;</span><br><span class="line">    ?x 	rdf:type	foaf:Person ;</span><br><span class="line">    	foaf:name   ?name .</span><br><span class="line">    OPTIONAL &#123;?x		foaf:mbox	?mbox .&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>Given the dataset and query results as follows, please write the corresponding SPARQL Query.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># Dataset</span><br><span class="line">dbpedia:Mount_Etna 		rdf:type 	umbel-sc:Volcano ;</span><br><span class="line">						rdfs:label 	&quot;Etna&quot; ;</span><br><span class="line">						p:location 	dbpedia:Italy .</span><br><span class="line">dbpedia:Mount_Xiqiao 	rdf:type 	umbel-sc:Volcano ;</span><br><span class="line">						rdfs:label 	&quot;Mount_Xiqiao&quot; ;</span><br><span class="line">						p:location 	dbpedia:China .</span><br><span class="line">dbpedia:Beerenberg 		rdf:type 	umbel-sc:Volcano .</span><br><span class="line">						rdfs:label 	&quot;Beerenberg&quot;@en ;</span><br><span class="line">						p:location 	dbpedia:Norway .</span><br><span class="line"></span><br><span class="line"># SPARQL Results</span><br><span class="line">dbpedia:Mount_Etna 		rdfs:label 	&quot;Etna&quot; ;</span><br><span class="line">						rdf:type 	myTypes:VolcanosOutsideChina.</span><br><span class="line">dbpedia:Beerenberg 		rdfs:label 	&quot;Beerenberg&quot;@en;</span><br><span class="line">						rdf:type 	myTypes:VolcanosOutsideChina.</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Answer <strong>TODO</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CONSTRUCT &#123;</span><br><span class="line">    ?v 	rdfs:label	?name ;</span><br><span class="line">        rdf:type	myTypes:VolcanosOutsideChina .</span><br><span class="line">&#125;</span><br><span class="line">WHERE &#123;</span><br><span class="line">    ?v	rdf:type	umbel-sc:Volcano;</span><br><span class="line">        rdfs:label	?name.</span><br><span class="line">    OPTIONAL &#123;</span><br><span class="line">        ?v	p:location	?l . FILTER (?l = dbpedia:China)</span><br><span class="line">    &#125; FILTER (!BOUND(?l))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>From the following RDF triples and the result of query, construct a SPARQL query.</p>
+<p>@prefix foaf: <a target="_blank" rel="noopener" href="http://xmlns.com/foaf/0.1/">http://xmlns.com/foaf/0.1/</a> . </p>
+<p>@prefix rdf: <a target="_blank" rel="noopener" href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a> . </p>
+<p>_:a rdf:type foaf:Person . </p>
+<p>_:a foaf:name “Alice” . </p>
+<p>_:a foaf:mbox <a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#x3a;&#x61;&#108;&#105;&#99;&#101;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#108;&#101;&#x2e;&#99;&#x6f;&#109;">&#x61;&#108;&#105;&#99;&#101;&#x40;&#101;&#120;&#97;&#x6d;&#112;&#108;&#101;&#x2e;&#99;&#x6f;&#109;</a> . </p>
+<p>_:a foaf:mbox <a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#x61;&#108;&#x69;&#x63;&#x65;&#64;&#119;&#111;&#114;&#x6b;&#46;&#x65;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;">&#x61;&#108;&#x69;&#x63;&#x65;&#64;&#119;&#111;&#114;&#x6b;&#46;&#x65;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;</a> . </p>
+<p>_:b rdf:type foaf:Person . </p>
+<p>_:b foaf:name “Bob” . </p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127250.png" alt="image-20220105011822124" class="lazyload"></p>
+<h2 id="10-Cypher"><a href="#10-Cypher" class="headerlink" title="10. Cypher"></a>10. Cypher</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127809.png" alt="image-20211215222102518" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127819.png" alt="image-20211215222113317" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE(</span><br><span class="line">	node:Movie</span><br><span class="line">	&#123;</span><br><span class="line">		title:&quot;The American President&quot;</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127136.png" alt="image-20211215222313633" class="lazyload"></p>
+<ul>
+<li>Create the relationship using cypher.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127952.png" alt="image-20211215222334213" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE</span><br><span class="line">	(n1:Person &#123;name:&#x27;Oliver Stone&#x27;&#125;)</span><br><span class="line">	-[r:DIRECTED]</span><br><span class="line">	-&gt;(N2:Movie&#123;title:&quot;Wall Street&quot;&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询所有节点</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n) </span><br><span class="line">RETURN n</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询所有电影title</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (movie:Movie)</span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<ul>
+<li>名叫Oliver Stone相关联的事物标题</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (director &#123;name: &#x27;Oliver Stone&#x27;&#125;)--(movie) </span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<ul>
+<li>与人物Oliver Stone相关联的电影标题</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (:Person &#123;name: &#x27;Oliver Stone&#x27;&#125;)--(movie:Movie) </span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<ul>
+<li>与人物Oliver Stone相关联的关系类型</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (:Person &#123;name: &#x27;Oliver Stone&#x27;&#125;)-[r]-(movie) </span><br><span class="line">RETURN type(r)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>出演名为‘Wall Street’电影的演员姓名</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (wallstreet:Movie &#123;title: &#x27;Wall Street&#x27;&#125;)&lt;-[:ACTED_IN]-(actor) </span><br><span class="line">RETURN actor.name</span><br></pre></td></tr></table></figure>
+<ul>
+<li>参演或导演名为Wall Street的电影的所有人物</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (wallstreet:Movie &#123;title: &#x27;Wall Street&#x27;&#125;)&lt;-[:ACTED_IN|:DIRECTED]-(person:Person) </span><br><span class="line">RETURN person.name</span><br></pre></td></tr></table></figure>
+<ul>
+<li>名为Wall Street的电影的中所有的角色</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH (wallstreet:Movie &#123;title: &#x27;Wall Street&#x27;&#125;)&lt;-</span><br><span class="line">[r:ACTED_IN]-(actor) </span><br><span class="line">RETURN r.role</span><br></pre></td></tr></table></figure>
+<ul>
+<li>when nodes already exist, we can use MATCH first, then CREATE</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050127620.png" alt="image-20211215223827870" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MATCH </span><br><span class="line">	(charlie:Person &#123;name: &#x27;Charlie Sheen&#x27;&#125;), </span><br><span class="line">    (rob:Person &#123;name: &#x27;Rob Reiner&#x27;&#125;) </span><br><span class="line">CREATE </span><br><span class="line">    (rob)-[:TYPE INCLUDING A SPACE]-&gt;(charlie)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询参演名为‘The American President’的所有演员姓名</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128376.png" alt="image-20211215224022480" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MATCH</span><br><span class="line">	(person:Person)-[:ACTED_IN]</span><br><span class="line">	-&gt;(movie:Movie&#123;title:&quot;The American President&quot;&#125;)</span><br><span class="line">RETURN person.name</span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询包含角色’Card Fox’的电影名</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128450.png" alt="image-20211215224512063" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MATCH</span><br><span class="line">	(actor)-[:ACTED_&#123;role:&quot;Card Fox&quot;&#125;]</span><br><span class="line">	-&gt;(movie:Movie)</span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128304.png" alt="image-20211215224917378" class="lazyload"></p>
+<ul>
+<li>删除名为UNKNOWN的节点</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n:Person &#123;name: &#x27;UNKNOWN’&#125;) DELETE n</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除数据库中所有节点及与其相连的关系</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n) DETACH DELETE n</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除名为Andy的节点和与其相连的所有关系</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy’&#125;) DETACH DELETE n</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除Andy的所有KNOWS关系</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy&#x27;&#125;)-[r:KNOWS]-&gt;() DELETE r</span><br></pre></td></tr></table></figure>
+<ul>
+<li>删除人物年龄为34岁的所有关系</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128368.png" alt="image-20211215225242665" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (person:Person &#123;age:34&#125;)-[r]-&gt;()</span><br><span class="line">DELETE r</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Update a property</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy&#x27;&#125;) </span><br><span class="line">SET n.age = toString(n.age) </span><br><span class="line">RETURN n.name, n.age</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128808.png" alt="image-20211215225919668" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n &#123;name: &#x27;Andy&#x27;&#125;) </span><br><span class="line">SET n.position = &#x27;Developer&#x27;, n.surname = &#x27;Taylor&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MATCH (p &#123;name: &#x27;Peter&#x27;&#125;) </span><br><span class="line">SET p = &#123;name: &#x27;Peter Smith’, </span><br><span class="line">	position: &#x27;Entrepreneur&#x27;&#125; </span><br><span class="line">RETURN p.name, p.age, p.position</span><br></pre></td></tr></table></figure>
+<ul>
+<li>更新George的年龄为28</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128204.png" alt="image-20211215230148658" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH (p &#123;name:&#x27;George&#x27;&#125;)</span><br><span class="line">SET p = &#123;name: &#x27;George&#x27;</span><br><span class="line">	age: 28&#125;</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128609.png" alt="image-20211215230420391" class="lazyload"></p>
+<ul>
+<li>Write cypher to get the second graph</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MATCH </span><br><span class="line">	(actor1:Actor &#123;name: &#x27;Anthony Hopkins&#x27;&#125;),</span><br><span class="line">	(actor2:Actor &#123;name: &#x27;Hitchcock&#x27;&#125;),</span><br><span class="line">	(movie:Movie &#123;title: &#x27;Hitechcock&#x27;&#125;)</span><br><span class="line">CREATE</span><br><span class="line">	(actor1)-[r:ACTS_IN]</span><br><span class="line">	-&gt;(movie)</span><br><span class="line">DELETE actor2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Query all relationship types connected by actor Anthony Hopkins</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MATCH</span><br><span class="line">	(actor:Actor &#123;name: &#x27;Anthony Hopkins&#x27;&#125;)-[r]-()</span><br><span class="line">RETURN type(r)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Given the dataset and natural language query as follows, please write the corresponding Cypher Query.<ul>
+<li>Return the movie name containing the role “Bud Fox”</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128701.png" alt="image-20211215115134978" class="lazyload"></p>
+<ul>
+<li><p>Answer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (actor) - [:ACTED_IN &#123;role:&#x27;Bud Fox&#x27;&#125;] -&gt; (movie:Movie)</span><br><span class="line">RETURN movie.title</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p>Delete all the relationships on the person who is 34 years old using Cypher.</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202201050128556.png" alt="image-20211215211513803" class="lazyload"></p>
+</li>
+<li><p>Answer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n:Person &#123;age: 34&#125;) - [r] -&gt; ()</span><br><span class="line">DELETE r</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/knowledge%20engineering/%E9%A2%98%E7%9B%AE/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;%E9%A2%98%E7%9B%AE&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;%E9%A2%98%E7%9B%AE&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292079"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

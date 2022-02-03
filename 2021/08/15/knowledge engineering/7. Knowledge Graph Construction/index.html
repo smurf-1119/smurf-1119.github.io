@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Knowledge Graph Construction - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Knowledge Graph Construction">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Knowledge Graph Construction">
+<meta property="og:url" content="http://example.com/2021/08/15/knowledge%20engineering/7.%20Knowledge%20Graph%20Construction/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Knowledge Graph Construction">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346073.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346785.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346849.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271021741.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271029966.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271030289.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271030248.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271031125.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271032297.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271033501.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271033522.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271035347.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271045433.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346034.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271051586.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346841.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346018.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271103074.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271109586.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271112279.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271112683.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012347489.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271140783.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271142405.png">
+<meta property="og:image" content="e:/third_year_in_University/knowledge%20engineering/note/img/image-20211027114357042.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271148352.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271554836.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271601586.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271203949.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T15:47:05.101Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346073.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292033">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Knowledge Graph Construction" class="lazyload">
+            <h1>Knowledge Graph Construction</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.6k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 15 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Knowledge-Graph-Construction"><span class="toc-number">1.</span> <span class="toc-text">Knowledge Graph Construction</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Previous-Exercises"><span class="toc-number">1.1.</span> <span class="toc-text">1. Previous Exercises</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Knowledge-Graph-Construction"><span class="toc-number">1.2.</span> <span class="toc-text">2. Knowledge Graph Construction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Knowledge-Graph-Construction-from-Structured-Data"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 Knowledge Graph Construction from Structured Data</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Basics-of-Relational-Databases"><span class="toc-number">1.3.</span> <span class="toc-text">3. Basics of Relational Databases</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Structuring-data"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 Structuring data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-An-alternative-approach"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 An alternative approach</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-relational-database"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 relational database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Example%EF%BC%9A"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 Example：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Database-design-workflow"><span class="toc-number">1.3.5.</span> <span class="toc-text">3.5 Database design: workflow</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Once-you%E2%80%99ve-created-your-database"><span class="toc-number">1.3.6.</span> <span class="toc-text">3.6 Once you’ve created your database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-When-to-use-a-relational-database"><span class="toc-number">1.3.7.</span> <span class="toc-text">3.7 When to use a relational database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-Benefits-of-relational-databases"><span class="toc-number">1.3.8.</span> <span class="toc-text">3.8 Benefits of relational databases</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-RDB2RDF-Direct-Mapping"><span class="toc-number">1.4.</span> <span class="toc-text">4. RDB2RDF: Direct Mapping</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-What-is-RDB2RDF"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 What is RDB2RDF?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Two-W3C-RDB2RDF-Standards"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 Two W3C RDB2RDF Standards:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-w3C-RDB2RDF-Standards"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 w3C RDB2RDF Standards</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Create-URIs-following-some-simple-rules"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.4 Create URIs following some simple rules:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-Exercise"><span class="toc-number">1.4.5.</span> <span class="toc-text">4.5 Exercise</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-RDB2RDF-R2RML"><span class="toc-number">1.5.</span> <span class="toc-text">5. RDB2RDF: R2RML</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-DV"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 DV</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-A-triples-map"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 A triples map</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-1-Def"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">5.2.1 Def</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-2-A-triples-map-has-three-parts"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">5.2.2 A triples map has three parts:</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-Example"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 Example:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-R2RML-Examples"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 R2RML Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-1"><span class="toc-number">1.5.4.1.</span> <span class="toc-text">5.4.1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-2-View-Definition"><span class="toc-number">1.5.4.2.</span> <span class="toc-text">5.4.2 View Definition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-3-Mapping-to-a-View-Definition"><span class="toc-number">1.5.4.3.</span> <span class="toc-text">5.4.3 Mapping to a View Definition</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-4-4-Linking-Two-Logical-Tables"><span class="toc-number">1.5.4.4.</span> <span class="toc-text">5.4.4 Linking Two Logical Tables</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-Exercise"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 Exercise</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Summary-RDB2RDF"><span class="toc-number">1.6.</span> <span class="toc-text">6. Summary: RDB2RDF</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Knowledge Graph Construction<br><span id="more"></span></p>
+<h1 id="Knowledge-Graph-Construction"><a href="#Knowledge-Graph-Construction" class="headerlink" title="Knowledge Graph Construction"></a>Knowledge Graph Construction</h1><h2 id="1-Previous-Exercises"><a href="#1-Previous-Exercises" class="headerlink" title="1. Previous Exercises"></a>1. Previous Exercises</h2><p><strong>1.Every teacher must teach someone</strong></p>
+<ul>
+<li>Correct Answer: Teacher⊑∃𝑇each.Human</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346073.png" alt="image-20211027100352168" class="lazyload"></p>
+<ol>
+<li>Every finger is a bodypart and is a part-of hand.</li>
+</ol>
+<ul>
+<li>Finger ⊑ BodyPart ⨅ ∃Part_of.Hand</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346785.png" alt="image-20211027100403730" class="lazyload"></p>
+<ol>
+<li>Zhang is a teacher of SEU</li>
+</ol>
+<ul>
+<li>Teacher(Zhang, SEU)</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346849.png" alt="image-20211027100413537" class="lazyload"></p>
+<p><strong>2.Give a model of the following ontology:</strong></p>
+<ul>
+<li><p>PhDstudent ⊔ Undergraduatgestudent ⊑ Student,</p>
+</li>
+<li><p>PhDstudent(John),</p>
+</li>
+<li><p>Undergraduatgestudent(Jack),</p>
+</li>
+<li><p>Sister(Lisa,Jack),</p>
+</li>
+<li>Employee(Lisa)</li>
+</ul>
+<p><strong>Correct Answer:</strong></p>
+<ul>
+<li>A model: Δ={ jo,l,ja}</li>
+<li>I(John)= jo, I(Lisa)=1, I(Jack)= ja</li>
+<li>I( PhDstudent)={ jo},</li>
+<li>I(Employee)={I},</li>
+<li>I( Undergraduatgestudent)={ja},</li>
+<li>I(Student)={ ja.jo}</li>
+<li>I(Sister)={(l,ja)}</li>
+</ul>
+<p><strong>3.Write the inferred axioms using description logics after conducting classification in forward reasoning on the following axioms.:</strong></p>
+<ul>
+<li><p>Endocarditis ⊑ Heart_Disease </p>
+</li>
+<li><p>Miocardial_Infarction ⊑ Heart_Disease </p>
+</li>
+<li><p>Heart_Disease ⊑ Disease </p>
+</li>
+<li><p>Enterococcal_Endocarditis ⊑ Endocarditis</p>
+<p><strong>Correct Answer:</strong></p>
+</li>
+<li><p>Endocarditis ⊑ Disease </p>
+</li>
+<li>Miocardial_Infarction ⊑ Disease </li>
+<li>Enterococcal_Endocarditis ⊑ Heart_Disease </li>
+<li>Enterococcal_Endocarditis ⊑ Disease</li>
+</ul>
+<h2 id="2-Knowledge-Graph-Construction"><a href="#2-Knowledge-Graph-Construction" class="headerlink" title="2. Knowledge Graph Construction"></a>2. Knowledge Graph Construction</h2><ul>
+<li>Knowledge Graph Construction: Extracting knowledge from heterogeneous data sources to form a <strong>knowledge graph</strong>.</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271021741.png" alt="image-20211027102059171" class="lazyload"></p>
+<ul>
+<li>包装器，自动把半结构化数据爬取出来</li>
+</ul>
+<h3 id="2-1-Knowledge-Graph-Construction-from-Structured-Data"><a href="#2-1-Knowledge-Graph-Construction-from-Structured-Data" class="headerlink" title="2.1 Knowledge Graph Construction from Structured Data"></a>2.1 Knowledge Graph Construction from Structured Data</h3><ul>
+<li>Basics of Relational Database</li>
+<li>RDB2RDF: Direct Mapping &amp; R2RML</li>
+<li>Triple Extraction from Relational Web Tables</li>
+</ul>
+<h2 id="3-Basics-of-Relational-Databases"><a href="#3-Basics-of-Relational-Databases" class="headerlink" title="3. Basics of Relational Databases"></a>3. Basics of Relational Databases</h2><h3 id="3-1-Structuring-data"><a href="#3-1-Structuring-data" class="headerlink" title="3.1 Structuring data"></a>3.1 Structuring data</h3><ul>
+<li><p>We all <strong>structure the information</strong> we work with:</p>
+<ul>
+<li>So we can find what we need, when we need it</li>
+<li>To facilitate（促进） <strong>evaluation, comparison, and analysis</strong></li>
+</ul>
+</li>
+<li><p>The structure you select influences</p>
+<ul>
+<li>The kinds of information you collect</li>
+<li>How it is possible to <strong>interrogate(查询) your data</strong></li>
+<li>The extent to which you can take advantage of your computer’s data-handling abilities</li>
+<li>How easy it is to <strong>share data</strong> with others</li>
+</ul>
+</li>
+<li><p>Options for structuring &amp; analyzing data</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271029966.png" alt="image-20211027102751954" class="lazyload"></p>
+<ul>
+<li>A table of bibliographic(著书目录的) data (not a table in relational database )<ul>
+<li>table会对数据重复存储</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271030289.png" alt="image-20211027103036966" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271030248.png" alt="image-20211027103052497" class="lazyload"></p>
+<h3 id="3-2-An-alternative-approach"><a href="#3-2-An-alternative-approach" class="headerlink" title="3.2 An alternative approach"></a>3.2 An alternative approach</h3><ul>
+<li>先做一个作者表，通过映射关系，将一些信息分开表示</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271031125.png" alt="image-20211027103135022" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271032297.png" alt="image-20211027103236236" class="lazyload"></p>
+<ul>
+<li>再分表，把出版信息分开</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271033501.png" alt="image-20211027103305826" class="lazyload"></p>
+<ul>
+<li>限定好Type的种类，使得可以与另一张表有效定位</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271033522.png" alt="image-20211027103334867" class="lazyload"></p>
+<ul>
+<li>To solve the above problems, we can <strong>design a relational database</strong> to store data</li>
+</ul>
+<h3 id="3-3-relational-database"><a href="#3-3-relational-database" class="headerlink" title="3.3 relational database"></a>3.3 relational database</h3><ul>
+<li>Database terms:<ul>
+<li>A database is <strong>a collection of data</strong></li>
+<li>Data is organized into <strong>one or more tables</strong></li>
+<li>Each <strong>row</strong> is a <strong>record</strong></li>
+<li>Each <strong>column</strong> is a <strong>field</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271035347.png" alt="image-20211027103528257" class="lazyload"></p>
+<ul>
+<li><p>Deciding on <strong>Fields</strong></p>
+<ul>
+<li>Principles of designing database terms:<ul>
+<li>Think of <strong>all the facts</strong> that will be collected 考虑所有情况</li>
+<li>plenty of fields 考虑所有column</li>
+<li>consult widely 共识</li>
+<li>small facts, <strong>“atomic”</strong> 力度要比较细，希望信息尽量清晰，比如学生姓名而不是学生信息</li>
+<li>difficult to add later 再加一个字段特别困难</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Set data types</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271045433.png" alt="image-20211027104550372" class="lazyload"></p>
+<h3 id="3-4-Example："><a href="#3-4-Example：" class="headerlink" title="3.4 Example："></a>3.4 Example：</h3><ul>
+<li><p>An example of designing a relational database:</p>
+<ul>
+<li>Study of 18th century book trade </li>
+<li>What things are we interested in?<ul>
+<li>Publications</li>
+<li>Publishers</li>
+<li>People</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>And what information might we want to know about each of these things?</p>
+<ul>
+<li>Names</li>
+<li>Dates</li>
+<li>Places</li>
+</ul>
+</li>
+<li><p>Design three tables at first:</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346034.png" alt="image-20211027104728258" class="lazyload"></p>
+<ul>
+<li><p>Joins between tables: <strong>Primary Key</strong> 唯一标识</p>
+<ul>
+<li>Each table needs <strong>a primary key</strong> 意味着id，要显式定义</li>
+<li>Choose (at least) one field that only contains <strong>unique values</strong> Commonly an auto-incrementing whole (integer) number</li>
+</ul>
+</li>
+<li><p>Joins between tables: relate two tables by <strong>primary keys and foreign keys</strong></p>
+<ul>
+<li>一个publisher可能对应多个publication，就是一对多，可以设置谁是谁的外键</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271051586.png" alt="image-20211027105108660" class="lazyload"></p>
+</li>
+<li><p>多个人可能参与写同一本书，一个person可能写很多本书，所以person和publication是多对多的。无法对多对多的关系建立计算机可识别的映射关系，所以需要新建一张表，这张表记录了所有Author与Publication的记录</p>
+</li>
+<li><p>那么就可以隐式表达Person和Publication的关系</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346841.png" alt="image-20211027105422127" class="lazyload"></p>
+<h3 id="3-5-Database-design-workflow"><a href="#3-5-Database-design-workflow" class="headerlink" title="3.5 Database design: workflow"></a>3.5 Database design: workflow</h3><ul>
+<li>Choose <strong>fields</strong><ul>
+<li>Are they <strong>atomic</strong>?</li>
+<li>Are there <strong>plenty</strong>?</li>
+</ul>
+</li>
+<li>Give each field a <strong>data type</strong><ul>
+<li>Are they <strong>consistent</strong>?</li>
+</ul>
+</li>
+<li>Arrange the fields into <strong>tables</strong><ul>
+<li>Do all the fields in the same table describe the same item?</li>
+</ul>
+</li>
+<li>Set <strong>primary key fields</strong><ul>
+<li>A <strong>different primary key</strong> for each table?</li>
+<li>is this a field with <strong>no duplicate values</strong>?</li>
+</ul>
+</li>
+<li><p>Draw <strong>relationships</strong> between tables</p>
+<ul>
+<li>Which field relates each pair of tables?</li>
+<li>Mark <strong>1-to-many, many-to-many,1-to-1</strong> relationships</li>
+</ul>
+</li>
+<li>Review, reflect, challenge<ul>
+<li>Talk through the design with someone else</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-6-Once-you’ve-created-your-database"><a href="#3-6-Once-you’ve-created-your-database" class="headerlink" title="3.6 Once you’ve created your database"></a>3.6 Once you’ve created your database</h3><ul>
+<li><strong>Ask questions</strong> by constructing queries<ul>
+<li>Find the records that meet certain criteria</li>
+<li>Search, sort, count, and filter data</li>
+<li>Perform basic mathematical and statistical operations Export data for other types of analysis </li>
+</ul>
+</li>
+<li>Export data for other types of analysis</li>
+</ul>
+<p><strong>Query example1:</strong> </p>
+<ul>
+<li><p><strong>select</strong> id, cityname, country, population, longtitude, latitude <strong>from</strong> City</p>
+</li>
+<li><p><strong>Query Results</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012346018.png" alt="image-20211027110159731" class="lazyload"></p>
+<p><strong>Query example2:</strong> </p>
+<ul>
+<li><strong>select</strong> id, cityname, country, population, longtitude, latitude <strong>from</strong> City <strong>where</strong> cityname=‘Tirane’</li>
+</ul>
+<p><strong>Query Results</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271103074.png" alt="image-20211027110300006" class="lazyload"></p>
+<ul>
+<li>Results may resemble <strong>another table or spreadsheet</strong></li>
+<li>But the contents are <strong>customized(定制)</strong> to your requirements</li>
+</ul>
+<h3 id="3-7-When-to-use-a-relational-database"><a href="#3-7-When-to-use-a-relational-database" class="headerlink" title="3.7 When to use a relational database"></a>3.7 When to use a relational database</h3><ul>
+<li><p>Your data can be organized in <strong>tabular form</strong></p>
+<ul>
+<li>e.g., information about things that <strong>share common properties</strong> (organized in one column field) </li>
+</ul>
+</li>
+<li><p>You are interested in <strong>multiple types of entity</strong> . </p>
+<ul>
+<li>And the <strong>relationships</strong> between them</li>
+<li>Entities may be <strong>concrete(具体的) or more abstract</strong> </li>
+</ul>
+</li>
+<li><p>You want to <strong>identify instances of things</strong> that meet certain criteria <strong>(query)</strong> </p>
+</li>
+<li><p>You want to be able to <strong>present</strong> one dataset <strong>in multiple different ways</strong><br><strong>Query results</strong> can be exported and used elsewhere</p>
+</li>
+</ul>
+<h3 id="3-8-Benefits-of-relational-databases"><a href="#3-8-Benefits-of-relational-databases" class="headerlink" title="3.8 Benefits of relational databases"></a>3.8 Benefits of relational databases</h3><ul>
+<li><p>More <strong>accurate representation</strong> of complex data</p>
+<ul>
+<li>And helps <strong>avoid duplication</strong> of information </li>
+</ul>
+</li>
+<li><p><strong>Permits flexible querying</strong></p>
+<ul>
+<li><strong>Wider range of questions possible</strong> than with a spreadsheet (multiple tables)</li>
+<li>Useful if you are <strong>unsure which questions</strong> you will want to ask </li>
+</ul>
+</li>
+<li><p>Suitable for <strong>collaborative use</strong></p>
+<ul>
+<li><strong>Multiple people</strong> can <strong>access</strong> and use the same database</li>
+<li>Can encourage (or enforce) <strong>consistency in data</strong> entry </li>
+</ul>
+</li>
+<li><p>Technology has been around <strong>for several decades</strong></p>
+<ul>
+<li><strong>Widely supported</strong> and well understood</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-RDB2RDF-Direct-Mapping"><a href="#4-RDB2RDF-Direct-Mapping" class="headerlink" title="4. RDB2RDF: Direct Mapping"></a>4. RDB2RDF: Direct Mapping</h2><h3 id="4-1-What-is-RDB2RDF"><a href="#4-1-What-is-RDB2RDF" class="headerlink" title="4.1 What is RDB2RDF?"></a>4.1 What is RDB2RDF?</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271109586.png" alt="image-20211027110907688" class="lazyload"></p>
+<h3 id="4-2-Two-W3C-RDB2RDF-Standards"><a href="#4-2-Two-W3C-RDB2RDF-Standards" class="headerlink" title="4.2 Two W3C RDB2RDF Standards:"></a>4.2 Two W3C RDB2RDF Standards:</h3><ul>
+<li>Direct Mapping</li>
+<li>R2RML</li>
+</ul>
+<p><strong>Tools:</strong> </p>
+<ul>
+<li>Free: D2R, Virtuoso, Morph, r2rml4net, db2triples, ultrawrap, Quest; </li>
+<li>Commercial: Virtuoso, ultrawrap, Oracle SW.</li>
+</ul>
+<h3 id="4-3-w3C-RDB2RDF-Standards"><a href="#4-3-w3C-RDB2RDF-Standards" class="headerlink" title="4.3 w3C RDB2RDF Standards"></a>4.3 w3C RDB2RDF Standards</h3><ul>
+<li>Standards to map relational data to RDF</li>
+<li>A <strong>Direct Mapping</strong> of Relational Data to RDF<ul>
+<li>Default automatic mapping of relational data to RDF</li>
+</ul>
+</li>
+<li><strong>R2RML: RDB to RDF Mapping Language</strong><ul>
+<li><strong>Customizable</strong> language to map <strong>relational data</strong> to <strong>RDF</strong></li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271112279.png" alt="image-20211027111210681" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271112683.png" alt="image-20211027111243049" class="lazyload"></p>
+<h3 id="4-4-Create-URIs-following-some-simple-rules"><a href="#4-4-Create-URIs-following-some-simple-rules" class="headerlink" title="4.4 Create URIs following some simple rules:"></a>4.4 Create URIs following some simple rules:</h3><ul>
+<li><strong>Map</strong><ul>
+<li><strong>table</strong> to <strong>class</strong> （对应turtle语言type）</li>
+<li><strong>column</strong> to property (属性-&gt;谓词)</li>
+<li><strong>row</strong> to resource （一条记录）</li>
+<li><strong>cell</strong> to <strong>literal value</strong> （turtle中的实值）</li>
+<li>in addition cell to URI <ul>
+<li>if there is <strong>a foreign key constraint</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>We need <strong>IRIs for identifying</strong><ul>
+<li>the resource <strong>class</strong> corresponding to a <strong>table</strong></li>
+<li>the <strong>resources</strong> represented by the <strong>table rows</strong> </li>
+<li>the <strong>properties</strong> of the resources corresponding to <strong>table cells</strong></li>
+<li>the references due to <strong>foreign keys</strong></li>
+</ul>
+</li>
+<li><p><strong>Base IRI</strong> </p>
+<ul>
+<li>for <strong>the whole graph/dataset</strong>, <ul>
+<li>e.g. @base <a target="_blank" rel="noopener" href="http://foo.example/DB/">http://foo.example/DB/</a> .</li>
+</ul>
+</li>
+<li>Table name $\rightarrow$​​ <strong>Class name</strong>, <ul>
+<li>e.g. People $\rightarrow$​​​ \<People\> 表示类别</li>
+</ul>
+</li>
+<li><strong>Row with PK</strong> $\rightarrow$​​ Resource with PK, <ul>
+<li>e.g, <People/ID=7> 这个表示一个instance，就是一个实例，\<class/PK=NUMBER\></li>
+</ul>
+</li>
+<li>Table row $\rightarrow$​ Property, <ul>
+<li>e.g., <People#ID> <People#addr>  （\<class#Property\>）</li>
+</ul>
+</li>
+<li>Table cells: what if NULL? 直接省略</li>
+<li>Foreign key reference $\rightarrow$​​​​ additional property, e.g., <People#ref-addr> (\<class#ref-ForeignKey\>)</li>
+</ul>
+</li>
+<li><p>Provide a <strong>base IRI</strong> <a target="_blank" rel="noopener" href="http://foo.example/DB/">http://foo.example/DB/</a> !</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">@base &lt;http://foo.example/DB/&gt; . </span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;. </span><br><span class="line"></span><br><span class="line">&lt;People/ID=7&gt; rdf:type &lt;People&gt; . #某条记录的类别</span><br><span class="line">&lt;People/ID=7&gt; &lt;People#ID&gt; &quot;7&quot; .  #具体属性</span><br><span class="line">&lt;People/ID=7&gt; &lt;People#fname&gt; &quot;Bob&quot; . </span><br><span class="line">&lt;People/ID=7&gt; &lt;People#addr&gt; &quot;18&quot; . </span><br><span class="line">&lt;People/ID=7&gt; &lt;People#ref-addr&gt; &lt;Addresses/ID=18&gt; . #利用外键关联映射两张表的记录</span><br><span class="line"></span><br><span class="line">&lt;People/ID=8&gt; rdf:type &lt;People&gt; . </span><br><span class="line">&lt;People/ID=8&gt; &lt;People#ID&gt; &quot;8&quot; . </span><br><span class="line">&lt;People/ID=8&gt; &lt;People#fname&gt; &quot;Sue&quot; . </span><br><span class="line"></span><br><span class="line">&lt;Addresses/ID=18&gt; rdf:type &lt;Addresses&gt; . </span><br><span class="line">&lt;Addresses/ID=18&gt; &lt;Addresses#ID&gt; &quot;18&quot; . </span><br><span class="line">&lt;Addresses/ID=18&gt; &lt;Addresses#city&gt; &quot;Cambridge&quot; . </span><br><span class="line">&lt;Addresses/ID=18&gt; &lt;Addresses#state&gt; &quot;MA&quot; .</span><br></pre></td></tr></table></figure>
+<h3 id="4-5-Exercise"><a href="#4-5-Exercise" class="headerlink" title="4.5 Exercise"></a>4.5 Exercise</h3><p>Please use direct mapping to map the following two relational tables to RDF triples with the base IRI <a target="_blank" rel="noopener" href="http://foo.example/DB/">http://foo.example/DB/</a> and prefix rdf：<a target="_blank" rel="noopener" href="http://www.w3.org/1999/02/22-rdf-syntax-ns#">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a> .</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202012347489.png" alt="image-20211027112228218" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@base &lt;http://foo.example/DB/&gt; .</span><br><span class="line">@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;.</span><br><span class="line"></span><br><span class="line">&lt;Student/ID=001&gt; rdf:type &lt;Student&gt; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#ID&gt; &quot;001&quot; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#sname&gt; &quot;Zhang&quot; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#major&gt; &quot;101&quot; .</span><br><span class="line">&lt;Student/ID=001&gt; &lt;Student#ref-major&gt; &lt;Major/ID=101&gt; .</span><br><span class="line"></span><br><span class="line">&lt;Major/ID=101&gt; rdf:type &lt;Major&gt; .</span><br><span class="line">&lt;Major/ID=101&gt; &lt;Major#ID&gt; &quot;101&quot; .</span><br><span class="line">&lt;Major/ID=101&gt; &lt;Major#mname&gt; &quot;CS&quot; .</span><br><span class="line">&lt;Major/ID=101&gt; &lt;Major#address&gt; &quot;CS_Building&quot; .</span><br></pre></td></tr></table></figure>
+<h2 id="5-RDB2RDF-R2RML"><a href="#5-RDB2RDF-R2RML" class="headerlink" title="5. RDB2RDF: R2RML"></a>5. RDB2RDF: R2RML</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271140783.png" alt="image-20211027114012008" class="lazyload"></p>
+<ul>
+<li>R2RML is a language for <strong>specifying mappings</strong> from <strong>relational</strong> to <strong>RDF data</strong>.</li>
+</ul>
+<h3 id="5-1-DV"><a href="#5-1-DV" class="headerlink" title="5.1 DV"></a>5.1 DV</h3><ul>
+<li><p>可以理解为物理表的一个虚表，没有实际物理内存</p>
+</li>
+<li><p>A mapping takes as input a <strong>logical table</strong>, i.e.,</p>
+<ul>
+<li>a database table</li>
+<li>a database view (<strong>a virtual table</strong> <strong>collecting data from relational tables</strong>), or an SQL query (called an “R2RML view” because it is <strong>like an SQL view</strong> but does <strong>not modify</strong> the database)</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271142405.png" alt="image-20211027114215875" class="lazyload"></p>
+<p><strong>Example: database view</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/knowledge%20engineering/note/img/image-20211027114357042.png" alt="image-20211027114357042" class="lazyload"></p>
+<h3 id="5-2-A-triples-map"><a href="#5-2-A-triples-map" class="headerlink" title="5.2 A triples map"></a>5.2 A triples map</h3><h4 id="5-2-1-Def"><a href="#5-2-1-Def" class="headerlink" title="5.2.1 Def"></a>5.2.1 Def</h4><ul>
+<li><strong>A logical table</strong> is mapped to <strong>a set of triples</strong> by <strong>a rule called triples map.</strong></li>
+</ul>
+<h4 id="5-2-2-A-triples-map-has-three-parts"><a href="#5-2-2-A-triples-map-has-three-parts" class="headerlink" title="5.2.2 A triples map has three parts:"></a>5.2.2 A triples map has three parts:</h4><ul>
+<li>the input <strong>logical table</strong> </li>
+<li>a <strong>subject map</strong> </li>
+<li>several <strong>predicate-object maps</strong> (combining predicate and object maps).</li>
+</ul>
+<h3 id="5-3-Example"><a href="#5-3-Example" class="headerlink" title="5.3 Example:"></a>5.3 Example:</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271148352.png" alt="image-20211027114825313" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">@prefix rr: &lt;http:l//www.w3.org/ns/r2rml#&gt; .</span><br><span class="line">&lt;TriplesMap1&gt;</span><br><span class="line">a rr:TriplesMap;       #&lt;TriplesMap1&gt;前没有‘#’时要加这一句</span><br><span class="line"></span><br><span class="line">rr:logicalTable [rr:tableName &quot;Person&quot;];</span><br><span class="line"></span><br><span class="line">rr:subjectMap[</span><br><span class="line">	rr:template &quot;http://www.ex.com/Person/ID=&#123;ID&#125;&quot;; </span><br><span class="line">                #ID=&#123;ID&#125;  直接&#123;ID&#125;都是可以的  看你自己怎么定义template</span><br><span class="line">	rr:class &lt;http://www.ex.com/Person&gt;;#表示从url拿class</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [</span><br><span class="line">	rr:predicate &lt;http:7/www.ex.com/Person#NAME&gt;; #表示从url拿predicate</span><br><span class="line">    rr:objectMap [rr:column &quot;NAME&quot;]; #表示从db中取</span><br><span class="line">].</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>解析</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#What is being mapped</span><br><span class="line">rr:logicalTable [rr:tableName &quot;Person&quot;]; #定义rr的指向</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#相当于&lt;Subject URI&gt; rdf:type &lt;Class URI&gt;</span><br><span class="line">rr:subjectMap[</span><br><span class="line">	rr:template &quot;http://www.ex.com/Person/ID=&#123;ID&#125;&quot;; #predicate URI</span><br><span class="line">                #Customized Subject URI</span><br><span class="line">	rr:class &lt;http://www.ex.com/Person&gt;; </span><br><span class="line">                #Customized Class</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rr:predicateObjectMap [</span><br><span class="line">	rr:predicate &lt;http:7/www.ex.com/Person#NAME&gt;; #Predicate URI</span><br><span class="line">    rr:objectMap [rr:column &quot;NAME&quot;]; #Object Literal</span><br><span class="line">].</span><br></pre></td></tr></table></figure>
+<h3 id="5-4-R2RML-Examples"><a href="#5-4-R2RML-Examples" class="headerlink" title="5.4 R2RML Examples"></a>5.4 R2RML Examples</h3><h4 id="5-4-1"><a href="#5-4-1" class="headerlink" title="5.4.1"></a>5.4.1</h4><ul>
+<li><strong>DB</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png" alt="image-20211027115000107" class="lazyload"></p>
+<ul>
+<li><strong>Set of RDF triples</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://data.example.com/employee/7369&gt; rdf:type ex:Employee.</span><br><span class="line">&lt;http://data.example.com/employee/7369&gt; ex:name &quot;SMITH&quot;.</span><br><span class="line">&lt;http://data.example.com/employee/7369&gt; ex:department &lt;http://data.example.com/department/10&gt;.</span><br><span class="line"></span><br><span class="line">&lt;http://data.example.com/department/10&gt; rdf:type ex:Department.</span><br><span class="line">&lt;http://data.example.com/department/10&gt; ex:name &quot;APPSERVER&quot;.</span><br><span class="line">&lt;http://data.example.com/department/10&gt; ex:location &quot;NEW YORK&quot;.</span><br><span class="line">&lt;http://data.example.com/department/10&gt; ex:staff 1.</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>R2RML</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@prefix rr: &lt;http://www.w3.org/ns/r2rml#&gt;.</span><br><span class="line">@prefix ex: &lt;http://example.com/ns#&gt;.</span><br><span class="line">&lt;#TriplesMap1&gt;</span><br><span class="line">rr:logicalTable [ rr:tableName &quot;EMP&quot; ];</span><br><span class="line"></span><br><span class="line">rr:subjectMap [</span><br><span class="line">	rr:template &quot;http://data.example.com/employee/&#123;EMPNO&#125;&quot;;</span><br><span class="line">	rr:class ex:Employee;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [</span><br><span class="line">	rr:predicate ex:name;</span><br><span class="line">	rr:objectMap [ rr:column &quot;ENAME&quot; ];</span><br><span class="line">].</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png" alt="image-20211027115000107" class="lazyload"></p>
+<h4 id="5-4-2-View-Definition"><a href="#5-4-2-View-Definition" class="headerlink" title="5.4.2 View Definition"></a>5.4.2 View Definition</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271554836.png" alt="image-20211027155406385" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;#DeptTableView&gt; rr:sqlQuery &quot;&quot;&quot;</span><br><span class="line">SELECT DEPTNO,</span><br><span class="line">	DNAME,</span><br><span class="line">	LOC,</span><br><span class="line">	(SELECT COUNT(*) FROM EMP WHERE EMP.DEPTNO=DEPT.DEPTNO) AS STAFF #查询两张表中同一个字段相同的个数</span><br><span class="line">FROM DEPT;</span><br><span class="line">&quot;&quot;&quot;.</span><br></pre></td></tr></table></figure>
+<h4 id="5-4-3-Mapping-to-a-View-Definition"><a href="#5-4-3-Mapping-to-a-View-Definition" class="headerlink" title="5.4.3 Mapping to a View Definition"></a>5.4.3 Mapping to a View Definition</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;#TriplesMap2&gt; </span><br><span class="line">rr:logicalTable &lt;#DeptTableView&gt;;</span><br><span class="line"></span><br><span class="line">rr:subjectMap [ </span><br><span class="line">    rr:template &quot;http://data.example.com/department/&#123;DEPTNO&#125;&quot;; </span><br><span class="line">	rr:class ex:Department; </span><br><span class="line">]; </span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [ </span><br><span class="line">	rr:predicate ex:name; #对于rdf的Property</span><br><span class="line">	rr:objectMap [ rr:column &quot;DNAME&quot; ]; </span><br><span class="line">]; </span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [ </span><br><span class="line">	rr:predicate ex:location; </span><br><span class="line">	rr:objectMap [ rr:column &quot;LOC&quot; ]; </span><br><span class="line">]; </span><br><span class="line"></span><br><span class="line">rr:predicateObjectMap [ </span><br><span class="line">	rr:predicate ex:staff; </span><br><span class="line">	rr:objectMap [ rr:column &quot;STAFF&quot; ]; </span><br><span class="line">].</span><br></pre></td></tr></table></figure>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271150264.png" alt="image-20211027115000107" class="lazyload"></p>
+<h4 id="5-4-4-Linking-Two-Logical-Tables"><a href="#5-4-4-Linking-Two-Logical-Tables" class="headerlink" title="5.4.4 Linking Two Logical Tables"></a>5.4.4 Linking Two Logical Tables</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271601586.png" alt="image-20211027160115570" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@prefix rr: &lt;http://www.w3.org/ns/r2rml#&gt;.</span><br><span class="line">@prefix ex: &lt;http://example.com/ns#&gt;.</span><br><span class="line">&lt;#TriplesMap1&gt;</span><br><span class="line">rr:predicateObjectMap [</span><br><span class="line">	rr:predicate ex:department; #与rdf对应</span><br><span class="line">	rr:objectMap [#定义宾语映射，在第二张表找</span><br><span class="line">		rr:parentTriplesMap &lt;#TriplesMap2&gt;; #去map2去找subject来当宾语</span><br><span class="line">		rr:joinCondition [#表示这些属性是相同的</span><br><span class="line">			rr:child &quot;DEPTNO&quot;;#triple2就是child</span><br><span class="line">			rr:parent &quot;DEPTNO&quot;;#triple1就是parent</span><br><span class="line">		];</span><br><span class="line">	];</span><br><span class="line">].</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Additional predicate object</strong> map for &lt;#TriplesMap1&gt;</li>
+<li>Object map retrieves <strong>subject</strong> from <strong>parent triples</strong> map by joining along <strong>a foreign key</strong> relationship</li>
+<li>It joins<ul>
+<li>the <strong>current row</strong> of the logical table</li>
+<li>with the <strong>row</strong> of the logical table of &lt;#TriplesMap1&gt; that <strong>satisfies the join condition</strong> 就是说Map1的每一行映射都满足这个条件</li>
+</ul>
+</li>
+<li>Note:<ul>
+<li><strong>child</strong> = referenc<strong>ing</strong> map</li>
+<li><strong>parent</strong> = referenc<strong>ed</strong> map</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-5-Exercise"><a href="#5-5-Exercise" class="headerlink" title="5.5 Exercise"></a>5.5 Exercise</h3><p>Please write the R2RML triples map to map the following relational database to RDF triples with prefix rr: <a target="_blank" rel="noopener" href="http://www.w3.org/ns/r2rml#">http://www.w3.org/ns/r2rml#</a> and prefix ex: <a href="http://example.com/ns#">http://example.com/ns#</a>(for <strong>classes</strong> and properties).</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202110271203949.png" alt="image-20211027120354890" class="lazyload"></p>
+<p><strong>RDF Triples</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;http://data.example.com/student/001&gt; ex:name &quot;Zhang&quot;. &lt;http://data.example.com/student/002&gt; ex:name &quot;Wang&quot;.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@prefix rr:&lt;http://www.w3.org/ns/r2rml#&gt; .</span><br><span class="line">@prefix rr:&lt;http://example.com/ns#&gt; .</span><br><span class="line">&lt;#TriplesMap1&gt;</span><br><span class="line">	rr:logicalTable [rr:tabelName &quot;RDB&quot;];</span><br><span class="line">	rr:subjectMap[</span><br><span class="line">		rr:template &quot;http://data.example.com/student/&#123;ID&#125;&quot;;</span><br><span class="line">		rr:class ex:Student;</span><br><span class="line">	];</span><br><span class="line">	rr:predicateObjectMap[</span><br><span class="line">		rr:predicate ex:name; </span><br><span class="line">		rr:objectMap [rr:column &quot;Name&quot;];</span><br><span class="line">	].</span><br></pre></td></tr></table></figure>
+<h2 id="6-Summary-RDB2RDF"><a href="#6-Summary-RDB2RDF" class="headerlink" title="6. Summary: RDB2RDF"></a>6. Summary: RDB2RDF</h2><ul>
+<li>RDB2RDF is to map the content of Relational Databases to RDF.</li>
+<li>Two W3C <strong>RDB2RDF</strong> standards: <strong>Direct Mapping</strong> and R2RML</li>
+<li>The direct mapping defines a <strong>simple</strong> and <strong>intuitive transformation</strong> from <strong>RDB to RDF</strong>.</li>
+<li><strong>R2RML</strong> is a language for expressing <strong>customized</strong> mappings (<strong>using external ontology vocabularies</strong>) from RDB to RDF.</li>
+</ul>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/knowledge%20engineering/7.%20Knowledge%20Graph%20Construction/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;7.%20Knowledge%20Graph%20Construction&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;knowledge%20engineering&#x2F;7.%20Knowledge%20Graph%20Construction&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292036"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

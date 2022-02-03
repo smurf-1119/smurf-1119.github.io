@@ -1,0 +1,1817 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>Recovery of 3D structure - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="Recovery of 3D structure">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Recovery of 3D structure">
+<meta property="og:url" content="http://example.com/2021/08/15/cv/9.%203D%20structure/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="Recovery of 3D structure">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011131505.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011131927.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132928.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132403.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132610.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132006.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132279.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133495.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133143.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133503.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211119103221567.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133511.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133383.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133530.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133400.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133128.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133135.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133310.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133255.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134185.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134667.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134505.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134880.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134260.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134152.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134446.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134799.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134046.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134986.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135320.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135951.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135396.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135022.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135046.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135399.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135844.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135886.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135111.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136271.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136871.png">
+<meta property="og:image" content="e:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211120103854837.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136367.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136014.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-01T04:18:03.124Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011131505.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292008">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="Recovery of 3D structure" class="lazyload">
+            <h1>Recovery of 3D structure</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>4.1k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 22 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Recovery-of-3D-structure"><span class="toc-number">1.</span> <span class="toc-text">Recovery of 3D structure</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Measure-three-dimensional-information"><span class="toc-number">1.1.</span> <span class="toc-text">1. Measure three-dimensional information</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Things-aren%E2%80%99t-always-as-they-appear%E2%80%A6"><span class="toc-number">1.2.</span> <span class="toc-text">2. Things aren’t always as they appear…</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Review-Pinhole-camera-model"><span class="toc-number">1.3.</span> <span class="toc-text">3. Review: Pinhole camera model</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Homogeneous-coordinates-%E6%AC%A7%E5%BC%8F%E5%9D%90%E6%A0%87%E4%B8%8E%E9%BD%90%E6%AC%A1%E5%9D%90%E6%A0%87%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 Homogeneous coordinates 欧式坐标与齐次坐标互转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Projective-transformation-in-Homogeneous-coordinates"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 Projective transformation in Homogeneous coordinates</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Camera-calibration-%E6%A0%87%E5%AE%9A"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 Camera calibration(标定)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1-From-retina-plane-to-images"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">3.3.1 From retina plane to images</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2-Principal-point-offset"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">3.3.2 Principal point offset</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3-Pixel-coordinates"><span class="toc-number">1.3.3.3.</span> <span class="toc-text">3.3.3 Pixel coordinates</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4-Camera-rotation-and-translation"><span class="toc-number">1.3.3.4.</span> <span class="toc-text">3.3.4 Camera rotation and translation</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-4-1-3D-Translation"><span class="toc-number">1.3.3.4.1.</span> <span class="toc-text">3.3.4.1 3D Translation</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-4-2-3D-Scaling"><span class="toc-number">1.3.3.4.2.</span> <span class="toc-text">3.3.4.2 3D Scaling</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-4-3-3D-rotation-transformation"><span class="toc-number">1.3.3.4.3.</span> <span class="toc-text">3.3.4.3 3D rotation transformation</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-5-Composing-Transformation"><span class="toc-number">1.3.3.4.4.</span> <span class="toc-text">3.3.5 Composing Transformation</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-6-Camera-rotation-and-translation"><span class="toc-number">1.3.3.4.5.</span> <span class="toc-text">3.3.6 Camera rotation and translation</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-Camera-parameters"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 Camera parameters</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Camera-calibration"><span class="toc-number">1.4.</span> <span class="toc-text">4. Camera calibration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Nonlinear-method"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 Nonlinear method</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Epipolar-geometry"><span class="toc-number">1.5.</span> <span class="toc-text">5. Epipolar geometry</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Recovering-structure-from-a-single-view"><span class="toc-number">1.5.1.</span> <span class="toc-text">5.1 Recovering structure from a single view</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-A-taste-of-multi-view-geometry-Triangulation"><span class="toc-number">1.5.2.</span> <span class="toc-text">5.2 A taste of multi-view geometry: Triangulation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E9%97%AE%E9%A2%98%E5%88%86%E7%B1%BB"><span class="toc-number">1.5.3.</span> <span class="toc-text">5.3 问题分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-4-Epipolar-geometry"><span class="toc-number">1.5.4.</span> <span class="toc-text">5.4 Epipolar geometry</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-Epipolar-constraint-example"><span class="toc-number">1.5.5.</span> <span class="toc-text">5.5 Epipolar constraint example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-6-Epipolarconstraint-Calibrated-case"><span class="toc-number">1.5.6.</span> <span class="toc-text">5.6 Epipolarconstraint: Calibrated case</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-7-Estimating-the-fundamental-matrix"><span class="toc-number">1.5.7.</span> <span class="toc-text">5.7 Estimating the fundamental matrix</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-7-1-The-eight-point-algorithm"><span class="toc-number">1.5.7.1.</span> <span class="toc-text">5.7.1 The eight-point algorithm</span></a></li></ol></li></ol></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>Recovery of 3D structure</p>
+<span id="more"></span>
+<h1 id="Recovery-of-3D-structure"><a href="#Recovery-of-3D-structure" class="headerlink" title="Recovery of 3D structure"></a>Recovery of 3D structure</h1><h2 id="1-Measure-three-dimensional-information"><a href="#1-Measure-three-dimensional-information" class="headerlink" title="1. Measure three-dimensional information"></a>1. Measure three-dimensional information</h2><ul>
+<li><p>Camera model</p>
+</li>
+<li><p>Camera calibration(标定)</p>
+</li>
+<li>Epipolar geometry</li>
+</ul>
+<h2 id="2-Things-aren’t-always-as-they-appear…"><a href="#2-Things-aren’t-always-as-they-appear…" class="headerlink" title="2. Things aren’t always as they appear…"></a>2. Things aren’t always as they appear…</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011131505.png" alt="image-20211119101313975" class="lazyload"></p>
+<ul>
+<li><strong>Single-view ambiguity</strong><ul>
+<li>失去深度信息</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011131927.png" alt="image-20211119101355678" class="lazyload"></p>
+<ul>
+<li>When certain <strong>assumptions hold,</strong> we can <strong>recover structure from a single view</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132928.png" alt="image-20220201113218862" class="lazyload"></p>
+<ul>
+<li>In general, we need <strong>multi-view geometry</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132403.png" alt="image-20211119101535624" class="lazyload"></p>
+<h2 id="3-Review-Pinhole-camera-model"><a href="#3-Review-Pinhole-camera-model" class="headerlink" title="3. Review: Pinhole camera model"></a>3. Review: Pinhole camera model</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132610.png" alt="image-20211119101718923" class="lazyload"></p>
+<ul>
+<li>f = focal length 焦距</li>
+<li>o = aperture光圈 = pinhole = <strong>center of the camera</strong> </li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132006.png" alt="image-20211119101838783" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\begin{gathered}
+Q=\left[\begin{array}{l}
+X \\
+Y \\
+Z
+\end{array}\right] \rightarrow Q^{\prime}=\left[\begin{array}{l}
+X^{\prime} \\
+Y^{\prime}
+\end{array}\right] \\
+\mathfrak{R}^{3} \rightarrow \mathfrak{R}^{2}
+\end{gathered}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&\mathrm{X}^{\prime}=f \frac{X}{Z} \\
+&\mathrm{Y}^{\prime}=f \frac{Y}{Z}
+\end{aligned}</script><ul>
+<li>Question: Is this a linear transformation?<ul>
+<li>It’s not, because it has X and Z in the equations.</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-1-Homogeneous-coordinates-欧式坐标与齐次坐标互转换"><a href="#3-1-Homogeneous-coordinates-欧式坐标与齐次坐标互转换" class="headerlink" title="3.1 Homogeneous coordinates 欧式坐标与齐次坐标互转换"></a>3.1 Homogeneous coordinates 欧式坐标与齐次坐标互转换</h3><script type="math/tex; mode=display">
+\begin{aligned}
+&E \rightarrow H \\
+&\quad(x, y) \Rightarrow\left[\begin{array}{l}
+x \\
+y \\
+1
+\end{array}\right] \quad(x, y, z) \Rightarrow\left[\begin{array}{l}
+x \\
+y \\
+z \\
+1
+\end{array}\right]
+\end{aligned}</script><script type="math/tex; mode=display">
+\begin{aligned}
+&H \rightarrow E \\
+&\qquad\left[\begin{array}{c}
+x \\
+y \\
+w
+\end{array}\right] \Rightarrow(x / w, y / w) \quad\left[\begin{array}{c}
+x \\
+y \\
+z \\
+w
+\end{array}\right] \Rightarrow(x / w, y / w, z / w)
+\end{aligned}</script><h3 id="3-2-Projective-transformation-in-Homogeneous-coordinates"><a href="#3-2-Projective-transformation-in-Homogeneous-coordinates" class="headerlink" title="3.2 Projective transformation in Homogeneous coordinates"></a>3.2 Projective transformation in Homogeneous coordinates</h3><ul>
+<li>投影变换</li>
+<li>先将其转换为其次坐标系，然后就可以用线性式子来表示变换关系</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gathered}
+Q=\left[\begin{array}{l}
+X \\
+Y \\
+Z
+\end{array}\right] \rightarrow \quad Q^{\prime}=\left[\begin{array}{l}
+X^{\prime} \\
+Y^{\prime}
+\end{array}\right] \quad \quad  \\
+\mathrm{X}^{\prime}=f \frac{X}{Z}\quad  
+\mathrm{Y}^{\prime}=f \frac{Y}{Z} \\
+\left(\begin{array}{l}
+X \\
+Y \\
+Z \\
+1
+\end{array}\right) \mapsto\left(\begin{array}{c}
+f X \\
+f Y \\
+Z
+\end{array}\right)=\left[\begin{array}{lll}
+f & & 0 \\
+& f & 0 \\
+& & 1 & 0
+\end{array}\right]\left(\begin{array}{c}
+X \\
+Y \\
+Z \\
+1
+\end{array}\right)=P Q
+\end{gathered}</script><h3 id="3-3-Camera-calibration-标定"><a href="#3-3-Camera-calibration-标定" class="headerlink" title="3.3 Camera calibration(标定)"></a>3.3 Camera calibration(标定)</h3><ul>
+<li>由于摄像机的位置不固定，所以需要设立一个世界坐标系。然后所有变换在该坐标系进行</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011132279.png" alt="image-20211119102703401" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133495.png" alt="image-20211119102820269" class="lazyload"></p>
+<ul>
+<li><strong>Normalized (camera) coordinate system:</strong>camera center is at the origin原点, the principal axisis 主轴 the z-axis,</li>
+<li><strong>Camera calibration:</strong> figuring out transformation <strong>from world coordinate system to image coordinate system</strong></li>
+<li>这里我们可以看到已经有两个坐标系，分别为摄像机坐标系、变换后的坐标系。不同的是，一个是摄像机的坐标系，原点位于图片主点；变换后的坐标系，其坐标原点在图片的左下角上（右上角）</li>
+</ul>
+<h4 id="3-3-1-From-retina-plane-to-images"><a href="#3-3-1-From-retina-plane-to-images" class="headerlink" title="3.3.1 From retina plane to images"></a>3.3.1 From retina plane to images</h4><ul>
+<li>retina plane 视平面</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133143.png" alt="image-20211119102914015" class="lazyload"></p>
+<ul>
+<li><strong>Principal point (p)</strong>:point where principal axis intersects the image plane<ul>
+<li>主轴交图像坐标系的点叫主点</li>
+</ul>
+</li>
+<li><strong>Normalized coordinate system:</strong> origin of the image is at the principal point<ul>
+<li>规范后的坐标系原点在主点上</li>
+</ul>
+</li>
+<li><strong>Image coordinate system:</strong> origin is in the corner<ul>
+<li>图像坐标系的原点是左下角</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-3-2-Principal-point-offset"><a href="#3-3-2-Principal-point-offset" class="headerlink" title="3.3.2 Principal point offset"></a>3.3.2 Principal point offset</h4><ul>
+<li><p>我们进行投影时，会首先投影到规范化坐标系，之后再将该坐标系平移到图像角点</p>
+</li>
+<li><p>先进行坐标平移，再进行投影变换</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133503.png" alt="image-20211119102937100" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&(X, Y, Z) \mapsto\left(f X / Z+p_{x}， f Y / Z+p_{y}\right)\\
+&\left(\begin{array}{l}
+X \\
+Y \\
+Z \\
+1
+\end{array}\right) \mapsto\left(\begin{array}{c}
+f X+Z p_{x} \\
+f Y+Z p_{y} \\
+Z
+\end{array}\right)=\left[\begin{array}{ccc}
+f & & p_{x} & 0 \\
+& f & p_{y} & 0 \\
+&  & 1 & 0
+\end{array}\right]\left(\begin{array}{l}
+X \\
+Y \\
+Z \\
+1
+\end{array}\right)
+\end{aligned}</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211119103221567.png" alt="image-20211119103221567" class="lazyload"></p>
+<ul>
+<li>$\mathrm{P}=\mathrm{K}[\mathrm{I} \mid 0]$ 规范化矩阵</li>
+</ul>
+<h4 id="3-3-3-Pixel-coordinates"><a href="#3-3-3-Pixel-coordinates" class="headerlink" title="3.3.3 Pixel coordinates"></a>3.3.3 Pixel coordinates</h4><ul>
+<li>Pixel size: $\frac{1}{m_{x}} \times \frac{1}{m_{y}}$</li>
+<li>$m_{x}$​​ <strong>pixels per meter</strong> in horizontal direction </li>
+<li>$m_{y}$​​ <strong>pixels per meter</strong> in vertical direction</li>
+<li>观察式子，我们会发现，其只是又做了依次scale，所以只需要左乘一个scale transformation matrix</li>
+</ul>
+<script type="math/tex; mode=display">
+(X, Y, Z) \mapsto m_{x} f X / Z+p_{x}, m_{y} f Y / Z+p_{y}</script><script type="math/tex; mode=display">
+K=\underset{pixels/m}{\left[\begin{array}{ccc}
+m_{x} & & \\
+& m_{y} & \\
+& & 1
+\end{array}\right]}\underset{m}{\left[\begin{array}{ccc}
+f & & p_{x} \\
+& f & p_{y} \\
+& & 1
+\end{array}\right]}=\underset{pixels}{\left[\begin{array}{ccc}
+\alpha_{x} & & \beta_{x} \\
+& \alpha_{y} & \beta_{y} \\
+& & 1
+\end{array}\right]}</script><ul>
+<li>有五个自由度</li>
+</ul>
+<h4 id="3-3-4-Camera-rotation-and-translation"><a href="#3-3-4-Camera-rotation-and-translation" class="headerlink" title="3.3.4 Camera rotation and translation"></a>3.3.4 Camera rotation and translation</h4><h5 id="3-3-4-1-3D-Translation"><a href="#3-3-4-1-3D-Translation" class="headerlink" title="3.3.4.1 3D Translation"></a>3.3.4.1 3D Translation</h5><script type="math/tex; mode=display">
+x^{\prime}=x+t x ; y^{\prime}=y+t y ; z^{\prime}=z+t z</script><script type="math/tex; mode=display">
+\left[\begin{array}{l}
+X^{\prime} \\
+Y^{\prime} \\
+Z^{\prime} \\
+1
+\end{array}\right]=\left[\begin{array}{llll}
+1 & 0 & 0 & t x \\
+0 & 1 & 0 & t y \\
+0 & 0 & 1 & t z \\
+0 & 0 & 0 & 1
+\end{array}\right]\left[\begin{array}{c}
+X \\
+Y \\
+Z \\
+1
+\end{array}\right]</script><h5 id="3-3-4-2-3D-Scaling"><a href="#3-3-4-2-3D-Scaling" class="headerlink" title="3.3.4.2 3D Scaling"></a>3.3.4.2 3D Scaling</h5><script type="math/tex; mode=display">
+X^{\prime}=X \times S_x ; Y^{\prime}=Y \times S_y ; Z^{\prime}=Z \times S_z</script><script type="math/tex; mode=display">
+\left[\begin{array}{c}
+X^{\prime} \\
+Y^{\prime} \\
+Z^{\prime} \\
+1
+\end{array}\right]=\left[\begin{array}{cccc}
+S_x & 0 & 0 & 0 \\
+0 & S_y & 0 & 0 \\
+0 & 0 & S_z & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]\left[\begin{array}{l}
+X \\
+Y \\
+Z \\
+1
+\end{array}\right]</script><h5 id="3-3-4-3-3D-rotation-transformation"><a href="#3-3-4-3-3D-rotation-transformation" class="headerlink" title="3.3.4.3 3D rotation transformation"></a>3.3.4.3 3D rotation transformation</h5><p>3D rotation is done around <strong>a rotation axis</strong></p>
+<ul>
+<li>Fundamental rotations – rotate about <strong>x, y, or z axes</strong></li>
+<li><strong>Counter-clockwise rotation逆时针旋转</strong> is referred to as positive rotation (when you look down negative axis)</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133511.png" alt="image-20211119160347946" class="lazyload"></p>
+<ul>
+<li>Rotation about Z – similar to 2D rotation</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&x^{\prime}=x \cos (\theta)-y \sin (\theta) \\
+&y^{\prime}=x \sin (\theta)+y \cos (\theta) \\
+&z^{\prime}=z
+\end{aligned}</script><script type="math/tex; mode=display">
+\left[\begin{array}{lcll}
+\cos (\theta) & -\sin (\theta) & 0 & 0 \\
+\sin (\theta) & \cos (\theta) & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]</script><ul>
+<li>Rotation about y (z -&gt; y, y -&gt; x, x-&gt;z)</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&z^{\prime}=z \cos (\theta)-x \sin (\theta) \\
+&x^{\prime}=z \sin (\theta)+x \cos (\theta) \\
+&y^{\prime}=y
+\end{aligned}</script><script type="math/tex; mode=display">
+\left[\begin{array}{lccc}
+\cos (\theta) & 0 & \sin (\theta) & 0 \\
+0 & 1 & 0 & 0 \\
+-\sin (\theta) & 0 & \cos (\theta) & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]</script><ul>
+<li>Rotation about x (z -&gt; x, y -&gt; z, x-&gt;y)</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&y^{\prime}=y \cos (\theta)-z \sin (\theta) \\
+&z^{\prime}=y \sin (\theta)+z \cos (\theta) \\
+&x^{\prime}=x \\
+&\left[\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & \cos (\theta) & -\sin (\theta) & 0 \\
+0 & \sin (\theta) & \cos (\theta) & 0 \\
+0 & 0 & 0 & 1
+\end{array}\right]
+\end{aligned}</script><h5 id="3-3-5-Composing-Transformation"><a href="#3-3-5-Composing-Transformation" class="headerlink" title="3.3.5 Composing Transformation"></a>3.3.5 Composing Transformation</h5><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133383.png" alt="image-20211119160928824" class="lazyload"></p>
+<h5 id="3-3-6-Camera-rotation-and-translation"><a href="#3-3-6-Camera-rotation-and-translation" class="headerlink" title="3.3.6 Camera rotation and translation"></a>3.3.6 Camera rotation and translation</h5><ul>
+<li>You can think of object transformations as moving (transforming) its local coordinate frame<ul>
+<li>世界坐标系到camera坐标系</li>
+</ul>
+</li>
+<li>All the transformations are performed <strong>relative to the current coordinate frame origin and axes</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133530.png" alt="image-20211119104230595" class="lazyload"></p>
+<ul>
+<li>In general, the <strong>camera coordinate frame</strong> will be related to the <strong>world coordinate frame</strong> by a rotation and a translation</li>
+<li>Conversion <strong>from world to camera coordinate system</strong> (in non-homogeneous coordinates):</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133400.png" alt="image-20211119104341907" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133128.png" alt="image-20211119104504020" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\tilde{X}_{\text {cam }}=R(\tilde{X}-\tilde{C}) \quad\left(\begin{array}{c}
+\tilde{X}_{\text {cam }} \\
+1
+\end{array}\right)=\left[\begin{array}{cc}
+R & -R \widetilde{C} \\
+0 & 1
+\end{array}\right]\left(\begin{array}{c}
+\tilde{X} \\
+1
+\end{array}\right)</script><ul>
+<li>其实可以这么理解这个变换矩阵，对于偏置量会受旋转的影响：</li>
+</ul>
+<script type="math/tex; mode=display">
+\left[\begin{array}{ll}
+R_{3\times3} & O_{3\times 1}\\
+O_{1\times 3} & 1_{1\times 1}
+\end{array}\right]_{4\times 4}
+\left[\begin{array}{ll}
+I_{3\times3} & -\widetilde{C}_{3\times 1}\\
+O_{1\times 3} & 1_{1\times 1}
+\end{array}\right]_{4\times 4}=
+\left[\begin{array}{cc}
+R & -R \widetilde{C} \\
+0 & 1
+\end{array}\right]_{4\times 4}</script><script type="math/tex; mode=display">
+\tilde{X}_{\text {cam }}=R(\widetilde{X}-\widetilde{C}) \quad X_{\text {cam }}=\underset{\text{3D transformation 
+matrix (4 x 4)}}{
+\left[\begin{array}{cc}
+R & -R \widetilde{C} \\ 
+0 & 1\end{array}\right]} 
+X</script><ul>
+<li>2D transformation matrix (3 x 3) 从摄像机坐标系平移到另一个坐标系，并做了投影变换和尺度变换</li>
+</ul>
+<script type="math/tex; mode=display">
+K=\underset{pixels/m}{\left[\begin{array}{ccc}
+m_{x} & & \\
+& m_{y} & \\
+& & 1
+\end{array}\right]}\underset{m}{\left[\begin{array}{ccc}
+f & & p_{x} \\
+& f & p_{y} \\
+& & 1
+\end{array}\right]}=\underset{pixels}{\left[\begin{array}{ccc}
+\alpha_{x} & & \beta_{x} \\
+& \alpha_{y} & \beta_{y} \\
+& & 1
+\end{array}\right]}</script><ul>
+<li>用于视角变换，从二维变换转为三维变换，相当于矩阵维度变换</li>
+</ul>
+<script type="math/tex; mode=display">
+[\mathrm{I} \mid 0]</script><ul>
+<li>我们可以这么理解一下式子，其先将世界坐标系转到了摄像机坐标系，再进行平移变换，最后进行投影变换和尺度变换</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133135.png" alt="image-20211119104553136" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133310.png" alt="image-20211119104605351" class="lazyload"></p>
+<ul>
+<li>$K$摄像机内部参数，$[R\mid t]$外部参数</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011133255.png" alt="image-20211119104612283" class="lazyload"></p>
+<h3 id="3-4-Camera-parameters"><a href="#3-4-Camera-parameters" class="headerlink" title="3.4 Camera parameters"></a>3.4 Camera parameters</h3><ul>
+<li>Intrinsic parameters<ul>
+<li><strong>Principal point</strong> coordinates<ul>
+<li>$p_x,p_y$</li>
+</ul>
+</li>
+<li>Focal length<ul>
+<li>$f$</li>
+</ul>
+</li>
+<li>Pixel magnification factors<ul>
+<li>$m_x,m_y$</li>
+</ul>
+</li>
+<li><strong>Skew (non-rectangular pixels)</strong></li>
+<li><strong>Radial distortion</strong> 畸变<ul>
+<li>越远离光圈越容易发生弯曲</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gathered}
+\mathbf{P}=\mathbf{K}\left[\begin{array}{ll}
+\mathbf{R}\mid \mathbf{t}
+\end{array}\right] \\
+\mathrm{K}=\left[\begin{array}{cc}
+m_{x} & \\
+& m_{y} & \\
+& & 1
+\end{array}\right]\left[\begin{array}{cc}
+f  & &p_{x} \\
+&f & p_{y} \\
+& & 1
+\end{array}\right]=\left[\begin{array}{cc}
+\alpha_{x} & & \beta_{x} \\
+&\alpha_{y} & \beta_{y} \\
+& & 1
+\end{array}\right]
+\end{gathered}</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134185.png" alt="image-20211119104827391" class="lazyload"></p>
+<ul>
+<li><strong>Extrinsic parameters</strong><ul>
+<li><strong>Rotation and translation</strong> relative to world coordinate system</li>
+<li>What is the projection of the camera center?</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+\mathbf{P}=\mathbf{K}\left[\begin{array}{ll}
+\mathbf{R} \mid -\mathbf{R} \widetilde{\mathbf{C}}
+\end{array}\right]</script><ul>
+<li>$C$是摄像机中心在世界坐标系的坐标</li>
+</ul>
+<script type="math/tex; mode=display">
+\mathbf{P} \mathbf{C}=\mathbf{K}[\mathbf{R}\mid-\mathbf{R} \tilde{\mathbf{C}}]\left[\begin{array}{c}
+\widetilde{\mathbf{C}} \\
+1
+\end{array}\right]=0</script><ul>
+<li>The camera center is the null space of the projection matrix!<ul>
+<li>投影矩阵:$\mathbf{P} \mathbf{C}=\mathbf{K}[\mathbf{R}\mid-\mathbf{R} \tilde{\mathbf{C}}]$​</li>
+<li>camera center:$\left[\begin{array}{c}<br>\widetilde{\mathbf{C}} \\<br>1<br>\end{array}\right]$</li>
+<li>在数学中，一个算子 $A$ 的零空间是方程 $Av = 0$ 的所有解 $v$ 的集合。它也叫做 $A$ 的核空间。如果算子是在向量空间上的线性算子，零空间就是线性子空间。因此零空间是向量空间。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-Camera-calibration"><a href="#4-Camera-calibration" class="headerlink" title="4. Camera calibration"></a>4. Camera calibration</h2><ul>
+<li>参数不可知</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{gathered}
+\lambda \mathbf{x}=\mathbf{K}[\mathbf{R} \mid \mathbf{t}] \mathbf{X} \\
+{\left[\begin{array}{c}
+\lambda x \\
+\lambda y \\
+\lambda
+\end{array}\right]=\left[\begin{array}{ccc}
+* & * & * & * \\
+* & * & * & * \\
+* & * & * & *
+\end{array}\right]\left[\begin{array}{l}
+X \\
+Y \\
+Z \\
+1
+\end{array}\right]}
+\end{gathered}</script><ul>
+<li>Given $n$ points with known $3 D$ <strong>coordinates</strong> $X_{i}$ and known <strong>image projections</strong> $\boldsymbol{x}_{i}$​​, <strong>estimate the camera parameters</strong><ul>
+<li>通过实验，可以同时测得3D坐标和图像投影坐标</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134667.png" alt="image-20211119105405430" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134505.png" alt="image-20211119105518082" class="lazyload"></p>
+<script type="math/tex; mode=display">
+\begin{array}{r}
+\chi_{i}=P X_{i} \quad P=\left[\begin{array}{l}
+P_{1} \\
+P_{2} \\
+P_{3}
+\end{array}\right] \\
+\text { Pixel: } \chi_{i}=\left[\begin{array}{l}
+x_{i} \\
+y_{i}
+\end{array}\right]=\left[\begin{array}{l}
+\frac{P_{1} X_{i}}{P_{3} X_{i}} \\
+\frac{P_{2} X_{i}}{P_{3} X_{i}}
+\end{array}\right]
+\end{array}</script><ul>
+<li>上面的式子是先做了变换，然后将齐次坐标转为了欧式坐标</li>
+<li>Two linearly independent equations</li>
+<li><strong>P has 11 degrees of freedom</strong></li>
+<li>One 2D/3D correspondence gives us <strong>two linearly  independent equations</strong></li>
+<li><strong>6 correspondences needed for a minimal solution</strong></li>
+</ul>
+<h3 id="4-1-Nonlinear-method"><a href="#4-1-Nonlinear-method" class="headerlink" title="4.1 Nonlinear method"></a>4.1 Nonlinear method</h3><script type="math/tex; mode=display">
+\chi_{i}=P X_{i} \quad \chi_{i}=\left[\begin{array}{l}
+x_{i} \\
+y_{i}
+\end{array}\right]=\left[\begin{array}{l}
+\frac{P_{1} X_{i}}{P_{3} X_{i}} \\
+\frac{P_{2} X_{i}}{P_{3} X_{i}}
+\end{array}\right] \quad\left\{\begin{array}{c}
+-x_{i}\left(P_{3} X_{1}\right)+P_{1} X_{1}=0 \\
+-y_{i}\left(P_{3} X_{1}\right)+P_{2} X_{1}=0 \\
+-x_{i}\left(P_{3} X_{n}\right)+P_{1} X_{n}=0 \\
+-y_{i}\left(P_{3} X_{n}\right)+P_{2} X_{n}=0
+\end{array}\right.</script><script type="math/tex; mode=display">
+\left[\begin{array}{ccc}
+0^{T} & \mathbf{X}_{1}^{T} & -y_{1} \mathbf{X}_{1}^{T} \\
+\mathbf{X}_{1}^{T} & 0^{T} & -x_{1} \mathbf{X}_{1}^{T} \\
+\cdots & \cdots & \cdots \\
+0^{T} & \mathbf{X}_{n}^{T} & -y_{n} \mathbf{X}_{n}^{T} \\
+\mathbf{X}_{n}^{T} & 0^{T} & -x_{n} \mathbf{X}_{n}^{T}
+\end{array}\right]\left(\begin{array}{l}
+\mathbf{P}_{1}^{\mathrm{T}} \\
+\mathbf{P}_{2}^{T} \\
+\mathbf{P}_{3}^{T}
+\end{array}\right)=0</script><script type="math/tex; mode=display">
+\mathbf{A} \mathbf{p}=\mathbf{0}</script><ul>
+<li>Homogeneous least squares:|find $\mathbf{p}$ minimizing $|\mathbf{A} \mathbf{p}|^{2}$</li>
+<li>Solution given by eigenvector of $\mathbf{A}^{\mathrm{T}} \mathbf{A}$​ with smallest eigenvalue<ul>
+<li>奇异值分解，求$p$的值</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-Epipolar-geometry"><a href="#5-Epipolar-geometry" class="headerlink" title="5. Epipolar geometry"></a>5. Epipolar geometry</h2><h3 id="5-1-Recovering-structure-from-a-single-view"><a href="#5-1-Recovering-structure-from-a-single-view" class="headerlink" title="5.1 Recovering structure from a single view"></a>5.1 Recovering structure from a single view</h3><ul>
+<li>从单个图片，即使有知识，但是很难进行重建，因为图片具有歧义，缺少深度信息</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134880.png" alt="image-20211119110608865" class="lazyload"></p>
+<ul>
+<li>From calibration rig: location/pose of the rig, K</li>
+<li>Knowledge about scene: point correspondences, geometry of lines &amp; planes, etc…<ul>
+<li>这些知识包括点的依赖性、线的平行特征，平面等</li>
+</ul>
+</li>
+<li><strong>Intrinsic ambiguity</strong> of the mapping from <strong>3D to image (2D)</strong><ul>
+<li>具有内部歧义性，主要在投影的时候，丢失了深度信息</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134260.png" alt="image-20211119110646333" class="lazyload"></p>
+<ul>
+<li>Two eyes help!</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134152.png" alt="image-20211119204151491" class="lazyload"></p>
+<h3 id="5-2-A-taste-of-multi-view-geometry-Triangulation"><a href="#5-2-A-taste-of-multi-view-geometry-Triangulation" class="headerlink" title="5.2 A taste of multi-view geometry: Triangulation"></a>5.2 A taste of multi-view geometry: Triangulation</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134446.png" alt="image-20211119110740539" class="lazyload"></p>
+<ul>
+<li><strong>Given projections of a 3D point in two or more images</strong> (with known camera matrices), find the coordinates of the point<ul>
+<li>给定3D point的投影坐标，要求3D坐标</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134799.png" alt="image-20211119110951261" class="lazyload"></p>
+<ul>
+<li>We want to <strong>intersect</strong> the <strong>two visual rays corresponding to $x_1$​and $x_2$​​​,</strong> but because of noise and numerical errors, they <strong>don’t meet exactly</strong><ul>
+<li>理论上是可以知道x的位置，即使不知道，有两张照片也可以找的到，但是实际上有噪音，所以很难找到交点</li>
+</ul>
+</li>
+<li>$\text { Find } \mathrm{X} \text { that minimizes } d^{2}\left(\mathbf{x}_{1}, \mathbf{P}_{1} \mathbf{X}\right)+d^{2}\left(\mathbf{x}_{2}, \mathbf{P}_{2} \mathbf{X}\right)$<ul>
+<li>最小化投影距离与真实距离</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134046.png" alt="image-20211119111150491" class="lazyload"></p>
+<h3 id="5-3-问题分类"><a href="#5-3-问题分类" class="headerlink" title="5.3 问题分类"></a>5.3 问题分类</h3><ul>
+<li><strong>求相机内参</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011134986.png" alt="image-20211119111230778" class="lazyload"></p>
+<ul>
+<li><p>Motivation: Given <strong>a set of known 3D points</strong> seen by a camera, <strong>compute the camera parameters</strong></p>
+<ul>
+<li>Calibration!</li>
+</ul>
+</li>
+<li><p><strong>定位真实空间位置</strong></p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135320.png" alt="image-20211119111342429" class="lazyload"></p>
+<ul>
+<li><strong>Structure:</strong> Given <strong>known cameras</strong> and <strong>projections of the same 3D point</strong> in two or more images, <strong>compute the 3D coordinates</strong> of that point<ul>
+<li>Triangulation!</li>
+<li>给定同一点的一些投影坐标和相机参数等，用三角法求真实坐标</li>
+</ul>
+</li>
+<li><strong>要求一张图片的点对应另一张图片的另一个点</strong></li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135951.png" alt="image-20211119111418144" class="lazyload"></p>
+<ul>
+<li><strong>Correspondence:</strong> Given <strong>a point</strong> in <strong>one image</strong>, find the corresponding point in another one.<ul>
+<li>知道摄像机，也知道图片，要求一张图片的点对应另一张图片的另一个点</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-4-Epipolar-geometry"><a href="#5-4-Epipolar-geometry" class="headerlink" title="5.4 Epipolar geometry"></a>5.4 Epipolar geometry</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135396.png" alt="image-20211119210241604" class="lazyload"></p>
+<ul>
+<li><strong>Baseline</strong>（基线） —— line connecting the two camera centers<ul>
+<li>两个相机中心的连线</li>
+</ul>
+</li>
+<li><strong>Epipolar Plane（极平面）</strong>——plane containing baseline and $X$​<ul>
+<li>这里有三个坐标系，两个摄像机坐标系，一个世界坐标系，也可以将世界坐标系和其中一个摄像机坐标系移到到重合</li>
+</ul>
+</li>
+<li><strong>Epipoles（极点）</strong> ——intersections of baseline with image planes<ul>
+<li>基线和图片的交点$e$</li>
+</ul>
+</li>
+<li><strong>Epipolar Lines</strong> —— <strong>intersections of epipolar plane with image planes</strong> (always come in corresponding pairs)<ul>
+<li>极平面和图像平面的交线$l,l’$</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135022.png" alt="image-20211119112116338" class="lazyload"></p>
+<ul>
+<li>If we <strong>observe a point $x$ in one image</strong>, where can <strong>the corresponding point $x’$​​</strong> be in the other image?</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135046.png" alt="image-20211119112157827" class="lazyload"></p>
+<ul>
+<li><strong>Potential matches</strong> for $x$​​ have to lie on the <strong>corresponding epipolar line</strong> $ l’$​.</li>
+<li>Potential matches for $x$​ ‘ have to lie on the corresponding epipolar line $l$​​​.</li>
+<li>无论是已知哪一个点，要找匹配，都在相关的极线上，所以匹配的时候，只要遍历极线的点就行</li>
+<li>这个问题其实是一个三点共线问题：即要证明$O’$和$X$的连线与图片平面的交点一定在极线上</li>
+</ul>
+<h3 id="5-5-Epipolar-constraint-example"><a href="#5-5-Epipolar-constraint-example" class="headerlink" title="5.5 Epipolar constraint example"></a>5.5 Epipolar constraint example</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135399.png" alt="image-20211119112225939" class="lazyload"></p>
+<h3 id="5-6-Epipolarconstraint-Calibrated-case"><a href="#5-6-Epipolarconstraint-Calibrated-case" class="headerlink" title="5.6 Epipolarconstraint: Calibrated case"></a>5.6 Epipolarconstraint: Calibrated case</h3><ul>
+<li>现验证匹配的投影点是否在交线上，即已知$x’$​坐标，验证其是否在直线上</li>
+<li>先将所有点的坐标转到世界坐标系里表达</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135844.png" alt="image-20211119214014355" class="lazyload"></p>
+<script type="math/tex; mode=display">
+K_{\text {camenical }}=\left[\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1
+\end{array}\right]</script><ul>
+<li>假设世界坐标系和其中一个摄影坐标系原点重合</li>
+<li><strong>Intrinsic and extrinsic parameters of the cameras are known</strong>, world coordinate system is set to that of the first camera.<ul>
+<li>返回到世界坐标系当中</li>
+<li>对于摄像机坐标系上的任意一点坐标$x’$，我们可以将其变换为世界坐标系表示</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+x'=RX_w+t</script><script type="math/tex; mode=display">
+x^{\prime T}\cdot \left[t \times\left(R x^{}+t\right)\right]=0\quad \Rightarrow \quad x^{\prime T}[t_x]Rx=0</script><script type="math/tex; mode=display">
+\text { Recall: } \quad \mathbf{a} \times \mathbf{b}=\left[\begin{array}{ccc}
+0 & -a_{z} & a_{y} \\
+a_{z} & 0 & -a_{x} \\
+-a_{y} & a_{x} & 0
+\end{array}\right]\left[\begin{array}{l}
+b_{x} \\
+b_{y} \\
+b_{z}
+\end{array}\right]=\left[\mathbf{a}_{\times}\right] \mathbf{b}</script><script type="math/tex; mode=display">
+\boldsymbol{x}^{\prime T}\left[\boldsymbol{t}_{\times}\right] \boldsymbol{R} \boldsymbol{x}=0 \quad \Rightarrow \quad \boldsymbol{x}^{\prime T} E \boldsymbol{x}=0</script><script type="math/tex; mode=display">
+\boldsymbol{x}^{\boldsymbol{T}} E \boldsymbol{x^\prime}=0</script><ul>
+<li>Lecture10 更新解法</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135886.png" alt="image-20211126155406764" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011135111.png" alt="image-20220201113553136" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136271.png" alt="image-20220201113610291" class="lazyload"></p>
+<ul>
+<li>由于$x’$是右边那个极平面的法向量，所以会垂直于极线，那么对于满足任意$x’$都垂直于极线的方程，显然就是极线的方程</li>
+<li>$\boldsymbol{Ex}$​​​​ is the epipolar line associated with $\boldsymbol{x}\left(\boldsymbol{l}^{\prime}=\boldsymbol{E} \boldsymbol{x}\right)$​​​​</li>
+<li>Recall: a line is given by $a x+b y+c=0$ or $\mathbf{l}^{T} \mathbf{x}=0$ where $\mathbf{l}=\left[\begin{array}{l}a \ b \ c\end{array}\right], \quad \mathbf{x}=\left[\begin{array}{l}x \ y \ 1\end{array}\right]$</li>
+</ul>
+<script type="math/tex; mode=display">
+\boldsymbol{x'}^T \boldsymbol{E} \boldsymbol{x}=0</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136871.png" alt="image-20211120101003840" class="lazyload"></p>
+<ul>
+<li>$E \boldsymbol{x}$​​ is the epipolar line associated with $\boldsymbol{x}\left(\boldsymbol{l}^{\prime}=\boldsymbol{E} \boldsymbol{x}\right)$​​</li>
+<li>$\boldsymbol{E}^{T} \boldsymbol{x}^{\prime}$ is the epipolar line associated with $\boldsymbol{x}^{\prime}\left(\boldsymbol{I}=\boldsymbol{E}^{\top} \boldsymbol{x}^{\prime}\right)$</li>
+<li>$E \boldsymbol{e}=0$ and $\boldsymbol{E}^{\top} \boldsymbol{e}^{\prime}=0$</li>
+<li>$E$​ <strong>is singular (rank two)</strong><ul>
+<li>因为$t_x$的rank是2</li>
+</ul>
+</li>
+<li>$E$​ has <strong>five degrees of freedom</strong></li>
+<li>The calibration matrices $K$ and $K^{\prime}$ of the two cameras are unknown</li>
+<li>We can write the epipolar constraint in terms of <strong>unknown normalized coordinates:</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\hat{\boldsymbol{x}}^{\prime T} \boldsymbol{E} \hat{\boldsymbol{x}}=0 \quad \hat{\boldsymbol{x}}=\boldsymbol{K}^{-1} \boldsymbol{x}, \quad \hat{\boldsymbol{x}}^{\prime}=\boldsymbol{K}^{\prime-1} \boldsymbol{x}^{\prime}</script><script type="math/tex; mode=display">
+\begin{array}\\
+x=K[I,O]X\\
+\hat{x}=K^{-1}x=[I,O]X
+\end{array}</script><ul>
+<li>这里的$[I,O]$相当于视角转换，由齐次坐标变为欧式坐标</li>
+<li>乘一个逆就可以变到另一个点的规范化坐标系</li>
+</ul>
+<script type="math/tex; mode=display">
+\begin{aligned}
+&\hat{\boldsymbol{x}}=\boldsymbol{K}^{-1} \boldsymbol{x} \\
+&\hat{\boldsymbol{x}}^{\prime}=\boldsymbol{K}^{\prime-1} \boldsymbol{x}^{\prime}
+\end{aligned}</script><script type="math/tex; mode=display">
+(K^{-1}x)^TE(K'^{-1}x')=0</script><script type="math/tex; mode=display">
+x^T(K^{-1})^TEK'^{-1}x'=0</script><script type="math/tex; mode=display">
+\hat{\boldsymbol{x}}^{\prime T} E \hat{\boldsymbol{x}}=0 \quad \Rightarrow \boldsymbol{x}^{\prime T} \boldsymbol{F} \boldsymbol{x}=0 \quad \text { with } \quad \boldsymbol{F}=\boldsymbol{K}^{\prime-T} \boldsymbol{E} \boldsymbol{K}^{-1}</script><ul>
+<li>$\boldsymbol{F} \boldsymbol{x}$ is the epipolar line associated with $\boldsymbol{x}\left(\boldsymbol{l}^{\prime}=\boldsymbol{F} \boldsymbol{x}\right)$</li>
+<li>$\boldsymbol{F}^{\boldsymbol{T}} \boldsymbol{x}^{\boldsymbol{x}}$ is the epipolar line associated with $\boldsymbol{x}^{\prime}\left(\boldsymbol{l}=\boldsymbol{F}^{\boldsymbol{T}} \boldsymbol{x}^{\prime}\right)$</li>
+<li>$\boldsymbol{F} \boldsymbol{e}=0$ and $\boldsymbol{F}^{T} \boldsymbol{e}^{\prime}=0$</li>
+<li>$\boldsymbol{F}$ is singular (rank two)</li>
+<li>$\boldsymbol{F}$ has seven degrees of freedom</li>
+</ul>
+<h3 id="5-7-Estimating-the-fundamental-matrix"><a href="#5-7-Estimating-the-fundamental-matrix" class="headerlink" title="5.7 Estimating the fundamental matrix"></a>5.7 Estimating the fundamental matrix</h3><h4 id="5-7-1-The-eight-point-algorithm"><a href="#5-7-1-The-eight-point-algorithm" class="headerlink" title="5.7.1 The eight-point algorithm"></a>5.7.1 The eight-point algorithm</h4><script type="math/tex; mode=display">
+\boldsymbol{x}=(u, v, 1)^{T}, \quad \boldsymbol{x}^{\prime}=\left(u^{\prime}, v^{\prime}, 1\right)</script><script type="math/tex; mode=display">
+\left[\begin{array}{lll}
+u^{\prime} & v^{\prime} & 1
+\end{array}\right]\left[\begin{array}{lll}
+f_{11} & f_{12} & f_{13} \\
+f_{21} & f_{22} & f_{23} \\
+f_{31} & f_{32} & f_{33}
+\end{array}\right]\left[\begin{array}{l}
+u \\
+v \\
+1
+\end{array}\right]=0</script><script type="math/tex; mode=display">
+\left[\begin{array}{llllllll}
+u^{\prime} u & u^{\prime} v & u^{\prime} & v^{\prime} u & v^{\prime} v & v^{\prime} & u & v & 1
+\end{array}\right]\left[\begin{array}{l}
+f_{11} \\
+f_{12} \\
+f_{13} \\
+f_{21} \\
+f_{22} \\
+f_{23} \\
+\end{array}\right]=0</script><p><img data-fancybox="gallery" data-sizes="auto" data-src="E:/third_year_in_University/CV/%E7%AC%94%E8%AE%B0/img/image-20211120103854837.png" alt="image-20211120103854837" class="lazyload"></p>
+<ul>
+<li>Solve homogeneous linear system using eight or more matches $\rightarrow F$​</li>
+<li>这里会需要八个点，最终会变成两个矩阵相乘</li>
+<li>Enforce rank-2 constraint (take SVD of $F$​ and throw out the smallest singular value). Find F that minimizes $|\mathrm{F}-\hat{\mathrm{F}}|=0$​ Subject to detf(F) $=0$​</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136367.png" alt="image-20211120104541961" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202011136014.png" alt="image-20211120104556005" class="lazyload"></p>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/cv/9.%203D%20structure/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;9.%203D%20structure&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;cv&#x2F;9.%203D%20structure&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/CV/">CV</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292010"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+

@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+  
+  <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+  <title>QA - Smurf</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  
+  
+
+    <!-- Site Verification -->
+    <meta name="baidu-site-verification" content="code-J1Qg17G6wT" />
+
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" type="image/png" />
+  <meta name="description" content="QA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QA">
+<meta property="og:url" content="http://example.com/2021/08/15/nlp%20learning/Chapter11_QA/index.html">
+<meta property="og:site_name" content="Smurf">
+<meta property="og:description" content="QA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202112272001603.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202112272038776.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041355.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041594.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041100.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041985.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042650.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042926.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042770.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042329.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042185.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042888.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042962.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042089.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042080.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042615.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042472.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042667.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042393.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042234.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043954.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043107.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043009.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043112.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043857.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043883.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043832.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043329.png">
+<meta property="og:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043001.png">
+<meta property="article:published_time" content="2021-08-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-02T02:44:15.702Z">
+<meta property="article:author" content="Smurf">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202112272001603.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/highlight.js@9.15.8/styles/atom-one-dark.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/mdui_043tiny/css/mdui.css,gh/theme-nexmoe/hexo-theme-nexmoe@latest/source/lib/iconfont/iconfont.css,gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css?v=233" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css">
+  
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1643902292040">
+  <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<meta name="generator" content="Hexo 5.4.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+<body class="mdui-drawer-body-left">
+  
+  <div id="nexmoe-background">
+    <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg)"></div>
+    <div class="nexmoe-small" style="background-image: url(https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/lihui.png)"></div>
+    <div class="mdui-appbar mdui-shadow-0">
+      <div class="mdui-toolbar">
+        <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+        <div class="mdui-toolbar-spacer"></div>
+        <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+        <a href="/" title="Smurf" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf"></a>
+       </div>
+    </div>
+  </div>
+  <div id="nexmoe-header">
+      <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="Smurf">
+            <img src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/head/head.jpg" alt="Smurf" alt="Smurf">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div class="nexmoe-count-item"><span>文章</span>47 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+        <div class="nexmoe-count-item"><span>分类</span>4<div class="item-radius"></div><div class="item-radius item-right"></div></div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-meishi"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/archives.html" title="文章归档">
+            <i class="mdui-list-item-icon nexmoefont icon-hanbao1"></i>
+            <div class="mdui-list-item-content">
+                文章归档
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/about.html" title="关于糖糖">
+            <i class="mdui-list-item-icon nexmoefont icon-jiubei1"></i>
+            <div class="mdui-list-item-content">
+                关于糖糖
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple" href="/friend.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-cola"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+  
+  
+<!-- 站内搜索 -->
+
+<div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search" >
+        <form id="search-form">
+            <label><input type="text" id="local-search-input" name="q" results="0" placeholder="站内搜索" class="input form-control" autocomplete="off" autocorrect="off"/></label>
+            <!-- 清空/重置搜索框 -->
+            <i class="fa fa-times" onclick="resetSearch()"></i>
+        </form>
+    </div>
+    <div id="local-search-result"></div> <!-- 搜索结果区 -->
+    <!-- <p class='no-result'></p> 无匹配时显示，注意在 CSS 中设置默认隐藏 -->
+</div>
+
+
+  
+  <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="http://wpa.qq.com/msgrd?v=3&uin=1250782604&site=qq&menu=yes" target="_blank" mdui-tooltip="{content: 'QQ'}" style="color: rgb(64, 196, 255);background-color: rgba(64, 196, 255, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="mailto:tangyuxian@vip.qq.com" target="_blank" mdui-tooltip="{content: 'mail'}" style="color: rgb(249,8,8);background-color: rgba(249,8,8,.1);">
+            <i class="nexmoefont icon-mail-fill"></i>
+        </a><a class="mdui-ripple" href="https://www.cnblogs.com/lovetangyuxian/" target="_blank" mdui-tooltip="{content: '博客园'}" style="color: rgb(66, 214, 29);background-color: rgba(66, 214, 29, .1);">
+            <i class="nexmoefont icon-bokeyuan"></i>
+        </a><a class="mdui-ripple" href="https://github.com/tangyuxian/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a><a class="mdui-ripple" href="https://gitee.com/tangyuxian" target="_blank" mdui-tooltip="{content: 'gitee'}" style="color: rgb(255, 255, 255);background-color: rgb(199,29,35);">
+            <i class="nexmoefont icon-mayun"></i>
+        </a>
+    </div>
+</div>
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/CV/">CV</a>
+          <span class="category-list-count">17</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/ImageProcessing/">ImageProcessing</a>
+          <span class="category-list-count">2</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/KnowledgeEngineering/">KnowledgeEngineering</a>
+          <span class="category-list-count">15</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/nlp/">nlp</a>
+          <span class="category-list-count">13</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+  
+  
+  
+  
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章归档</h3>
+    <div class="nexmoe-widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+    </div>
+  </div>
+
+
+<style>
+.nexmoe-widget .archive-list-count{
+	position : absolute;
+	right: 15px;
+	top:9px;
+	color: #DDD;
+}
+</style>
+
+  
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2022 Smurf
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/tangyuxian/hexo-theme-tangyuxian" target="_blank">Tangyuxian</a><br/>
+        <a href="http://beian.miit.gov.cn" target="_blank">辽ICP备2021002341号</a><br/>
+        
+        <div style="font-size: 12px">
+            <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            本站总访问量  <a id="busuanzi_value_site_pv"></a> 次<br />
+            本站访客数<a id="busuanzi_value_site_uv"></a>人次
+        </div>
+        
+        
+    </div>
+
+</div><!-- .nexmoe-drawer -->
+
+  </div>
+  <div id="nexmoe-content">
+    <div class="nexmoe-primary">
+        <div class="nexmoe-post">
+    
+        <div class="nexmoe-post-cover"
+             style="padding-bottom: 24.305555555555554%;">
+            <img data-src="https://cdn.jsdelivr.net/gh/tangyuxian/blog_image@master/background/xiaomai.jpg" data-sizes="auto" alt="QA" class="lazyload">
+            <h1>QA</h1>
+        </div>
+    
+
+        <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2021年08月15日</a>
+    <a><i class="nexmoefont icon-areachart"></i>2.9k 字</a>
+    <a><i class="nexmoefont icon-time-circle-fill"></i>大概 15 分钟</a>
+</div>
+
+        <div class="nexmoe-post-right">
+            
+                <div class="nexmoe-fixed">
+                    <div class="nexmoe-valign">
+                        <div class="nexmoe-toc">
+                            
+                            
+                                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Why-is-QA-back-centre-stage-of-AI"><span class="toc-number">1.</span> <span class="toc-text">1.Why is QA back centre stage of AI?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-QA%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E7%9A%84%E9%97%AE%E9%A2%98%E7%B1%BB%E5%9E%8B%EF%BC%9A"><span class="toc-number">2.</span> <span class="toc-text">1. QA系统常见的问题类型：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-QA%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="toc-number">3.</span> <span class="toc-text">2. QA常见方法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-IR-based-Factoid-QA"><span class="toc-number">4.</span> <span class="toc-text">3. IR-based Factoid QA</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-Question-Procesing"><span class="toc-number">4.1.</span> <span class="toc-text">3.1 Question Procesing</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-Answer-Type-Detection-Named-Entities"><span class="toc-number">4.2.</span> <span class="toc-text">3.2 Answer Type Detection: Named Entities</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-Answer-Type-Taxonomy"><span class="toc-number">4.2.1.</span> <span class="toc-text">3.2.1 Answer Type Taxonomy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-Methods"><span class="toc-number">4.2.2.</span> <span class="toc-text">3.2.2 Methods</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Hand-written-rules"><span class="toc-number">4.2.2.1.</span> <span class="toc-text">Hand written rules</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Machine-Learning"><span class="toc-number">4.2.2.2.</span> <span class="toc-text">Machine Learning</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-Query-Formulation"><span class="toc-number">4.3.</span> <span class="toc-text">3.3 Query Formulation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-Choosing-keywords-from-the-query"><span class="toc-number">4.3.1.</span> <span class="toc-text">3.4 Choosing keywords from the query</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-Passage-Retrieval"><span class="toc-number">4.4.</span> <span class="toc-text">3.5 Passage Retrieval</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-1-Features-for-Passage-Ranking"><span class="toc-number">4.4.1.</span> <span class="toc-text">3.5.1 Features for Passage Ranking</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-Answer-Extraction"><span class="toc-number">4.5.</span> <span class="toc-text">3.6 Answer Extraction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-Ranking-Candidate-Answers"><span class="toc-number">4.6.</span> <span class="toc-text">3.7 Ranking Candidate Answers</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Use-machine-learning-Features-for-ranking-candidate-answers"><span class="toc-number">4.6.0.1.</span> <span class="toc-text">Use machine learning:Features for ranking candidate answers</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Candidate-Answer-scoring-in-IBM-Watson"><span class="toc-number">4.6.0.2.</span> <span class="toc-text">Candidate Answer scoring in IBM Watson</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-8-Common-Evaluation-Metrics"><span class="toc-number">4.7.</span> <span class="toc-text">3.8 Common Evaluation Metrics</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Knowledge-based-QA"><span class="toc-number">4.8.</span> <span class="toc-text">4. Knowledge-based QA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-Two-challenges"><span class="toc-number">4.9.</span> <span class="toc-text">4.1 Two challenges</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1-Lexical-Gap-Example"><span class="toc-number">4.9.1.</span> <span class="toc-text">4.1.1 Lexical Gap Example</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-2-Semantic-Gap-Example"><span class="toc-number">4.9.2.</span> <span class="toc-text">4.1.2 Semantic Gap Example</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-Pattern-Template-based-KN-QA"><span class="toc-number">4.10.</span> <span class="toc-text">4.2 Pattern&#x2F;Template based KN QA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-Methods"><span class="toc-number">4.11.</span> <span class="toc-text">4.3 Methods</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-Parsing-based-KB-QA"><span class="toc-number">4.12.</span> <span class="toc-text">4.4 Parsing based KB QA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Hybrid-approaches-IBM-Watson"><span class="toc-number">5.</span> <span class="toc-text">5. Hybrid approaches (IBM Watson)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-End-to-End-deep-learning-based-KB-QA"><span class="toc-number">6.</span> <span class="toc-text">6. End to End(deep learning) based KB QA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Dealing-with-unexpected-things%E2%80%A6"><span class="toc-number">7.</span> <span class="toc-text">7. Dealing with unexpected things…</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-Search-KG-in-Embedding-Space"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 Search KG in Embedding Space</span></a></li></ol></li></ol>
+                            
+                        </div>
+                    </div>
+                </div>
+            
+        </div>
+
+        <article>
+            <p>QA</p>
+<span id="more"></span>
+<h2 id="1-Why-is-QA-back-centre-stage-of-AI"><a href="#1-Why-is-QA-back-centre-stage-of-AI" class="headerlink" title="1.Why is QA back centre stage of AI?"></a>1.Why is QA back centre stage of AI?</h2><ul>
+<li><p>The way of Human machine information interaction has changed</p>
+</li>
+<li><p>The rapid development of mobile and wearable devices requires effective and accurate information service in the form of natural language</p>
+</li>
+</ul>
+<h2 id="1-QA系统常见的问题类型："><a href="#1-QA系统常见的问题类型：" class="headerlink" title="1. QA系统常见的问题类型："></a>1. QA系统常见的问题类型：</h2><ul>
+<li>Factoid questions 基于事实型的问题<ul>
+<li>Who wrote “the Universal Declaration of Human Rights”?</li>
+<li>How many calories are there in two slices of apple pie?</li>
+<li>What is the average age of the onset of autism?</li>
+</ul>
+</li>
+<li>Complex(narrative) questions: 复杂（描述性）问题<ul>
+<li>In children with an acute febrie illness, what is the effcacy of acetaminophen in reducing</li>
+<li>What do scholars think about Jefferson’s position on<br>dealing with pirates?</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-QA常见方法："><a href="#2-QA常见方法：" class="headerlink" title="2. QA常见方法："></a>2. QA常见方法：</h2><ul>
+<li>IR-based approaches<ul>
+<li>TREC; IBM Watson; Google</li>
+</ul>
+</li>
+<li>Knowledge-based and Hybrid approaches<ul>
+<li>IBM Watson; Apple Siri; Wolfram Alpha; True<br>Knowledge Evi</li>
+</ul>
+</li>
+<li>Community-based question answering<ul>
+<li>知乎、Quora</li>
+<li>众包</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-IR-based-Factoid-QA"><a href="#3-IR-based-Factoid-QA" class="headerlink" title="3. IR-based Factoid QA"></a>3. IR-based Factoid QA</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202112272001603.png" alt="image-20211227200113542" class="lazyload"></p>
+<ul>
+<li>Question Processing  问题处理 <ul>
+<li>Detect question type, answer type, focus, relations</li>
+<li>检测问题类型、答案类型、核心词、关系<ul>
+<li>姚明、身高——&gt;依赖</li>
+</ul>
+</li>
+<li>Formulate queries to send to a search engine</li>
+<li>形成queries输入搜索引擎</li>
+</ul>
+</li>
+<li>Passage Retrieval 文本查找 <ul>
+<li>Retrieve ranked documents 检索排名文档<ul>
+<li>查询姚明、升高</li>
+<li>TF-IDF</li>
+</ul>
+</li>
+<li>分解成合适的段落、并且重新排序 Break into suitable passages and rerank<ul>
+<li>NER、词性标注</li>
+<li>搜索所有数字，对所有数字进行排序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>答案处理 Answer Processing<ul>
+<li>提取候选答案 Extract candidate answers</li>
+<li>排序候选项 Rank candidates<ul>
+<li>using evidence from the text and external sources </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-1-Question-Procesing"><a href="#3-1-Question-Procesing" class="headerlink" title="3.1 Question Procesing"></a>3.1 Question Procesing</h3><ul>
+<li>Answer Type Detection<ul>
+<li>Decide the named entity type (person, place) of the answer</li>
+<li>大致就是判断答案的命名实体是什么</li>
+</ul>
+</li>
+<li>Query Formulation<ul>
+<li>Choose query keywords for the IR system</li>
+<li>利用IR系统选择问答中的关键词</li>
+</ul>
+</li>
+<li><p>Question Type classification</p>
+<ul>
+<li>Is this a definition question, a math question, a list question?</li>
+<li>答案类型识别，即看这个答案整体内容属于什么类型</li>
+</ul>
+</li>
+<li><p>Focus Detection</p>
+<ul>
+<li>Find the question words that are replaced by the answer</li>
+<li>找出被答案替换的疑问词</li>
+</ul>
+</li>
+<li><p>Relation Extraction</p>
+<ul>
+<li>Find relations between entities in the question</li>
+<li>查找问题中实体之间的关系</li>
+</ul>
+</li>
+<li><p>Example</p>
+</li>
+<li><p>Question: Please return the two states you could be reentering if you’re crossing Florida’s northern border 如果你穿越佛罗里达州、北部边界，请返回你可能重新进入的两个州</p>
+<ul>
+<li>Answer Type: US state</li>
+<li>Query: two states, border, Florida, north</li>
+<li>Focus: the two states</li>
+<li>Relations: borders(Florida, ?x, north)</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-Answer-Type-Detection-Named-Entities"><a href="#3-2-Answer-Type-Detection-Named-Entities" class="headerlink" title="3.2 Answer Type Detection: Named Entities"></a>3.2 Answer Type Detection: Named Entities</h3><ul>
+<li><p>Who founded Virgin Airlines?</p>
+<ul>
+<li>PERSON</li>
+</ul>
+</li>
+<li><p>What Canadian city has the largest population?</p>
+<ul>
+<li>CITY.</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-2-1-Answer-Type-Taxonomy"><a href="#3-2-1-Answer-Type-Taxonomy" class="headerlink" title="3.2.1 Answer Type Taxonomy"></a>3.2.1 Answer Type Taxonomy</h4><ul>
+<li>6 coarse classes<ul>
+<li>ABBEVIATION, ENTITY, DESCRIPTION, HUMAN, LOCATION, NUMERIC</li>
+<li>缩写、实体、描述、人员、位置、数字</li>
+</ul>
+</li>
+<li>50 finer classes<ul>
+<li>LOCATION: city, country, mountain…</li>
+<li>HUMAN: group, individual, title, description</li>
+<li>ENTITY: animal, body, color, currency…</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202112272038776.png" alt="image-20211227203813989" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041355.png" alt="image-20211227203849838" class="lazyload"></p>
+<h4 id="3-2-2-Methods"><a href="#3-2-2-Methods" class="headerlink" title="3.2.2 Methods"></a>3.2.2 Methods</h4><ul>
+<li>Hand written rules</li>
+<li>Machine Learning</li>
+<li>Hybrids</li>
+</ul>
+<h5 id="Hand-written-rules"><a href="#Hand-written-rules" class="headerlink" title="Hand written rules"></a>Hand written rules</h5><ul>
+<li>Regular expression based rules can get some cases: 基于正则表达式的规则可以获得某些情况：<ul>
+<li>Who { is|was|are|were } PERSON</li>
+<li>PERSON (YEAR YEAR)</li>
+</ul>
+</li>
+<li>Other rules use the question headword 其他规则使用疑问词<ul>
+<li>(the headword of the first noun phrase after the wh-word) （wh单词后第一个名词短语的中心词）</li>
+<li>Which <strong>city</strong> in China has the largest number of foreign financial companies?</li>
+<li>What is the <strong>state</strong> flower of California?</li>
+</ul>
+</li>
+</ul>
+<h5 id="Machine-Learning"><a href="#Machine-Learning" class="headerlink" title="Machine Learning"></a>Machine Learning</h5><ul>
+<li>Define a taxonomy of question types</li>
+<li>Annotate training data for each question type</li>
+<li><p>Train classifiers for each question class using a rich set of features.</p>
+<ul>
+<li>features include those hand written rules!</li>
+</ul>
+</li>
+<li><p>Features for Answer Type Detection</p>
+<ul>
+<li>Question words and phrases 疑问词和、短语</li>
+<li>Part of speech tags 词性标记</li>
+<li>Parse features (headwords) 分析功能（标题词）</li>
+<li>Named Entities 命名实体</li>
+<li>Semantically related words 语义相关词</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-Query-Formulation"><a href="#3-3-Query-Formulation" class="headerlink" title="3.3 Query Formulation"></a>3.3 Query Formulation</h3><ol>
+<li>Select all non stop words in quotations 选择报价单中的所有非停用词</li>
+<li>Select all NNP words in recognized named entities 选择已识别命名实体中的所有NNP字</li>
+<li>Select all complex nominals with their adjectival modifiers 选择所有带形容词修饰符的复数名词</li>
+<li>Select all other complex nominals 选择所有其他复杂名词</li>
+<li>Select all nouns with their adjectival modifiers 选择所有名词及其形容词修饰语</li>
+<li>Select all other nouns 选择所有其他名词</li>
+<li>Select all verbs 选择所有动词</li>
+<li>Select all adverbs 选择所有副词</li>
+<li>Select the QFW word (skipped in all previous steps) 选择QFW字（在前面的所有步骤中跳过）</li>
+<li>Select all other words 选择所有其他单词</li>
+</ol>
+<h4 id="3-4-Choosing-keywords-from-the-query"><a href="#3-4-Choosing-keywords-from-the-query" class="headerlink" title="3.4 Choosing keywords from the query"></a>3.4 Choosing keywords from the query</h4><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041594.png" alt="image-20211227204823402" class="lazyload"></p>
+<h3 id="3-5-Passage-Retrieval"><a href="#3-5-Passage-Retrieval" class="headerlink" title="3.5 Passage Retrieval"></a>3.5 Passage Retrieval</h3><ul>
+<li><p>Step 1: IR engine retrieves documents using query terms IR引擎使用查询系统术语检索文档</p>
+</li>
+<li><p>Step 2: Segment the documents into shorter units 将文档分割为较短的单元</p>
+<ul>
+<li>something like paragraphs</li>
+</ul>
+</li>
+<li><p>Step 3: Passage ranking 文章排名</p>
+<ul>
+<li>Use answer type to help rerank passages 使用答案类型帮助重新阅读文章</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-5-1-Features-for-Passage-Ranking"><a href="#3-5-1-Features-for-Passage-Ranking" class="headerlink" title="3.5.1 Features for Passage Ranking"></a>3.5.1 Features for Passage Ranking</h4><ul>
+<li>Number of Named Entities of the right type in passage  段落中正确类型的命名实体数</li>
+<li>Number of query words in passage 段落中的查询字的数量</li>
+<li>Number of question N grams also in passage 段落中N词的数量</li>
+<li>Proximity of query keywords to each other in passage 查询关键字在段落中相互的相似度</li>
+<li>Longest sequence of question words 最长的疑问词序列</li>
+<li>Rank of the document containing passage 包含段落的文档的文章</li>
+</ul>
+<h3 id="3-6-Answer-Extraction"><a href="#3-6-Answer-Extraction" class="headerlink" title="3.6 Answer Extraction"></a>3.6 Answer Extraction</h3><ul>
+<li>Run an answer type named entity tagger on the passages 在段落中检测答案实体类型的词<ul>
+<li>Each answer type requires a named entity tagger that detects it 每个答案类型都要有一个标记用于检测</li>
+<li>If answer type is CITY, tagger has to tag CITY<ul>
+<li>Can be full NER, simple regular expressions, or hybrid</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return the string with the right type: <ul>
+<li>Who is the prime minister of India <strong>(PERSON)</strong> Manmohan Singh , Prime Minister of India, had told left leaders that the deal would not be renegotiated</li>
+<li>How tall is Mt. Everest? <strong>(LENGTH)</strong> The official height of Mount Everest is<br>29035 feet</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-7-Ranking-Candidate-Answers"><a href="#3-7-Ranking-Candidate-Answers" class="headerlink" title="3.7 Ranking Candidate Answers"></a>3.7 Ranking Candidate Answers</h3><ul>
+<li><p>But what if there are multiple candidate answers!</p>
+</li>
+<li><p>Q: Who was Queen Victoria’s second son?</p>
+</li>
+<li>Answer Type: Person</li>
+<li>Passage:<ul>
+<li>The Marie biscuit is named after <strong>Marie Alexandrovna</strong> , the daughter of <strong>Czar Alexander II of Russia</strong> and wife of <strong>Alfred</strong>, the second son of <strong>Queen Victoria</strong> and <strong>Prince Albert</strong></li>
+</ul>
+</li>
+</ul>
+<h5 id="Use-machine-learning-Features-for-ranking-candidate-answers"><a href="#Use-machine-learning-Features-for-ranking-candidate-answers" class="headerlink" title="Use machine learning:Features for ranking candidate answers"></a>Use machine learning:Features for ranking candidate answers</h5><ul>
+<li>Answer type <strong>match</strong> : Candidate contains a phrase with the correct answer type.</li>
+<li>Pattern <strong>match</strong> : Regular expression pattern matches the candidate.</li>
+<li>Question keywords: # of question keywords in the</li>
+<li>Keyword distance: Distance in words between the candidate and query keywords</li>
+<li><p>Novelty factor: A word in the candidate is not in the </p>
+</li>
+<li><p>Apposition features: The candidate is an appositive to question terms</p>
+</li>
+<li>Punctuation location: The candidate is immediately followed by a comma, period, </li>
+<li>quotation marks, semicolon, or exclamation mark.</li>
+<li>Sequences of question terms: The length of the longest sequence of question terms that occurs in the candidate answer.</li>
+</ul>
+<h5 id="Candidate-Answer-scoring-in-IBM-Watson"><a href="#Candidate-Answer-scoring-in-IBM-Watson" class="headerlink" title="Candidate Answer scoring in IBM Watson"></a>Candidate Answer scoring in IBM Watson</h5><ul>
+<li>Each candidate answer gets scores from &gt;50 components<ul>
+<li>(from unstructured text, semi structured text, triple stores)</li>
+<li>logical form (parse) match between question and candidate<ul>
+<li>问题和候选人之间的逻辑形式（解析）匹配</li>
+</ul>
+</li>
+<li>passage source reliability<ul>
+<li>文章源的可靠性</li>
+</ul>
+</li>
+<li>geospatial location<ul>
+<li>California is southwest of Montana”</li>
+</ul>
+</li>
+<li>temporal relationships</li>
+<li>taxonomic classification</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-8-Common-Evaluation-Metrics"><a href="#3-8-Common-Evaluation-Metrics" class="headerlink" title="3.8 Common Evaluation Metrics"></a>3.8 Common Evaluation Metrics</h3><ul>
+<li>Accuracy (does answer match gold labeled answer?)</li>
+<li>Mean Reciprocal Rank 平均倒数排名<ul>
+<li>For each query return a ranked list of M candidate answers. 对于每个查询，返回M个候选答案的排序列表。</li>
+<li>Query score is 1/Rank of the first correct answer 查询分数为查到第一个正确答案排名的倒数<ul>
+<li>If first answer is correct: 1</li>
+<li>else if second answer is correct: ½</li>
+<li>else if third answer is correct: ⅓, etc.</li>
+<li>Score is 0 if none of the M answers are correct</li>
+</ul>
+</li>
+<li>Take the mean over all N queries</li>
+</ul>
+</li>
+</ul>
+<script type="math/tex; mode=display">
+MRR=\frac{\sum_{i=1}^N\frac{1}{rank_i}}{N}</script><ul>
+<li>Relevance 相关度 The level in which the answer addresses users information needs</li>
+<li>Correctness 正确度 The level in which the answer is factually correct</li>
+<li>Conciseness 精炼度 答案不包含不相关信息</li>
+<li>Completeness 完备度 答案应该完整</li>
+<li>Simplicity 简单度 答案易于解释</li>
+<li>Justification 合理度 Sufficient context should be provided to support the data consumer in the determination of the query correctness</li>
+</ul>
+<ul>
+<li>Right The answer is correct and complete</li>
+<li>Inexact The answer is incomplete or incorrect</li>
+<li>Unsupported The answer does not have an appropriate evidence/justification</li>
+<li>Wrong： The answer is not appropriate for the question</li>
+</ul>
+<h3 id="4-Knowledge-based-QA"><a href="#4-Knowledge-based-QA" class="headerlink" title="4. Knowledge-based QA"></a>4. Knowledge-based QA</h3><ul>
+<li><p>构建查询的语义表示 Build a semantic representation of the query </p>
+<ul>
+<li>Times, dates, locations, entities, numeric quantities</li>
+</ul>
+</li>
+<li><p>从该语义映射到查询结构化数据或资源 Map from this semantics to query structured data or resources</p>
+<ul>
+<li>Geospatial databases</li>
+<li>Ontologies (Wikipedia infoboxes , dbPedia , WordNet , Yago</li>
+<li>Restaurant review sources and reservation services</li>
+<li>Scientific databases</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-1-Two-challenges"><a href="#4-1-Two-challenges" class="headerlink" title="4.1 Two challenges"></a>4.1 Two challenges</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041100.png" alt="image-20211227212909883" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021041985.png" alt="image-20211227212959287" class="lazyload"></p>
+<ul>
+<li>词法鸿沟 Lexical Gap Example<ul>
+<li>构建出来的词不一定和知识库的实体相同 The constructed words are not necessarily the same as the entities of the knowledge base</li>
+</ul>
+</li>
+<li>语义鸿沟<ul>
+<li>构建出来的图不一定和知识库匹配  The constructed graph does not necessarily match the knowledge base</li>
+</ul>
+</li>
+</ul>
+<h4 id="4-1-1-Lexical-Gap-Example"><a href="#4-1-1-Lexical-Gap-Example" class="headerlink" title="4.1.1 Lexical Gap Example"></a>4.1.1 Lexical Gap Example</h4><ul>
+<li>Which Greek cities have more than 1 million inhabitants?</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT ?uri</span><br><span class="line">WHERE {</span><br><span class="line">	?uri rdf:type dbo:City</span><br><span class="line">	?uri dbo:country res:Greece</span><br><span class="line">	?uri dbo:populationTotal ?p</span><br><span class="line">	FILTER (?p &gt; 1000000)</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<ul>
+<li>There are expressions with a fixed, dataset independent meaning.<ul>
+<li>有些表达式具有固定的、与数据集无关的含义。 most, one</li>
+</ul>
+</li>
+<li>Who produced the most films?</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT ?uri</span><br><span class="line">WHERE {</span><br><span class="line">?x rdf:type dbo:Film</span><br><span class="line">?x dbo:producer uri</span><br><span class="line">}</span><br><span class="line">ORDER BY DESC(COUNT(?x))</span><br><span class="line">OFFSET 0 LIMIT 1</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>Challenges (Semantic gap):</p>
+</li>
+<li><p>The semantic gap [ between natural language and knowledge graphs</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042650.png" alt="image-20211227215010060" class="lazyload"></p>
+<h4 id="4-1-2-Semantic-Gap-Example"><a href="#4-1-2-Semantic-Gap-Example" class="headerlink" title="4.1.2 Semantic Gap Example"></a>4.1.2 Semantic Gap Example</h4><ul>
+<li>Different datasets usually follow different schemas, thus provide different ways of answering an information need</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042926.png" alt="image-20211227215733613" class="lazyload"></p>
+<ul>
+<li>The meaning of expressions like the verbs to be to have and prepositions of with etc strongly depends on the linguistic context</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042770.png" alt="image-20211227215832723" class="lazyload"></p>
+<h3 id="4-2-Pattern-Template-based-KN-QA"><a href="#4-2-Pattern-Template-based-KN-QA" class="headerlink" title="4.2 Pattern/Template based KN QA"></a>4.2 Pattern/Template based KN QA</h3><ul>
+<li>Motivation<ul>
+<li>In order to understand a user question, we need to understand</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042329.png" alt="image-20211227215906768" class="lazyload"></p>
+<h3 id="4-3-Methods"><a href="#4-3-Methods" class="headerlink" title="4.3 Methods"></a>4.3 Methods</h3><ul>
+<li><p>An approach that combines both an analysis of the semantic structure and a mapping of words to URIs 一种结合语义结构分析和单词到URI映射的方法</p>
+<ul>
+<li>Template generation 模板生成<ul>
+<li>Parse question to produce a SPARQL template that directly mirrors the structure of the question, including filters and aggregation operations解析问题以生成直接反映问题结构的SPARQL模板，包括过滤和聚合操作</li>
+</ul>
+</li>
+<li>Template instantiation 模板实例化<ul>
+<li>Instantiate SPARQL template by matching natural language expressions with ontology concepts using statistical entity identification and predicate detection 通过使用统计实体识别和谓词检测将自然语言表达式与本体概念匹配来实例化SPARQL模板</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Question Who produced the most films?</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042185.png" alt="image-20211227220249114" class="lazyload"></p>
+<ul>
+<li>Step 1: Template generation Linguistic processing</li>
+<li>首先，获取自然语言问题的 POS tags 信息</li>
+<li>其次，基于 POS tags, 语法规则表示问句</li>
+<li>然后利用 domain dependent 词汇和 domain independent 词汇辅助分析问题</li>
+<li>最后，将语义表示转化为一个 SPARQL 模板</li>
+</ul>
+<ul>
+<li>domain independent : who, the most</li>
+<li>domain dependent : produced/VBD, films/NNS</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042888.png" alt="image-20211227220551155" class="lazyload"></p>
+<ul>
+<li>Step2: Template matching and instantiation NER<ul>
+<li>有了 SPARQL 模板以后 需要进行实例化与具体的自然语言问句相匹配 。 即将自然语言问句与知识库中的本体概念相映射的过程<ul>
+<li>对于 resources 和 classes, 实体识别常用方法<ul>
+<li>用 WordNet 定义知识库中标签的同义词</li>
+<li>计算字符串相似度 ( Levenshtein 和子串相似度</li>
+</ul>
+</li>
+<li>对于 property labels, 将还需要与存储在 BOA 模式库中的自然语言表示进行比较</li>
+<li>最高排位的实体将作为填充查询槽位的候选答案</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Who produced the most films?</span><br><span class="line">?c CLASS [films]</span><br><span class="line">&lt;http://dbpedia.org/ontology/Film&gt;</span><br><span class="line">&lt;http://dbpedia.org/ontology/FilmFestival&gt;</span><br><span class="line">...</span><br><span class="line">?p PROPERTY [produced]</span><br><span class="line">&lt;http://dbpedia.org/ontology/producer&gt;</span><br><span class="line">&lt;http://dbpedia.org/property/producer&gt;</span><br><span class="line">&lt;http://dbpedia.org/ontology/wineProduced&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Step 3:Ranking<ul>
+<li>每个 entity 根据 string similarity 和 prominence 获得一个打分</li>
+<li>一个 query 模板的分值根据填充 slots 的多个 entities 的平均打分</li>
+<li>另外 需要检查 type 类型<ul>
+<li>对于所有的三元组 ?x rdf type &lt; 对于查询三元组 ?x p e 和 e p ?x 需要检查 p 的 domain/range 是否与 &lt; 一致</li>
+</ul>
+</li>
+<li>对于全部的查询集合 仅返回打分最高的</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT ?x WHERE {</span><br><span class="line">?x &lt;http://dbpedia.org/ontology/producer&gt; ?y .</span><br><span class="line">?y rdf:type &lt;http://dbpedia.org/ontology/Film&gt; .</span><br><span class="line">}</span><br><span class="line">ORDER BY DESC(COUNT(?y)) LIMIT 1</span><br><span class="line">Score: 0.76</span><br><span class="line">SELECT DISTINCT ?x WHERE {</span><br><span class="line">?x &lt;http://dbpedia.org/ontology/producer&gt; ?y .</span><br><span class="line">?y rdf:type &lt;http://dbpedia.org/ontology/FilmFestival&gt;.</span><br><span class="line">}</span><br><span class="line">ORDER BY DESC(COUNT(?y)) LIMIT 1</span><br><span class="line">Score: 0.60</span><br></pre></td></tr></table></figure>
+<h3 id="4-4-Parsing-based-KB-QA"><a href="#4-4-Parsing-based-KB-QA" class="headerlink" title="4.4 Parsing based KB QA"></a>4.4 Parsing based KB QA</h3><ul>
+<li><p>大概和上面不同的是先将查询语句解析，即语义解析，最后构建查询；不同于上面模板用到了关系抽取、句法分析、语义组合 <strong>TODO</strong></p>
+</li>
+<li><p>Phrase mapping</p>
+</li>
+<li>Query Struecture (Logical Form) Computing</li>
+<li>Query Evaluation</li>
+<li>Answers Ranking</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042962.png" alt="image-20211227220926826" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042089.png" alt="image-20211227220940473" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042080.png" alt="image-20211227221021440" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042615.png" alt="image-20211227221026815" class="lazyload"></p>
+<ul>
+<li>Semantic Parsing on Freebase from Question Answer Pairs. EMNLP 2013</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042472.png" alt="image-20211227221221929" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042667.png" alt="image-20211227221359845" class="lazyload"></p>
+<h2 id="5-Hybrid-approaches-IBM-Watson"><a href="#5-Hybrid-approaches-IBM-Watson" class="headerlink" title="5. Hybrid approaches (IBM Watson)"></a>5. Hybrid approaches (IBM Watson)</h2><ul>
+<li><p>Build a shallow semantic representation of the query</p>
+<ul>
+<li>构建查询的浅层语义表示</li>
+</ul>
+</li>
+<li><p>Generate answer candidates using IR methods</p>
+<ul>
+<li>使用IR方法生成候选答案</li>
+<li>Augmented with ontologies and semi structured data</li>
+<li>增加了本体和半结构化数据</li>
+</ul>
+</li>
+<li><p>Score each candidate using richer knowledge sources</p>
+<ul>
+<li>使用更丰富的知识来源为每个候选人打分</li>
+<li>Geospatial databases 地理空间数据库</li>
+<li>Temporal reasoning 时间推理</li>
+<li>Taxonomical classification 层次分类</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-End-to-End-deep-learning-based-KB-QA"><a href="#6-End-to-End-deep-learning-based-KB-QA" class="headerlink" title="6. End to End(deep learning) based KB QA"></a>6. End to End(deep learning) based KB QA</h2><ul>
+<li><p>Only for Single Relation and Simple Question</p>
+</li>
+<li><p>Step1: Candidates generation</p>
+<ul>
+<li>Find main entity by Entity Linking 按实体链接查找主实体</li>
+<li>All entities around the main entity in KG are candidates KG中主实体周围的所有实体都是候选实体</li>
+</ul>
+</li>
+<li><p>Step2: Ranking</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042393.png" alt="image-20211227221756980" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021042234.png" alt="image-20211227221808761" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043954.png" alt="image-20211227221915889" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043107.png" alt="image-20211227221937488" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043009.png" alt="image-20211227221946096" class="lazyload"></p>
+<h2 id="7-Dealing-with-unexpected-things…"><a href="#7-Dealing-with-unexpected-things…" class="headerlink" title="7. Dealing with unexpected things…"></a>7. Dealing with unexpected things…</h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043112.png" alt="image-20211230163857208" class="lazyload"></p>
+<ul>
+<li>Caused by Processing<ul>
+<li>Poor Ranking</li>
+<li>Harsh Query Constraints</li>
+<li>Misunderstanding of Query</li>
+</ul>
+</li>
+<li>Caused by Data<ul>
+<li>Inaccurate Facts</li>
+<li>Incomplete Data</li>
+</ul>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043857.png" alt="image-20211227222139397" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043883.png" alt="image-20211227222158629" class="lazyload"></p>
+<h3 id="7-1-Search-KG-in-Embedding-Space"><a href="#7-1-Search-KG-in-Embedding-Space" class="headerlink" title="7.1 Search KG in Embedding Space"></a>7.1 Search KG in Embedding Space</h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043832.png" alt="image-20211227222224631" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043329.png" alt="image-20211227222313469" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/zhu-qipeng/blogImage/raw/master/blogImage/202202021043001.png" alt="image-20211227222322079" class="lazyload"></p>
+
+        </article>
+
+        
+            
+  <div class="nexmoe-post-copyright">
+    <strong>本文作者：</strong>Smurf<br>
+    
+    <strong>本文链接：</strong><a href="http://example.com/2021/08/15/nlp%20learning/Chapter11_QA/" title="http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;nlp%20learning&#x2F;Chapter11_QA&#x2F;" target="_blank" rel="noopener">http:&#x2F;&#x2F;example.com&#x2F;2021&#x2F;08&#x2F;15&#x2F;nlp%20learning&#x2F;Chapter11_QA&#x2F;</a><br>
+
+    
+      <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+    
+  </div>
+
+
+        
+
+        <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+        <a class="nexmoefont icon-appstore-fill -link" href="/categories/nlp/">nlp</a>
+    
+    
+</div>
+
+    <div class="nexmoe-post-footer">
+        <section class="nexmoe-comment">
+    <div class="valine"></div>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.9/dist/Valine.min.js'></script>
+<script>
+    // 使用方法 https://valine.js.org/quickstart.html
+    new Valine({
+        el: '.valine',
+        appId: 'r5zxC0st0DDjPA9auXzMV7HY-gzGzoHsz',
+        appKey: '3bqCsovpyfTPHUzTHovd3V3V'
+    })
+</script>
+</section>
+    </div>
+</div>
+
+
+        <div class="nexmoe-post-right">
+          
+            <div class="nexmoe-fixed">
+              <div class="nexmoe-tool">
+                <a href="#" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+              </div>
+            </div>
+          
+        </div>
+    </div>
+  </div>
+  <div id="nexmoe-pendant">
+    <div class="nexmoe-drawer mdui-drawer nexmoe-pd" id="drawer">
+        
+            <div class="nexmoe-pd-item">
+                <div class="clock">
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="memory"></div>
+        <div class="needle" id="hours"></div>
+        <div class="needle" id="minutes"></div>
+        <div class="needle" id="seconds"></div>
+        <div class="clock_logo">
+
+        </div>
+
+    </div>
+<style>
+    .clock {
+        background-color: #ffffff;
+        width: 70vw;
+        height: 70vw;
+        max-width: 70vh;
+        max-height: 70vh;
+        border: solid 2.8vw #242424;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        box-sizing: border-box;
+        box-shadow: 0 1.4vw 2.8vw rgba(0, 0, 0, 0.8);
+        zoom:0.2
+    }
+
+    .memory {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .memory:nth-child(1) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(0deg) translateY(-520%);
+    }
+
+    .memory:nth-child(2) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(6deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(3) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(12deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(4) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(18deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(5) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(24deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(6) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(30deg) translateY(-520%);
+    }
+
+    .memory:nth-child(7) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(36deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(8) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(42deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(9) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(48deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(10) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(54deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(11) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(60deg) translateY(-520%);
+    }
+
+    .memory:nth-child(12) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(66deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(13) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(72deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(14) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(78deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(15) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(84deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(16) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(90deg) translateY(-520%);
+    }
+
+    .memory:nth-child(17) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(96deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(18) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(102deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(19) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(108deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(20) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(114deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(21) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(120deg) translateY(-520%);
+    }
+
+    .memory:nth-child(22) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(126deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(23) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(132deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(24) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(138deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(25) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(144deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(26) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(150deg) translateY(-520%);
+    }
+
+    .memory:nth-child(27) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(156deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(28) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(162deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(29) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(168deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(30) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(174deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(31) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(180deg) translateY(-520%);
+    }
+
+    .memory:nth-child(32) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(186deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(33) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(192deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(34) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(198deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(35) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(204deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(36) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(210deg) translateY(-520%);
+    }
+
+    .memory:nth-child(37) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(216deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(38) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(222deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(39) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(228deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(40) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(234deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(41) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(240deg) translateY(-520%);
+    }
+
+    .memory:nth-child(42) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(246deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(43) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(252deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(44) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(258deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(45) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(264deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(46) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(270deg) translateY(-520%);
+    }
+
+    .memory:nth-child(47) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(276deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(48) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(282deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(49) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(288deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(50) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(294deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(51) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(300deg) translateY(-520%);
+    }
+
+    .memory:nth-child(52) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(306deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(53) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(312deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(54) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(318deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(55) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(324deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(56) {
+        background-color: #424242;
+        width: 2%;
+        height: 8%;
+        transform: translate(-50%, -50%) rotate(330deg) translateY(-520%);
+    }
+
+    .memory:nth-child(57) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(336deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(58) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(342deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(59) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(348deg) translateY(-1461%);
+    }
+
+    .memory:nth-child(60) {
+        background-color: #949494;
+        width: 1%;
+        height: 3%;
+        transform: translate(-50%, -50%) rotate(354deg) translateY(-1461%);
+    }
+
+    .needle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+    }
+
+    .needle#hours {
+        background-color: #1f1f1f;
+        width: 4%;
+        height: 30%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#hours.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#hours:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#minutes {
+        background-color: #1f1f1f;
+        width: 2%;
+        height: 45%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#minutes.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#minutes:after {
+        content: '';
+        background-color: #1f1f1f;
+        width: 4vw;
+        height: 4vw;
+        max-width: 4vh;
+        max-height: 4vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .needle#seconds {
+        background-color: #cb2f2f;
+        width: 1%;
+        height: 50%;
+        transform-origin: center 75%;
+        transform: translate(-50%, -75%);
+    }
+
+    .needle#seconds.moving {
+        transition: transform 150ms ease-out;
+    }
+
+    .needle#seconds:after {
+        content: '';
+        background-color: #cb2f2f;
+        width: 2.5vw;
+        height: 2.5vw;
+        max-width: 2.5vh;
+        max-height: 2.5vh;
+        display: block;
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .clock_logo{
+        width: 10vw;
+        height: 10vw;
+        max-width: 10vh;
+        max-height: 10vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        box-sizing: border-box;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    @media (min-width: 100vh) {
+        .clock {
+            border: solid 2.8vh #242424;
+            box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.8);
+        }
+    }
+
+</style>
+
+
+
+
+
+            </div>
+        
+            <div class="nexmoe-pd-item">
+                <div class="qweather" >
+    <div id="he-plugin-standard"></div>
+    <div class="qweather-logo">
+
+    </div>
+
+</div>
+<style>
+    .qweather{
+        position: relative;
+    }
+    .qweather-logo{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+</style>
+<script>
+  WIDGET = {
+    "CONFIG": {
+      "layout": "2",
+      "width": "260",
+      "height": "220",
+      "background": "5",
+      "dataColor": "e67249",
+      "borderRadius": "15",
+      "key": "f74d1e1690e6432d801e97fa2f05a162"
+    }
+  }
+</script>
+<script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
+
+            </div>
+        
+</div>
+<style>
+    .nexmoe-pd {
+        left: auto;
+        top: 40px;
+        right: 0;
+    }
+    .nexmoe-pd-item{
+       display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+</style>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/combine/npm/lazysizes@5.1.0/lazysizes.min.js,gh/highlightjs/cdn-release@9.15.8/build/highlight.min.js,npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script>
+	hljs.initHighlightingOnLoad();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/app.js?v=1643902292042"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+  
+
+
+
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<!-- hexo injector body_end start -->
+<script src="/js/clock.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+<script src="/lib/codeBlock/codeBlockFuction.js"></script>
+
+<script src="/lib/codeBlock/codeLang.js"></script>
+
+<script src="/lib/codeBlock/codeCopy.js"></script>
+
+<script src="/lib/codeBlock/codeShrink.js"></script>
+
+<link rel="stylesheet" href="/lib/codeBlock/matery.css">
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/webapp.js"></script>
+<!-- hexo injector body_end end --></body>
+</html>
+
+<script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/250cb4aa.js","daovoice")</script>
+<script>
+  daovoice('init', {
+    app_id: "250cb4aa"
+  });
+  daovoice('update');
+</script>
+
