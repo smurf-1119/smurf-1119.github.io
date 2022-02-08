@@ -83,7 +83,7 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_cksn56jaae6.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1644334774808">
+  <link rel="stylesheet" href="/css/style.css?v=1644335087771">
   <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
 <meta name="generator" content="Hexo 5.4.0"></head>
 
@@ -109,7 +109,7 @@
         </a>
     </div>
     <div class="nexmoe-count">
-        <div class="nexmoe-count-item"><span>文章</span>51 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
+        <div class="nexmoe-count-item"><span>文章</span>50 <div class="item-radius"></div><div class="item-radius item-right"></div> </div>
         <div class="nexmoe-count-item"><span>标签</span>0<div class="item-radius"></div><div class="item-radius item-right"></div></div>
         <div class="nexmoe-count-item"><span>分类</span>6<div class="item-radius"></div><div class="item-radius item-right"></div></div>
     </div>
@@ -222,8 +222,8 @@
         
 
         <li class="category-list-item">
-          <a class="category-list-link" href="/categories/blog1/">blog1</a>
-          <span class="category-list-count">1</span>
+          <a class="category-list-link" href="/categories/gitskills/">gitskills</a>
+          <span class="category-list-count">2</span>
         </li>
 
         
@@ -247,7 +247,7 @@
   <div class="nexmoe-widget-wrap">
     <h3 class="nexmoe-widget-title">文章归档</h3>
     <div class="nexmoe-widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a><span class="archive-list-count">47</span></li></ul>
     </div>
   </div>
 
@@ -727,7 +727,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;</span><br><span class="line">PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;</span><br><span class="line">SELECT ?who ?g ?mbox</span><br><span class="line">FROM &lt;http://example.org/dft.ttl&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/alice&gt;</span><br><span class="line">FROM NAMED &lt;http://example.org/bob&gt;</span><br><span class="line">WHERE</span><br><span class="line">&#123;</span><br><span class="line">?g dc:publisher ?who .</span><br><span class="line">GRAPH ?g &#123; ?x foaf:mbox ?mbox &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>Answer:<br>| who   | g     | mbox |<br>| ——— | ————— | ————— |<br>| “Bob Hacker” | \<a target="_blank" rel="noopener" href="http://example.org/bob">http://example.org/bob</a> | \<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#98;&#111;&#x62;&#x40;&#111;&#108;&#100;&#x63;&#x6f;&#114;&#112;&#x2e;&#x65;&#x78;&#x61;&#109;&#112;&#108;&#x65;&#x2e;&#x6f;&#114;&#x67;&#92;">&#98;&#111;&#x62;&#x40;&#111;&#108;&#100;&#x63;&#x6f;&#114;&#112;&#x2e;&#x65;&#x78;&#x61;&#109;&#112;&#108;&#x65;&#x2e;&#x6f;&#114;&#x67;&#92;</a>|<br>| “Alice Hacker” |  \<a target="_blank" rel="noopener" href="http://example.org/alice">http://example.org/alice</a> | <mailto:alice@work.example.org > |</li>
+<li>Answer:<br>| who   | g     | mbox |<br>| ——— | ————— | ————— |<br>| “Bob Hacker” | \<a target="_blank" rel="noopener" href="http://example.org/bob">http://example.org/bob</a> | \<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x62;&#111;&#x62;&#64;&#x6f;&#x6c;&#100;&#99;&#x6f;&#114;&#x70;&#x2e;&#101;&#120;&#x61;&#109;&#x70;&#108;&#101;&#x2e;&#111;&#x72;&#x67;&#92;">&#x62;&#111;&#x62;&#64;&#x6f;&#x6c;&#100;&#99;&#x6f;&#114;&#x70;&#x2e;&#101;&#120;&#x61;&#109;&#x70;&#108;&#101;&#x2e;&#111;&#x72;&#x67;&#92;</a>|<br>| “Alice Hacker” |  \<a target="_blank" rel="noopener" href="http://example.org/alice">http://example.org/alice</a> | <mailto:alice@work.example.org > |</li>
 </ul>
 <h3 id="2-5-DESCRIBE"><a href="#2-5-DESCRIBE" class="headerlink" title="2.5 DESCRIBE"></a>2.5 DESCRIBE</h3><ul>
 <li>Result: an RDF graph (i.e., all RDF triples) that describes the resources found;</li>
@@ -1621,7 +1621,7 @@
 <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/app.js?v=1644334774810"></script>
+<script src="/js/app.js?v=1644335087772"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
 <script>
@@ -1636,22 +1636,6 @@
 
 
 
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 <!-- hexo injector body_end start -->
 <script src="/js/clock.js"></script>
